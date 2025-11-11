@@ -86,6 +86,23 @@
       "message": "Cannot be validated until the repo is mirrored to GH",
       "revId": "4dd60115f8339682b03f0de740f544daca1fcb7a",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c559297f_6e73b22f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-11-11T11:41:45Z",
+      "side": 1,
+      "message": "recheck",
+      "revId": "4dd60115f8339682b03f0de740f544daca1fcb7a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
