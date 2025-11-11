@@ -56,6 +56,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "003d72d0_a0c11c7c",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 6258
+      },
+      "writtenOn": "2025-11-11T12:17:26Z",
+      "side": 1,
+      "message": "thanks for catching this is a valid comment. It should be changed to SPDX licence headers",
+      "parentUuid": "e1c9b91d_d07ad4b2",
+      "revId": "4dd60115f8339682b03f0de740f544daca1fcb7a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "389364e8_015b77fd",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -101,6 +119,41 @@
       "writtenOn": "2025-11-11T11:41:45Z",
       "side": 1,
       "message": "recheck",
+      "revId": "4dd60115f8339682b03f0de740f544daca1fcb7a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f14aa90c_95c8c159",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6258
+      },
+      "writtenOn": "2025-11-11T12:17:26Z",
+      "side": 1,
+      "message": "the repo is getting mirrored to Github now!",
+      "revId": "4dd60115f8339682b03f0de740f544daca1fcb7a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee822ad7_23e9a577",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6258
+      },
+      "writtenOn": "2025-11-11T12:17:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9b96c18_dce4a0a1",
       "revId": "4dd60115f8339682b03f0de740f544daca1fcb7a",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
