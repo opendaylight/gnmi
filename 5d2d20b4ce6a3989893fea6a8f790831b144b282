@@ -16,6 +16,23 @@
       "message": "this change needs to get merged https://gerrit.linuxfoundation.org/infra/c/releng/info-master/+/73866",
       "revId": "5d2d20b4ce6a3989893fea6a8f790831b144b282",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a0ba7dc_ec1fb068",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 649
+      },
+      "writtenOn": "2025-11-11T17:04:39Z",
+      "side": 1,
+      "message": "recheck",
+      "revId": "5d2d20b4ce6a3989893fea6a8f790831b144b282",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
