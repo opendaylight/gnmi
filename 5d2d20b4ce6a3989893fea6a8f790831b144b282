@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f215f9b_245a328d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6258
+      },
+      "writtenOn": "2025-11-11T12:20:19Z",
+      "side": 1,
+      "message": "this change needs to get merged https://gerrit.linuxfoundation.org/infra/c/releng/info-master/+/73866",
+      "revId": "5d2d20b4ce6a3989893fea6a8f790831b144b282",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
