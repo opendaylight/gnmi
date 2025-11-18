@@ -1,0 +1,808 @@
+{
+  "bomFormat" : "CycloneDX",
+  "specVersion" : "1.6",
+  "serialNumber" : "urn:uuid:6d0289db-461d-3054-93cf-acae09b7b455",
+  "version" : 1,
+  "metadata" : {
+    "timestamp" : "2025-11-18T08:31:17Z",
+    "lifecycles" : [
+      {
+        "phase" : "build"
+      }
+    ],
+    "tools" : {
+      "components" : [
+        {
+          "type" : "library",
+          "author" : "OWASP Foundation",
+          "group" : "org.cyclonedx",
+          "name" : "cyclonedx-maven-plugin",
+          "version" : "2.9.1",
+          "description" : "CycloneDX Maven plugin",
+          "hashes" : [
+            {
+              "alg" : "MD5",
+              "content" : "9c7a565cf28cce58557d0c621c5ea4b1"
+            },
+            {
+              "alg" : "SHA-1",
+              "content" : "be882d5a22050bfa9d19090b1420c188617d0e1c"
+            },
+            {
+              "alg" : "SHA-256",
+              "content" : "698e0f37184a5b28c245c4065fd036dfce253b52f82fbb7113d81d36326cc249"
+            },
+            {
+              "alg" : "SHA-512",
+              "content" : "c0f0b11026858166f872a2eb54719492e5cecaa0bc9cd6b30b3ecb4a174eed220f4a1b5829d18d6734128e778d3cb3db7ffed177c92866133129cb29081814a0"
+            },
+            {
+              "alg" : "SHA-384",
+              "content" : "d80964707dfe5caca8c70521d5066f57589304c0a657e6fbc7c0614ea0fc7b3b3dbe7778361eee0f54ba111e9cb0ffcb"
+            },
+            {
+              "alg" : "SHA3-384",
+              "content" : "80bc3a275d9514bc457461ff52a72add8c7ecbbc01d8912efce57139016c544ee776981851be0a58fa977ab4221f703f"
+            },
+            {
+              "alg" : "SHA3-256",
+              "content" : "142317d6f245390f4fd2d0c100b16281b8dfc5c0c2cff86943bdcc97039cb699"
+            },
+            {
+              "alg" : "SHA3-512",
+              "content" : "af0fb9137c90b65d1a07f72e4d51ae509956cdb8800f35c961b037cdda1fe4a14ce3b496cef71ba85f1621affcfe29cd42704ae4191ff0b090a9602087c8997b"
+            }
+          ]
+        }
+      ]
+    },
+    "component" : {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.opendaylight.gnmi/bnd-parent@1.0.0-SNAPSHOT?type=pom",
+      "publisher" : "OpenDaylight",
+      "group" : "org.opendaylight.gnmi",
+      "name" : "bnd-parent",
+      "version" : "1.0.0-SNAPSHOT",
+      "description" : "Bundle parent (bnd-based)",
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "EPL-1.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.opendaylight.gnmi/bnd-parent@1.0.0-SNAPSHOT?type=pom",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://nexus.opendaylight.org/content/sites/site//org.opendaylight.gnmi/latest/bnd-parent/odlparent/bnd-parent/bnd-parent/bnd-parent/"
+        },
+        {
+          "type" : "build-system",
+          "url" : "https://jenkins.opendaylight.org/releng/"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://nexus.opendaylight.org/content/repositories/opendaylight.release/"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://jira.opendaylight.org/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://lf-opendaylight.atlassian.net/wiki/spaces/ODL/pages/489062430/gNMI+project"
+        }
+      ]
+    },
+    "properties" : [
+      {
+        "name" : "maven.goal",
+        "value" : "makeBom"
+      },
+      {
+        "name" : "maven.scopes",
+        "value" : "compile,provided,runtime,system"
+      }
+    ]
+  },
+  "components" : [
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.osgi/org.osgi.annotation.bundle@1.1.0?type=jar",
+      "publisher" : "OSGi Alliance",
+      "group" : "org.osgi",
+      "name" : "org.osgi.annotation.bundle",
+      "version" : "1.1.0",
+      "description" : "OSGi Companion Code for org.osgi.annotation.bundle Version 1.1.0",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "4777cc8253100d514365205d59bbef60"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "534cecc7af8d22a3f0919a6a8e42fe5822f6e6e1"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "73267f9944ba99a50fc952fc9ecdcb3afafa113eddc42370235bef40f0a81bc0"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "3c7cf7def5b1da903c34e21eb15620925404a837b2faa0f50ee48c8f5c2fdaf15c07acf48bf2f1bd80aaa8c33cba23e965ae038db0a52f8b10eba4f04581d2dd"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "b916c8fa5ea4b9dc6e55737569ff330917b3936bf7178b89f82183263279ec21c2ea09d1eb7cce6ea20ed5ebb6e93efc"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "03029c3d4785c7a3c00974962bcf9b229db06a897d72a2b6b5cb22e34c57238bac0df1b45a8f485cb1306ff994db1a28"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "81cc1d6e6e8792f9c42a3a8da6dbf833e02e070621bc30b972848df3d8ec14bb"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "af71a28018ea6687c74b102c4e90cc5b17f4e3bc790f4eb66ca11c6339c2e8d25f7ce75f036d80994dc79eedac84fb71cd4266c1a2d310f0b26280110d0c44d9"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0",
+            "url" : "https://www.apache.org/licenses/LICENSE-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.osgi/org.osgi.annotation.bundle@1.1.0?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://www.osgi.org/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://osgi.org/gitweb/build.git"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.osgi/org.osgi.annotation.versioning@1.1.2?type=jar",
+      "publisher" : "Eclipse Foundation",
+      "group" : "org.osgi",
+      "name" : "org.osgi.annotation.versioning",
+      "version" : "1.1.2",
+      "description" : "OSGi Companion Code for org.osgi.annotation.versioning Version 1.1.2",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "a61b3b8d09c85ad296c61e21bf77ec70"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "dc3cd4ec96c0b3c5459fe00694bd73a816ecf93e"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "f51f235e80df8ffbc30ef1b557b6ea38a696632d675404ec117e952978b8b863"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "a4c612bec624a168f25f0923d51925bbc914686673eeebd5b2442998b876f05855e2b0a6e6e9aca4a6533ed3156b0d24f94c3e508ee9778e1b2e469be318afa3"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "68a2046f083a2e77304622a56d07c0e73ba88534af4a87b5428cebf8b638c40ce21bbac089a8b5520ad488c946b633ea"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "930734f6979650191d51cd8bf1f9ab4548d307950735aa98e2dbda7aecc19b49d01a3b968824f6df2ffafce65e122c60"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "513392d0e8ddd873d04c5cf4f402a9cfe094413832bb859fe37b70fd0512dd12"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "3d2bd7d2eb784a9fab4b09c42adb0722363079235340f1915bb82a99f1c5e616ee8f3dc34d2c90b941d2651dcb4f393c7fea3e23b579456a696604148d10f22b"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0",
+            "url" : "https://www.apache.org/licenses/LICENSE-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.osgi/org.osgi.annotation.versioning@1.1.2?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://docs.osgi.org/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/osgi/osgi"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.osgi/org.osgi.service.component.annotations@1.5.1?type=jar",
+      "publisher" : "Eclipse Foundation",
+      "group" : "org.osgi",
+      "name" : "org.osgi.service.component.annotations",
+      "version" : "1.5.1",
+      "description" : "OSGi Companion Code for org.osgi.service.component.annotations Version 1.5.1",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "5b6a6394b2e6282758067ec43946878b"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "3a26aabd81c76d47e19a377daf5f54d3f3541412"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "42c080de090896f45d2a4e980a261d5b6addeee07ec4b201f01de95ab562b448"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "5ebdf12110f5abcea4ab2d05f521accb52b2e069c9728461fe65daae8be85ff52f9c1f4c66f21d273d78487dd57c7db2b9c16915fb57093973efffef47069b7a"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "763cc7c69e9241372e42eb7e14f2aee7ae0b3ab825902f1bad55ccd1e6a60c4816d39e19cd95895d26eeb94a9dd35a1c"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "f772bd5d78acd8e34f80192f145b55630b78bcd51b4a9ea3c30941e96a3e5e25bac40bf6eec98a54b7de21d47d5a7962"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "d496ecf51b2402ccee67fe833ad192717bda6e51258bd5849b760048982f71a6"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "9480b330e181d5a9f1273960acc1d5977654369a2198dfe361b95f854c2c8dc6aab53c586040e8576928fb77c2aa2d283d10e05af9cd34ded2c4a363961252c4"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0",
+            "url" : "https://www.apache.org/licenses/LICENSE-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.osgi/org.osgi.service.component.annotations@1.5.1?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://docs.osgi.org/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/osgi/osgi"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.osgi/org.osgi.namespace.extender@1.0.1?type=jar",
+      "publisher" : "OSGi Alliance",
+      "group" : "org.osgi",
+      "name" : "org.osgi.namespace.extender",
+      "version" : "1.0.1",
+      "description" : "OSGi Companion Code for org.osgi.namespace.extender Version 1.0.1.",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "e0c5e60d730994a12c061554a585449a"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "18c5eac4fe14b1d1914e62ea0e95abe80af31a9c"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "93d798bde7fa760961408c8a10a965ca7ba1dbf98a3a706c86d8290f528ad519"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "1ea41a1c40bd8f01bf8fb8f832b70000950b33380da556e95da76cc956160e8912beb11723d1b718a6ad1352aa7fbd3f1718095242c595681a67317e24f44035"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "205a5059429301c726f7e61bbbca16b1effd184339fb6666f1fe2bd475d0b422875d0e36a540bd7c5380e7d2dc5f1077"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "5045aa55cde9af724e6ab35436fbbda6e13f75ce95a5c704f975333a7b057be64b55ec9df3618f0bfdb639bd17edbed1"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "6c7c65bc72c3579867c0c22e355b73450dee1e8c52d9fd181a033b4749930a84"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "3d515b4a9086eda9f2977360263bee3aac2171f2df10ced1178cfd4a391aee79a60b13e60d709d1a1cd1d7adc3ef18b967a634c968ea92435334fac12b2cb989"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.osgi/org.osgi.namespace.extender@1.0.1?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://www.osgi.org/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://osgi.org/git/build.git"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.osgi/org.osgi.util.function@1.0.0?type=jar",
+      "publisher" : "OSGi Alliance",
+      "group" : "org.osgi",
+      "name" : "org.osgi.util.function",
+      "version" : "1.0.0",
+      "description" : "OSGi Companion Code for org.osgi.util.function Version 1.0.0.",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "458ae5c5581deae84611bc9ec76d0f5e"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "1f38195e5eab663c162989a4a2186e8d62c2cc1d"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "4ff9329012c01a0c69c05721a6bd0b910d40a0d32108284e59c1a6215cee7a43"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "e1fac954f3429fe8b756bc0039c1b278b0273694b97e3e6669672eed19a9c7edfbc0cdad38af6b9fea2a644ae48eddef706444bfad7043e63a6643fbd441b641"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "30392fa69043d010dce065f804819377a90e6f19fa7f907d67a79fd4e5e91d9e37cb6c31120b55ef5093206aa7853df9"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "61a3367ff890c1cc12ef497c7e3b4301f4bba68a4fe94aa1af579f232b99243ecb90f8b28195f014fa570bfa1fe7ddd5"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "cadda50f767ff64c459ac66554aec07c205f4e885265dc81cd99ade48eed3fec"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "4fb83ed245f9bc15aea3873a444ab5fb9297d2f1c65eec9984e75f52e0290c1ab67c151bc6848776580c82786aca9397d0d8f90d6818c1b06005e9df31f3b55f"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.osgi/org.osgi.util.function@1.0.0?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://www.osgi.org/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://osgi.org/git/build.git"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.osgi/org.osgi.util.promise@1.3.0?type=jar",
+      "publisher" : "Eclipse Foundation",
+      "group" : "org.osgi",
+      "name" : "org.osgi.util.promise",
+      "version" : "1.3.0",
+      "description" : "OSGi Companion Code for org.osgi.util.promise Version 1.3.0",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "9ebf9e52ae63e0fbb893f896c0714a6d"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "8c9fe683028fdcfd8d8b3fb9175ea0d4f582a3c3"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "7053c57e7d7d88fec6b90979a3af125e1d2bb847268a328a2f1ed65ad0a4c185"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "be222309f4ac8b8cc48da708ba3a51b4aa6e9d714571dfb14a116823b3b91cc8519f89f46ba64e79b84816aa58a4b810e389b2c6005b0cf987810ebfadd7013b"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "db69a765ff7f8d62feb756608860a2e79447e6363a306b9aaf362b1cbd53938a1092b3fd3ca5e8c1f48ff68182a5d2e8"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "5fcea9f14af06cb3c98196c6496f40533c20f7a646c34bdb68d8de7af18bcfd4811626ae3eab29ad984f92983256a069"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "c5b3f1834933e5a06ee87ab11c18996224888f312637d157211de67537468085"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "6f5f842d7b76e2763b9094e394e6d18ec8aa533fdaab66eb99a95d45dafcf41ea8816438e81b4670b7b0b7874c87be7ce6a81355b0f7db5bad16752b4234ce6c"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0",
+            "url" : "https://www.apache.org/licenses/LICENSE-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.osgi/org.osgi.util.promise@1.3.0?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://docs.osgi.org/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/osgi/osgi"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.osgi/org.osgi.service.metatype.annotations@1.4.1?type=jar",
+      "publisher" : "Eclipse Foundation",
+      "group" : "org.osgi",
+      "name" : "org.osgi.service.metatype.annotations",
+      "version" : "1.4.1",
+      "description" : "OSGi Companion Code for org.osgi.service.metatype.annotations Version 1.4.1",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "dd576b7a488ab5d4985e73c32f01bd76"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "e64d1fddc7abfb87bf29b1d318e9f101f7c28d25"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "4c645b0a3952c1f656156a6361a28d82d462ed523344cd81ab6e8490b8cd04d5"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "77ec90ad27777b31eeb576900957c0d74871564f05a96e579af4c63bca2c075a26d68435bdac79a6e63eadbd96299a127ba0dac674ec1b72dcdabe4563c33e4b"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "d7f0c3c63b5c71f388b4b2fd9db9562224a52f7f94df3814d63248878cceb44dc3bb6562368ba5d49d3bc128aea7206c"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "5d61fb45d628e009aab7102a8dbd8d80dcc735bf272fe6f4ec01e7fb9de85a0e0a957ae5df54444923257f9b65ed7c1d"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "17faa3d6a3ce4bb3e3b0cd1a0a91b1255aa2a93495aa66ae1d50a518f5fc780f"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "de7a5003d14d3d6aaea88e992685d4e0acdc391365142c69a27c20cd20c7baffdc790448b14bc1bad5b720454231a6a5efc9fb37881de2b2207b4eb36df62b4e"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0",
+            "url" : "https://www.apache.org/licenses/LICENSE-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.osgi/org.osgi.service.metatype.annotations@1.4.1?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://docs.osgi.org/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/osgi/osgi"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.osgi/org.osgi.namespace.implementation@1.0.0?type=jar",
+      "publisher" : "OSGi Alliance",
+      "group" : "org.osgi",
+      "name" : "org.osgi.namespace.implementation",
+      "version" : "1.0.0",
+      "description" : "OSGi Companion Code for org.osgi.namespace.implementation Version 1.0.0.",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "9fddecb4eccb93483497aa1f37c34233"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "16341d68d2a72f83dfdafaeb3045deac5c885fef"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "b858305e5e5aa683b8366297ddbb2e11f88fc2af4a00c96fa722cda525bb8b34"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "fadfd4cda8fde2cf45f2c8ac391a83506ca33efd5e596da92057d754b0311095406bcd2e5431b7ecb2f70e57ea298c327e3475f7b6f0d86a5ee58c6dfe7c5fe5"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "8e914b186d61617e61352dde98740908346fdc2027142bd5c3bea05fd125f7bd160147c325dea72d9434d7b2e2900f7c"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "9a736ff70380d5b4194dc96882fa404fcc8c92daf0010b9461e3cce5a2f21e854db0b9577f9ebdeb4863e7dc32521030"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "d2cfd251d855ad383a2069922f4d3fbf34ed44450113253acbec30944da13769"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "327b39149c258908c216c59ede5def730c77f10b21cd05e38da2be7b096924d7b16e97e6762cc721581f4a8f875395133ac25042655f6f57cccdb145ef196eee"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.osgi/org.osgi.namespace.implementation@1.0.0?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://www.osgi.org/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://osgi.org/git/build.git"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.osgi/org.osgi.service.http.whiteboard@1.1.1?type=jar",
+      "publisher" : "Eclipse Foundation",
+      "group" : "org.osgi",
+      "name" : "org.osgi.service.http.whiteboard",
+      "version" : "1.1.1",
+      "description" : "OSGi Companion Code for org.osgi.service.http.whiteboard Version 1.1.1",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "a1ea4bd9bf7d97946b7a94fec7325ad6"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "4bcd682f7d40919299ada68fb6b914a24b913f01"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "dbe1680a0a712e4c33781daee881ed6d790a28218879b2489230334aae170a99"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "ee36cc4e24cfd637f7e99a332a80b4be18b4fcc5731c33bcc892f9a6d72c1c3d1e7703e4ebb4d8b594b31a065c62c05f184b6fa486891cf2864cee049479cef7"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "86f9738e21b47b4b28e29a3dddcd1f73d784691bf38c087df42a5de946478deca6fbb4d03afa0e51e8e23508e64b1db1"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "faf5c3e3ae5e5a8ad48a25f5786b07310040585ebf337b70731e048f106068a0de6b3c60878ffd3ce96f6bbb71e7be5c"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "c53c53e5da3b21c2cfb773ab5a95f4f39ac1818c254b0545fa258856690eb76f"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "f2780892233833fd329fd58602bad98402e60b671c54440ad092c8b08d06c6840d491c379bfda1f8d7c0744fcaf1ad33032e416af8f712b6162253e040b39c4f"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0",
+            "url" : "https://www.apache.org/licenses/LICENSE-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.osgi/org.osgi.service.http.whiteboard@1.1.1?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://docs.osgi.org/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/osgi/osgi"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.slf4j/slf4j-api@2.0.12?type=jar",
+      "publisher" : "QOS.ch",
+      "group" : "org.slf4j",
+      "name" : "slf4j-api",
+      "version" : "2.0.12",
+      "description" : "The slf4j API",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "86eb051f2e2d6497a3a57810c963a9d6"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "48f109a2a6d8f446c794f3e3fa0d86df0cdfa312"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "a79502b8abdfbd722846a27691226a4088682d6d35654f9b80e2a9ccacf7ed47"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "5bc0a61bd32b63ab7d44e210f1dcc3e4dc7417186ab8a2297f22edfa631513cc55b7fe3bb15eb0124b9a30dcfd4d168932bf3262cf6491feb2facbdfbe661e72"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "7c8d503d37899b577f39e5a3517b69034cad655e31d4b783313533bf49054f25b0ae87f8c32e4eb40677a53011e6bbce"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "9bf58592bbf1d21ec6a6a55a084ea21a16d5d5c38dbadcded450ef6af8717b364beae497fdb600d9d3695e62fb26fe4b"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "72000cfd589a16b4eb81e4ac648a2781847aafe0dd464fa260fdd79196ccc693"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "1f91affc70ce6fdfa69be146d9f23835702a22c3a47b6c495b6964b3ea80d901bb1517b26e9fc973a3e6c7f38c25b74397856ae236519bf3d2ea96148c3118e2"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "MIT",
+            "url" : "https://opensource.org/license/mit/"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.slf4j/slf4j-api@2.0.12?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://www.slf4j.org"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/qos-ch/slf4j/slf4j-parent/slf4j-api"
+        }
+      ]
+    }
+  ],
+  "dependencies" : [
+    {
+      "ref" : "pkg:maven/org.opendaylight.gnmi/bnd-parent@1.0.0-SNAPSHOT?type=pom",
+      "dependsOn" : [
+        "pkg:maven/org.osgi/org.osgi.annotation.bundle@1.1.0?type=jar",
+        "pkg:maven/org.osgi/org.osgi.annotation.versioning@1.1.2?type=jar",
+        "pkg:maven/org.osgi/org.osgi.service.component.annotations@1.5.1?type=jar",
+        "pkg:maven/org.osgi/org.osgi.service.metatype.annotations@1.4.1?type=jar",
+        "pkg:maven/org.osgi/org.osgi.service.http.whiteboard@1.1.1?type=jar",
+        "pkg:maven/org.slf4j/slf4j-api@2.0.12?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/org.osgi/org.osgi.annotation.bundle@1.1.0?type=jar",
+      "dependsOn" : [
+        "pkg:maven/org.osgi/org.osgi.annotation.versioning@1.1.2?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/org.osgi/org.osgi.annotation.versioning@1.1.2?type=jar",
+      "dependsOn" : [ ]
+    },
+    {
+      "ref" : "pkg:maven/org.osgi/org.osgi.service.component.annotations@1.5.1?type=jar",
+      "dependsOn" : [
+        "pkg:maven/org.osgi/org.osgi.namespace.extender@1.0.1?type=jar",
+        "pkg:maven/org.osgi/org.osgi.util.function@1.0.0?type=jar",
+        "pkg:maven/org.osgi/org.osgi.util.promise@1.3.0?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/org.osgi/org.osgi.namespace.extender@1.0.1?type=jar",
+      "dependsOn" : [ ]
+    },
+    {
+      "ref" : "pkg:maven/org.osgi/org.osgi.util.function@1.0.0?type=jar",
+      "dependsOn" : [ ]
+    },
+    {
+      "ref" : "pkg:maven/org.osgi/org.osgi.util.promise@1.3.0?type=jar",
+      "dependsOn" : [
+        "pkg:maven/org.osgi/org.osgi.util.function@1.0.0?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/org.osgi/org.osgi.service.metatype.annotations@1.4.1?type=jar",
+      "dependsOn" : [
+        "pkg:maven/org.osgi/org.osgi.namespace.extender@1.0.1?type=jar",
+        "pkg:maven/org.osgi/org.osgi.namespace.implementation@1.0.0?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/org.osgi/org.osgi.namespace.implementation@1.0.0?type=jar",
+      "dependsOn" : [ ]
+    },
+    {
+      "ref" : "pkg:maven/org.osgi/org.osgi.service.http.whiteboard@1.1.1?type=jar",
+      "dependsOn" : [
+        "pkg:maven/org.osgi/org.osgi.namespace.implementation@1.0.0?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/org.slf4j/slf4j-api@2.0.12?type=jar",
+      "dependsOn" : [ ]
+    }
+  ]
+}
