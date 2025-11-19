@@ -35,6 +35,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4343f4df_47aefc22",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-11-19T13:22:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec7c8d0a_38277c92",
+      "revId": "8e12cd6d09ca68861589a45c11005a7e84ecfc87",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af122c9a_a6ee109b",
@@ -48,6 +66,24 @@
       "writtenOn": "2025-11-19T13:20:17Z",
       "side": 1,
       "message": "gnmi",
+      "revId": "8e12cd6d09ca68861589a45c11005a7e84ecfc87",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2631652d_319a5bff",
+        "filename": "features/feature-parent/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-11-19T13:22:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af122c9a_a6ee109b",
       "revId": "8e12cd6d09ca68861589a45c11005a7e84ecfc87",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
