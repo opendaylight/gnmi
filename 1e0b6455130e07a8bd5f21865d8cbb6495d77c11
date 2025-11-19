@@ -16,6 +16,24 @@
       "message": "gnmi",
       "revId": "1e0b6455130e07a8bd5f21865d8cbb6495d77c11",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2ce17fc_9d7599d0",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-11-19T13:24:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56079f09_222f247d",
+      "revId": "1e0b6455130e07a8bd5f21865d8cbb6495d77c11",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
