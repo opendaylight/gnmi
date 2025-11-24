@@ -18,4 +18,5 @@ The scope of this project is outlined in the
 The repository is split into the following logical parts:
 * the [Bill Of Materials](artifacts)
 * a library of [Karaf features](features) packaging all Java artifacts hosted in this repository
+* user and developer guides [documentation](docs)
 * // TODO add karaf distribution, models, docs, etc.
