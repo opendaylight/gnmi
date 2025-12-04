@@ -20,4 +20,5 @@ The repository is split into the following logical parts:
 * a library of [Karaf features](features) packaging all Java artifacts hosted in this repository
 * runnable Karaf [distribution](karaf)
 * gNMI plugin and simulator [implementation](gnmi-modules)
+* YANG [models](gnmi-models) defining plugin behaviour
 * user and developer guides [documentation](docs)

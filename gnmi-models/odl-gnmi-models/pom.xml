@@ -6,31 +6,30 @@
   ~ terms of the Eclipse Public License v1.0 which accompanies this distribution,
   ~ and is available at http://www.eclipse.org/legal/epl-v10.html
   -->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.opendaylight.mdsal</groupId>
-        <artifactId>binding-parent</artifactId>
-        <version>14.0.18</version>
-        <relativePath/>
-    </parent>
-
     <groupId>org.opendaylight.gnmi.models</groupId>
-    <artifactId>openconfig-models</artifactId>
+    <artifactId>odl-gnmi-models</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
-    <url>https://github.com/PANTHEONtech/lighty</url>
+    <description>
+        The artifact contains models for ODL gNMI southbound module.
+    </description>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.opendaylight.mdsal.binding.model.iana</groupId>
-            <artifactId>iana-if-type</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.opendaylight.mdsal.binding.model.ietf</groupId>
-            <artifactId>rfc8343</artifactId>
-        </dependency>
-    </dependencies>
+    <properties>
+        <maven.deploy.skip>true</maven.deploy.skip>
+        <maven.install.skip>true</maven.install.skip>
+    </properties>
+
+    <modules>
+        <module>odl-gnmi-topology-model</module>
+        <module>odl-gnmi-yang-storage-model</module>
+        <module>odl-gnmi-certificates-storage-model</module>
+        <module>odl-gnmi-force-capabilities</module>
+        <module>odl-gnoi-sonic-yang-model</module>
+    </modules>
 </project>
