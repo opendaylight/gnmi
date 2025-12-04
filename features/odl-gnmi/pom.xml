@@ -11,14 +11,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>io.lighty.gnmi</groupId>
+        <groupId>org.opendaylight.gnmi</groupId>
         <artifactId>feature-parent</artifactId>
         <relativePath>../parent/pom.xml</relativePath>
-        <version>23.0.0-SNAPSHOT</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>odl-gnmi</artifactId>
-    <version>23.0.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>feature</packaging>
     <name>OpenDaylight :: gNMI</name>
 
@@ -26,12 +26,14 @@
         <dependency>
             <groupId>org.opendaylight.netconf</groupId>
             <artifactId>odl-restconf</artifactId>
+            <version>9.0.1</version>
             <type>xml</type>
             <classifier>features</classifier>
         </dependency>
         <dependency>
             <groupId>org.opendaylight.netconf</groupId>
             <artifactId>odl-netconf-topology</artifactId>
+            <version>9.0.1</version>
             <type>xml</type>
             <classifier>features</classifier>
         </dependency>
@@ -53,19 +55,22 @@
         <dependency>
             <groupId>org.opendaylight.yangtools</groupId>
             <artifactId>odl-yangtools-parser</artifactId>
+            <version>14.0.17</version>
             <type>xml</type>
             <classifier>features</classifier>
         </dependency>
         <dependency>
             <groupId>org.opendaylight.yangtools</groupId>
             <artifactId>odl-yangtools-xpath</artifactId>
+            <version>14.0.17</version>
             <type>xml</type>
             <classifier>features</classifier>
         </dependency>
 
         <dependency>
             <groupId>io.grpc</groupId>
-            <artifactId>grpc-protobuf-lite</artifactId> <version>1.75.0</version>
+            <artifactId>grpc-protobuf-lite</artifactId>
+            <version>1.75.0</version>
         </dependency>
         <dependency>
             <groupId>io.perfmark</groupId>
@@ -74,7 +79,7 @@
         </dependency>
 
         <dependency>
-            <groupId>io.lighty.modules.gnmi.southbound</groupId>
+            <groupId>org.opendaylight.gnmi.modules.gnmi.southbound</groupId>
             <artifactId>lighty-gnmi-sb</artifactId>
             <version>${project.version}</version>
             <exclusions>
