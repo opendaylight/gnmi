@@ -29,6 +29,7 @@
         <module>artifacts</module>
         <module>bnd-parent</module>
         <module>features</module>
+        <module>gnmi-models</module>
         <module>gnmi-modules</module>
         <module>gnmi-parent</module>
         <module>karaf</module>

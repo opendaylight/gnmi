@@ -64,22 +64,22 @@
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>org.opendaylight.gnmi.models.gnmi</groupId>
+            <groupId>org.opendaylight.gnmi.models</groupId>
             <artifactId>odl-gnmi-certificates-storage-model</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>org.opendaylight.gnmi.models.gnmi</groupId>
+            <groupId>org.opendaylight.gnmi.models</groupId>
             <artifactId>odl-gnmi-force-capabilities</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>org.opendaylight.gnmi.models.gnmi</groupId>
+            <groupId>org.opendaylight.gnmi.models</groupId>
             <artifactId>odl-gnmi-topology-model</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>org.opendaylight.gnmi.models.gnmi</groupId>
+            <groupId>org.opendaylight.gnmi.models</groupId>
             <artifactId>odl-gnmi-yang-storage-model</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
