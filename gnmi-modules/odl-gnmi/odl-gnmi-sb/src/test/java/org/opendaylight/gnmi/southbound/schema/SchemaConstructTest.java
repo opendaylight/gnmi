@@ -6,18 +6,8 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.schema;
+package org.opendaylight.gnmi.southbound.schema;
 
-import io.lighty.core.controller.impl.config.ConfigurationException;
-import io.lighty.gnmi.southbound.capabilities.GnmiDeviceCapability;
-import io.lighty.gnmi.southbound.lightymodule.config.GnmiConfiguration;
-import io.lighty.gnmi.southbound.lightymodule.util.GnmiConfigUtils;
-import io.lighty.gnmi.southbound.schema.impl.SchemaContextHolderImpl;
-import io.lighty.gnmi.southbound.schema.impl.SchemaException;
-import io.lighty.gnmi.southbound.schema.loader.api.YangLoadException;
-import io.lighty.gnmi.southbound.schema.loader.impl.ByClassPathYangLoaderService;
-import io.lighty.gnmi.southbound.schema.loader.impl.ByPathYangLoaderService;
-import io.lighty.gnmi.southbound.timeout.TimeoutUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -33,23 +23,35 @@ import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.logging.log4j.core.config.ConfigurationException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.opendaylight.gnmi.southbound.capabilities.GnmiDeviceCapability;
+import org.opendaylight.gnmi.southbound.lightymodule.config.GnmiConfiguration;
+import org.opendaylight.gnmi.southbound.lightymodule.util.GnmiConfigUtils;
+import org.opendaylight.gnmi.southbound.schema.impl.SchemaContextHolderImpl;
+import org.opendaylight.gnmi.southbound.schema.impl.SchemaException;
+import org.opendaylight.gnmi.southbound.schema.loader.api.YangLoadException;
+import org.opendaylight.gnmi.southbound.schema.loader.impl.ByClassPathYangLoaderService;
+import org.opendaylight.gnmi.southbound.schema.loader.impl.ByPathYangLoaderService;
+import org.opendaylight.gnmi.southbound.timeout.TimeoutUtils;
 import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.yang.storage.rev210331.gnmi.yang.models.GnmiYangModel;
 import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
 import org.opendaylight.yangtools.yang.model.api.Module;
+import org.opendaylight.yangtools.yang.parser.impl.DefaultYangParserFactory;
+import org.opendaylight.yangtools.yang.parser.rfc7950.reactor.RFC7950Reactors;
+import org.opendaylight.yangtools.yang.xpath.impl.AntlrXPathParserFactory;
 
 public class SchemaConstructTest {
 
     private static final String SCHEMA_PATH = "src/test/resources/additional/test/schema";
-    private static final String OPENCONFIG_GNMI_CONFIG = "/lightyconfigs/openconfig_gnmi_config.json";
     private static final String SYNTAX_ERROR_YANGS_PATH = "src/test/resources/syntax_error_yangs";
     private static final List<String> MODELS_TO_MISS = Arrays.asList("openconfig-alarms",
-            "openconfig-platform");
+        "openconfig-platform");
     private static final List<String> CAPABILITIES_TO_MISS = Arrays.asList("openconfig-alarm-types",
-            "openconfig-yang-types", "openconfig-if-aggregate", "openconfig-platform-types", "openconfig-extensions",
-            "test-dependency", "test-dependency2");
+        "openconfig-yang-types", "openconfig-if-aggregate", "openconfig-platform-types", "openconfig-extensions",
+        "test-dependency", "test-dependency2");
     private TestYangDataStoreService dataStoreService;
     private List<GnmiDeviceCapability> completeCapabilities;
 
@@ -59,13 +61,15 @@ public class SchemaConstructTest {
     @BeforeEach
     public void setup() throws YangLoadException, ConfigurationException {
         dataStoreService = new TestYangDataStoreService();
-        completeCapabilities = new ByPathYangLoaderService(Path.of(SCHEMA_PATH)).load(dataStoreService);
+        completeCapabilities = new ByPathYangLoaderService(Path.of(SCHEMA_PATH), new DefaultYangParserFactory(
+            new AntlrXPathParserFactory())).load(dataStoreService);
         Assertions.assertFalse(completeCapabilities.isEmpty());
 
-        final GnmiConfiguration gnmiConfiguration = GnmiConfigUtils.getGnmiConfiguration(
-                this.getClass().getResourceAsStream(OPENCONFIG_GNMI_CONFIG));
+        final GnmiConfiguration gnmiConfiguration = new GnmiConfiguration();
+        gnmiConfiguration.setYangModulesInfo(GnmiConfigUtils.OPENCONFIG_YANG_MODELS);
         final List<GnmiDeviceCapability> openconfigCapabilities
-                = new ByClassPathYangLoaderService(gnmiConfiguration.getYangModulesInfo()).load(dataStoreService);
+            = new ByClassPathYangLoaderService(gnmiConfiguration.getYangModulesInfo(), new DefaultYangParserFactory(
+                new AntlrXPathParserFactory())).load(dataStoreService);
         Assertions.assertFalse(openconfigCapabilities.isEmpty());
         completeCapabilities.addAll(openconfigCapabilities);
     }
@@ -80,7 +84,7 @@ public class SchemaConstructTest {
         for (GnmiDeviceCapability capability : completeCapabilities) {
             if (capability.getVersionString().isPresent()) {
                 storedModels.add(dataStoreService
-                        .readYangModel(capability.getName(), capability.getVersionString().get())
+                        .readYangModel(capability.getName(), capability.getVersionString().orElseThrow())
                         .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS).orElseThrow());
             } else {
                 storedModels.add(dataStoreService
@@ -108,7 +112,8 @@ public class SchemaConstructTest {
      */
     @Test
     public void schemaConstructSemVerTest() throws SchemaException {
-        final SchemaContextHolder schemaContextHolder = new SchemaContextHolderImpl(dataStoreService, null);
+        final SchemaContextHolderImpl schemaContextHolder = new SchemaContextHolderImpl(dataStoreService,
+            RFC7950Reactors.defaultReactor());
         final EffectiveModelContext schemaContext = schemaContextHolder.getSchemaContext(completeCapabilities);
         // Check that every module in requested capabilities is contained in resulting schema
         assertSchemaContainsModels(schemaContext, completeCapabilities);
@@ -121,8 +126,8 @@ public class SchemaConstructTest {
      */
     @Test
     public void schemaConstructDependenciesTest() throws SchemaException {
-        final SchemaContextHolder schemaContextHolder = new SchemaContextHolderImpl(
-                dataStoreService, null);
+        final SchemaContextHolderImpl schemaContextHolder = new SchemaContextHolderImpl(
+                dataStoreService, RFC7950Reactors.defaultReactor());
 
         // Remove some models which are required for building models from capabilities
         final List<GnmiDeviceCapability> requestedCapabilities = completeCapabilities.stream()
@@ -142,8 +147,8 @@ public class SchemaConstructTest {
     @Test
     public void schemaConstructionModelsMissingTest()
             throws InterruptedException, ExecutionException, TimeoutException {
-        final SchemaContextHolder schemaContextHolder = new SchemaContextHolderImpl(
-                dataStoreService, null);
+        final SchemaContextHolderImpl schemaContextHolder = new SchemaContextHolderImpl(
+                dataStoreService, RFC7950Reactors.defaultReactor());
         //Delete models so they should be reported as missing
         for (String name : MODELS_TO_MISS) {
             Assertions.assertTrue(dataStoreService.deleteYangModel(name, null));
@@ -170,8 +175,8 @@ public class SchemaConstructTest {
     @Test
     public void schemaConstructionModelsImportsMissingTest()
             throws InterruptedException, ExecutionException, TimeoutException {
-        final SchemaContextHolder schemaContextHolder = new SchemaContextHolderImpl(
-                dataStoreService, null);
+        final SchemaContextHolderImpl schemaContextHolder = new SchemaContextHolderImpl(
+                dataStoreService, RFC7950Reactors.defaultReactor());
         //Delete models so they should be reported as missing
         final ArrayList<String> modelsToDelete = new ArrayList<>(MODELS_TO_MISS);
         modelsToDelete.addAll(CAPABILITIES_TO_MISS);
@@ -215,8 +220,9 @@ public class SchemaConstructTest {
             dataStoreService.deleteYangModel(model.getName(), null);
             dataStoreService.addYangModel(model.getName(), model.getVersion().getValue(), body);
         }
-        final SchemaContextHolder schemaContextHolder = new SchemaContextHolderImpl(
-                dataStoreService, null);
+        // FIX: Pass RFC7950Reactors.defaultReactor() instead of null
+        final SchemaContextHolderImpl schemaContextHolder = new SchemaContextHolderImpl(
+                dataStoreService, RFC7950Reactors.defaultReactor());
         try {
             schemaContextHolder.getSchemaContext(completeCapabilities);
             Assertions.fail("Schema context creation should fail!");
@@ -257,8 +263,8 @@ public class SchemaConstructTest {
             Assertions.assertTrue(dataStoreService.deleteYangModel(name, null));
         }
 
-        final SchemaContextHolder schemaContextHolder = new SchemaContextHolderImpl(
-                dataStoreService, null);
+        final SchemaContextHolderImpl schemaContextHolder = new SchemaContextHolderImpl(
+                dataStoreService, RFC7950Reactors.defaultReactor());
         try {
             schemaContextHolder.getSchemaContext(completeCapabilities);
             Assertions.fail("Schema context creation should fail!");

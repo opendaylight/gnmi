@@ -6,12 +6,12 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.connector.session;
+package org.opendaylight.modules.gnmi.connector.session;
 
-import io.lighty.modules.gnmi.connector.configuration.SecurityFactory;
-import io.lighty.modules.gnmi.connector.gnmi.session.impl.GnmiSessionFactory;
-import io.lighty.modules.gnmi.connector.security.Security;
-import io.lighty.modules.gnmi.connector.session.api.SessionManager;
+import org.opendaylight.modules.gnmi.connector.configuration.SecurityFactory;
+import org.opendaylight.modules.gnmi.connector.gnmi.session.impl.GnmiSessionFactory;
+import org.opendaylight.modules.gnmi.connector.security.Security;
+import org.opendaylight.modules.gnmi.connector.session.api.SessionManager;
 
 /**
  * This factory provides creation of {@link SessionManager} instance.

@@ -6,11 +6,11 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.connector.session.api;
+package org.opendaylight.modules.gnmi.connector.session.api;
 
 import io.grpc.ManagedChannel;
-import io.lighty.modules.gnmi.connector.configuration.SessionConfiguration;
 import java.util.Map;
+import org.opendaylight.modules.gnmi.connector.configuration.SessionConfiguration;
 
 /**
  * This interface is used to retrieve session state.

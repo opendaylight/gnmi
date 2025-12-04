@@ -6,11 +6,11 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.mountpoint.transactions;
+package org.opendaylight.gnmi.southbound.mountpoint.transactions;
 
 import com.google.common.util.concurrent.FluentFuture;
-import io.lighty.gnmi.southbound.mountpoint.ops.GnmiSet;
 import org.eclipse.jdt.annotation.NonNull;
+import org.opendaylight.gnmi.southbound.mountpoint.ops.GnmiSet;
 import org.opendaylight.mdsal.common.api.CommitInfo;
 
 public class WriteOnlyTx extends AbstractWriteTx {

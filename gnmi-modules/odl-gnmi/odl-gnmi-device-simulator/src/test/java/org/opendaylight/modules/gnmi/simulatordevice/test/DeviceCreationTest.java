@@ -6,17 +6,17 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.simulatordevice.test;
+package org.opendaylight.modules.gnmi.simulatordevice.test;
 
-import io.lighty.modules.gnmi.simulatordevice.config.GnmiSimulatorConfiguration;
-import io.lighty.modules.gnmi.simulatordevice.impl.SimulatedGnmiDevice;
-import io.lighty.modules.gnmi.simulatordevice.utils.EffectiveModelContextBuilder.EffectiveModelContextBuilderException;
-import io.lighty.modules.gnmi.simulatordevice.utils.GnmiSimulatorConfUtils;
-import io.lighty.modules.gnmi.simulatordevice.yang.DatastoreType;
 import java.io.IOException;
 import java.util.Optional;
 import org.junit.Assert;
 import org.junit.Test;
+import org.opendaylight.modules.gnmi.simulatordevice.config.GnmiSimulatorConfiguration;
+import org.opendaylight.modules.gnmi.simulatordevice.impl.SimulatedGnmiDevice;
+import org.opendaylight.modules.gnmi.simulatordevice.utils.EffectiveModelContextBuilder.EffectiveModelContextBuilderException;
+import org.opendaylight.modules.gnmi.simulatordevice.utils.GnmiSimulatorConfUtils;
+import org.opendaylight.modules.gnmi.simulatordevice.yang.DatastoreType;
 import org.opendaylight.yangtools.yang.common.QName;
 import org.opendaylight.yangtools.yang.data.api.YangInstanceIdentifier;
 import org.opendaylight.yangtools.yang.data.api.schema.NormalizedNode;

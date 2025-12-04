@@ -6,20 +6,14 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.schema.impl;
+package org.opendaylight.gnmi.southbound.schema.impl;
 
 import com.google.common.collect.Sets;
 import com.google.common.io.CharSource;
-import io.lighty.gnmi.southbound.capabilities.GnmiDeviceCapability;
-import io.lighty.gnmi.southbound.schema.SchemaConstants;
-import io.lighty.gnmi.southbound.schema.SchemaContextHolder;
-import io.lighty.gnmi.southbound.schema.yangstore.service.YangDataStoreService;
-import io.lighty.gnmi.southbound.timeout.TimeoutUtils;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -27,6 +21,10 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import javax.annotation.Nullable;
+import org.opendaylight.gnmi.southbound.capabilities.GnmiDeviceCapability;
+import org.opendaylight.gnmi.southbound.schema.SchemaContextHolder;
+import org.opendaylight.gnmi.southbound.schema.yangstore.service.YangDataStoreService;
+import org.opendaylight.gnmi.southbound.timeout.TimeoutUtils;
 import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.yang.storage.rev210331.gnmi.yang.models.GnmiYangModel;
 import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
 import org.opendaylight.yangtools.yang.model.api.source.SourceDependency;
@@ -52,7 +50,7 @@ public class SchemaContextHolderImpl implements SchemaContextHolder {
     public SchemaContextHolderImpl(final YangDataStoreService yangDataStoreService,
                                    final @Nullable CrossSourceStatementReactor reactor) {
         this.yangDataStoreService = yangDataStoreService;
-        this.yangReactor = Objects.requireNonNullElse(reactor, SchemaConstants.DEFAULT_YANG_REACTOR);
+        this.yangReactor = reactor;
         this.contextCache = new ConcurrentHashMap<>();
     }
 
@@ -115,7 +113,7 @@ public class SchemaContextHolderImpl implements SchemaContextHolder {
             if (!processedModuleNames.contains(capability.getName())) {
                 final Optional<GnmiYangModel> readModel = tryToReadModel(capability);
                 if (readModel.isPresent()) {
-                    readModels.add(readModel.get());
+                    readModels.add(readModel.orElseThrow());
                 } else {
                     schemaException.addMissingModel(capability);
                 }
@@ -131,11 +129,11 @@ public class SchemaContextHolderImpl implements SchemaContextHolder {
         Optional<GnmiYangModel> readImport;
         Optional<String> capabilityVersion = capability.getVersionString();
         if (capabilityVersion.isPresent()) {
-            readImport = yangDataStoreService.readYangModel(capability.getName(), capabilityVersion.get())
+            readImport = yangDataStoreService.readYangModel(capability.getName(), capabilityVersion.orElseThrow())
                     .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
             if (readImport.isEmpty()) {
                 LOG.warn("Requested gNMI (capability/dependency of capability) {} was not found with requested version"
-                        + " {}.", capability.getName(), capabilityVersion.get());
+                        + " {}.", capability.getName(), capabilityVersion.orElseThrow());
                 readImport = yangDataStoreService.readYangModel(capability.getName())
                         .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
                 readImport.ifPresent(gnmiYangModel ->
@@ -178,7 +176,7 @@ public class SchemaContextHolderImpl implements SchemaContextHolder {
                         moduleImport.revision());
                 final Optional<GnmiYangModel> gnmiYangModel = tryToReadModel(importedCapability);
                 if (gnmiYangModel.isPresent()) {
-                    models.add(gnmiYangModel.get());
+                    models.add(gnmiYangModel.orElseThrow());
                 } else {
                     schemaException.addMissingModel(importedCapability);
                 }
@@ -192,7 +190,7 @@ public class SchemaContextHolderImpl implements SchemaContextHolder {
                         moduleImport.revision());
                 final Optional<GnmiYangModel> gnmiYangModel = tryToReadModel(importedCapability);
                 if (gnmiYangModel.isPresent()) {
-                    models.add(gnmiYangModel.get());
+                    models.add(gnmiYangModel.orElseThrow());
                 } else {
                     schemaException.addMissingModel(importedCapability);
                 }

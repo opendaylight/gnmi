@@ -6,7 +6,7 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.device.session.security;
+package org.opendaylight.gnmi.southbound.device.session.security;
 
 public class SessionSecurityException extends Exception {
 

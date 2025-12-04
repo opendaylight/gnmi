@@ -6,14 +6,14 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.mountpoint.codecs;
+package org.opendaylight.gnmi.southbound.mountpoint.codecs;
 
 import com.google.common.collect.Iterators;
 import com.google.common.collect.PeekingIterator;
 import gnmi.Gnmi;
-import io.lighty.gnmi.southbound.schema.provider.SchemaContextProvider;
 import java.util.Map;
 import java.util.Optional;
+import org.opendaylight.gnmi.southbound.schema.provider.SchemaContextProvider;
 import org.opendaylight.yangtools.yang.common.QName;
 import org.opendaylight.yangtools.yang.data.api.YangInstanceIdentifier;
 import org.opendaylight.yangtools.yang.model.api.Module;

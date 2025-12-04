@@ -6,27 +6,25 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.mountpoint.codecs;
+package org.opendaylight.gnmi.southbound.mountpoint.codecs;
 
 import gnmi.Gnmi;
-import io.lighty.core.controller.impl.config.ConfigurationException;
-import io.lighty.gnmi.southbound.lightymodule.config.GnmiConfiguration;
-import io.lighty.gnmi.southbound.lightymodule.util.GnmiConfigUtils;
-import io.lighty.gnmi.southbound.mountpoint.codecs.testcases.YangInstanceIdentifiertoPathTestCases;
-import io.lighty.gnmi.southbound.schema.impl.SchemaException;
-import io.lighty.gnmi.southbound.schema.loader.api.YangLoadException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Map;
+import org.apache.logging.log4j.core.config.ConfigurationException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.opendaylight.gnmi.southbound.lightymodule.config.GnmiConfiguration;
+import org.opendaylight.gnmi.southbound.lightymodule.util.GnmiConfigUtils;
+import org.opendaylight.gnmi.southbound.mountpoint.codecs.testcases.YangInstanceIdentifiertoPathTestCases;
+import org.opendaylight.gnmi.southbound.schema.impl.SchemaException;
+import org.opendaylight.gnmi.southbound.schema.loader.api.YangLoadException;
 import org.opendaylight.yangtools.yang.common.QName;
 import org.opendaylight.yangtools.yang.data.api.YangInstanceIdentifier;
 
 public class YangInstanceIdentifierToGnmiPathCodecTest {
 
-    private static final Path TEST_PATH = Paths.get("src/test/resources/not/unique/model/elements");
-    private static final String OPENCONFIG_GNMI_CONFIG = "/lightyconfigs/openconfig_gnmi_config.json";
+    private static final Path TEST_PATH = Path.of("src/test/resources/not/unique/model/elements");
     private static final String NAMESPACE_ROOT1 = "tag:lighty.io.2021:yang:test:v1:gnmi:converter:root1";
     private static final String NAMESPACE_ROOT2 = "tag:lighty.io,2021:yang:test:v1:gnmi:converter:root2";
     private static final String ROOT_MODULE_NAME_1 = "root-model-1";
@@ -72,8 +70,8 @@ public class YangInstanceIdentifierToGnmiPathCodecTest {
     public void yangInstanceIdentifierToPathCodecWithNotUniqueNameForRootElement()
             throws SchemaException, YangLoadException, ConfigurationException {
         //Init YangInstanceIdentifierToPathCodec with test schema context
-        final GnmiConfiguration gnmiConfiguration = GnmiConfigUtils.getGnmiConfiguration(
-                this.getClass().getResourceAsStream(OPENCONFIG_GNMI_CONFIG));
+        final GnmiConfiguration gnmiConfiguration = new GnmiConfiguration();
+        gnmiConfiguration.setYangModulesInfo(GnmiConfigUtils.OPENCONFIG_YANG_MODELS);
         Assertions.assertNotNull(gnmiConfiguration.getYangModulesInfo());
         final TestSchemaContextProvider contextProvider = TestSchemaContextProvider.createInstance(TEST_PATH,
                 gnmiConfiguration.getYangModulesInfo());

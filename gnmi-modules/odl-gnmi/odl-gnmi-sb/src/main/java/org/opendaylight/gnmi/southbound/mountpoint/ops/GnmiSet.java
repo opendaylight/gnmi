@@ -6,7 +6,7 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.mountpoint.ops;
+package org.opendaylight.gnmi.southbound.mountpoint.ops;
 
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
@@ -14,12 +14,12 @@ import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.google.common.util.concurrent.SettableFuture;
 import gnmi.Gnmi;
-import io.lighty.gnmi.southbound.device.session.provider.GnmiSessionProvider;
-import io.lighty.gnmi.southbound.mountpoint.requests.GnmiRequestException;
-import io.lighty.gnmi.southbound.mountpoint.requests.SetRequestFactory;
 import java.util.List;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.eclipse.jdt.annotation.Nullable;
+import org.opendaylight.gnmi.southbound.device.session.provider.GnmiSessionProvider;
+import org.opendaylight.gnmi.southbound.mountpoint.requests.GnmiRequestException;
+import org.opendaylight.gnmi.southbound.mountpoint.requests.SetRequestFactory;
 import org.opendaylight.mdsal.common.api.CommitInfo;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NodeId;
 import org.opendaylight.yangtools.yang.data.api.YangInstanceIdentifier;

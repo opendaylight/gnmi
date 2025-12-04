@@ -6,13 +6,13 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.requests.utils;
+package org.opendaylight.gnmi.southbound.requests.utils;
 
 import gnmi.Gnmi;
-import io.lighty.gnmi.southbound.capabilities.GnmiDeviceCapability;
-import io.lighty.gnmi.southbound.schema.SchemaConstants;
 import java.util.ArrayList;
 import java.util.List;
+import org.opendaylight.gnmi.southbound.capabilities.GnmiDeviceCapability;
+import org.opendaylight.gnmi.southbound.schema.SchemaConstants;
 
 public final class GnmiRequestUtils {
 

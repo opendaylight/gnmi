@@ -6,9 +6,9 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.device.session.provider;
+package org.opendaylight.gnmi.southbound.device.session.provider;
 
-import io.lighty.modules.gnmi.connector.gnmi.session.api.GnmiSession;
+import org.opendaylight.modules.gnmi.connector.gnmi.session.api.GnmiSession;
 
 public interface GnmiSessionProvider {
     GnmiSession getGnmiSession();

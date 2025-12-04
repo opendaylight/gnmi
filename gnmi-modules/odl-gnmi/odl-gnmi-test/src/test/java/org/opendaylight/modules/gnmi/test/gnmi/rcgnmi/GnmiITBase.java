@@ -6,7 +6,7 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.test.gnmi.rcgnmi;
+package org.opendaylight.modules.gnmi.test.gnmi.rcgnmi;
 
 import static io.lighty.modules.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.GNMI_NODE_ID;
 import static io.lighty.modules.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.GNMI_NODE_STATUS;
@@ -16,9 +16,6 @@ import static io.lighty.modules.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstant
 
 import gnmi.Gnmi;
 import io.lighty.applications.rcgnmi.app.RCgNMIApp;
-import io.lighty.modules.gnmi.simulatordevice.config.GnmiSimulatorConfiguration;
-import io.lighty.modules.gnmi.simulatordevice.impl.SimulatedGnmiDevice;
-import io.lighty.modules.gnmi.simulatordevice.utils.GnmiSimulatorConfUtils;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URI;
@@ -39,6 +36,9 @@ import org.json.JSONObject;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.opendaylight.modules.gnmi.simulatordevice.config.GnmiSimulatorConfiguration;
+import org.opendaylight.modules.gnmi.simulatordevice.impl.SimulatedGnmiDevice;
+import org.opendaylight.modules.gnmi.simulatordevice.utils.GnmiSimulatorConfUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

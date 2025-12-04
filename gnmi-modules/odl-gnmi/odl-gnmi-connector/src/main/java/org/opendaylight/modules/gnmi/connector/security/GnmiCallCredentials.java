@@ -6,7 +6,7 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.connector.security;
+package org.opendaylight.modules.gnmi.connector.security;
 
 import io.grpc.CallCredentials;
 import io.grpc.Metadata;

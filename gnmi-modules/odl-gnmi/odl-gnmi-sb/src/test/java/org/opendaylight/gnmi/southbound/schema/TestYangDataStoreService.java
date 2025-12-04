@@ -6,13 +6,10 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.schema;
+package org.opendaylight.gnmi.southbound.schema;
 
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
-import io.lighty.gnmi.southbound.schema.yangstore.service.YangDataStoreService;
-import io.lighty.gnmi.southbound.timeout.TimeoutUtils;
-import io.lighty.modules.gnmi.commons.util.YangModelSanitizer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +20,10 @@ import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.eclipse.jdt.annotation.Nullable;
+import org.opendaylight.gnmi.southbound.schema.yangstore.service.YangDataStoreService;
+import org.opendaylight.gnmi.southbound.timeout.TimeoutUtils;
 import org.opendaylight.mdsal.common.api.CommitInfo;
+import org.opendaylight.modules.gnmi.commons.util.YangModelSanitizer;
 import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.yang.storage.rev210331.ModuleVersionType;
 import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.yang.storage.rev210331.gnmi.yang.models.GnmiYangModel;
 import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.yang.storage.rev210331.gnmi.yang.models.GnmiYangModelBuilder;

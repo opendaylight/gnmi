@@ -6,16 +6,16 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.simulatordevice.main;
+package org.opendaylight.modules.gnmi.simulatordevice.main;
 
 import com.beust.jcommander.JCommander;
-import io.lighty.modules.gnmi.simulatordevice.config.GnmiSimulatorConfiguration;
-import io.lighty.modules.gnmi.simulatordevice.impl.SimulatedGnmiDevice;
-import io.lighty.modules.gnmi.simulatordevice.utils.EffectiveModelContextBuilder.EffectiveModelContextBuilderException;
-import io.lighty.modules.gnmi.simulatordevice.utils.GnmiSimulatorConfUtils;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import org.opendaylight.modules.gnmi.simulatordevice.config.GnmiSimulatorConfiguration;
+import org.opendaylight.modules.gnmi.simulatordevice.impl.SimulatedGnmiDevice;
+import org.opendaylight.modules.gnmi.simulatordevice.utils.EffectiveModelContextBuilder.EffectiveModelContextBuilderException;
+import org.opendaylight.modules.gnmi.simulatordevice.utils.GnmiSimulatorConfUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -6,21 +6,21 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.mountpoint.codecs;
+package org.opendaylight.gnmi.southbound.mountpoint.codecs;
 
 import com.google.gson.Gson;
 import gnmi.Gnmi;
-import io.lighty.core.controller.impl.config.ConfigurationException;
-import io.lighty.gnmi.southbound.mountpoint.codecs.testcases.GetResponseToNormalizedNodeTestCases;
-import io.lighty.gnmi.southbound.schema.impl.SchemaException;
-import io.lighty.gnmi.southbound.schema.loader.api.YangLoadException;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.logging.log4j.core.config.ConfigurationException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.opendaylight.gnmi.southbound.mountpoint.codecs.testcases.GetResponseToNormalizedNodeTestCases;
+import org.opendaylight.gnmi.southbound.schema.impl.SchemaException;
+import org.opendaylight.gnmi.southbound.schema.loader.api.YangLoadException;
 import org.opendaylight.yangtools.yang.data.api.YangInstanceIdentifier;
 import org.opendaylight.yangtools.yang.data.api.schema.NormalizedNode;
 
@@ -169,7 +169,7 @@ public class GetResponseToNormalizedNodeCodecTest {
     private static void assertEqualsCodecResult(final NormalizedNode expected,
                                                 final Optional<NormalizedNode> result) {
         Assertions.assertTrue(result.isPresent());
-        Assertions.assertEquals(expected, result.get());
+        Assertions.assertEquals(expected, result.orElseThrow());
     }
 
 }

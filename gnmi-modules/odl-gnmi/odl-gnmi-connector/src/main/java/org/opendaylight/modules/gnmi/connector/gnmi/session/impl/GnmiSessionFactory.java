@@ -6,11 +6,11 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.connector.gnmi.session.impl;
+package org.opendaylight.modules.gnmi.connector.gnmi.session.impl;
 
 import io.grpc.ManagedChannel;
-import io.lighty.modules.gnmi.connector.configuration.SessionConfiguration;
-import io.lighty.modules.gnmi.connector.gnmi.session.api.GnmiSession;
+import org.opendaylight.modules.gnmi.connector.configuration.SessionConfiguration;
+import org.opendaylight.modules.gnmi.connector.gnmi.session.api.GnmiSession;
 
 public interface GnmiSessionFactory {
 

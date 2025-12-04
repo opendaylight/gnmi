@@ -6,16 +6,16 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.schema.certstore.impl;
+package org.opendaylight.gnmi.southbound.schema.certstore.impl;
 
 import com.google.common.util.concurrent.ListenableFuture;
-import io.lighty.gnmi.southbound.schema.certstore.service.CertificationStorageService;
 import java.nio.charset.Charset;
 import java.security.GeneralSecurityException;
 import java.util.Optional;
 import javax.xml.bind.DatatypeConverter;
 import org.eclipse.jdt.annotation.NonNull;
 import org.opendaylight.aaa.encrypt.AAAEncryptionService;
+import org.opendaylight.gnmi.southbound.schema.certstore.service.CertificationStorageService;
 import org.opendaylight.mdsal.binding.api.DataBroker;
 import org.opendaylight.mdsal.binding.api.ReadTransaction;
 import org.opendaylight.mdsal.binding.api.WriteTransaction;

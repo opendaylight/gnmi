@@ -6,16 +6,16 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.mountpoint.requests;
+package org.opendaylight.gnmi.southbound.mountpoint.requests;
 
 import gnmi.Gnmi;
 import gnmi.Gnmi.SetRequest.Builder;
 import gnmi.Gnmi.Update;
-import io.lighty.gnmi.southbound.mountpoint.codecs.BiCodec;
-import io.lighty.gnmi.southbound.mountpoint.codecs.Codec;
-import io.lighty.gnmi.southbound.mountpoint.codecs.GnmiCodecException;
 import java.util.List;
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.opendaylight.gnmi.southbound.mountpoint.codecs.BiCodec;
+import org.opendaylight.gnmi.southbound.mountpoint.codecs.Codec;
+import org.opendaylight.gnmi.southbound.mountpoint.codecs.GnmiCodecException;
 import org.opendaylight.yangtools.yang.data.api.YangInstanceIdentifier;
 import org.opendaylight.yangtools.yang.data.api.schema.NormalizedNode;
 import org.slf4j.Logger;

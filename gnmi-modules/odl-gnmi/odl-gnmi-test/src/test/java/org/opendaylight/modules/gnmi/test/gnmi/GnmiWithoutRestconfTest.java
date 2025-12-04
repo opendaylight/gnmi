@@ -5,27 +5,19 @@
  * terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
-package io.lighty.modules.gnmi.test.gnmi;
+package org.opendaylight.modules.gnmi.test.gnmi;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.lighty.aaa.encrypt.service.impl.AAAEncryptionServiceImpl;
+import io.lighty.applications.rcgnmi.module.RcGnmiAppModuleConfigUtils;
 import io.lighty.core.controller.api.LightyController;
 import io.lighty.core.controller.impl.LightyControllerBuilder;
 import io.lighty.core.controller.impl.config.ConfigurationException;
 import io.lighty.core.controller.impl.util.ControllerConfigUtils;
-import io.lighty.gnmi.southbound.identifier.IdentifierUtils;
-import io.lighty.gnmi.southbound.lightymodule.GnmiSouthboundModule;
-import io.lighty.gnmi.southbound.lightymodule.GnmiSouthboundModuleBuilder;
-import io.lighty.gnmi.southbound.lightymodule.util.GnmiConfigUtils;
-import io.lighty.modules.gnmi.simulatordevice.config.GnmiSimulatorConfiguration;
-import io.lighty.modules.gnmi.simulatordevice.impl.SimulatedGnmiDevice;
-import io.lighty.modules.gnmi.simulatordevice.utils.EffectiveModelContextBuilder.EffectiveModelContextBuilderException;
-import io.lighty.modules.gnmi.simulatordevice.utils.GnmiSimulatorConfUtils;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -38,7 +30,6 @@ import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import javax.crypto.SecretKey;
@@ -51,6 +42,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.opendaylight.gnmi.southbound.identifier.IdentifierUtils;
+import org.opendaylight.gnmi.southbound.lightymodule.GnmiSouthboundModule;
 import org.opendaylight.mdsal.binding.api.DataBroker;
 import org.opendaylight.mdsal.binding.api.ReadTransaction;
 import org.opendaylight.mdsal.binding.api.WriteTransaction;
@@ -60,6 +53,10 @@ import org.opendaylight.mdsal.dom.api.DOMDataTreeReadTransaction;
 import org.opendaylight.mdsal.dom.api.DOMDataTreeWriteTransaction;
 import org.opendaylight.mdsal.dom.api.DOMMountPoint;
 import org.opendaylight.mdsal.dom.api.DOMMountPointService;
+import org.opendaylight.modules.gnmi.simulatordevice.config.GnmiSimulatorConfiguration;
+import org.opendaylight.modules.gnmi.simulatordevice.impl.SimulatedGnmiDevice;
+import org.opendaylight.modules.gnmi.simulatordevice.utils.EffectiveModelContextBuilder.EffectiveModelContextBuilderException;
+import org.opendaylight.modules.gnmi.simulatordevice.utils.GnmiSimulatorConfUtils;
 import org.opendaylight.yang.gen.v1.config.aaa.authn.encrypt.service.config.rev240202.AaaEncryptServiceConfig;
 import org.opendaylight.yang.gen.v1.config.aaa.authn.encrypt.service.config.rev240202.AaaEncryptServiceConfigBuilder;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.inet.types.rev130715.Host;
@@ -98,6 +95,8 @@ import org.opendaylight.yangtools.yang.data.api.schema.LeafSetEntryNode;
 import org.opendaylight.yangtools.yang.data.api.schema.LeafSetNode;
 import org.opendaylight.yangtools.yang.data.api.schema.NormalizedNode;
 import org.opendaylight.yangtools.yang.data.spi.node.ImmutableNodes;
+import org.opendaylight.yangtools.yang.parser.impl.DefaultYangParserFactory;
+import org.opendaylight.yangtools.yang.xpath.impl.AntlrXPathParserFactory;
 
 public class GnmiWithoutRestconfTest {
     private static final String INITIAL_JSON_DATA_PATH = "src/test/resources/json/initData";
@@ -162,14 +161,12 @@ public class GnmiWithoutRestconfTest {
         Boolean controllerStartSuccessfully = lightyController.start().get(TIMEOUT_MILLIS,  TimeUnit.MILLISECONDS);
         assertTrue(controllerStartSuccessfully);
 
-        gnmiSouthboundModule = new GnmiSouthboundModuleBuilder()
-                .withConfig(GnmiConfigUtils.getGnmiConfiguration(Files.newInputStream(CONFIGURATION_PATH)))
-                .withLightyServices(lightyController.getServices())
-                .withExecutorService(Executors.newCachedThreadPool())
-                .withEncryptionService(createEncryptionService())
-                .build();
-        Boolean gnmiStartSuccessfully = gnmiSouthboundModule.start().get(TIMEOUT_MILLIS,  TimeUnit.MILLISECONDS);
-        assertTrue(gnmiStartSuccessfully);
+        gnmiSouthboundModule = new GnmiSouthboundModule(lightyController.getServices().getBindingDataBroker(),
+            lightyController.getServices().getRpcProviderService(),
+            lightyController.getServices().getDOMMountPointService(), createEncryptionService(),
+            new DefaultYangParserFactory(), new AntlrXPathParserFactory(),
+            RcGnmiAppModuleConfigUtils.loadConfiguration(CONFIGURATION_PATH).getGnmiConfiguration());
+        gnmiSouthboundModule.init();
 
         gnmiDevice = getUnsecureGnmiDevice(DEVICE_ADDRESS, DEVICE_PORT);
         gnmiDevice.start();
@@ -178,7 +175,7 @@ public class GnmiWithoutRestconfTest {
     @AfterAll
     public static void tearDown() {
         gnmiDevice.stop();
-        assertTrue(gnmiSouthboundModule.shutdown(TIMEOUT_MILLIS, TimeUnit.MILLISECONDS));
+        gnmiSouthboundModule.close();
         assertTrue(lightyController.shutdown(TIMEOUT_MILLIS, TimeUnit.MILLISECONDS));
     }
 
@@ -198,7 +195,7 @@ public class GnmiWithoutRestconfTest {
                 .untilAsserted(() -> {
                     final Optional<Node> node = readOperData(bindingDataBroker, nodeInstanceIdentifier);
                     assertTrue(node.isPresent());
-                    final Node foundNode = node.get();
+                    final Node foundNode = node.orElseThrow();
                     final GnmiNode gnmiNode = foundNode.augmentation(GnmiNode.class);
                     assertNotNull(gnmiNode);
                     final NodeState nodeState = gnmiNode.getNodeState();
@@ -212,16 +209,16 @@ public class GnmiWithoutRestconfTest {
         final Optional<DOMMountPoint> mountPoint
                 = domMountPointService.getMountPoint(IdentifierUtils.nodeidToYii(testGnmiNode.getNodeId()));
         assertTrue(mountPoint.isPresent());
-        final DOMMountPoint domMountPoint = mountPoint.get();
+        final DOMMountPoint domMountPoint = mountPoint.orElseThrow();
         final Optional<DOMDataBroker> service = domMountPoint.getService(DOMDataBroker.class);
         assertTrue(service.isPresent());
-        final DOMDataBroker domDataBroker = service.get();
+        final DOMDataBroker domDataBroker = service.orElseThrow();
 
         //GET Interfaces
         final YangInstanceIdentifier interfacesYIID = YangInstanceIdentifier.builder().node(INTERFACES_QNAME).build();
         final Optional<NormalizedNode> normalizedNode = readDOMConfigData(domDataBroker, interfacesYIID);
         assertTrue(normalizedNode.isPresent());
-        assertEquals(INTERFACES_QNAME, normalizedNode.get().name().getNodeType());
+        assertEquals(INTERFACES_QNAME, normalizedNode.orElseThrow().name().getNodeType());
 
         //SET data
         final YangInstanceIdentifier testLeafListYIID = YangInstanceIdentifier.builder()
@@ -232,7 +229,7 @@ public class GnmiWithoutRestconfTest {
         //GET created data
         final Optional<NormalizedNode> createdContainer = readDOMConfigData(domDataBroker, testLeafListYIID);
         assertTrue(createdContainer.isPresent());
-        assertEquals(TEST_DATA_CONTAINER_QN, createdContainer.get().name().getNodeType());
+        assertEquals(TEST_DATA_CONTAINER_QN, createdContainer.orElseThrow().name().getNodeType());
 
         //UPDATE data
         final ContainerNode updateTestDataContainerNode = getUpdateTestDataContainerNode();
@@ -241,9 +238,9 @@ public class GnmiWithoutRestconfTest {
         //GET updated data
         final Optional<NormalizedNode> updatedContainer = readDOMConfigData(domDataBroker, testLeafListYIID);
         assertTrue(updatedContainer.isPresent());
-        assertEquals(TEST_DATA_CONTAINER_QN, updatedContainer.get().name().getNodeType());
-        assertTrue(updatedContainer.get() instanceof ContainerNode);
-        ContainerNode containerNode = (ContainerNode) updatedContainer.get();
+        assertEquals(TEST_DATA_CONTAINER_QN, updatedContainer.orElseThrow().name().getNodeType());
+        assertTrue(updatedContainer.orElseThrow() instanceof ContainerNode);
+        ContainerNode containerNode = (ContainerNode) updatedContainer.orElseThrow();
         assertEquals(1, containerNode.body().toArray().length);
         assertTrue(containerNode.body().toArray()[0] instanceof LeafSetNode);
         LeafSetNode<?> leafSetNode = (LeafSetNode) containerNode.body().toArray()[0];
@@ -293,11 +290,11 @@ public class GnmiWithoutRestconfTest {
                 .build();
         final Optional<Keystore> keystore = readOperData(bindingDataBroker, keystoreII);
         assertTrue(keystore.isPresent());
-        assertEquals(CA_VALUE, keystore.get().getCaCertificate());
-        assertEquals(CLIENT_CERT, keystore.get().getClientCert());
+        assertEquals(CA_VALUE, keystore.orElseThrow().getCaCertificate());
+        assertEquals(CLIENT_CERT, keystore.orElseThrow().getClientCert());
         //Passphrase and client_key are encrypted before storing in data-store. So it shouldn't be same as provided
-        assertNotEquals(PASSPHRASE, keystore.get().getPassphrase());
-        assertNotEquals(CLIENT_KEY, keystore.get().getClientKey());
+        assertNotEquals(PASSPHRASE, keystore.orElseThrow().getPassphrase());
+        assertNotEquals(CLIENT_KEY, keystore.orElseThrow().getClientKey());
 
         //Remove created keystore after test
         deleteOperData(bindingDataBroker, keystoreII);
@@ -317,9 +314,9 @@ public class GnmiWithoutRestconfTest {
                 .build();
         final Optional<GnmiYangModel> gnmiYangModel = readOperData(bindingDataBroker, yangModelII);
         assertTrue(gnmiYangModel.isPresent());
-        assertEquals(YANG_BODY, gnmiYangModel.get().getBody());
-        assertEquals(YANG_NAME, gnmiYangModel.get().getName());
-        assertEquals(YANG_VERSION, gnmiYangModel.get().getVersion().getValue());
+        assertEquals(YANG_BODY, gnmiYangModel.orElseThrow().getBody());
+        assertEquals(YANG_NAME, gnmiYangModel.orElseThrow().getName());
+        assertEquals(YANG_VERSION, gnmiYangModel.orElseThrow().getVersion().getValue());
 
         //Remove created YANG model after test
         deleteOperData(bindingDataBroker, yangModelII);

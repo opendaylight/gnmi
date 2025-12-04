@@ -6,17 +6,9 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.test.utils;
+package org.opendaylight.modules.gnmi.test.utils;
 
 import com.google.common.io.CharStreams;
-import io.lighty.aaa.util.AAAConfigUtils;
-import io.lighty.gnmi.southbound.device.session.security.SessionSecurityException;
-import io.lighty.modules.gnmi.connector.configuration.SecurityFactory;
-import io.lighty.modules.gnmi.connector.gnmi.session.impl.GnmiSessionFactoryImpl;
-import io.lighty.modules.gnmi.connector.security.Security;
-import io.lighty.modules.gnmi.connector.session.SessionManagerFactory;
-import io.lighty.modules.gnmi.connector.session.SessionManagerFactoryImpl;
-import io.lighty.modules.gnmi.connector.session.api.SessionManager;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -26,6 +18,14 @@ import java.nio.file.Path;
 import java.security.KeyPair;
 import java.security.cert.CertificateException;
 import org.apache.commons.io.IOUtils;
+import org.opendaylight.gnmi.southbound.device.session.security.KeystoreGnmiSecurityProvider;
+import org.opendaylight.gnmi.southbound.device.session.security.SessionSecurityException;
+import org.opendaylight.modules.gnmi.connector.configuration.SecurityFactory;
+import org.opendaylight.modules.gnmi.connector.gnmi.session.impl.GnmiSessionFactoryImpl;
+import org.opendaylight.modules.gnmi.connector.security.Security;
+import org.opendaylight.modules.gnmi.connector.session.SessionManagerFactory;
+import org.opendaylight.modules.gnmi.connector.session.SessionManagerFactoryImpl;
+import org.opendaylight.modules.gnmi.connector.session.api.SessionManager;
 
 public final class TestUtils {
 
@@ -51,7 +51,7 @@ public final class TestUtils {
 
     private static KeyPair getKeyPair(final String clientKey) throws SessionSecurityException {
         try {
-            return AAAConfigUtils.decodePrivateKey(new StringReader(clientKey), PASSPHRASE);
+            return KeystoreGnmiSecurityProvider.decodePrivateKey(new StringReader(clientKey), PASSPHRASE);
         } catch (IOException e) {
             throw new SessionSecurityException("Error while creating KeyPair from private key and passphrase", e);
         }

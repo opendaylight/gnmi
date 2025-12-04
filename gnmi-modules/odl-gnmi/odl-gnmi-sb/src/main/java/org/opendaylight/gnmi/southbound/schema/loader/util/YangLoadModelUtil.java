@@ -6,7 +6,7 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.schema.loader.util;
+package org.opendaylight.gnmi.southbound.schema.loader.util;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -5,19 +5,16 @@
  * terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
-package io.lighty.gnmi.southbound.mountpoint.codecs.testcases;
+package org.opendaylight.gnmi.southbound.mountpoint.codecs.testcases;
 
-import io.lighty.core.controller.impl.config.ConfigurationException;
-import io.lighty.gnmi.southbound.lightymodule.config.GnmiConfiguration;
-import io.lighty.gnmi.southbound.lightymodule.util.GnmiConfigUtils;
-import io.lighty.gnmi.southbound.mountpoint.codecs.TestSchemaContextProvider;
-import io.lighty.gnmi.southbound.schema.impl.SchemaException;
-import io.lighty.gnmi.southbound.schema.loader.api.YangLoadException;
-import io.lighty.gnmi.southbound.schema.provider.SchemaContextProvider;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.List;
 import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.junit.jupiter.api.Assertions;
+import org.opendaylight.gnmi.southbound.lightymodule.util.GnmiConfigUtils;
+import org.opendaylight.gnmi.southbound.mountpoint.codecs.TestSchemaContextProvider;
+import org.opendaylight.gnmi.southbound.schema.impl.SchemaException;
+import org.opendaylight.gnmi.southbound.schema.loader.api.YangLoadException;
+import org.opendaylight.gnmi.southbound.schema.provider.SchemaContextProvider;
 import org.opendaylight.yangtools.yang.common.QName;
 import org.opendaylight.yangtools.yang.common.QNameModule;
 import org.opendaylight.yangtools.yang.common.Uint16;
@@ -35,7 +32,6 @@ import org.opendaylight.yangtools.yang.model.api.SchemaContext;
  */
 public class CodecTestCasesBase {
     private static final String BASE_YANGS_PATH = "src/test/resources/additional/test/schema";
-    private static final String OC_GNMI_CONFIG = "/lightyconfigs/openconfig_gnmi_config.json";
     private static final String OC_IF_TYPES_ID = "openconfig-if-types";
     private static final String OC_VLAN_ID = "openconfig-vlan";
     private static final String OC_PLATFORM_ID = "openconfig-platform";
@@ -45,12 +41,9 @@ public class CodecTestCasesBase {
 
     private final SchemaContextProvider schemaContextProvider;
 
-    public CodecTestCasesBase() throws YangLoadException, SchemaException, ConfigurationException {
-        final GnmiConfiguration gnmiConfiguration = GnmiConfigUtils.getGnmiConfiguration(
-                this.getClass().getResourceAsStream(OC_GNMI_CONFIG));
-        Assertions.assertNotNull(gnmiConfiguration.getYangModulesInfo());
-        this.schemaContextProvider = TestSchemaContextProvider.createInstance(Paths.get(BASE_YANGS_PATH),
-                gnmiConfiguration.getYangModulesInfo());
+    public CodecTestCasesBase() throws SchemaException, YangLoadException {
+        this.schemaContextProvider = TestSchemaContextProvider.createInstance(Path.of(BASE_YANGS_PATH),
+            GnmiConfigUtils.OPENCONFIG_YANG_MODELS);
     }
 
     /**

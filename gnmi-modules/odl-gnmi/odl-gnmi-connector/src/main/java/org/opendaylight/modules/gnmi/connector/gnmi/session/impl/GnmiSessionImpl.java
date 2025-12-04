@@ -6,7 +6,7 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.connector.gnmi.session.impl;
+package org.opendaylight.modules.gnmi.connector.gnmi.session.impl;
 
 import com.google.common.util.concurrent.ListenableFuture;
 import gnmi.Gnmi.CapabilityRequest;
@@ -23,7 +23,7 @@ import gnmi.gNMIGrpc.gNMIStub;
 import io.grpc.CallCredentials;
 import io.grpc.Channel;
 import io.grpc.stub.StreamObserver;
-import io.lighty.modules.gnmi.connector.gnmi.session.api.GnmiSession;
+import org.opendaylight.modules.gnmi.connector.gnmi.session.api.GnmiSession;
 
 public class GnmiSessionImpl implements GnmiSession {
 

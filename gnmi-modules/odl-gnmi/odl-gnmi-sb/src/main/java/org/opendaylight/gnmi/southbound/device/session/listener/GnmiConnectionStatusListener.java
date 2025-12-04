@@ -6,22 +6,22 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.device.session.listener;
+package org.opendaylight.gnmi.southbound.device.session.listener;
 
 import com.google.common.util.concurrent.FluentFuture;
 import io.grpc.ConnectivityState;
-import io.lighty.gnmi.southbound.identifier.IdentifierUtils;
-import io.lighty.gnmi.southbound.timeout.TimeoutUtils;
-import io.lighty.modules.gnmi.connector.session.api.SessionProvider;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import org.eclipse.jdt.annotation.NonNull;
+import org.opendaylight.gnmi.southbound.identifier.IdentifierUtils;
+import org.opendaylight.gnmi.southbound.timeout.TimeoutUtils;
 import org.opendaylight.mdsal.binding.api.DataBroker;
 import org.opendaylight.mdsal.binding.api.WriteTransaction;
 import org.opendaylight.mdsal.common.api.CommitInfo;
 import org.opendaylight.mdsal.common.api.LogicalDatastoreType;
+import org.opendaylight.modules.gnmi.connector.session.api.SessionProvider;
 import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.topology.rev210316.GnmiNodeBuilder;
 import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.topology.rev210316.gnmi.node.state.NodeState;
 import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.topology.rev210316.gnmi.node.state.NodeStateBuilder;
