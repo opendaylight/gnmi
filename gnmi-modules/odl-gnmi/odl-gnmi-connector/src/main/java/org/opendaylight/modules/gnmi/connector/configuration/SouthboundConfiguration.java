@@ -6,9 +6,9 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.connector.configuration;
+package org.opendaylight.modules.gnmi.connector.configuration;
 
-import io.lighty.modules.gnmi.connector.security.Security;
+import org.opendaylight.modules.gnmi.connector.security.Security;
 
 /**
  * This class contains configuration of {@link Security}.

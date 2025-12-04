@@ -6,9 +6,9 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.connector.session.api;
+package org.opendaylight.modules.gnmi.connector.session.api;
 
-import io.lighty.modules.gnmi.connector.configuration.SessionConfiguration;
+import org.opendaylight.modules.gnmi.connector.configuration.SessionConfiguration;
 
 /**
  * Instance of this class provides creation of {@link SessionProvider} instance. For more information about gNMI see

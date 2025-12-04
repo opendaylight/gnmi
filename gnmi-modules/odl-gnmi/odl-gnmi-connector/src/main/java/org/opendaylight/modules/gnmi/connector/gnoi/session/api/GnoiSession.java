@@ -6,12 +6,12 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.connector.gnoi.session.api;
+package org.opendaylight.modules.gnmi.connector.gnoi.session.api;
 
-import io.lighty.modules.gnmi.connector.gnoi.invokers.api.GnoiCertInvoker;
-import io.lighty.modules.gnmi.connector.gnoi.invokers.api.GnoiFileInvoker;
-import io.lighty.modules.gnmi.connector.gnoi.invokers.api.GnoiOsInvoker;
-import io.lighty.modules.gnmi.connector.gnoi.invokers.api.GnoiSystemInvoker;
+import org.opendaylight.modules.gnmi.connector.gnoi.invokers.api.GnoiCertInvoker;
+import org.opendaylight.modules.gnmi.connector.gnoi.invokers.api.GnoiFileInvoker;
+import org.opendaylight.modules.gnmi.connector.gnoi.invokers.api.GnoiOsInvoker;
+import org.opendaylight.modules.gnmi.connector.gnoi.invokers.api.GnoiSystemInvoker;
 
 public interface GnoiSession {
 

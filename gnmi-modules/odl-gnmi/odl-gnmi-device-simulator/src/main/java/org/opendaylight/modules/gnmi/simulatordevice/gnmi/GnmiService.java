@@ -6,7 +6,7 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.simulatordevice.gnmi;
+package org.opendaylight.modules.gnmi.simulatordevice.gnmi;
 
 import com.google.gson.Gson;
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -16,10 +16,10 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gnmi.Gnmi;
 import gnmi.gNMIGrpc;
 import io.grpc.stub.StreamObserver;
-import io.lighty.modules.gnmi.simulatordevice.yang.YangDataService;
 import java.util.EnumSet;
 import java.util.Objects;
 import org.eclipse.jdt.annotation.Nullable;
+import org.opendaylight.modules.gnmi.simulatordevice.yang.YangDataService;
 import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -6,7 +6,7 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.simulatordevice.gnmi;
+package org.opendaylight.modules.gnmi.simulatordevice.gnmi;
 
 import com.google.common.base.Strings;
 import io.grpc.Metadata;
@@ -15,8 +15,8 @@ import io.grpc.ServerCall;
 import io.grpc.ServerCallHandler;
 import io.grpc.ServerInterceptor;
 import io.grpc.Status;
-import io.lighty.modules.gnmi.simulatordevice.utils.UsernamePasswordAuth;
 import org.eclipse.jdt.annotation.NonNull;
+import org.opendaylight.modules.gnmi.simulatordevice.utils.UsernamePasswordAuth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

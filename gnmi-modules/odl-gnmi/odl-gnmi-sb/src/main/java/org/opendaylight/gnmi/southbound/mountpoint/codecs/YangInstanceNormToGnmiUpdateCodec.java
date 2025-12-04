@@ -6,7 +6,7 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.mountpoint.codecs;
+package org.opendaylight.gnmi.southbound.mountpoint.codecs;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -15,10 +15,10 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 import com.google.protobuf.ByteString;
 import gnmi.Gnmi;
-import io.lighty.gnmi.southbound.schema.provider.SchemaContextProvider;
-import io.lighty.modules.gnmi.commons.util.DataConverter;
 import java.util.Map.Entry;
 import java.util.Set;
+import org.opendaylight.gnmi.southbound.schema.provider.SchemaContextProvider;
+import org.opendaylight.modules.gnmi.commons.util.DataConverter;
 import org.opendaylight.yangtools.yang.data.api.YangInstanceIdentifier;
 import org.opendaylight.yangtools.yang.data.api.schema.ContainerNode;
 import org.opendaylight.yangtools.yang.data.api.schema.LeafNode;

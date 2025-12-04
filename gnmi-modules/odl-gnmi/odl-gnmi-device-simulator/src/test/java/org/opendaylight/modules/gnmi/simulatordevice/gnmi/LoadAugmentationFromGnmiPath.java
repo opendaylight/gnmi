@@ -6,17 +6,11 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.simulatordevice.gnmi;
+package org.opendaylight.modules.gnmi.simulatordevice.gnmi;
 
 import com.google.gson.Gson;
 import gnmi.Gnmi;
 import gnmi.Gnmi.Path;
-import io.lighty.modules.gnmi.simulatordevice.config.GnmiSimulatorConfiguration;
-import io.lighty.modules.gnmi.simulatordevice.utils.EffectiveModelContextBuilder;
-import io.lighty.modules.gnmi.simulatordevice.utils.EffectiveModelContextBuilder.EffectiveModelContextBuilderException;
-import io.lighty.modules.gnmi.simulatordevice.utils.GnmiSimulatorConfUtils;
-import io.lighty.modules.gnmi.simulatordevice.yang.DatastoreType;
-import io.lighty.modules.gnmi.simulatordevice.yang.YangDataService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -27,6 +21,12 @@ import java.util.Set;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.opendaylight.modules.gnmi.simulatordevice.config.GnmiSimulatorConfiguration;
+import org.opendaylight.modules.gnmi.simulatordevice.utils.EffectiveModelContextBuilder;
+import org.opendaylight.modules.gnmi.simulatordevice.utils.EffectiveModelContextBuilder.EffectiveModelContextBuilderException;
+import org.opendaylight.modules.gnmi.simulatordevice.utils.GnmiSimulatorConfUtils;
+import org.opendaylight.modules.gnmi.simulatordevice.yang.DatastoreType;
+import org.opendaylight.modules.gnmi.simulatordevice.yang.YangDataService;
 import org.opendaylight.yangtools.binding.data.codec.impl.BindingCodecContext;
 import org.opendaylight.yangtools.yang.data.api.YangInstanceIdentifier;
 import org.opendaylight.yangtools.yang.data.api.schema.NormalizedNode;

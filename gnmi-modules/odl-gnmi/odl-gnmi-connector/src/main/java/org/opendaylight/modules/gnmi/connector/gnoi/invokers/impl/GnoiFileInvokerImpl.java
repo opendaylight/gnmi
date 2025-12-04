@@ -6,13 +6,13 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.connector.gnoi.invokers.impl;
+package org.opendaylight.modules.gnmi.connector.gnoi.invokers.impl;
 
 import gnoi.file.FileGrpc;
 import gnoi.file.FileOuterClass;
 import io.grpc.Channel;
 import io.grpc.stub.StreamObserver;
-import io.lighty.modules.gnmi.connector.gnoi.invokers.api.GnoiFileInvoker;
+import org.opendaylight.modules.gnmi.connector.gnoi.invokers.api.GnoiFileInvoker;
 
 public final class GnoiFileInvokerImpl implements GnoiFileInvoker {
 

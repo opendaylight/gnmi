@@ -6,7 +6,7 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.schema.loader.api;
+package org.opendaylight.gnmi.southbound.schema.loader.api;
 
 public class YangLoadException extends Exception {
 

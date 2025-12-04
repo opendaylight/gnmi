@@ -6,7 +6,7 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.mountpoint.transactions;
+package org.opendaylight.gnmi.southbound.mountpoint.transactions;
 
 import com.google.common.util.concurrent.FluentFuture;
 import java.util.Optional;

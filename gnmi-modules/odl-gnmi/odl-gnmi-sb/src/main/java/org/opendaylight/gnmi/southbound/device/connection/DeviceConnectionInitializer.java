@@ -6,25 +6,25 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.device.connection;
+package org.opendaylight.gnmi.southbound.device.connection;
 
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
 import io.grpc.ConnectivityState;
-import io.lighty.gnmi.southbound.device.session.listener.GnmiConnectionStatusListener;
-import io.lighty.gnmi.southbound.device.session.security.GnmiSecurityProvider;
-import io.lighty.gnmi.southbound.device.session.security.SessionSecurityException;
-import io.lighty.modules.gnmi.connector.configuration.SessionConfiguration;
-import io.lighty.modules.gnmi.connector.session.SessionManagerFactory;
-import io.lighty.modules.gnmi.connector.session.api.SessionManager;
-import io.lighty.modules.gnmi.connector.session.api.SessionProvider;
 import java.net.InetSocketAddress;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
+import org.opendaylight.gnmi.southbound.device.session.listener.GnmiConnectionStatusListener;
+import org.opendaylight.gnmi.southbound.device.session.security.GnmiSecurityProvider;
+import org.opendaylight.gnmi.southbound.device.session.security.SessionSecurityException;
 import org.opendaylight.mdsal.binding.api.DataBroker;
+import org.opendaylight.modules.gnmi.connector.configuration.SessionConfiguration;
+import org.opendaylight.modules.gnmi.connector.session.SessionManagerFactory;
+import org.opendaylight.modules.gnmi.connector.session.api.SessionManager;
+import org.opendaylight.modules.gnmi.connector.session.api.SessionProvider;
 import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.topology.rev210316.GnmiNode;
 import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.topology.rev210316.credentials.Credentials;
 import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.topology.rev210316.gnmi.connection.parameters.ConnectionParameters;

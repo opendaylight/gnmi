@@ -6,7 +6,7 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.connector.gnoi.invokers.api;
+package org.opendaylight.modules.gnmi.connector.gnoi.invokers.api;
 
 import gnoi.certificate.Cert;
 import io.grpc.stub.StreamObserver;

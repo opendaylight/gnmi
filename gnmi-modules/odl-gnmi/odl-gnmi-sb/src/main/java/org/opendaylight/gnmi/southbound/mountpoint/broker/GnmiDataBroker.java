@@ -6,16 +6,16 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.mountpoint.broker;
+package org.opendaylight.gnmi.southbound.mountpoint.broker;
 
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
-import io.lighty.gnmi.southbound.mountpoint.ops.GnmiGet;
-import io.lighty.gnmi.southbound.mountpoint.ops.GnmiSet;
-import io.lighty.gnmi.southbound.mountpoint.transactions.ReadOnlyTx;
-import io.lighty.gnmi.southbound.mountpoint.transactions.ReadWriteTx;
-import io.lighty.gnmi.southbound.mountpoint.transactions.WriteOnlyTx;
 import org.eclipse.jdt.annotation.NonNull;
+import org.opendaylight.gnmi.southbound.mountpoint.ops.GnmiGet;
+import org.opendaylight.gnmi.southbound.mountpoint.ops.GnmiSet;
+import org.opendaylight.gnmi.southbound.mountpoint.transactions.ReadOnlyTx;
+import org.opendaylight.gnmi.southbound.mountpoint.transactions.ReadWriteTx;
+import org.opendaylight.gnmi.southbound.mountpoint.transactions.WriteOnlyTx;
 import org.opendaylight.mdsal.dom.api.DOMDataTreeReadTransaction;
 import org.opendaylight.mdsal.dom.api.DOMDataTreeReadWriteTransaction;
 import org.opendaylight.mdsal.dom.api.DOMDataTreeWriteTransaction;
