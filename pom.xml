@@ -12,7 +12,7 @@
     <parent>
         <groupId>org.opendaylight.odlparent</groupId>
         <artifactId>odlparent-lite</artifactId>
-        <version>14.1.6</version>
+        <version>14.1.3</version>
         <relativePath/>
     </parent>
 
@@ -29,6 +29,9 @@
         <module>artifacts</module>
         <module>bnd-parent</module>
         <module>features</module>
+        <module>gnmi-modules</module>
+        <module>gnmi-parent</module>
+        <module>karaf</module>
     </modules>
 
     <properties>
