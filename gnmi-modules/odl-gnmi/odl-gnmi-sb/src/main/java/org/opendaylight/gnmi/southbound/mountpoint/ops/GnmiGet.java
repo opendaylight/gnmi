@@ -6,7 +6,7 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.mountpoint.ops;
+package org.opendaylight.gnmi.southbound.mountpoint.ops;
 
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
@@ -16,12 +16,12 @@ import com.google.common.util.concurrent.SettableFuture;
 import gnmi.Gnmi;
 import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
-import io.lighty.gnmi.southbound.device.session.provider.GnmiSessionProvider;
-import io.lighty.gnmi.southbound.mountpoint.codecs.BiCodec;
-import io.lighty.gnmi.southbound.mountpoint.codecs.GnmiCodecException;
-import io.lighty.gnmi.southbound.mountpoint.requests.GnmiGetRequestFactory;
-import io.lighty.gnmi.southbound.mountpoint.requests.GnmiRequestException;
 import java.util.Optional;
+import org.opendaylight.gnmi.southbound.device.session.provider.GnmiSessionProvider;
+import org.opendaylight.gnmi.southbound.mountpoint.codecs.BiCodec;
+import org.opendaylight.gnmi.southbound.mountpoint.codecs.GnmiCodecException;
+import org.opendaylight.gnmi.southbound.mountpoint.requests.GnmiGetRequestFactory;
+import org.opendaylight.gnmi.southbound.mountpoint.requests.GnmiRequestException;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NodeId;
 import org.opendaylight.yangtools.yang.data.api.YangInstanceIdentifier;
 import org.opendaylight.yangtools.yang.data.api.schema.NormalizedNode;

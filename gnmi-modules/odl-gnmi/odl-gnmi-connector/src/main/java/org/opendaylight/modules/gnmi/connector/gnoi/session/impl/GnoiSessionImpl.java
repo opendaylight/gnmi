@@ -6,19 +6,19 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.connector.gnoi.session.impl;
+package org.opendaylight.modules.gnmi.connector.gnoi.session.impl;
 
 import io.grpc.Channel;
-import io.lighty.modules.gnmi.connector.gnoi.invokers.api.GnoiCertInvoker;
-import io.lighty.modules.gnmi.connector.gnoi.invokers.api.GnoiFileInvoker;
-import io.lighty.modules.gnmi.connector.gnoi.invokers.api.GnoiOsInvoker;
-import io.lighty.modules.gnmi.connector.gnoi.invokers.api.GnoiSystemInvoker;
-import io.lighty.modules.gnmi.connector.gnoi.invokers.impl.GnoiCertInvokerImpl;
-import io.lighty.modules.gnmi.connector.gnoi.invokers.impl.GnoiFileInvokerImpl;
-import io.lighty.modules.gnmi.connector.gnoi.invokers.impl.GnoiOsInvokerImpl;
-import io.lighty.modules.gnmi.connector.gnoi.invokers.impl.GnoiSystemInvokerImpl;
-import io.lighty.modules.gnmi.connector.gnoi.session.api.GnoiSession;
 import java.util.Objects;
+import org.opendaylight.modules.gnmi.connector.gnoi.invokers.api.GnoiCertInvoker;
+import org.opendaylight.modules.gnmi.connector.gnoi.invokers.api.GnoiFileInvoker;
+import org.opendaylight.modules.gnmi.connector.gnoi.invokers.api.GnoiOsInvoker;
+import org.opendaylight.modules.gnmi.connector.gnoi.invokers.api.GnoiSystemInvoker;
+import org.opendaylight.modules.gnmi.connector.gnoi.invokers.impl.GnoiCertInvokerImpl;
+import org.opendaylight.modules.gnmi.connector.gnoi.invokers.impl.GnoiFileInvokerImpl;
+import org.opendaylight.modules.gnmi.connector.gnoi.invokers.impl.GnoiOsInvokerImpl;
+import org.opendaylight.modules.gnmi.connector.gnoi.invokers.impl.GnoiSystemInvokerImpl;
+import org.opendaylight.modules.gnmi.connector.gnoi.session.api.GnoiSession;
 
 public class GnoiSessionImpl implements GnoiSession {
 

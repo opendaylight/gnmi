@@ -6,7 +6,7 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.schema.yangstore.rpc;
+package org.opendaylight.gnmi.southbound.schema.yangstore.rpc;
 
 import com.google.common.collect.ClassToInstanceMap;
 import com.google.common.collect.ImmutableClassToInstanceMap;
@@ -15,8 +15,8 @@ import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.google.common.util.concurrent.SettableFuture;
-import io.lighty.gnmi.southbound.schema.yangstore.service.YangDataStoreService;
 import org.eclipse.jdt.annotation.Nullable;
+import org.opendaylight.gnmi.southbound.schema.yangstore.service.YangDataStoreService;
 import org.opendaylight.mdsal.common.api.CommitInfo;
 import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.yang.storage.rev210331.UploadYangModel;
 import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.yang.storage.rev210331.UploadYangModelInput;

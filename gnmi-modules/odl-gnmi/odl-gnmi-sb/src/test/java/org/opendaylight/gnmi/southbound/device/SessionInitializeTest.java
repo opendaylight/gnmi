@@ -6,7 +6,7 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.device;
+package org.opendaylight.gnmi.southbound.device;
 
 
 import static org.mockito.ArgumentMatchers.any;
@@ -19,17 +19,6 @@ import com.google.common.util.concurrent.ListenableFuture;
 import gnmi.Gnmi;
 import gnmi.Gnmi.CapabilityResponse;
 import io.grpc.ConnectivityState;
-import io.lighty.gnmi.southbound.device.connection.DeviceConnectionInitializer;
-import io.lighty.gnmi.southbound.device.connection.DeviceConnectionManager;
-import io.lighty.gnmi.southbound.device.session.security.KeystoreGnmiSecurityProvider;
-import io.lighty.gnmi.southbound.mountpoint.GnmiMountPointRegistrator;
-import io.lighty.gnmi.southbound.mountpoint.broker.GnmiDataBrokerFactory;
-import io.lighty.gnmi.southbound.schema.impl.SchemaContextHolderImpl;
-import io.lighty.gnmi.southbound.schema.impl.SchemaException;
-import io.lighty.modules.gnmi.connector.gnmi.session.api.GnmiSession;
-import io.lighty.modules.gnmi.connector.session.SessionManagerFactory;
-import io.lighty.modules.gnmi.connector.session.api.SessionManager;
-import io.lighty.modules.gnmi.connector.session.api.SessionProvider;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -50,9 +39,20 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.opendaylight.gnmi.southbound.device.connection.DeviceConnectionInitializer;
+import org.opendaylight.gnmi.southbound.device.connection.DeviceConnectionManager;
+import org.opendaylight.gnmi.southbound.device.session.security.KeystoreGnmiSecurityProvider;
+import org.opendaylight.gnmi.southbound.mountpoint.GnmiMountPointRegistrator;
+import org.opendaylight.gnmi.southbound.mountpoint.broker.GnmiDataBrokerFactory;
+import org.opendaylight.gnmi.southbound.schema.impl.SchemaContextHolderImpl;
+import org.opendaylight.gnmi.southbound.schema.impl.SchemaException;
 import org.opendaylight.mdsal.binding.api.WriteTransaction;
 import org.opendaylight.mdsal.binding.dom.adapter.BindingDOMDataBrokerAdapter;
 import org.opendaylight.mdsal.common.api.CommitInfo;
+import org.opendaylight.modules.gnmi.connector.gnmi.session.api.GnmiSession;
+import org.opendaylight.modules.gnmi.connector.session.SessionManagerFactory;
+import org.opendaylight.modules.gnmi.connector.session.api.SessionManager;
+import org.opendaylight.modules.gnmi.connector.session.api.SessionProvider;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.inet.types.rev130715.Host;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.inet.types.rev130715.IpAddress;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.inet.types.rev130715.Ipv4Address;

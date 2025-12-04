@@ -6,12 +6,8 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.device.session.security;
+package org.opendaylight.gnmi.southbound.device.session.security;
 
-import io.lighty.gnmi.southbound.schema.certstore.service.CertificationStorageService;
-import io.lighty.gnmi.southbound.timeout.TimeoutUtils;
-import io.lighty.modules.gnmi.connector.configuration.SecurityFactory;
-import io.lighty.modules.gnmi.connector.security.Security;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
@@ -30,6 +26,10 @@ import org.bouncycastle.openssl.PEMKeyPair;
 import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
 import org.bouncycastle.openssl.jcajce.JcePEMDecryptorProviderBuilder;
+import org.opendaylight.gnmi.southbound.schema.certstore.service.CertificationStorageService;
+import org.opendaylight.gnmi.southbound.timeout.TimeoutUtils;
+import org.opendaylight.modules.gnmi.connector.configuration.SecurityFactory;
+import org.opendaylight.modules.gnmi.connector.security.Security;
 import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.certificate.storage.rev210504.Keystore;
 import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.topology.rev210316.GnmiNode;
 import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.topology.rev210316.security.SecurityChoice;

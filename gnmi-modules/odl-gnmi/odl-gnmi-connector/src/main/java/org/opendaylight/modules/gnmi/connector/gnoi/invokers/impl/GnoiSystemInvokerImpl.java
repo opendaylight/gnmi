@@ -6,13 +6,13 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.connector.gnoi.invokers.impl;
+package org.opendaylight.modules.gnmi.connector.gnoi.invokers.impl;
 
 import com.google.common.util.concurrent.ListenableFuture;
 import gnoi.system.SystemGrpc;
 import gnoi.system.SystemOuterClass;
 import io.grpc.Channel;
-import io.lighty.modules.gnmi.connector.gnoi.invokers.api.GnoiSystemInvoker;
+import org.opendaylight.modules.gnmi.connector.gnoi.invokers.api.GnoiSystemInvoker;
 
 public final class GnoiSystemInvokerImpl implements GnoiSystemInvoker {
 

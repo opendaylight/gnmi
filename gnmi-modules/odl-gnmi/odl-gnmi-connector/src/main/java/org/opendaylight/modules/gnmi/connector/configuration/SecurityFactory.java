@@ -6,10 +6,8 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.connector.configuration;
+package org.opendaylight.modules.gnmi.connector.configuration;
 
-import io.lighty.modules.gnmi.connector.security.Security;
-import io.lighty.modules.gnmi.connector.session.api.SessionManager;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -18,6 +16,8 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.Collection;
+import org.opendaylight.modules.gnmi.connector.security.Security;
+import org.opendaylight.modules.gnmi.connector.session.api.SessionManager;
 
 /**
  * This factory class provides creation of {@link Security} instances. These instances are used as security

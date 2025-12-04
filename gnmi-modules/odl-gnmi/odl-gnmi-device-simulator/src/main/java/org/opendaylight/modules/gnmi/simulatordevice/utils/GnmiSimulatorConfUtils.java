@@ -6,12 +6,11 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.simulatordevice.utils;
+package org.opendaylight.modules.gnmi.simulatordevice.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.lighty.modules.gnmi.simulatordevice.config.GnmiSimulatorConfiguration;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
@@ -22,6 +21,7 @@ import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.opendaylight.modules.gnmi.simulatordevice.config.GnmiSimulatorConfiguration;
 import org.opendaylight.yangtools.binding.meta.YangModelBindingProvider;
 import org.opendaylight.yangtools.binding.meta.YangModuleInfo;
 import org.opendaylight.yangtools.yang.common.QName;

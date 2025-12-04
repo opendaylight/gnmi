@@ -5,11 +5,10 @@
  * terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
-package io.lighty.modules.gnmi.test.gnmi;
+package org.opendaylight.modules.gnmi.test.gnmi;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -19,12 +18,6 @@ import io.lighty.core.controller.api.LightyController;
 import io.lighty.core.controller.impl.LightyControllerBuilder;
 import io.lighty.core.controller.impl.config.ConfigurationException;
 import io.lighty.core.controller.impl.util.ControllerConfigUtils;
-import io.lighty.gnmi.southbound.identifier.IdentifierUtils;
-import io.lighty.gnmi.southbound.lightymodule.GnmiSouthboundModule;
-import io.lighty.modules.gnmi.simulatordevice.config.GnmiSimulatorConfiguration;
-import io.lighty.modules.gnmi.simulatordevice.impl.SimulatedGnmiDevice;
-import io.lighty.modules.gnmi.simulatordevice.utils.EffectiveModelContextBuilder.EffectiveModelContextBuilderException;
-import io.lighty.modules.gnmi.simulatordevice.utils.GnmiSimulatorConfUtils;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -49,6 +42,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.opendaylight.gnmi.southbound.identifier.IdentifierUtils;
+import org.opendaylight.gnmi.southbound.lightymodule.GnmiSouthboundModule;
 import org.opendaylight.mdsal.binding.api.DataBroker;
 import org.opendaylight.mdsal.binding.api.ReadTransaction;
 import org.opendaylight.mdsal.binding.api.WriteTransaction;
@@ -58,6 +53,10 @@ import org.opendaylight.mdsal.dom.api.DOMDataTreeReadTransaction;
 import org.opendaylight.mdsal.dom.api.DOMDataTreeWriteTransaction;
 import org.opendaylight.mdsal.dom.api.DOMMountPoint;
 import org.opendaylight.mdsal.dom.api.DOMMountPointService;
+import org.opendaylight.modules.gnmi.simulatordevice.config.GnmiSimulatorConfiguration;
+import org.opendaylight.modules.gnmi.simulatordevice.impl.SimulatedGnmiDevice;
+import org.opendaylight.modules.gnmi.simulatordevice.utils.EffectiveModelContextBuilder.EffectiveModelContextBuilderException;
+import org.opendaylight.modules.gnmi.simulatordevice.utils.GnmiSimulatorConfUtils;
 import org.opendaylight.yang.gen.v1.config.aaa.authn.encrypt.service.config.rev240202.AaaEncryptServiceConfig;
 import org.opendaylight.yang.gen.v1.config.aaa.authn.encrypt.service.config.rev240202.AaaEncryptServiceConfigBuilder;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.inet.types.rev130715.Host;

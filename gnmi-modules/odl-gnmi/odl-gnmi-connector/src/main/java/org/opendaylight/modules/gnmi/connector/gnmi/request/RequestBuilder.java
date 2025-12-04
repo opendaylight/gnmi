@@ -6,7 +6,7 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.connector.gnmi.request;
+package org.opendaylight.modules.gnmi.connector.gnmi.request;
 
 import com.google.protobuf.ByteString;
 import gnmi.Gnmi;

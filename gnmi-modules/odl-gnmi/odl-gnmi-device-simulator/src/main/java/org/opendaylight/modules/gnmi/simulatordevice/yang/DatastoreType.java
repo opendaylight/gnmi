@@ -6,7 +6,7 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.simulatordevice.yang;
+package org.opendaylight.modules.gnmi.simulatordevice.yang;
 
 public enum DatastoreType {
     CONFIGURATION("DOM-CFG"),

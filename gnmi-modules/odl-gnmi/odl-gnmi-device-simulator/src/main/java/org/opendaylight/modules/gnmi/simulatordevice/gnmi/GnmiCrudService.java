@@ -5,7 +5,7 @@
  * terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
-package io.lighty.modules.gnmi.simulatordevice.gnmi;
+package org.opendaylight.modules.gnmi.simulatordevice.gnmi;
 
 import com.google.common.collect.Iterables;
 import com.google.gson.Gson;
@@ -16,11 +16,6 @@ import gnmi.Gnmi.PathElem;
 import io.grpc.Metadata;
 import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
-import io.lighty.modules.gnmi.commons.util.DataConverter;
-import io.lighty.modules.gnmi.commons.util.ElementNameWithModuleName;
-import io.lighty.modules.gnmi.commons.util.JsonUtils;
-import io.lighty.modules.gnmi.simulatordevice.yang.DatastoreType;
-import io.lighty.modules.gnmi.simulatordevice.yang.YangDataService;
 import java.time.Instant;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
@@ -31,6 +26,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.opendaylight.modules.gnmi.commons.util.DataConverter;
+import org.opendaylight.modules.gnmi.commons.util.ElementNameWithModuleName;
+import org.opendaylight.modules.gnmi.commons.util.JsonUtils;
+import org.opendaylight.modules.gnmi.simulatordevice.yang.DatastoreType;
+import org.opendaylight.modules.gnmi.simulatordevice.yang.YangDataService;
 import org.opendaylight.yangtools.yang.common.Decimal64;
 import org.opendaylight.yangtools.yang.common.QName;
 import org.opendaylight.yangtools.yang.common.QNameModule;

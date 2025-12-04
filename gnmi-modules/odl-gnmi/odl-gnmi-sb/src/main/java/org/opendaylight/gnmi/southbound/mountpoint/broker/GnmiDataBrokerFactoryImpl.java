@@ -6,17 +6,17 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.mountpoint.broker;
+package org.opendaylight.gnmi.southbound.mountpoint.broker;
 
 import com.google.gson.Gson;
-import io.lighty.gnmi.southbound.device.connection.DeviceConnection;
-import io.lighty.gnmi.southbound.mountpoint.codecs.GetResponseToNormalizedNodeCodec;
-import io.lighty.gnmi.southbound.mountpoint.codecs.YangInstanceIdentifierToPathCodec;
-import io.lighty.gnmi.southbound.mountpoint.codecs.YangInstanceNormToGnmiUpdateCodec;
-import io.lighty.gnmi.southbound.mountpoint.ops.GnmiGet;
-import io.lighty.gnmi.southbound.mountpoint.ops.GnmiSet;
-import io.lighty.gnmi.southbound.mountpoint.requests.GnmiGetRequestFactoryImpl;
-import io.lighty.gnmi.southbound.mountpoint.requests.GnmiSetRequestFactoryImpl;
+import org.opendaylight.gnmi.southbound.device.connection.DeviceConnection;
+import org.opendaylight.gnmi.southbound.mountpoint.codecs.GetResponseToNormalizedNodeCodec;
+import org.opendaylight.gnmi.southbound.mountpoint.codecs.YangInstanceIdentifierToPathCodec;
+import org.opendaylight.gnmi.southbound.mountpoint.codecs.YangInstanceNormToGnmiUpdateCodec;
+import org.opendaylight.gnmi.southbound.mountpoint.ops.GnmiGet;
+import org.opendaylight.gnmi.southbound.mountpoint.ops.GnmiSet;
+import org.opendaylight.gnmi.southbound.mountpoint.requests.GnmiGetRequestFactoryImpl;
+import org.opendaylight.gnmi.southbound.mountpoint.requests.GnmiSetRequestFactoryImpl;
 
 public class GnmiDataBrokerFactoryImpl implements GnmiDataBrokerFactory {
     @Override

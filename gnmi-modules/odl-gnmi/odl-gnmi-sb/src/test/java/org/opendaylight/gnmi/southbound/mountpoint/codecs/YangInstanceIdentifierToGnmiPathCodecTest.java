@@ -6,19 +6,19 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.mountpoint.codecs;
+package org.opendaylight.gnmi.southbound.mountpoint.codecs;
 
 import gnmi.Gnmi;
-import io.lighty.gnmi.southbound.lightymodule.config.GnmiConfiguration;
-import io.lighty.gnmi.southbound.lightymodule.util.GnmiConfigUtils;
-import io.lighty.gnmi.southbound.mountpoint.codecs.testcases.YangInstanceIdentifiertoPathTestCases;
-import io.lighty.gnmi.southbound.schema.impl.SchemaException;
-import io.lighty.gnmi.southbound.schema.loader.api.YangLoadException;
 import java.nio.file.Path;
 import java.util.Map;
 import org.apache.logging.log4j.core.config.ConfigurationException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.opendaylight.gnmi.southbound.lightymodule.config.GnmiConfiguration;
+import org.opendaylight.gnmi.southbound.lightymodule.util.GnmiConfigUtils;
+import org.opendaylight.gnmi.southbound.mountpoint.codecs.testcases.YangInstanceIdentifiertoPathTestCases;
+import org.opendaylight.gnmi.southbound.schema.impl.SchemaException;
+import org.opendaylight.gnmi.southbound.schema.loader.api.YangLoadException;
 import org.opendaylight.yangtools.yang.common.QName;
 import org.opendaylight.yangtools.yang.data.api.YangInstanceIdentifier;
 

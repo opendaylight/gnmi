@@ -6,17 +6,11 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.lightymodule;
+package org.opendaylight.gnmi.southbound.lightymodule;
 
 import static io.lighty.gnmi.southbound.lightymodule.util.GnmiConfigUtils.OPENCONFIG_YANG_MODELS;
 import static java.util.Objects.requireNonNull;
 
-import io.lighty.gnmi.southbound.lightymodule.config.GnmiConfiguration;
-import io.lighty.gnmi.southbound.provider.GnmiSouthboundProvider;
-import io.lighty.gnmi.southbound.schema.loader.api.YangLoadException;
-import io.lighty.gnmi.southbound.schema.loader.api.YangLoaderService;
-import io.lighty.gnmi.southbound.schema.loader.impl.ByClassPathYangLoaderService;
-import io.lighty.gnmi.southbound.schema.loader.impl.ByPathYangLoaderService;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +19,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeoutException;
 import org.opendaylight.aaa.encrypt.AAAEncryptionService;
+import org.opendaylight.gnmi.southbound.lightymodule.config.GnmiConfiguration;
+import org.opendaylight.gnmi.southbound.provider.GnmiSouthboundProvider;
+import org.opendaylight.gnmi.southbound.schema.loader.api.YangLoadException;
+import org.opendaylight.gnmi.southbound.schema.loader.api.YangLoaderService;
+import org.opendaylight.gnmi.southbound.schema.loader.impl.ByClassPathYangLoaderService;
+import org.opendaylight.gnmi.southbound.schema.loader.impl.ByPathYangLoaderService;
 import org.opendaylight.mdsal.binding.api.DataBroker;
 import org.opendaylight.mdsal.binding.api.RpcProviderService;
 import org.opendaylight.mdsal.dom.api.DOMMountPointService;

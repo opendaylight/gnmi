@@ -6,7 +6,7 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.schema.yangstore.service;
+package org.opendaylight.gnmi.southbound.schema.yangstore.service;
 
 
 import com.google.common.util.concurrent.ListenableFuture;

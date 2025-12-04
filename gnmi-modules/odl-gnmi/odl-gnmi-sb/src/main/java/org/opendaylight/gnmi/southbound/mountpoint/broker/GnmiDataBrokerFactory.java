@@ -6,9 +6,9 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.mountpoint.broker;
+package org.opendaylight.gnmi.southbound.mountpoint.broker;
 
-import io.lighty.gnmi.southbound.device.connection.DeviceConnection;
+import org.opendaylight.gnmi.southbound.device.connection.DeviceConnection;
 
 public interface GnmiDataBrokerFactory {
 

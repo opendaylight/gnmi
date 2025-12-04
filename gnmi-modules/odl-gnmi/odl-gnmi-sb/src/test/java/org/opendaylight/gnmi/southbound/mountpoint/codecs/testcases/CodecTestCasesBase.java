@@ -5,16 +5,16 @@
  * terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
-package io.lighty.gnmi.southbound.mountpoint.codecs.testcases;
+package org.opendaylight.gnmi.southbound.mountpoint.codecs.testcases;
 
-import io.lighty.gnmi.southbound.lightymodule.util.GnmiConfigUtils;
-import io.lighty.gnmi.southbound.mountpoint.codecs.TestSchemaContextProvider;
-import io.lighty.gnmi.southbound.schema.impl.SchemaException;
-import io.lighty.gnmi.southbound.schema.loader.api.YangLoadException;
-import io.lighty.gnmi.southbound.schema.provider.SchemaContextProvider;
 import java.nio.file.Path;
 import java.util.List;
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.opendaylight.gnmi.southbound.lightymodule.util.GnmiConfigUtils;
+import org.opendaylight.gnmi.southbound.mountpoint.codecs.TestSchemaContextProvider;
+import org.opendaylight.gnmi.southbound.schema.impl.SchemaException;
+import org.opendaylight.gnmi.southbound.schema.loader.api.YangLoadException;
+import org.opendaylight.gnmi.southbound.schema.provider.SchemaContextProvider;
 import org.opendaylight.yangtools.yang.common.QName;
 import org.opendaylight.yangtools.yang.common.QNameModule;
 import org.opendaylight.yangtools.yang.common.Uint16;

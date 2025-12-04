@@ -6,11 +6,10 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.connector.security;
+package org.opendaylight.modules.gnmi.connector.security;
 
 import com.google.common.base.Preconditions;
 import io.grpc.netty.GrpcSslContexts;
-import io.lighty.modules.gnmi.connector.session.api.SessionManager;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
@@ -18,6 +17,7 @@ import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 import java.util.Collection;
 import javax.net.ssl.SSLException;
+import org.opendaylight.modules.gnmi.connector.session.api.SessionManager;
 
 /**
  * Contains security (keys, certificates) for {@link SessionManager}.

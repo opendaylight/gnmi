@@ -6,16 +6,11 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.listener;
-
-import static java.util.Objects.requireNonNull;
+package org.opendaylight.gnmi.southbound.listener;
 
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
-import io.lighty.gnmi.southbound.device.connection.DeviceConnectionManager;
-import io.lighty.gnmi.southbound.identifier.IdentifierUtils;
-import io.lighty.gnmi.southbound.timeout.TimeoutUtils;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CancellationException;
@@ -25,6 +20,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
+import org.opendaylight.gnmi.southbound.device.connection.DeviceConnectionManager;
+import org.opendaylight.gnmi.southbound.identifier.IdentifierUtils;
+import org.opendaylight.gnmi.southbound.timeout.TimeoutUtils;
 import org.opendaylight.mdsal.binding.api.DataBroker;
 import org.opendaylight.mdsal.binding.api.DataObjectModification;
 import org.opendaylight.mdsal.binding.api.DataTreeChangeListener;

@@ -6,11 +6,11 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.connector.configuration;
+package org.opendaylight.modules.gnmi.connector.configuration;
 
-import io.lighty.modules.gnmi.connector.gnmi.util.AddressUtil;
 import java.net.InetSocketAddress;
 import java.util.Objects;
+import org.opendaylight.modules.gnmi.connector.gnmi.util.AddressUtil;
 
 /**
  * Configuration for gNMI and gNOI session. This configuration can be used to uniquely identify session.

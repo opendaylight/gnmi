@@ -6,7 +6,7 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.connector.tests.commons;
+package org.opendaylight.modules.gnmi.connector.tests.commons;
 
 public abstract class TimeoutUtil {
 

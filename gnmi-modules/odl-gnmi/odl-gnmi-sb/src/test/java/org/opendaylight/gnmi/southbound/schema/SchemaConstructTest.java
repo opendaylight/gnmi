@@ -6,17 +6,8 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.schema;
+package org.opendaylight.gnmi.southbound.schema;
 
-import io.lighty.gnmi.southbound.capabilities.GnmiDeviceCapability;
-import io.lighty.gnmi.southbound.lightymodule.config.GnmiConfiguration;
-import io.lighty.gnmi.southbound.lightymodule.util.GnmiConfigUtils;
-import io.lighty.gnmi.southbound.schema.impl.SchemaContextHolderImpl;
-import io.lighty.gnmi.southbound.schema.impl.SchemaException;
-import io.lighty.gnmi.southbound.schema.loader.api.YangLoadException;
-import io.lighty.gnmi.southbound.schema.loader.impl.ByClassPathYangLoaderService;
-import io.lighty.gnmi.southbound.schema.loader.impl.ByPathYangLoaderService;
-import io.lighty.gnmi.southbound.timeout.TimeoutUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -36,6 +27,15 @@ import org.apache.logging.log4j.core.config.ConfigurationException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.opendaylight.gnmi.southbound.capabilities.GnmiDeviceCapability;
+import org.opendaylight.gnmi.southbound.lightymodule.config.GnmiConfiguration;
+import org.opendaylight.gnmi.southbound.lightymodule.util.GnmiConfigUtils;
+import org.opendaylight.gnmi.southbound.schema.impl.SchemaContextHolderImpl;
+import org.opendaylight.gnmi.southbound.schema.impl.SchemaException;
+import org.opendaylight.gnmi.southbound.schema.loader.api.YangLoadException;
+import org.opendaylight.gnmi.southbound.schema.loader.impl.ByClassPathYangLoaderService;
+import org.opendaylight.gnmi.southbound.schema.loader.impl.ByPathYangLoaderService;
+import org.opendaylight.gnmi.southbound.timeout.TimeoutUtils;
 import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.yang.storage.rev210331.gnmi.yang.models.GnmiYangModel;
 import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
 import org.opendaylight.yangtools.yang.model.api.Module;

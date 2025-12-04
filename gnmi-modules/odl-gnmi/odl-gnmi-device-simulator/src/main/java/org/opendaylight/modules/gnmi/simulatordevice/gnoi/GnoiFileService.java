@@ -6,7 +6,7 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.simulatordevice.gnoi;
+package org.opendaylight.modules.gnmi.simulatordevice.gnoi;
 
 import com.google.protobuf.ByteString;
 import gnoi.file.FileGrpc;

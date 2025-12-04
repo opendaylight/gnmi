@@ -6,26 +6,13 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.simulatordevice.impl;
+package org.opendaylight.modules.gnmi.simulatordevice.impl;
 
 import com.google.gson.Gson;
 import gnmi.Gnmi;
 import io.grpc.Server;
 import io.grpc.netty.InternalProtocolNegotiators;
 import io.grpc.netty.NettyServerBuilder;
-import io.lighty.modules.gnmi.simulatordevice.config.GnmiSimulatorConfiguration;
-import io.lighty.modules.gnmi.simulatordevice.gnmi.AuthenticationInterceptor;
-import io.lighty.modules.gnmi.simulatordevice.gnmi.GnmiService;
-import io.lighty.modules.gnmi.simulatordevice.gnoi.GnoiCertService;
-import io.lighty.modules.gnmi.simulatordevice.gnoi.GnoiFileService;
-import io.lighty.modules.gnmi.simulatordevice.gnoi.GnoiOSService;
-import io.lighty.modules.gnmi.simulatordevice.gnoi.GnoiSonicService;
-import io.lighty.modules.gnmi.simulatordevice.gnoi.GnoiSystemService;
-import io.lighty.modules.gnmi.simulatordevice.utils.EffectiveModelContextBuilder;
-import io.lighty.modules.gnmi.simulatordevice.utils.EffectiveModelContextBuilder.EffectiveModelContextBuilderException;
-import io.lighty.modules.gnmi.simulatordevice.utils.FileUtils;
-import io.lighty.modules.gnmi.simulatordevice.utils.UsernamePasswordAuth;
-import io.lighty.modules.gnmi.simulatordevice.yang.YangDataService;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -37,6 +24,19 @@ import java.nio.file.Path;
 import java.util.EnumSet;
 import java.util.Objects;
 import java.util.Set;
+import org.opendaylight.modules.gnmi.simulatordevice.config.GnmiSimulatorConfiguration;
+import org.opendaylight.modules.gnmi.simulatordevice.gnmi.AuthenticationInterceptor;
+import org.opendaylight.modules.gnmi.simulatordevice.gnmi.GnmiService;
+import org.opendaylight.modules.gnmi.simulatordevice.gnoi.GnoiCertService;
+import org.opendaylight.modules.gnmi.simulatordevice.gnoi.GnoiFileService;
+import org.opendaylight.modules.gnmi.simulatordevice.gnoi.GnoiOSService;
+import org.opendaylight.modules.gnmi.simulatordevice.gnoi.GnoiSonicService;
+import org.opendaylight.modules.gnmi.simulatordevice.gnoi.GnoiSystemService;
+import org.opendaylight.modules.gnmi.simulatordevice.utils.EffectiveModelContextBuilder;
+import org.opendaylight.modules.gnmi.simulatordevice.utils.EffectiveModelContextBuilder.EffectiveModelContextBuilderException;
+import org.opendaylight.modules.gnmi.simulatordevice.utils.FileUtils;
+import org.opendaylight.modules.gnmi.simulatordevice.utils.UsernamePasswordAuth;
+import org.opendaylight.modules.gnmi.simulatordevice.yang.YangDataService;
 import org.opendaylight.yangtools.binding.meta.YangModuleInfo;
 import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
 import org.slf4j.Logger;

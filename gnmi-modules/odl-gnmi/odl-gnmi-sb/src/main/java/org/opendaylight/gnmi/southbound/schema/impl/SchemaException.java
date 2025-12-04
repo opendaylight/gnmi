@@ -6,11 +6,11 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.schema.impl;
+package org.opendaylight.gnmi.southbound.schema.impl;
 
-import io.lighty.gnmi.southbound.capabilities.GnmiDeviceCapability;
 import java.util.ArrayList;
 import java.util.List;
+import org.opendaylight.gnmi.southbound.capabilities.GnmiDeviceCapability;
 
 // Exception when creating schema context for device
 public class SchemaException extends Exception {

@@ -6,9 +6,9 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.device.session.security;
+package org.opendaylight.gnmi.southbound.device.session.security;
 
-import io.lighty.modules.gnmi.connector.security.Security;
+import org.opendaylight.modules.gnmi.connector.security.Security;
 import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.topology.rev210316.GnmiNode;
 
 public interface GnmiSecurityProvider {

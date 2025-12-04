@@ -6,7 +6,7 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.simulatordevice.gnmi;
+package org.opendaylight.modules.gnmi.simulatordevice.gnmi;
 
 import static org.opendaylight.yangtools.openconfig.model.api.OpenConfigStatements.OPENCONFIG_VERSION;
 

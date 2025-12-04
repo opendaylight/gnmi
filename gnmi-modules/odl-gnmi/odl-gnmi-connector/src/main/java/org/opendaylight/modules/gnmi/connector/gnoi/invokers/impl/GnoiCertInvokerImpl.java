@@ -6,13 +6,13 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.connector.gnoi.invokers.impl;
+package org.opendaylight.modules.gnmi.connector.gnoi.invokers.impl;
 
 import gnoi.certificate.Cert;
 import gnoi.certificate.CertificateManagementGrpc;
 import io.grpc.Channel;
 import io.grpc.stub.StreamObserver;
-import io.lighty.modules.gnmi.connector.gnoi.invokers.api.GnoiCertInvoker;
+import org.opendaylight.modules.gnmi.connector.gnoi.invokers.api.GnoiCertInvoker;
 
 public final class GnoiCertInvokerImpl implements GnoiCertInvoker {
 

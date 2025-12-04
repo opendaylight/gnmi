@@ -6,7 +6,7 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.commons.util;
+package org.opendaylight.modules.gnmi.commons.util;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;

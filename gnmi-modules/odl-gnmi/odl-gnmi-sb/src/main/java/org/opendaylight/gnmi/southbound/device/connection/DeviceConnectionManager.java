@@ -6,25 +6,13 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.device.connection;
+package org.opendaylight.gnmi.southbound.device.connection;
 
 import com.google.common.collect.Sets;
 import com.google.common.util.concurrent.FluentFuture;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import gnmi.Gnmi;
-import io.lighty.gnmi.southbound.capabilities.GnmiDeviceCapability;
-import io.lighty.gnmi.southbound.capabilities.MissingEncodingException;
-import io.lighty.gnmi.southbound.device.session.listener.GnmiConnectionStatusException;
-import io.lighty.gnmi.southbound.device.session.security.SessionSecurityException;
-import io.lighty.gnmi.southbound.identifier.IdentifierUtils;
-import io.lighty.gnmi.southbound.mountpoint.GnmiMountPointRegistrator;
-import io.lighty.gnmi.southbound.mountpoint.broker.GnmiDataBroker;
-import io.lighty.gnmi.southbound.mountpoint.broker.GnmiDataBrokerFactory;
-import io.lighty.gnmi.southbound.requests.utils.GnmiRequestUtils;
-import io.lighty.gnmi.southbound.schema.SchemaContextHolder;
-import io.lighty.gnmi.southbound.schema.impl.SchemaException;
-import io.lighty.gnmi.southbound.timeout.TimeoutUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +23,18 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
+import org.opendaylight.gnmi.southbound.capabilities.GnmiDeviceCapability;
+import org.opendaylight.gnmi.southbound.capabilities.MissingEncodingException;
+import org.opendaylight.gnmi.southbound.device.session.listener.GnmiConnectionStatusException;
+import org.opendaylight.gnmi.southbound.device.session.security.SessionSecurityException;
+import org.opendaylight.gnmi.southbound.identifier.IdentifierUtils;
+import org.opendaylight.gnmi.southbound.mountpoint.GnmiMountPointRegistrator;
+import org.opendaylight.gnmi.southbound.mountpoint.broker.GnmiDataBroker;
+import org.opendaylight.gnmi.southbound.mountpoint.broker.GnmiDataBrokerFactory;
+import org.opendaylight.gnmi.southbound.requests.utils.GnmiRequestUtils;
+import org.opendaylight.gnmi.southbound.schema.SchemaContextHolder;
+import org.opendaylight.gnmi.southbound.schema.impl.SchemaException;
+import org.opendaylight.gnmi.southbound.timeout.TimeoutUtils;
 import org.opendaylight.mdsal.binding.api.DataBroker;
 import org.opendaylight.mdsal.binding.api.WriteTransaction;
 import org.opendaylight.mdsal.common.api.CommitInfo;

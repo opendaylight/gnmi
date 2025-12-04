@@ -6,7 +6,7 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.schema.certstore.rpc;
+package org.opendaylight.gnmi.southbound.schema.certstore.rpc;
 
 
 import com.google.common.util.concurrent.FutureCallback;
@@ -14,10 +14,10 @@ import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.google.common.util.concurrent.SettableFuture;
-import io.lighty.gnmi.southbound.schema.certstore.service.CertificationStorageService;
 import java.security.GeneralSecurityException;
 import java.util.Collection;
 import java.util.List;
+import org.opendaylight.gnmi.southbound.schema.certstore.service.CertificationStorageService;
 import org.opendaylight.mdsal.common.api.CommitInfo;
 import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.certificate.storage.rev210504.AddKeystoreCertificate;
 import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.certificate.storage.rev210504.AddKeystoreCertificateInput;

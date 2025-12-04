@@ -6,19 +6,19 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.mountpoint.requests;
+package org.opendaylight.gnmi.southbound.mountpoint.requests;
 
 import gnmi.Gnmi;
 import gnmi.Gnmi.Encoding;
 import gnmi.Gnmi.GetRequest;
 import gnmi.Gnmi.GetRequest.Builder;
 import gnmi.Gnmi.Path;
-import io.lighty.gnmi.southbound.device.connection.ConfigurableParameters;
-import io.lighty.gnmi.southbound.device.connection.DeviceConnection;
-import io.lighty.gnmi.southbound.mountpoint.codecs.Codec;
-import io.lighty.gnmi.southbound.mountpoint.codecs.GnmiCodecException;
 import java.util.List;
 import java.util.Optional;
+import org.opendaylight.gnmi.southbound.device.connection.ConfigurableParameters;
+import org.opendaylight.gnmi.southbound.device.connection.DeviceConnection;
+import org.opendaylight.gnmi.southbound.mountpoint.codecs.Codec;
+import org.opendaylight.gnmi.southbound.mountpoint.codecs.GnmiCodecException;
 import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.topology.rev210316.gnmi.connection.parameters.extensions.parameters.GnmiParameters;
 import org.opendaylight.yangtools.yang.data.api.YangInstanceIdentifier;
 

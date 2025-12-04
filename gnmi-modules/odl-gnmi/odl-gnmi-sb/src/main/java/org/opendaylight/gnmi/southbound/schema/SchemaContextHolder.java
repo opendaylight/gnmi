@@ -6,11 +6,11 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.schema;
+package org.opendaylight.gnmi.southbound.schema;
 
-import io.lighty.gnmi.southbound.capabilities.GnmiDeviceCapability;
-import io.lighty.gnmi.southbound.schema.impl.SchemaException;
 import java.util.List;
+import org.opendaylight.gnmi.southbound.capabilities.GnmiDeviceCapability;
+import org.opendaylight.gnmi.southbound.schema.impl.SchemaException;
 import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
 
 

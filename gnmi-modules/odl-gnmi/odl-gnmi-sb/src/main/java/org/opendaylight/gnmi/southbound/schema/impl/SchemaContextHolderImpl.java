@@ -6,14 +6,10 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.schema.impl;
+package org.opendaylight.gnmi.southbound.schema.impl;
 
 import com.google.common.collect.Sets;
 import com.google.common.io.CharSource;
-import io.lighty.gnmi.southbound.capabilities.GnmiDeviceCapability;
-import io.lighty.gnmi.southbound.schema.SchemaContextHolder;
-import io.lighty.gnmi.southbound.schema.yangstore.service.YangDataStoreService;
-import io.lighty.gnmi.southbound.timeout.TimeoutUtils;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
@@ -25,6 +21,10 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import javax.annotation.Nullable;
+import org.opendaylight.gnmi.southbound.capabilities.GnmiDeviceCapability;
+import org.opendaylight.gnmi.southbound.schema.SchemaContextHolder;
+import org.opendaylight.gnmi.southbound.schema.yangstore.service.YangDataStoreService;
+import org.opendaylight.gnmi.southbound.timeout.TimeoutUtils;
 import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.yang.storage.rev210331.gnmi.yang.models.GnmiYangModel;
 import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
 import org.opendaylight.yangtools.yang.model.api.source.SourceDependency;

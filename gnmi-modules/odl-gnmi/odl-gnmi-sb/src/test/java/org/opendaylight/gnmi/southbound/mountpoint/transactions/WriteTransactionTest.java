@@ -6,7 +6,7 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.mountpoint.transactions;
+package org.opendaylight.gnmi.southbound.mountpoint.transactions;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
@@ -16,25 +16,6 @@ import static org.testng.AssertJUnit.assertNotNull;
 
 import com.google.gson.Gson;
 import gnmi.Gnmi;
-import io.lighty.gnmi.southbound.capabilities.GnmiDeviceCapability;
-import io.lighty.gnmi.southbound.device.connection.DeviceConnection;
-import io.lighty.gnmi.southbound.device.session.listener.GnmiConnectionStatusListener;
-import io.lighty.gnmi.southbound.lightymodule.config.GnmiConfiguration;
-import io.lighty.gnmi.southbound.lightymodule.util.GnmiConfigUtils;
-import io.lighty.gnmi.southbound.mountpoint.broker.GnmiDataBroker;
-import io.lighty.gnmi.southbound.mountpoint.codecs.YangInstanceIdentifierToPathCodec;
-import io.lighty.gnmi.southbound.mountpoint.codecs.YangInstanceNormToGnmiUpdateCodec;
-import io.lighty.gnmi.southbound.mountpoint.ops.GnmiGet;
-import io.lighty.gnmi.southbound.mountpoint.ops.GnmiSet;
-import io.lighty.gnmi.southbound.mountpoint.requests.GnmiSetRequestFactoryImpl;
-import io.lighty.gnmi.southbound.schema.SchemaContextHolder;
-import io.lighty.gnmi.southbound.schema.TestYangDataStoreService;
-import io.lighty.gnmi.southbound.schema.impl.SchemaContextHolderImpl;
-import io.lighty.gnmi.southbound.schema.impl.SchemaException;
-import io.lighty.gnmi.southbound.schema.loader.api.YangLoadException;
-import io.lighty.gnmi.southbound.schema.loader.impl.ByClassPathYangLoaderService;
-import io.lighty.modules.gnmi.connector.gnmi.session.api.GnmiSession;
-import io.lighty.modules.gnmi.connector.session.api.SessionProvider;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -48,8 +29,27 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.opendaylight.gnmi.southbound.capabilities.GnmiDeviceCapability;
+import org.opendaylight.gnmi.southbound.device.connection.DeviceConnection;
+import org.opendaylight.gnmi.southbound.device.session.listener.GnmiConnectionStatusListener;
+import org.opendaylight.gnmi.southbound.lightymodule.config.GnmiConfiguration;
+import org.opendaylight.gnmi.southbound.lightymodule.util.GnmiConfigUtils;
+import org.opendaylight.gnmi.southbound.mountpoint.broker.GnmiDataBroker;
+import org.opendaylight.gnmi.southbound.mountpoint.codecs.YangInstanceIdentifierToPathCodec;
+import org.opendaylight.gnmi.southbound.mountpoint.codecs.YangInstanceNormToGnmiUpdateCodec;
+import org.opendaylight.gnmi.southbound.mountpoint.ops.GnmiGet;
+import org.opendaylight.gnmi.southbound.mountpoint.ops.GnmiSet;
+import org.opendaylight.gnmi.southbound.mountpoint.requests.GnmiSetRequestFactoryImpl;
+import org.opendaylight.gnmi.southbound.schema.SchemaContextHolder;
+import org.opendaylight.gnmi.southbound.schema.TestYangDataStoreService;
+import org.opendaylight.gnmi.southbound.schema.impl.SchemaContextHolderImpl;
+import org.opendaylight.gnmi.southbound.schema.impl.SchemaException;
+import org.opendaylight.gnmi.southbound.schema.loader.api.YangLoadException;
+import org.opendaylight.gnmi.southbound.schema.loader.impl.ByClassPathYangLoaderService;
 import org.opendaylight.mdsal.common.api.LogicalDatastoreType;
 import org.opendaylight.mdsal.dom.api.DOMDataTreeWriteTransaction;
+import org.opendaylight.modules.gnmi.connector.gnmi.session.api.GnmiSession;
+import org.opendaylight.modules.gnmi.connector.session.api.SessionProvider;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NodeId;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.NodeBuilder;

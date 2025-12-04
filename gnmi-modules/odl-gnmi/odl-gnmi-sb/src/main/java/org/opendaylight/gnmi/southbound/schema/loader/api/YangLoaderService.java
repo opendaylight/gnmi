@@ -6,12 +6,12 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.schema.loader.api;
+package org.opendaylight.gnmi.southbound.schema.loader.api;
 
 
-import io.lighty.gnmi.southbound.capabilities.GnmiDeviceCapability;
-import io.lighty.gnmi.southbound.schema.yangstore.service.YangDataStoreService;
 import java.util.List;
+import org.opendaylight.gnmi.southbound.capabilities.GnmiDeviceCapability;
+import org.opendaylight.gnmi.southbound.schema.yangstore.service.YangDataStoreService;
 
 public interface YangLoaderService {
 

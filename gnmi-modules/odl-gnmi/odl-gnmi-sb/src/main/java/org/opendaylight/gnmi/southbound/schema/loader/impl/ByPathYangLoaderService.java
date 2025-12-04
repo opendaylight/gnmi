@@ -6,14 +6,8 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.gnmi.southbound.schema.loader.impl;
+package org.opendaylight.gnmi.southbound.schema.loader.impl;
 
-import io.lighty.gnmi.southbound.capabilities.GnmiDeviceCapability;
-import io.lighty.gnmi.southbound.schema.loader.api.YangLoadException;
-import io.lighty.gnmi.southbound.schema.loader.api.YangLoaderService;
-import io.lighty.gnmi.southbound.schema.loader.util.YangLoadModelUtil;
-import io.lighty.gnmi.southbound.schema.yangstore.service.YangDataStoreService;
-import io.lighty.gnmi.southbound.timeout.TimeoutUtils;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,6 +21,12 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.opendaylight.gnmi.southbound.capabilities.GnmiDeviceCapability;
+import org.opendaylight.gnmi.southbound.schema.loader.api.YangLoadException;
+import org.opendaylight.gnmi.southbound.schema.loader.api.YangLoaderService;
+import org.opendaylight.gnmi.southbound.schema.loader.util.YangLoadModelUtil;
+import org.opendaylight.gnmi.southbound.schema.yangstore.service.YangDataStoreService;
+import org.opendaylight.gnmi.southbound.timeout.TimeoutUtils;
 import org.opendaylight.yangtools.yang.common.YangConstants;
 import org.opendaylight.yangtools.yang.model.api.source.YangTextSource;
 import org.opendaylight.yangtools.yang.model.spi.source.FileYangTextSource;

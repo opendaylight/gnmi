@@ -5,7 +5,7 @@
  * terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
-package io.lighty.modules.gnmi.commons.util;
+package org.opendaylight.modules.gnmi.commons.util;
 
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;

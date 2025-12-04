@@ -6,7 +6,7 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.connector.tests.gnmi;
+package org.opendaylight.modules.gnmi.connector.tests.gnmi;
 
 import com.google.common.util.concurrent.ListenableFuture;
 import gnmi.Gnmi;
@@ -16,13 +16,6 @@ import io.grpc.ManagedChannelBuilder;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
-import io.lighty.modules.gnmi.connector.configuration.SessionConfiguration;
-import io.lighty.modules.gnmi.connector.gnmi.session.api.GnmiSession;
-import io.lighty.modules.gnmi.connector.gnmi.util.AddressUtil;
-import io.lighty.modules.gnmi.connector.session.api.SessionManager;
-import io.lighty.modules.gnmi.connector.session.api.SessionProvider;
-import io.lighty.modules.gnmi.connector.tests.commons.TestUtils;
-import io.lighty.modules.gnmi.connector.tests.commons.TimeoutUtil;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
@@ -35,6 +28,13 @@ import java.util.stream.Collectors;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.opendaylight.modules.gnmi.connector.configuration.SessionConfiguration;
+import org.opendaylight.modules.gnmi.connector.gnmi.session.api.GnmiSession;
+import org.opendaylight.modules.gnmi.connector.gnmi.util.AddressUtil;
+import org.opendaylight.modules.gnmi.connector.session.api.SessionManager;
+import org.opendaylight.modules.gnmi.connector.session.api.SessionProvider;
+import org.opendaylight.modules.gnmi.connector.tests.commons.TestUtils;
+import org.opendaylight.modules.gnmi.connector.tests.commons.TimeoutUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;

@@ -6,10 +6,9 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.simulatordevice.utils;
+package org.opendaylight.modules.gnmi.simulatordevice.utils;
 
 import com.google.common.io.CharSource;
-import io.lighty.modules.gnmi.commons.util.YangModelSanitizer;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -21,6 +20,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.eclipse.jdt.annotation.Nullable;
+import org.opendaylight.modules.gnmi.commons.util.YangModelSanitizer;
 import org.opendaylight.yangtools.binding.meta.YangModuleInfo;
 import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
 import org.opendaylight.yangtools.yang.model.api.source.SourceIdentifier;

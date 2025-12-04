@@ -6,24 +6,24 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.connector.session;
+package org.opendaylight.modules.gnmi.connector.session;
 
 import com.google.common.base.Preconditions;
 import io.grpc.ManagedChannel;
 import io.grpc.netty.NettyChannelBuilder;
-import io.lighty.modules.gnmi.connector.configuration.SessionConfiguration;
-import io.lighty.modules.gnmi.connector.gnmi.session.impl.GnmiSessionFactory;
-import io.lighty.modules.gnmi.connector.security.Security;
-import io.lighty.modules.gnmi.connector.session.api.SessionCloseDelegate;
-import io.lighty.modules.gnmi.connector.session.api.SessionManager;
-import io.lighty.modules.gnmi.connector.session.api.SessionProvider;
-import io.lighty.modules.gnmi.connector.session.api.SessionProviderImpl;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import javax.net.ssl.SSLException;
+import org.opendaylight.modules.gnmi.connector.configuration.SessionConfiguration;
+import org.opendaylight.modules.gnmi.connector.gnmi.session.impl.GnmiSessionFactory;
+import org.opendaylight.modules.gnmi.connector.security.Security;
+import org.opendaylight.modules.gnmi.connector.session.api.SessionCloseDelegate;
+import org.opendaylight.modules.gnmi.connector.session.api.SessionManager;
+import org.opendaylight.modules.gnmi.connector.session.api.SessionProvider;
+import org.opendaylight.modules.gnmi.connector.session.api.SessionProviderImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

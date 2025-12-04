@@ -6,15 +6,9 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.connector.tests.commons;
+package org.opendaylight.modules.gnmi.connector.tests.commons;
 
 import com.google.common.io.CharStreams;
-import io.lighty.modules.gnmi.connector.configuration.SecurityFactory;
-import io.lighty.modules.gnmi.connector.gnmi.session.impl.GnmiSessionFactoryImpl;
-import io.lighty.modules.gnmi.connector.security.Security;
-import io.lighty.modules.gnmi.connector.session.SessionManagerFactory;
-import io.lighty.modules.gnmi.connector.session.SessionManagerFactoryImpl;
-import io.lighty.modules.gnmi.connector.session.api.SessionManager;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -28,6 +22,12 @@ import org.bouncycastle.openssl.PEMKeyPair;
 import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
 import org.bouncycastle.openssl.jcajce.JcePEMDecryptorProviderBuilder;
+import org.opendaylight.modules.gnmi.connector.configuration.SecurityFactory;
+import org.opendaylight.modules.gnmi.connector.gnmi.session.impl.GnmiSessionFactoryImpl;
+import org.opendaylight.modules.gnmi.connector.security.Security;
+import org.opendaylight.modules.gnmi.connector.session.SessionManagerFactory;
+import org.opendaylight.modules.gnmi.connector.session.SessionManagerFactoryImpl;
+import org.opendaylight.modules.gnmi.connector.session.api.SessionManager;
 
 public final class TestUtils {
 

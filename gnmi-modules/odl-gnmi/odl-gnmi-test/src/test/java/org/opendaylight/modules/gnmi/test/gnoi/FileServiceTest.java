@@ -6,7 +6,7 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package io.lighty.modules.gnmi.test.gnoi;
+package org.opendaylight.modules.gnmi.test.gnoi;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -15,14 +15,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import gnoi.file.FileOuterClass;
 import io.grpc.stub.StreamObserver;
-import io.lighty.modules.gnmi.connector.configuration.SessionConfiguration;
-import io.lighty.modules.gnmi.connector.session.api.SessionManager;
-import io.lighty.modules.gnmi.connector.session.api.SessionProvider;
-import io.lighty.modules.gnmi.simulatordevice.config.GnmiSimulatorConfiguration;
-import io.lighty.modules.gnmi.simulatordevice.impl.SimulatedGnmiDevice;
-import io.lighty.modules.gnmi.simulatordevice.utils.GnmiSimulatorConfUtils;
-import io.lighty.modules.gnmi.test.utils.TestUtils;
-import io.lighty.modules.gnmi.test.utils.TimeoutUtil;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +23,14 @@ import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.opendaylight.modules.gnmi.connector.configuration.SessionConfiguration;
+import org.opendaylight.modules.gnmi.connector.session.api.SessionManager;
+import org.opendaylight.modules.gnmi.connector.session.api.SessionProvider;
+import org.opendaylight.modules.gnmi.simulatordevice.config.GnmiSimulatorConfiguration;
+import org.opendaylight.modules.gnmi.simulatordevice.impl.SimulatedGnmiDevice;
+import org.opendaylight.modules.gnmi.simulatordevice.utils.GnmiSimulatorConfUtils;
+import org.opendaylight.modules.gnmi.test.utils.TestUtils;
+import org.opendaylight.modules.gnmi.test.utils.TimeoutUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
