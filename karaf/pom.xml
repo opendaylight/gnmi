@@ -17,9 +17,9 @@
         <relativePath/>
     </parent>
 
-    <groupId>io.lighty.gnmi</groupId>
+    <groupId>org.opendaylight.gnmi</groupId>
     <artifactId>gnmi-karaf</artifactId>
-    <version>23.0.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <dependencyManagement>
@@ -32,6 +32,13 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
+                <groupId>org.opendaylight.controller</groupId>
+                <artifactId>controller-artifacts</artifactId>
+                <version>11.0.2</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
                 <groupId>org.opendaylight.netconf</groupId>
                 <artifactId>netconf-artifacts</artifactId>
                 <version>9.0.1</version>
@@ -39,9 +46,9 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>io.lighty.gnmi</groupId>
+                <groupId>org.opendaylight.gnmi</groupId>
                 <artifactId>gnmi-parent</artifactId>
-                <version>23.0.0-SNAPSHOT</version>
+                <version>1.0.0-SNAPSHOT</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -72,10 +79,10 @@
         </dependency>
 
         <dependency>
-            <groupId>io.lighty.gnmi</groupId>
+            <groupId>org.opendaylight.gnmi</groupId>
             <artifactId>features-gnmi</artifactId>
             <classifier>features</classifier>
-            <version>23.0.0-SNAPSHOT</version>
+            <version>1.0.0-SNAPSHOT</version>
             <type>xml</type>
             <scope>runtime</scope>
         </dependency>
