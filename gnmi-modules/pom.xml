@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright (c) 2025 PANTHEON.tech, s.r.o. and others.  All rights reserved.
+  ~ Copyright (c) 2021 PANTHEON.tech, s.r.o. and others.  All rights reserved.
   ~
   ~ This program and the accompanying materials are made available under the
   ~ terms of the Eclipse Public License v1.0 which accompanies this distribution,
@@ -10,7 +10,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.opendaylight.gnmi.modules.gnmi</groupId>
+    <groupId>org.opendaylight.gnmi.modules</groupId>
     <artifactId>gnmi-modules</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -21,7 +21,12 @@
     </properties>
 
     <modules>
-        <module>odl-gnmi</module>
+        <module>odl-gnmi-connector</module>
+        <module>odl-gnmi-commons</module>
+        <module>odl-gnmi-proto</module>
+        <module>odl-gnmi-device-simulator</module>
+        <module>odl-gnmi-test</module>
+        <module>odl-gnmi-sb</module>
     </modules>
 
 </project>

@@ -14,11 +14,11 @@
         <groupId>org.opendaylight.gnmi</groupId>
         <artifactId>bnd-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
-        <relativePath>../../../bnd-parent/pom.xml</relativePath>
+        <relativePath>../../bnd-parent/pom.xml</relativePath>
     </parent>
 
-    <groupId>org.opendaylight.gnmi.modules.gnmi.southbound</groupId>
-    <artifactId>lighty-gnmi-sb</artifactId>
+    <groupId>org.opendaylight.gnmi.modules</groupId>
+    <artifactId>odl-gnmi-sb</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -65,37 +65,37 @@
         </dependency>
         <dependency>
             <groupId>org.opendaylight.gnmi.models.gnmi</groupId>
-            <artifactId>lighty-gnmi-certificates-storage-model</artifactId>
+            <artifactId>odl-gnmi-certificates-storage-model</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.opendaylight.gnmi.models.gnmi</groupId>
-            <artifactId>lighty-gnmi-force-capabilities</artifactId>
+            <artifactId>odl-gnmi-force-capabilities</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.opendaylight.gnmi.models.gnmi</groupId>
-            <artifactId>lighty-gnmi-topology-model</artifactId>
+            <artifactId>odl-gnmi-topology-model</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.opendaylight.gnmi.models.gnmi</groupId>
-            <artifactId>lighty-gnmi-yang-storage-model</artifactId>
+            <artifactId>odl-gnmi-yang-storage-model</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>org.opendaylight.gnmi.modules.gnmi</groupId>
-            <artifactId>lighty-gnmi-commons</artifactId>
+            <groupId>org.opendaylight.gnmi.modules</groupId>
+            <artifactId>odl-gnmi-commons</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>org.opendaylight.gnmi.modules.gnmi</groupId>
-            <artifactId>lighty-gnmi-connector</artifactId>
+            <groupId>org.opendaylight.gnmi.modules</groupId>
+            <artifactId>odl-gnmi-connector</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>org.opendaylight.gnmi.modules.gnmi</groupId>
-            <artifactId>lighty-gnmi-proto</artifactId>
+            <groupId>org.opendaylight.gnmi.modules</groupId>
+            <artifactId>odl-gnmi-proto</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>

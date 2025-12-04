@@ -79,8 +79,8 @@
         </dependency>
 
         <dependency>
-            <groupId>org.opendaylight.gnmi.modules.gnmi.southbound</groupId>
-            <artifactId>lighty-gnmi-sb</artifactId>
+            <groupId>org.opendaylight.gnmi.modules</groupId>
+            <artifactId>odl-gnmi-sb</artifactId>
             <version>${project.version}</version>
             <exclusions>
                 <exclusion>

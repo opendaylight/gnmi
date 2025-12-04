@@ -14,11 +14,11 @@
         <groupId>org.opendaylight.gnmi</groupId>
         <artifactId>gnmi-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
-        <relativePath>../../../gnmi-parent/pom.xml</relativePath>
+        <relativePath>../../gnmi-parent/pom.xml</relativePath>
     </parent>
 
-    <groupId>org.opendaylight.gnmi.modules.gnmi</groupId>
-    <artifactId>lighty-gnmi-proto</artifactId>
+    <groupId>org.opendaylight.gnmi.modules</groupId>
+    <artifactId>odl-gnmi-proto</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
     <name>${project.groupId}:${project.artifactId}</name>

@@ -14,11 +14,11 @@
         <groupId>org.opendaylight.gnmi</groupId>
         <artifactId>gnmi-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
-        <relativePath>../../../gnmi-parent/pom.xml</relativePath>
+        <relativePath>../../gnmi-parent/pom.xml</relativePath>
     </parent>
 
-    <groupId>org.opendaylight.gnmi.modules.gnmi</groupId>
-    <artifactId>lighty-gnmi-test</artifactId>
+    <groupId>org.opendaylight.gnmi.modules</groupId>
+    <artifactId>odl-gnmi-test</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
     <name>${project.groupId}:${project.artifactId}</name>
@@ -65,20 +65,20 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.opendaylight.gnmi.modules.gnmi</groupId>
-            <artifactId>lighty-gnmi-connector</artifactId>
+            <groupId>org.opendaylight.gnmi.modules</groupId>
+            <artifactId>odl-gnmi-connector</artifactId>
             <version>1.0.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.opendaylight.gnmi.modules.gnmi</groupId>
-            <artifactId>lighty-gnmi-device-simulator</artifactId>
+            <groupId>org.opendaylight.gnmi.modules</groupId>
+            <artifactId>odl-gnmi-device-simulator</artifactId>
             <version>1.0.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.opendaylight.gnmi.applications.rcgnmi</groupId>
-            <artifactId>lighty-rcgnmi-app</artifactId>
+            <artifactId>odl-rcgnmi-app</artifactId>
             <version>1.0.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
