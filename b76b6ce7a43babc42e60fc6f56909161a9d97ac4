@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d2c1b82_a5adaaaf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-12-04T14:39:15Z",
+      "side": 1,
+      "message": "Will be replaced by LFN code merge with git history",
+      "revId": "b76b6ce7a43babc42e60fc6f56909161a9d97ac4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
