@@ -60,54 +60,101 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.skyscreamer</groupId>
-            <artifactId>jsonassert</artifactId>
-            <scope>test</scope>
+            <groupId>org.opendaylight.aaa</groupId>
+            <artifactId>aaa-encrypt-service-impl</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.opendaylight.gnmi.modules</groupId>
-            <artifactId>odl-gnmi-connector</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-            <scope>test</scope>
+            <groupId>org.opendaylight.mdsal</groupId>
+            <artifactId>mdsal-common-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.opendaylight.gnmi.modules</groupId>
-            <artifactId>odl-gnmi-device-simulator</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-            <scope>test</scope>
+            <groupId>org.opendaylight.mdsal</groupId>
+            <artifactId>mdsal-dom-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.opendaylight.gnmi.applications.rcgnmi</groupId>
-            <artifactId>odl-rcgnmi-app</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-            <scope>test</scope>
+            <groupId>org.opendaylight.mdsal</groupId>
+            <artifactId>mdsal-dom-spi</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.opendaylight.gnmi.models</groupId>
-            <artifactId>openconfig-models</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-            <scope>test</scope>
+            <groupId>org.opendaylight.netconf</groupId>
+            <artifactId>keystore-legacy</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <scope>test</scope>
+            <groupId>org.opendaylight.netconf</groupId>
+            <artifactId>netconf-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
+            <groupId>org.opendaylight.netconf</groupId>
+            <artifactId>netconf-client</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.awaitility</groupId>
-            <artifactId>awaitility</artifactId>
-            <scope>test</scope>
+            <groupId>org.opendaylight.netconf</groupId>
+            <artifactId>netconf-client-mdsal</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.netconf</groupId>
+            <artifactId>netconf-dom-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.netconf</groupId>
+            <artifactId>netconf-testtool</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.netconf</groupId>
+            <artifactId>netconf-topology</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.netconf</groupId>
+            <artifactId>netconf-topology-impl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.netconf</groupId>
+            <artifactId>odl-device-notification</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.netconf</groupId>
+            <artifactId>restconf-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.netconf</groupId>
+            <artifactId>restconf-mdsal-spi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.netconf</groupId>
+            <artifactId>restconf-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.netconf</groupId>
+            <artifactId>restconf-server-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.netconf</groupId>
+            <artifactId>restconf-server-api-testlib</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.netconf</groupId>
+            <artifactId>restconf-server-jaxrs</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.netconf</groupId>
+            <artifactId>restconf-server-mdsal</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.netconf</groupId>
+            <artifactId>restconf-server-spi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.netconf</groupId>
+            <artifactId>transport-http</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.netconf.model</groupId>
+            <artifactId>sal-remote</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.apache.pekko</groupId>
-            <artifactId>pekko-persistence_2.13</artifactId>
-            <version>1.0.3</version>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -132,6 +179,77 @@
             <groupId>org.apache.pekko</groupId>
             <artifactId>pekko-distributed-data_2.13</artifactId>
             <version>1.0.3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.pekko</groupId>
+            <artifactId>pekko-persistence_2.13</artifactId>
+            <version>1.0.3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.gnmi.modules</groupId>
+            <artifactId>odl-gnmi-connector</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.gnmi.modules</groupId>
+            <artifactId>odl-gnmi-device-simulator</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.gnmi.modules</groupId>
+            <artifactId>odl-gnmi-sb</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.gnmi.models</groupId>
+            <artifactId>openconfig-models</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.mdsal</groupId>
+            <artifactId>mdsal-binding-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.mdsal</groupId>
+            <artifactId>mdsal-binding-dom-adapter</artifactId>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.mdsal</groupId>
+            <artifactId>mdsal-binding-test-utils</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.mdsal</groupId>
+            <artifactId>mdsal-dom-broker</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.netconf</groupId>
+            <artifactId>sal-remote-impl</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.skyscreamer</groupId>
+            <artifactId>jsonassert</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

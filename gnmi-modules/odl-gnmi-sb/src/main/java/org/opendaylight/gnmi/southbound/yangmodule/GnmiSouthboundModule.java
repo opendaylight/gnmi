@@ -44,7 +44,6 @@ import org.slf4j.LoggerFactory;
  */
 @Component(immediate = true, service = GnmiSouthboundModule.class)
 public final class GnmiSouthboundModule {
-
     private static final Logger LOG = LoggerFactory.getLogger(GnmiSouthboundModule.class);
 
     private final DataBroker dataBroker;
@@ -60,20 +59,20 @@ public final class GnmiSouthboundModule {
 
     @Activate
     public GnmiSouthboundModule(
-        @Reference DataBroker dataBroker,
-        @Reference RpcProviderService rpcProviderService,
-        @Reference DOMMountPointService domMountPointService,
-        @Reference AAAEncryptionService encryptionService,
-        @Reference YangParserFactory parserFactory,
-        @Reference YangXPathParserFactory xpathParserFactory) {
+            @Reference DataBroker dataBroker,
+            @Reference RpcProviderService rpcProviderService,
+            @Reference DOMMountPointService domMountPointService,
+            @Reference AAAEncryptionService encryptionService,
+            @Reference YangParserFactory parserFactory,
+            @Reference YangXPathParserFactory xpathParserFactory) {
         this(dataBroker, rpcProviderService, domMountPointService,
             encryptionService, parserFactory, xpathParserFactory, null);
     }
 
     public GnmiSouthboundModule(DataBroker dataBroker, RpcProviderService rpcProviderService,
-        DOMMountPointService domMountPointService, AAAEncryptionService encryptionService,
-        YangParserFactory parserFactory, YangXPathParserFactory xpathParserFactory,
-        GnmiConfiguration gnmiConfiguration) {
+            DOMMountPointService domMountPointService, AAAEncryptionService encryptionService,
+            YangParserFactory parserFactory, YangXPathParserFactory xpathParserFactory,
+            GnmiConfiguration gnmiConfiguration) {
         this.dataBroker = requireNonNull(dataBroker);
         this.rpcProviderService = requireNonNull(rpcProviderService);
         this.domMountPointService = requireNonNull(domMountPointService);

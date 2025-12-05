@@ -8,12 +8,11 @@
 
 package org.opendaylight.modules.gnmi.test.gnmi.rcgnmi;
 
-import static io.lighty.modules.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.ERR_MSG_RELEVANT_MODEL_NOT_EXIST;
-import static io.lighty.modules.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.GNMI_NODE_ID;
-import static io.lighty.modules.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.RESTCONF_DATA_PATH;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.opendaylight.modules.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.ERR_MSG_RELEVANT_MODEL_NOT_EXIST;
+import static org.opendaylight.modules.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.GNMI_NODE_ID;
+import static org.opendaylight.modules.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.RESTCONF_DATA_PATH;
 
-import io.lighty.core.controller.impl.config.ConfigurationException;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.http.HttpResponse;
@@ -51,7 +50,7 @@ public class GnmiUploadModelsITTest extends GnmiITBase {
     private static SimulatedGnmiDevice device;
 
     @BeforeAll
-    public static void setupDevice() throws ConfigurationException {
+    public static void setupDevice() {
         device = getUnsecureGnmiDevice(DEVICE_IP, DEVICE_PORT);
         try {
             device.start();
