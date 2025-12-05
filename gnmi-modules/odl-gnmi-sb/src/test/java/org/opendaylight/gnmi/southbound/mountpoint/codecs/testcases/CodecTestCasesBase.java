@@ -10,7 +10,7 @@ package org.opendaylight.gnmi.southbound.mountpoint.codecs.testcases;
 import java.nio.file.Path;
 import java.util.List;
 import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.opendaylight.gnmi.southbound.lightymodule.util.GnmiConfigUtils;
+import org.opendaylight.gnmi.southbound.yangmodule.util.GnmiConfigUtils;
 import org.opendaylight.gnmi.southbound.mountpoint.codecs.TestSchemaContextProvider;
 import org.opendaylight.gnmi.southbound.schema.impl.SchemaException;
 import org.opendaylight.gnmi.southbound.schema.loader.api.YangLoadException;

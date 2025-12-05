@@ -6,10 +6,10 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package org.opendaylight.gnmi.southbound.lightymodule;
+package org.opendaylight.gnmi.southbound.yangmodule;
 
-import static io.lighty.gnmi.southbound.lightymodule.util.GnmiConfigUtils.OPENCONFIG_YANG_MODELS;
 import static java.util.Objects.requireNonNull;
+import static org.opendaylight.gnmi.southbound.yangmodule.util.GnmiConfigUtils.OPENCONFIG_YANG_MODELS;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeoutException;
 import org.opendaylight.aaa.encrypt.AAAEncryptionService;
-import org.opendaylight.gnmi.southbound.lightymodule.config.GnmiConfiguration;
+import org.opendaylight.gnmi.southbound.yangmodule.config.GnmiConfiguration;
 import org.opendaylight.gnmi.southbound.provider.GnmiSouthboundProvider;
 import org.opendaylight.gnmi.southbound.schema.loader.api.YangLoadException;
 import org.opendaylight.gnmi.southbound.schema.loader.api.YangLoaderService;
