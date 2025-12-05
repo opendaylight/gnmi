@@ -76,6 +76,11 @@
             <artifactId>logback-classic</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+            <groupId>org.opendaylight.gnmi.models</groupId>
+            <artifactId>openconfig-models</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.opendaylight.yangtools</groupId>
@@ -85,12 +90,6 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.opendaylight.gnmi.models</groupId>
-            <artifactId>openconfig-models</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
         <dependency>
