@@ -15,7 +15,7 @@ containing [GnmiDataBroker](src/main/java/org/opendaylight/gnmi/southbound/mount
 used for communicating with gNMI device via transactions. GnmiDataBroker also contains
 [schemaContext](https://javadocs.opendaylight.org/org.opendaylight.yangtools/master/org/opendaylight/yangtools/yang/model/api/SchemaContext.html)
 created from capabilities received from the device. All YANG models which the gNMI device will use, should be provided
-in the [GnmiConfiguration](src/main/java/org/opendaylight/gnmi/southbound/lightymodule/config/GnmiConfiguration.java).
+in the [GnmiConfiguration](src/main/java/org/opendaylight/gnmi/southbound/yangmodule/config/GnmiConfiguration.java).
 YANG models could be added to gNMI Southbound module with 3 ways:
  1) Add path to folder containing YANG modules in GnmiConfiguration with property `initialYangsPaths` to json configuration.
     ```
@@ -189,7 +189,7 @@ This example shows how to programmatically add certificates for lighty.io gNMI. 
 The full example can be found inside the [GnmiWithoutRestconfTest](../odl-gnmi-test/src/test/java/org/opendaylight/modules/gnmi/test/gnmi/GnmiWithoutRestconfTest.java).
 
 ## Update YANG Models in Runtime
-When the device requires some YANG models, which are not included in the provided [GnmiConfiguration](src/main/java/org/opendaylight/gnmi/southbound/lightymodule/config/GnmiConfiguration.java), then those could be added by RPC in runtime. 
+When the device requires some YANG models, which are not included in the provided [GnmiConfiguration](src/main/java/org/opendaylight/gnmi/southbound/yangmodule/config/GnmiConfiguration.java), then those could be added by RPC in runtime. 
 
 YANG models should be added **before connecting the gNMI device**. YANG storage and RPC for updating YANG models is modeled by [gnmi-yang-storage.yang](../../../lighty-models/lighty-gnmi-models/lighty-gnmi-yang-storage-model/src/main/yang/gnmi-yang-storage.yang).
 
