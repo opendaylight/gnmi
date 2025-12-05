@@ -1,0 +1,18 @@
+{
+  "gnmi_simulator": {
+    "targetAddress": "127.0.0.1",
+    "targetPort": 10161,
+    "certPath": "src/main/resources/certs/server.crt",
+    "certKeyPath": "src/main/resources/certs/server-pkcs8.key",
+    "initialConfigDataPath": "src/main/resources/simulator-data/initialConfigJsonData.json",
+    "initialStateDataPath": "src/main/resources/simulator-data/initialStateJsonData.json",
+    "yangsPath": "../../gnmi-models/openconfig-models/src/main/yang",
+    "username": "admin",
+    "password": "admin",
+    "schemaServiceConfig": {
+      "topLevelModels": [
+        { "nameSpace":"urn:ietf:params:xml:ns:yang:iana-if-type","name":"iana-if-type","revision":"2023-01-26"}
+      ]
+    }
+  }
+}
