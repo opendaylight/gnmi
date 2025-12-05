@@ -8,12 +8,11 @@
 
 package org.opendaylight.modules.gnmi.test.gnmi.rcgnmi;
 
-import static io.lighty.modules.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.GNMI_NODE_ID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.opendaylight.modules.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.GNMI_NODE_ID;
 
-import io.lighty.core.controller.impl.config.ConfigurationException;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URISyntaxException;
@@ -62,7 +61,7 @@ public class GnmiCertificatesTest extends GnmiITBase {
     private static SimulatedGnmiDevice device;
 
     @BeforeAll
-    public static void setupDevice() throws ConfigurationException {
+    public static void setupDevice() {
         device = getSecureGnmiDevice(DEVICE_IP, DEVICE_PORT, KEY_PATH, CERTIFICATE_PATH, USERNAME, PASSWORD);
         try {
             device.start();

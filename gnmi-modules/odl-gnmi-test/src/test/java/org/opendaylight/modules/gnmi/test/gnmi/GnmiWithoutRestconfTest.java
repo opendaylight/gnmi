@@ -9,56 +9,56 @@ package org.opendaylight.modules.gnmi.test.gnmi;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import io.lighty.aaa.encrypt.service.impl.AAAEncryptionServiceImpl;
-import io.lighty.applications.rcgnmi.module.RcGnmiAppModuleConfigUtils;
-import io.lighty.core.controller.api.LightyController;
-import io.lighty.core.controller.impl.LightyControllerBuilder;
-import io.lighty.core.controller.impl.config.ConfigurationException;
-import io.lighty.core.controller.impl.util.ControllerConfigUtils;
-import java.io.IOException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.security.spec.KeySpec;
 import java.time.Duration;
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.GCMParameterSpec;
-import javax.crypto.spec.PBEKeySpec;
-import javax.crypto.spec.SecretKeySpec;
 import org.awaitility.Awaitility;
-import org.junit.jupiter.api.AfterAll;
+import org.eclipse.jdt.annotation.NonNull;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.opendaylight.aaa.encrypt.impl.AAAEncryptionServiceImpl;
 import org.opendaylight.gnmi.southbound.identifier.IdentifierUtils;
 import org.opendaylight.gnmi.southbound.yangmodule.GnmiSouthboundModule;
+import org.opendaylight.gnmi.southbound.yangmodule.config.GnmiConfiguration;
 import org.opendaylight.mdsal.binding.api.DataBroker;
 import org.opendaylight.mdsal.binding.api.ReadTransaction;
 import org.opendaylight.mdsal.binding.api.WriteTransaction;
+import org.opendaylight.mdsal.binding.dom.adapter.BindingDOMRpcProviderServiceAdapter;
+import org.opendaylight.mdsal.binding.dom.adapter.ConstantAdapterContext;
+import org.opendaylight.mdsal.binding.dom.adapter.test.AbstractDataBrokerTest;
 import org.opendaylight.mdsal.common.api.LogicalDatastoreType;
 import org.opendaylight.mdsal.dom.api.DOMDataBroker;
 import org.opendaylight.mdsal.dom.api.DOMDataTreeReadTransaction;
 import org.opendaylight.mdsal.dom.api.DOMDataTreeWriteTransaction;
 import org.opendaylight.mdsal.dom.api.DOMMountPoint;
 import org.opendaylight.mdsal.dom.api.DOMMountPointService;
+import org.opendaylight.mdsal.dom.api.DOMRpcService;
+import org.opendaylight.mdsal.dom.broker.DOMMountPointServiceImpl;
+import org.opendaylight.mdsal.dom.broker.DOMRpcRouter;
+import org.opendaylight.mdsal.dom.broker.RouterDOMRpcProviderService;
+import org.opendaylight.mdsal.dom.broker.RouterDOMRpcService;
+import org.opendaylight.mdsal.dom.spi.FixedDOMSchemaService;
 import org.opendaylight.modules.gnmi.simulatordevice.config.GnmiSimulatorConfiguration;
 import org.opendaylight.modules.gnmi.simulatordevice.impl.SimulatedGnmiDevice;
-import org.opendaylight.modules.gnmi.simulatordevice.utils.EffectiveModelContextBuilder.EffectiveModelContextBuilderException;
 import org.opendaylight.modules.gnmi.simulatordevice.utils.GnmiSimulatorConfUtils;
 import org.opendaylight.yang.gen.v1.config.aaa.authn.encrypt.service.config.rev240202.AaaEncryptServiceConfig;
 import org.opendaylight.yang.gen.v1.config.aaa.authn.encrypt.service.config.rev240202.AaaEncryptServiceConfigBuilder;
+import org.opendaylight.yang.gen.v1.config.aaa.authn.encrypt.service.config.rev240202.EncryptServiceConfig;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.inet.types.rev130715.Host;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.inet.types.rev130715.IpAddress;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.inet.types.rev130715.Ipv4Address;
@@ -82,7 +82,9 @@ import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.yang.storage.rev210331.gnmi.
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NodeId;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.NodeBuilder;
+import org.opendaylight.yangtools.binding.DataContainer;
 import org.opendaylight.yangtools.binding.DataObject;
+import org.opendaylight.yangtools.binding.data.codec.impl.di.DefaultBindingDOMCodecServices;
 import org.opendaylight.yangtools.yang.binding.InstanceIdentifier;
 import org.opendaylight.yangtools.yang.common.QName;
 import org.opendaylight.yangtools.yang.common.QNameModule;
@@ -98,7 +100,7 @@ import org.opendaylight.yangtools.yang.data.spi.node.ImmutableNodes;
 import org.opendaylight.yangtools.yang.parser.impl.DefaultYangParserFactory;
 import org.opendaylight.yangtools.yang.xpath.impl.AntlrXPathParserFactory;
 
-public class GnmiWithoutRestconfTest {
+public class GnmiWithoutRestconfTest extends AbstractDataBrokerTest {
     private static final String INITIAL_JSON_DATA_PATH = "src/test/resources/json/initData";
     private static final String TEST_SCHEMA_PATH = "src/test/resources/additional/models";
     private static final String SIMULATOR_CONFIG = "/json/simulator_config.json";
@@ -147,44 +149,49 @@ public class GnmiWithoutRestconfTest {
     private static final QName YANG_VERSION_QN = QName.create(GNMI_YANG_MODEL_QN, "version");
     private static final QName YANG_BODY_QN = QName.create(GNMI_YANG_MODEL_QN, "body");
 
-    private static LightyController lightyController;
     private static GnmiSouthboundModule gnmiSouthboundModule;
     private static SimulatedGnmiDevice gnmiDevice;
 
-    @BeforeAll
-    public static void startUp() throws ConfigurationException, ExecutionException, InterruptedException, IOException,
-            NoSuchAlgorithmException, InvalidKeySpecException, TimeoutException,
-            EffectiveModelContextBuilderException {
-        lightyController = new LightyControllerBuilder()
-                .from(ControllerConfigUtils.getConfiguration(Files.newInputStream(CONFIGURATION_PATH)))
-                .build();
-        Boolean controllerStartSuccessfully = lightyController.start().get(TIMEOUT_MILLIS,  TimeUnit.MILLISECONDS);
-        assertTrue(controllerStartSuccessfully);
+    private final ObjectMapper mapper = new ObjectMapper();
 
-        gnmiSouthboundModule = new GnmiSouthboundModule(lightyController.getServices().getBindingDataBroker(),
-            lightyController.getServices().getRpcProviderService(),
-            lightyController.getServices().getDOMMountPointService(), createEncryptionService(),
-            new DefaultYangParserFactory(), new AntlrXPathParserFactory(),
-            RcGnmiAppModuleConfigUtils.loadConfiguration(CONFIGURATION_PATH).getGnmiConfiguration());
+    private DataBroker odlDataBroker;
+    private DOMMountPointService odlDomMountPointService;
+    private DOMRpcService odlDomRpcService;
+
+    @BeforeEach
+    public void startUp() throws Exception {
+        odlDataBroker = getDataBroker();
+        odlDomMountPointService = new DOMMountPointServiceImpl();
+
+        final var schemaContext = getRuntimeContext().modelContext();
+        final var schemaService = new FixedDOMSchemaService(schemaContext);
+        final var domRpcRouter = new DOMRpcRouter(schemaService);
+        final var adapterContext = new ConstantAdapterContext(new DefaultBindingDOMCodecServices(getRuntimeContext()));
+        final var rpcProviderService = new BindingDOMRpcProviderServiceAdapter(adapterContext,
+            new RouterDOMRpcProviderService(domRpcRouter));
+        final var configTree = mapper.readTree(Files.newInputStream(CONFIGURATION_PATH)).path("gnmi");
+        final var config = mapper.treeToValue(configTree, GnmiConfiguration.class);
+        gnmiSouthboundModule = new GnmiSouthboundModule(odlDataBroker, rpcProviderService, odlDomMountPointService,
+            createEncryptionService(), new DefaultYangParserFactory(),
+            new AntlrXPathParserFactory(), config);
         gnmiSouthboundModule.init();
-
         gnmiDevice = getUnsecureGnmiDevice(DEVICE_ADDRESS, DEVICE_PORT);
         gnmiDevice.start();
+
+        odlDomRpcService = new RouterDOMRpcService(domRpcRouter);
     }
 
-    @AfterAll
-    public static void tearDown() {
+    @AfterEach
+    public void tearDown() {
         gnmiDevice.stop();
         gnmiSouthboundModule.close();
-        assertTrue(lightyController.shutdown(TIMEOUT_MILLIS, TimeUnit.MILLISECONDS));
     }
 
     @Test
     public void testCrudOperation() throws ExecutionException, InterruptedException, TimeoutException {
-        final DataBroker bindingDataBroker = lightyController.getServices().getBindingDataBroker();
         //Write device to data-store
         final Node testGnmiNode = createNode(GNMI_NODE_ID, DEVICE_ADDRESS, DEVICE_PORT, getInsecureSecurityChoice());
-        final WriteTransaction writeTransaction = bindingDataBroker.newWriteOnlyTransaction();
+        final WriteTransaction writeTransaction = odlDataBroker.newWriteOnlyTransaction();
         final InstanceIdentifier<Node> nodeInstanceIdentifier = IdentifierUtils.gnmiNodeIID(testGnmiNode.getNodeId());
         writeTransaction.put(LogicalDatastoreType.CONFIGURATION, nodeInstanceIdentifier, testGnmiNode);
         writeTransaction.commit().get(TIMEOUT_MILLIS,  TimeUnit.MILLISECONDS);
@@ -193,7 +200,7 @@ public class GnmiWithoutRestconfTest {
         Awaitility.waitAtMost(WAIT_TIME_DURATION)
                 .pollInterval(POLL_INTERVAL_DURATION)
                 .untilAsserted(() -> {
-                    final Optional<Node> node = readOperData(bindingDataBroker, nodeInstanceIdentifier);
+                    final Optional<Node> node = readOperData(odlDataBroker, nodeInstanceIdentifier);
                     assertTrue(node.isPresent());
                     final Node foundNode = node.orElseThrow();
                     final GnmiNode gnmiNode = foundNode.augmentation(GnmiNode.class);
@@ -205,9 +212,8 @@ public class GnmiWithoutRestconfTest {
                 });
 
         //Get gnmi DOMDataBroker
-        final DOMMountPointService domMountPointService = lightyController.getServices().getDOMMountPointService();
         final Optional<DOMMountPoint> mountPoint
-                = domMountPointService.getMountPoint(IdentifierUtils.nodeidToYii(testGnmiNode.getNodeId()));
+                = odlDomMountPointService.getMountPoint(IdentifierUtils.nodeidToYii(testGnmiNode.getNodeId()));
         assertTrue(mountPoint.isPresent());
         final DOMMountPoint domMountPoint = mountPoint.orElseThrow();
         final Optional<DOMDataBroker> service = domMountPoint.getService(DOMDataBroker.class);
@@ -260,8 +266,8 @@ public class GnmiWithoutRestconfTest {
 
         //Remove device after test
         try {
-            deleteConfigData(bindingDataBroker, nodeInstanceIdentifier);
-            deleteOperData(bindingDataBroker, nodeInstanceIdentifier);
+            deleteConfigData(odlDataBroker, nodeInstanceIdentifier);
+            deleteOperData(odlDataBroker, nodeInstanceIdentifier);
         } catch (ExecutionException | InterruptedException e) {
             Assertions.fail("Failed to remove device data from gNMI", e);
         }
@@ -269,7 +275,7 @@ public class GnmiWithoutRestconfTest {
         Awaitility.waitAtMost(WAIT_TIME_DURATION)
                 .pollInterval(POLL_INTERVAL_DURATION)
                 .untilAsserted(() -> {
-                    final Optional<Node> node = readOperData(bindingDataBroker, nodeInstanceIdentifier);
+                    final Optional<Node> node = readOperData(odlDataBroker, nodeInstanceIdentifier);
                     assertFalse(node.isPresent());
                 });
     }
@@ -279,16 +285,13 @@ public class GnmiWithoutRestconfTest {
         // Invoke RPC for registering certificates
         final ContainerNode certificateInput
                 = getCertificateInput(CERT_ID, CA_VALUE, CLIENT_CERT, CLIENT_KEY, PASSPHRASE);
-        lightyController.getServices().getDOMRpcService().invokeRpc(ADD_KEYSTORE_RPC_QN,
-                        certificateInput)
-                .get(TIMEOUT_MILLIS,  TimeUnit.MILLISECONDS);
+        odlDomRpcService.invokeRpc(ADD_KEYSTORE_RPC_QN, certificateInput).get(TIMEOUT_MILLIS,  TimeUnit.MILLISECONDS);
 
         //Test if certificates was added
-        final DataBroker bindingDataBroker = lightyController.getServices().getBindingDataBroker();
         final InstanceIdentifier<Keystore> keystoreII = InstanceIdentifier
                 .builder(Keystore.class, new KeystoreKey(CERT_ID))
                 .build();
-        final Optional<Keystore> keystore = readOperData(bindingDataBroker, keystoreII);
+        final Optional<Keystore> keystore = readOperData(odlDataBroker, keystoreII);
         assertTrue(keystore.isPresent());
         assertEquals(CA_VALUE, keystore.orElseThrow().getCaCertificate());
         assertEquals(CLIENT_CERT, keystore.orElseThrow().getClientCert());
@@ -297,29 +300,27 @@ public class GnmiWithoutRestconfTest {
         assertNotEquals(CLIENT_KEY, keystore.orElseThrow().getClientKey());
 
         //Remove created keystore after test
-        deleteOperData(bindingDataBroker, keystoreII);
+        deleteOperData(odlDataBroker, keystoreII);
     }
 
     @Test
     public void testUpdatingYangModels() throws ExecutionException, InterruptedException, TimeoutException {
         // Invoke RPC for uploading yang models
         final ContainerNode yangModelInput = getYangModelInput(YANG_NAME, YANG_BODY, YANG_VERSION);
-        lightyController.getServices().getDOMRpcService().invokeRpc(UPLOAD_YANG_RPC_QN, yangModelInput)
-                .get(TIMEOUT_MILLIS,  TimeUnit.MILLISECONDS);
+        odlDomRpcService.invokeRpc(UPLOAD_YANG_RPC_QN, yangModelInput).get(TIMEOUT_MILLIS,  TimeUnit.MILLISECONDS);
 
         // Test if yang models was uploaded
-        final DataBroker bindingDataBroker = lightyController.getServices().getBindingDataBroker();
         final InstanceIdentifier<GnmiYangModel> yangModelII = InstanceIdentifier.builder(GnmiYangModels.class)
                 .child(GnmiYangModel.class, new GnmiYangModelKey(YANG_NAME, new ModuleVersionType(YANG_VERSION)))
                 .build();
-        final Optional<GnmiYangModel> gnmiYangModel = readOperData(bindingDataBroker, yangModelII);
+        final Optional<GnmiYangModel> gnmiYangModel = readOperData(odlDataBroker, yangModelII);
         assertTrue(gnmiYangModel.isPresent());
         assertEquals(YANG_BODY, gnmiYangModel.orElseThrow().getBody());
         assertEquals(YANG_NAME, gnmiYangModel.orElseThrow().getName());
         assertEquals(YANG_VERSION, gnmiYangModel.orElseThrow().getVersion().getValue());
 
         //Remove created YANG model after test
-        deleteOperData(bindingDataBroker, yangModelII);
+        deleteOperData(odlDataBroker, yangModelII);
     }
 
     private ContainerNode getYangModelInput(final String yangName, final String yangBody,
@@ -482,7 +483,6 @@ public class GnmiWithoutRestconfTest {
                 .build();
     }
 
-
     private static SecurityChoice getInsecureSecurityChoice() {
         return new InsecureDebugOnlyBuilder()
                 .setConnectionType(InsecureDebugOnly.ConnectionType.INSECURE)
@@ -491,16 +491,53 @@ public class GnmiWithoutRestconfTest {
 
     private static AAAEncryptionServiceImpl createEncryptionService()
             throws NoSuchAlgorithmException, InvalidKeySpecException {
-        final AaaEncryptServiceConfig encrySrvConfig = getDefaultAaaEncryptServiceConfig();
-        final byte[] encryptionKeySalt = Base64.getDecoder().decode(encrySrvConfig.getEncryptSalt());
-        final SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(encrySrvConfig.getEncryptMethod());
-        final KeySpec keySpec = new PBEKeySpec(encrySrvConfig.getEncryptKey().toCharArray(), encryptionKeySalt,
-                encrySrvConfig.getEncryptIterationCount(), encrySrvConfig.getEncryptKeyLength());
-        final SecretKey key
-                = new SecretKeySpec(keyFactory.generateSecret(keySpec).getEncoded(), encrySrvConfig.getEncryptType());
-        final GCMParameterSpec ivParameterSpec = new GCMParameterSpec(encrySrvConfig.getAuthTagLength(),
-            encryptionKeySalt);
-        return new AAAEncryptionServiceImpl(ivParameterSpec, encrySrvConfig.getCipherTransforms(), key);
+        final AaaEncryptServiceConfig config = getDefaultAaaEncryptServiceConfig();
+        return new AAAEncryptionServiceImpl(new EncryptServiceConfig() {
+            @Override
+            public @NonNull Class<? extends DataContainer> implementedInterface() {
+                return config.implementedInterface();
+            }
+
+            @Override
+            public String getEncryptKey() {
+                return config.getEncryptKey();
+            }
+
+            @Override
+            public byte[] getEncryptSalt() {
+                return config.getEncryptSalt().getBytes();
+            }
+
+            @Override
+            public String getEncryptMethod() {
+                return config.getEncryptMethod();
+            }
+
+            @Override
+            public String getEncryptType() {
+                return config.getEncryptType();
+            }
+
+            @Override
+            public Integer getEncryptIterationCount() {
+                return config.getEncryptIterationCount();
+            }
+
+            @Override
+            public Integer getEncryptKeyLength() {
+                return config.getEncryptKeyLength();
+            }
+
+            @Override
+            public Integer getAuthTagLength() {
+                return config.getAuthTagLength();
+            }
+
+            @Override
+            public String getCipherTransforms() {
+                return config.getCipherTransforms();
+            }
+        });
     }
 
     private static AaaEncryptServiceConfig getDefaultAaaEncryptServiceConfig() {
@@ -512,7 +549,6 @@ public class GnmiWithoutRestconfTest {
     }
 
     private static SimulatedGnmiDevice getUnsecureGnmiDevice(final String host, final int port) {
-
         final GnmiSimulatorConfiguration simulatorConfiguration = GnmiSimulatorConfUtils
                 .loadGnmiSimulatorConfiguration(GnmiWithoutRestconfTest.class.getResourceAsStream(SIMULATOR_CONFIG));
         simulatorConfiguration.setTargetAddress(host);
