@@ -14,11 +14,11 @@ import java.util.Map;
 import org.apache.logging.log4j.core.config.ConfigurationException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.opendaylight.gnmi.southbound.yangmodule.config.GnmiConfiguration;
-import org.opendaylight.gnmi.southbound.yangmodule.util.GnmiConfigUtils;
 import org.opendaylight.gnmi.southbound.mountpoint.codecs.testcases.YangInstanceIdentifiertoPathTestCases;
 import org.opendaylight.gnmi.southbound.schema.impl.SchemaException;
 import org.opendaylight.gnmi.southbound.schema.loader.api.YangLoadException;
+import org.opendaylight.gnmi.southbound.yangmodule.config.GnmiConfiguration;
+import org.opendaylight.gnmi.southbound.yangmodule.util.GnmiConfigUtils;
 import org.opendaylight.yangtools.yang.common.QName;
 import org.opendaylight.yangtools.yang.data.api.YangInstanceIdentifier;
 

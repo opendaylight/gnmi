@@ -8,6 +8,8 @@
 
 package org.opendaylight.gnmi.southbound.listener;
 
+import static java.util.Objects.requireNonNull;
+
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
