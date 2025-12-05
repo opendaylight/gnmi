@@ -25,6 +25,10 @@
     <name>${project.groupId}:${project.artifactId}</name>
     <url>https://github.com/PANTHEONtech/lighty</url>
 
+    <properties>
+        <maven.javadoc.failOnWarnings>false</maven.javadoc.failOnWarnings>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
