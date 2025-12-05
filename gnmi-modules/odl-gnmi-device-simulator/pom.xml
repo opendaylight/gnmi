@@ -136,12 +136,6 @@
             <artifactId>log4j-api</artifactId>
             <version>${log4j2.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.opendaylight.gnmi.resources</groupId>
-            <artifactId>log4j2-config</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency>
         <!-- ODL components are using JDT annotations quite widely -->
         <dependency>
             <groupId>org.eclipse.jdt</groupId>
@@ -222,21 +216,6 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-dependency-plugin</artifactId>
                         <executions>
-                            <execution>
-                                <id>unpack-jar-resources</id>
-                                <goals>
-                                    <goal>unpack-dependencies</goal>
-                                </goals>
-                                <phase>generate-resources</phase>
-                                <configuration>
-                                    <includeGroupIds>io.lighty.resources</includeGroupIds>
-                                    <includeArtifactIds>log4j2-config</includeArtifactIds>
-                                    <excludes>META-INF\/**</excludes>
-                                    <excludeTransitive>true</excludeTransitive>
-                                    <outputDirectory>${project.build.directory}/classes</outputDirectory>
-                                    <silent>true</silent>
-                                </configuration>
-                            </execution>
                             <execution>
                                 <id>copy-dependencies</id>
                                 <phase>compile</phase>
