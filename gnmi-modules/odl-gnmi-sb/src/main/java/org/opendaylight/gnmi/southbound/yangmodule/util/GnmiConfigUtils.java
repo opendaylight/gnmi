@@ -6,7 +6,7 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package org.opendaylight.gnmi.southbound.lightymodule.util;
+package org.opendaylight.gnmi.southbound.yangmodule.util;
 
 import java.util.Set;
 import org.opendaylight.yangtools.binding.meta.YangModuleInfo;

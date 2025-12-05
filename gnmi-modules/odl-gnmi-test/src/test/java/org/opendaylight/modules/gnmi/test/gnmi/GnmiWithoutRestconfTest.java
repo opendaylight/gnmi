@@ -43,7 +43,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.opendaylight.gnmi.southbound.identifier.IdentifierUtils;
-import org.opendaylight.gnmi.southbound.lightymodule.GnmiSouthboundModule;
+import org.opendaylight.gnmi.southbound.yangmodule.GnmiSouthboundModule;
 import org.opendaylight.mdsal.binding.api.DataBroker;
 import org.opendaylight.mdsal.binding.api.ReadTransaction;
 import org.opendaylight.mdsal.binding.api.WriteTransaction;
