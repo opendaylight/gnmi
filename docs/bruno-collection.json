@@ -1,0 +1,197 @@
+{
+  "name": "Sample API Collection",
+  "version": "1",
+  "items": [
+    {
+      "type": "http",
+      "name": "Writing Data (gNMI Set)",
+      "filename": "Writing Data (gNMI Set).bru",
+      "seq": 1,
+      "settings": {},
+      "tags": [],
+      "examples": [],
+      "request": {
+        "url": "http://localhost:8181/rests/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-device-1/yang-ext:mount/openconfig-system:system/aaa/authentication",
+        "method": "PUT",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "json",
+          "json": "{\n    \"openconfig-system:authentication\": {\n        \"config\": {\n            \"authentication-method\": [\n                \"openconfig-aaa-types:TACACS_ALL\"\n            ]\n        }\n    }\n}",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "This request retrieves a list of users from the JSONPlaceholder API.",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "Create a new gNMI Connector",
+      "filename": "Create a new gNMI Connector.bru",
+      "seq": 2,
+      "settings": {
+        "encodeUrl": true,
+        "timeout": 0
+      },
+      "tags": [],
+      "examples": [],
+      "request": {
+        "url": "http://localhost:8181/rests/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-device-1",
+        "method": "PUT",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "json",
+          "json": "{\n       \"node\": [\n           {\n               \"node-id\": \"gnmi-device-1\",\n               \"gnmi-topology:connection-parameters\": {\n                   \"host\": \"127.0.0.1\",\n                   \"port\": 10161,\n                   \"connection-type\": \"INSECURE\",\n                   \"credentials\": {\n                       \"username\": \"admin\",\n                       \"password\": \"admin\"\n                   }\n               },\n               \"gnmi-topology:extensions-parameters\": {\n                   \"gnmi-parameters\": {\n                       \"use-model-name-prefix\": true\n                   }\n               }\n           }\n       ]\n   }",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "basic",
+          "basic": {
+            "username": "admin",
+            "password": "admin"
+          }
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "gNMI Keystore Configuration",
+      "filename": "gNMI Keystore Configuration.bru",
+      "seq": 3,
+      "settings": {
+        "encodeUrl": true,
+        "timeout": 0
+      },
+      "tags": [],
+      "examples": [],
+      "request": {
+        "url": "http://127.0.0.1:8181/rests/operations/gnmi-certificate-storage:add-keystore-certificate",
+        "method": "POST",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "json",
+          "json": "{\n    \"input\": {\n        \"keystore-id\": \"keystore-id-1\",\n        \"ca-certificate\": \"-----BEGIN CERTIFICATE-----\nMIIFjTCCA3WgAwIBAgIUeySs+cCVeQFS+OAO7kTF3XusjJ0wDQYJKoZIhvcNAQEL\nBQAwVjELMAkGA1UEBhMCTloxDTALBgNVBAgMBFRlc3QxDTALBgNVBAcMBFRlc3Qx\nDTALBgNVBAoMBFRlc3QxDTALBgNVBAsMBFRlc3QxCzAJBgNVBAMMAmNhMB4XDTIy\nMDUzMTEzNTc0NFoXDTMyMDUyODEzNTc0NFowVjELMAkGA1UEBhMCTloxDTALBgNV\nBAgMBFRlc3QxDTALBgNVBAcMBFRlc3QxDTALBgNVBAoMBFRlc3QxDTALBgNVBAsM\nBFRlc3QxCzAJBgNVBAMMAmNhMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKC\nAgEAm7fvSvifX3n07SJj44wN6K6MVk0bKN/8BXbt5AdWAyRk3DIQKNYcNH06yCjQ\nG4VdCd4n5l9C8hbQa3TqMrLdGzimzSS5tqoxmrHmUqlaH8+TPEP5vr6644FUeFiQ\nFiOZquViORfG9lZgnooit83Hmltp6y/d6eRMO1fYTUhIk4JC1DbHMhSDfTDes5mo\n9ne8wbRyB8lpyWT91YbLz0g1aib42EOkg7Ln7Agc2wyv/sxvHQz4qihZJ84e6Gfb\n2apACUKee4R/CwjFxuiMhIEq5TwDgdjWzTa7IdxRYFTQiN3g1wbmbJ0tuoYnP/Gf\n/EH0ldhBRwaQTfYivT1SZRY8U8yrP5+XEh2IgsGcyIyWoCMKXudtm0oPyoC15oaD\ndOLsCIfayV6G9cqi6P3fwCiFV9JRMFzxiLxMJ9yboA3sgx2Y52GP23f8mS5v/oHo\nwnuGVszfGmD1zl0F+/GLTOBZtWXNwTt6QrPhfIfmsPyA9c7uy/P04bj68KXSMg62\n4wi+RHfVWKFqM8mjUg5Ki58Zm4X6nvr9E6D/petxfufbs/redNpJBbnlr9qv6829\nkeCC5jRhj9V4vLdwTwWFVWCuCuj6B1WjfRiABvtEHQkbJEJEUmnl028xMlRXZyBk\nsHh6n/XGCB/CuV+xnCyr/+Ehv7SjmSlrhQC9bMUfs3nGSHsCAwEAAaNTMFEwHQYD\nVR0OBBYEFGg3WaPCw/4Mo2pAIH/NY4bKzMhYMB8GA1UdIwQYMBaAFGg3WaPCw/4M\no2pAIH/NY4bKzMhYMA8GA1UdEwEB/wQFMAMBAf8wDQYJKoZIhvcNAQELBQADggIB\nAIG7pyX3USsAvSHXdP11WLp8IFQaDwklSd+P3GQumjhvBgyRUjziJVtCmccIReGG\n2bxrac02j8M3EGCMNK5NG00wRHzdq/llpBlrOcTu+KTh+pb4S7XblmrG1scVQz86\nGoD4u++8EYw9oxqjUrDdL9qXECdZI28ohz/tu3Ae9i55iWELy7Ocfu92wWKX3UEN\nvApGr1JAacQUCKTKDI6yNgXNvFOFwpgCe8tDvp953FtbPkzYMiu2jiYTIYeqwJ6j\nw+sASF9+XcQO1estJAkckbYDV+ctwnlqgJQQgJLLmOC5hlO/CoQ6woKensBJiGVf\nMiTbX95PJcS+sceVOOioe2u+z71QA6eonzBW6k56ExG3EDA7XtAtySGt5uSKoXXR\njoM4ijNlY1kv92zkZGnuIEDJqvsCnLRXOkeCeUGoMlTBbNjPMvxDhbo2Ri8cmpGx\nza41dCBDlr33okZhIuw5h6dHCndeLR6K2AiQfWkWrNPgppNuJ3WicGApLXTAYNxz\nd34ondYziHvoRK4rtLveaZoRCQOKPvNQVxj/nFXT/Wu2VoKYr80It40KnIlShVuP\noN16brOhx7uCcweVg2Bej2fGyv5bAMG8cGjOVVqGaQMd9ajE4f0Wn5C910vYxS2c\nag31Pk2qy/yobgzMWd8HGQsaUzcVc4Z0MuMDDDHbys4Z\n-----END CERTIFICATE-----\n\",\n\n        \"client-key\": \"-----BEGIN RSA PRIVATE KEY-----\nMIIJJwIBAAKCAgEAuEKiDzPI2GJdgrJ/j+Ow04HCnDaJGks04WS//f7C/Zk6fuGe\nEBIyzCOFQdNsehHUFXBK5wyQ2QSAxVbo4hr4WRmTLKHfo5PF+sKqYic3iWdvtjjj\nfERXRmFvbnVYg+PHEImFqIZZytl4m1XRGLVUzyaS0NYa6Sh/s1bkN/GU2+g6R6pM\nqk3OSceM09oA31esJO0GHbOVJLcn6pi8cr4tqSvvmM2FN5icelHIgHPBzH/gQt2i\ngcmHphpQ9NNalB7ngDnrLDs9+LE86QbXQgABIYg1PL4fl/TCvcIYHsyu/MJcfB29\nas6CyCMnaTtuNPNP0tkZgZEWSgM4tmwzPduNH8g/cyZ38SZ1xaULcegOGoz836CG\nx8u5+/36hp9AaM8X0Np0MDseIFZLtWEc17kY8IxcKJHbxfMJqUxVJEE3+7aDy1ry\nLVwoytPoeokjx2fnqWqdQmw6TS17VWnsZ1nS8BgRSvFBHrSib/+buSJbcPS4kOsJ\nON37+5CAuuftMwGs1wMPLW+SF6AcLNRZycKnrJacJQjhsNfLlodf0kQ83Dd3Q6Bn\nOGdkq+ZcuDWn9Gb6jVr/SpSt3eDfhabS3VG260w3T0oNCIw8OP/lNEcrjyE8mwXv\nzTsaGEuDF26SAR5eyoxHt8bFCj9Hl3OH1xVvlOrzf3wrBEx1pphJ3R4oQlsCAwEA\nAQKCAgBb+hb/U7AsI13eQc/fOZ8o1RsZ8zcZAvWQlUQpO6SGBpjmgSTvjMYClLCO\nHUWG4aNmWDlrgCBF1DObTjjNtPzHLTcEDoGeG8O12rpGaKEWW6Wt5lPX0h1mqnh/\nQOBAZdEWdi9b4kSsN0Y28+1+UfXVucGLsXSZcnfcQ8GEE3llFFUTNPU0Bca1mYC4\nt5e75P2vKQnmhaArRaoNNtTKyhfs3FurgNvA1tM1U+GsDRxuQl7lwdC+zKSDy5sh\nuub6DTsuDLtRxvi2TXLEN3/4GBx4ao94lMcciTc0ldCIf0/SKAsWgZnt2Mv7r2Ca\n7OmkUNhFvc03mf7wTw9eMECb3h5hJ+TEO4bLRnfMYQ3tV8yF38OJ84djZmPtC+i8\n7ye7jt8hYFx6BbrRlPkX1JHUSUi12CXP4YQVupjQ+/4Gxx51jIYNzx9MxUWZobny\nD3+hbo2TaDaH0KIZI1u1fm6vt3/CWTWGC1YflJSAwF/b9qo6ay6WvgISie5oE1my\nVAFUYOwmObWLhsnwpsNtcuzhzrbbhMNrC72dMlwcycIVA8aEGSxiECmQY/txUM6c\njfvD7CSUdfXbHAwGqspX1yuF6IW6KZ4AnVF4czgkK18f7ZrySnkvs9rzSqgF5m2p\nByEsD2OxRn+jV0R3ZrAARBqOPoqHaVL9jP+n6lJ01uJzeucH8QKCAQEA5T8qk+zD\nw1STnqKnN3IQli/WhYM/pj5NL7SrEQu61d01MgRCCVtZw8WUNlu0xLCshk9uCMGN\n8EOdWxjyx9z98GH4nBxa6Tz3ujGaYZ6HKC2F2KKulToMoMtYUI5gRSG08eOAsSuh\nsWJeZM7LtON5iOLSivjBto5Q0Eq658ujtTOSu7sk5khW0P5YWBfhU0G1f7vL47m+\nt4yGbTdYkcxhuC39xWIctbOtOSQmxG5PDEA4rccbD6G5fg3DhSdPM74dBnvM2ZEr\nvJ3OnPXoS7EHaMRiSadKkytnAcKfvV7XDzyJlqNyYTCt2DF4A03eO7anYNIwlaQi\nu8Y2im/yFC3flQKCAQEAzcN6qxd6+VZqyKYfxQzuPoh4v/pydMZ7fPP7U9K3N+ut\n3SJ0vhxNt/SSJxhGAPeSOVMMJOAA9i+lVFP596XL/yqt0Oc6AXc4Gauz3fLUnfPg\nAeXrEXkX/KmIq/eDiNNF0L4AlUkY86FP91rAlYB4150yq+7X4Dm81FLw2lZMx+hI\n0YbLety776dmGPtdNXgyUJ7V43bpkK/hZrcISuG6huuH1cOi96rZfQhiZC+BQ6+a\n8ch6QMUQ+P8X/t4lTamngrDlf6IVZhy45QeXoe8BENKKfLBgLiyyVUo25EhQmkVy\neiZYl932HaBT1h9Q6K2w5NbFtKtvKHa5zkiE+DXeLwKCAQAQuxZxa1MyO0b2yeoo\nSsPZIi6m2dhYWq2pcKcXfGKrXxSVzOfA5RDdD9tsSC8eN8KvnrZqHy4rvdOLJXv6\niC9kTtIlGpCr+w4dYadhvn8guInPMLhLHcx0I8MTRgDSqs4Y5UCsLYIEfyhidRE6\n52skSWGSUOtaVnKhcQLJDfypqdTorJTZ1ae4YwexjjScrewAIYWU3iaEINZivCpT\nobX0Ci8+K5Xq0O0wgWnu5hoQy9MXI7Pe5S+zem+tlRvbq+FUas6dhlHJ1z6QCAZn\nF8lxpPuDYpk3unAvGbQszvIlI4brHoyneTUG1T1sCE/SzdbTYyO2mB8M0z+BxP/G\n5z4tAoIBAHdFucSVTsZbjniSu1W44h1DdGMsJM6GAyzyLJxxR51Vsym9AFj3BSH9\n1f5tdp62437xIdf6NPR/t+FC8GHaLH7T2X9/mUMiPVW8Dv439YE9zXqsMO+m9v2R\ntFSinA9jEFQo3yOqBJmsxzLF216N4v5w899wCpjCPzAAh/a4EbfLcPJrpWWpsBMC\nQQ94HZaR/vB2sdsxocAqA4lLzbXCVSJCQzHpPn07/ugYRRh35QE8OJ+wqxUCZo0/\nKUSmto7nKd969P1gEfFn8tFn7kCCz2ZV9MrEXmxFonYIF/uJ45cZbHtb4PzfP/v6\nZL541qiZjjGIQYAx47Rb5eaqaNGMQCcCggEAGa9fU9462ofl6VeifPKloMKH/1g7\nENxANSEcQHt4x/Fi/umpvJbU35SkJsugJOP6ZgLTXWdm/dJNA0/c2lk3SFPxusYN\nzBf25F2y4GFY9G76hvn8kzlYosQlben7BSlk+a6JPnDqZ30QpGDaol+s2iTMXypK\noyag2eiOVFHNeJqXs+h1+cvLoUyWB4Y15fKeJlCfoMteBZuH6bvw1apN+w36hfdK\n0DmI+kDquv8QgtrEYRbBwmf2FBvhnJ/hzY2/rzl5SbvPpa2LJWu1A55Jb9Iw2lcC\n5xJfaIfmDkuJdHA2qObutZKoaPimn4Dsts3DqDRoMTdp1XBMhzCprcLAAw==\n-----END RSA PRIVATE KEY-----\n\",\n\n        \"client-cert\": \"-----BEGIN CERTIFICATE-----\nMIIGCDCCA/CgAwIBAgIUeytFcf/+0G8+kStGa5zI+5REog8wDQYJKoZIhvcNAQEL\nBQAwVjELMAkGA1UEBhMCTloxDTALBgNVBAgMBFRlc3QxDTALBgNVBAcMBFRlc3Qx\nDTALBgNVBAoMBFRlc3QxDTALBgNVBAsMBFRlc3QxCzAJBgNVBAMMAmNhMB4XDTIy\nMDUzMTEzNTc0NloXDTMyMDUyODEzNTc0NlowXjELMAkGA1UEBhMCTloxDTALBgNV\nBAgMBFRlc3QxDTALBgNVBAcMBFRlc3QxDTALBgNVBAoMBFRlc3QxDTALBgNVBAsM\nBFRlc3QxEzARBgNVBAMMCmNsaWVudC5jb20wggIiMA0GCSqGSIb3DQEBAQUAA4IC\nDwAwggIKAoICAQC4QqIPM8jYYl2Csn+P47DTgcKcNokaSzThZL/9/sL9mTp+4Z4Q\nEjLMI4VB02x6EdQVcErnDJDZBIDFVujiGvhZGZMsod+jk8X6wqpiJzeJZ2+2OON8\nRFdGYW9udViD48cQiYWohlnK2XibVdEYtVTPJpLQ1hrpKH+zVuQ38ZTb6DpHqkyq\nTc5Jx4zT2gDfV6wk7QYds5UktyfqmLxyvi2pK++YzYU3mJx6UciAc8HMf+BC3aKB\nyYemGlD001qUHueAOessOz34sTzpBtdCAAEhiDU8vh+X9MK9whgezK78wlx8Hb1q\nzoLIIydpO24080/S2RmBkRZKAzi2bDM9240fyD9zJnfxJnXFpQtx6A4ajPzfoIbH\ny7n7/fqGn0BozxfQ2nQwOx4gVku1YRzXuRjwjFwokdvF8wmpTFUkQTf7toPLWvIt\nXCjK0+h6iSPHZ+epap1CbDpNLXtVaexnWdLwGBFK8UEetKJv/5u5Iltw9LiQ6wk4\n3fv7kIC65+0zAazXAw8tb5IXoBws1FnJwqeslpwlCOGw18uWh1/SRDzcN3dDoGc4\nZ2Sr5ly4Naf0ZvqNWv9KlK3d4N+FptLdUbbrTDdPSg0IjDw4/+U0RyuPITybBe/N\nOxoYS4MXbpIBHl7KjEe3xsUKP0eXc4fXFW+U6vN/fCsETHWmmEndHihCWwIDAQAB\no4HFMIHCMAkGA1UdEwQCMAAwEQYJYIZIAYb4QgEBBAQDAgWgMDMGCWCGSAGG+EIB\nDQQmFiRPcGVuU1NMIEdlbmVyYXRlZCBDbGllbnQgQ2VydGlmaWNhdGUwHQYDVR0O\nBBYEFFl5yB0/vLzYcO2nwuIqBJwQPVz1MB8GA1UdIwQYMBaAFGg3WaPCw/4Mo2pA\nIH/NY4bKzMhYMA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYI\nKwYBBQUHAwQwDQYJKoZIhvcNAQELBQADggIBAHqeatL89/GJ+zfBDGF3ziNrUyKH\nWNgciurQnObVwYvESndtIrVuMiIIZ4tjJ1oF5agnU6SOXbA8uLgMphUc6eklJV4L\nZ5wUkyUB5x6jbrrMKGFabTIwIABhs1OuFNBYvIwokeeOo+vQF/ac5LjARfuapocI\nP3w65/TUFTkmtDbub7k0XYKfz0AAbdUk0j/yipkitT/7GcreJabxenfXa+YfGKIR\nmjxyiaRHjh/bkTlEh7kAtz1di+yPHH0fLqBm3VYXS+tfvnM3vK7yJ7UdF/d4dpj+\n1dHls3LKA9pa+OvxsryGBRy2digBTv6sUcTtoa5d7qMPzAAAPQtUGU9VlzKrO2sl\ne+/lfTHSTUtlFiOPVQwKUiHmy2GVxcNwcRbWi5LDpbtvyoc13ruwLtNQDug6lgfA\n5hcYyPo6S2RNcC1zVAUd8BRsnpjud2MsTgEf5bhH3XnNpn8IuJa5finncR5AYpH7\nSfzAmX8AeJaCmLXaNovgqmrlpugpJaQ6smxm2IVqxO0/z6JwXdQ++MITfOXBspun\nIlh5wNC5c7RhWPRgqZ8hwDT0lOykNXWfpVmQDvrFuglyEkoEyPn/tIHAFLSIBw8F\nucufQNSkJu9WMqifZOZVvZkt3edsoi7ujV6C5LHnDDFv/2rNab2fcBMBDzzzzFY2\nuy9Utj80hOwq+BrR\n-----END CERTIFICATE-----\n\",\n        \"passphrase\": \"\"\n    }\n}",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "basic",
+          "basic": {
+            "username": "admin",
+            "password": "admin"
+          }
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "Writing Data (gNMI Set) Patch",
+      "filename": "Writing Data (gNMI Set) Patch.bru",
+      "seq": 5,
+      "settings": {},
+      "tags": [],
+      "examples": [],
+      "request": {
+        "url": "http://localhost:8181/rests/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-device-1/yang-ext:mount/openconfig-system:system/aaa/authentication/config",
+        "method": "PATCH",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "json",
+          "json": "{\n    \"openconfig-system:config\": {\n        \"authentication-method\": [\n            \"openconfig-aaa-types:RADIUS_ALL\"\n        ]\n    }\n}",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "This request retrieves a list of users from the JSONPlaceholder API.",
+        "auth": {
+          "mode": "basic",
+          "basic": {
+            "username": "admin",
+            "password": "admin"
+          }
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "Delete configuration from device",
+      "filename": "Delete configuration from device.bru",
+      "seq": 6,
+      "settings": {},
+      "tags": [],
+      "examples": [],
+      "request": {
+        "url": "http://localhost:8181/rests/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-device-1/yang-ext:mount/openconfig-system:system/aaa/authentication/config",
+        "method": "DELETE",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "json",
+          "json": "",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "This request retrieves a list of users from the JSONPlaceholder API.",
+        "auth": {
+          "mode": "basic",
+          "basic": {
+            "username": "admin",
+            "password": "admin"
+          }
+        }
+      }
+    }
+  ],
+  "environments": [],
+  "root": {
+    "request": {
+      "auth": {
+        "mode": "none"
+      }
+    }
+  },
+  "brunoConfig": {
+    "version": "1",
+    "name": "Sample API Collection",
+    "type": "collection",
+    "ignore": [
+      "node_modules",
+      ".git"
+    ],
+    "size": 0.0000209808349609375,
+    "filesCount": 1
+  }
+}
