@@ -66,7 +66,7 @@ public final class GnmiSimulatorConfUtils {
 
         } catch (final JsonProcessingException e) {
             throw new RuntimeException(String.format("Cannot bind Json tree to type: %s",
-                io.lighty.modules.gnmi.simulatordevice.config.GnmiSimulatorConfiguration.class), e);
+                org.opendaylight.modules.gnmi.simulatordevice.config.GnmiSimulatorConfiguration.class), e);
         }
         return gnmiSimulatorConfiguration;
     }

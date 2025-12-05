@@ -25,7 +25,7 @@
     <url>https://github.com/PANTHEONtech/lighty</url>
 
     <properties>
-        <application.main.class>io.lighty.modules.gnmi.simulatordevice.main.GnmiSimulatorApp</application.main.class>
+        <application.main.class>org.opendaylight.modules.gnmi.simulatordevice.main.GnmiSimulatorApp</application.main.class>
         <slf4j.version>2.0.17</slf4j.version>
         <log4j2.version>2.25.2</log4j2.version>
     </properties>
@@ -146,12 +146,6 @@
             <groupId>org.opendaylight.yangtools</groupId>
             <artifactId>yang-parser-impl</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.opendaylight.gnmi.resources</groupId>
-            <artifactId>controller-application-assembly</artifactId>
-            <version>${project.version}</version>
-            <scope>provided</scope>
-        </dependency>
 
         <dependency>
             <groupId>org.opendaylight.yangtools</groupId>
@@ -180,19 +174,12 @@
 
     <profiles>
         <profile>
-            <id>lighty-controller-app</id>
+            <id>odl-gnmi-simulator-app</id>
             <activation>
                 <file>
                     <exists>src/main/java</exists>
                 </file>
             </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.opendaylight.gnmi.core</groupId>
-                    <artifactId>odl-controller</artifactId>
-                    <version>${project.version}</version>
-                </dependency>
-            </dependencies>
             <build>
                 <plugins>
                     <plugin>
@@ -228,22 +215,6 @@
                                     <silent>true</silent>
                                 </configuration>
                             </execution>
-                            <execution>
-                                <id>unpack-assembly</id>
-                                <goals>
-                                    <goal>unpack-dependencies</goal>
-                                </goals>
-                                <phase>prepare-package</phase>
-                                <configuration>
-                                    <includeGroupIds>io.lighty.resources</includeGroupIds>
-                                    <includeArtifactIds>controller-application-assembly</includeArtifactIds>
-                                    <excludes>META-INF\/**</excludes>
-                                    <excludeTransitive>true</excludeTransitive>
-                                    <!-- This is a build time resource, not to be packaged. -->
-                                    <outputDirectory>${project.build.directory}/resources</outputDirectory>
-                                    <silent>true</silent>
-                                </configuration>
-                            </execution>
                         </executions>
                     </plugin>
                     <!-- Copy additional project-specific resources, typically json config files. -->
@@ -265,26 +236,6 @@
                                     </resources>
                                     <outputDirectory>${project.build.directory}/assembly/resources</outputDirectory>
                                 </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <!-- Finally this has to be run at the end to create the zip. -->
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-assembly-plugin</artifactId>
-                        <configuration>
-                            <descriptors>
-                                <descriptor>${project.build.directory}/resources/assembly-zip.xml</descriptor>
-                            </descriptors>
-                            <attach>false</attach>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>make-assembly</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>single</goal>
-                                </goals>
                             </execution>
                         </executions>
                     </plugin>
