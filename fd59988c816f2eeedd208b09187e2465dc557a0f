@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "870a96bd_fff6ef8a",
+        "filename": "gnmi-modules/odl-gnmi-device-simulator/src/main/resources/simulator-data/initialConfigJsonData.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-12-08T07:26:20Z",
+      "side": 1,
+      "message": "where is this from?",
+      "revId": "fd59988c816f2eeedd208b09187e2465dc557a0f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
