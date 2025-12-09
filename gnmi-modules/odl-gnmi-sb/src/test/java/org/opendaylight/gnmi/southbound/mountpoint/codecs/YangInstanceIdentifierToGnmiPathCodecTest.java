@@ -27,8 +27,8 @@ import org.opendaylight.yangtools.yang.data.api.YangInstanceIdentifier;
 public class YangInstanceIdentifierToGnmiPathCodecTest {
 
     private static final Path TEST_PATH = Path.of("src/test/resources/not/unique/model/elements");
-    private static final String NAMESPACE_ROOT1 = "tag:opendaylight.io.2021:yang:test:v1:gnmi:converter:root1";
-    private static final String NAMESPACE_ROOT2 = "tag:opendaylight.io,2021:yang:test:v1:gnmi:converter:root2";
+    private static final String NAMESPACE_ROOT1 = "tag:opendaylight.org.2021:yang:test:v1:gnmi:converter:root1";
+    private static final String NAMESPACE_ROOT2 = "tag:opendaylight.org,2021:yang:test:v1:gnmi:converter:root2";
     private static final String ROOT_MODULE_NAME_1 = "root-model-1";
     private static final String ROOT_MODULE_NAME_2 = "root-model-2";
     private static final String ROOT_CONTAINER = "root-container";

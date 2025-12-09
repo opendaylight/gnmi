@@ -2,7 +2,7 @@ module root-model-2 {
 
   yang-version "1";
 
-  namespace "tag:opendaylight.org.,2021:yang:test:v1:gnmi:converter:root2";
+  namespace "tag:opendaylight.org,2021:yang:test:v1:gnmi:converter:root2";
 
   prefix "rm2";
 
