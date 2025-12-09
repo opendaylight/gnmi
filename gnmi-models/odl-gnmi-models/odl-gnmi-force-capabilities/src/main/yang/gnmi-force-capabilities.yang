@@ -1,6 +1,6 @@
 module gnmi-force-capabilities {
     yang-version 1;
-    namespace "urn:lighty:gnmi:force:capabilities";
+    namespace "urn:opendaylight:gnmi:force:capabilities";
     prefix "gnmi-fc";
 
     description

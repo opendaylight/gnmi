@@ -18,14 +18,14 @@ import java.nio.file.Path;
 import java.security.KeyPair;
 import java.security.cert.CertificateException;
 import org.apache.commons.io.IOUtils;
-import org.opendaylight.gnmi.southbound.device.session.security.KeystoreGnmiSecurityProvider;
-import org.opendaylight.gnmi.southbound.device.session.security.SessionSecurityException;
 import org.opendaylight.gnmi.connector.configuration.SecurityFactory;
 import org.opendaylight.gnmi.connector.gnmi.session.impl.GnmiSessionFactoryImpl;
 import org.opendaylight.gnmi.connector.security.Security;
 import org.opendaylight.gnmi.connector.session.SessionManagerFactory;
 import org.opendaylight.gnmi.connector.session.SessionManagerFactoryImpl;
 import org.opendaylight.gnmi.connector.session.api.SessionManager;
+import org.opendaylight.gnmi.southbound.device.session.security.KeystoreGnmiSecurityProvider;
+import org.opendaylight.gnmi.southbound.device.session.security.SessionSecurityException;
 
 public final class TestUtils {
 

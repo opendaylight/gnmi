@@ -19,7 +19,7 @@ import org.opendaylight.gnmi.southbound.device.connection.ConfigurableParameters
 import org.opendaylight.gnmi.southbound.device.connection.DeviceConnection;
 import org.opendaylight.gnmi.southbound.mountpoint.codecs.Codec;
 import org.opendaylight.gnmi.southbound.mountpoint.codecs.GnmiCodecException;
-import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.topology.rev210316.gnmi.connection.parameters.extensions.parameters.GnmiParameters;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.gnmi.connection.parameters.extensions.parameters.GnmiParameters;
 import org.opendaylight.yangtools.yang.data.api.YangInstanceIdentifier;
 
 /**
