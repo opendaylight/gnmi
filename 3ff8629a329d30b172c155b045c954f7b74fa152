@@ -22,6 +22,30 @@
       },
       "revId": "3ff8629a329d30b172c155b045c954f7b74fa152",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96672270_9986a7c9",
+        "filename": "gnmi-modules/odl-gnmi/odl-gnmi-connector/src/main/java/org/opendaylight/modules/gnmi/connector/security/Security.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-12-09T08:43:36Z",
+      "side": 1,
+      "message": "done in:\nhttps://git.opendaylight.org/gerrit/c/gnmi/+/119732\nand\nhttps://git.opendaylight.org/gerrit/c/gnmi/+/119733",
+      "parentUuid": "2039e609_847f7578",
+      "range": {
+        "startLine": 9,
+        "startChar": 25,
+        "endLine": 9,
+        "endChar": 32
+      },
+      "revId": "3ff8629a329d30b172c155b045c954f7b74fa152",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
