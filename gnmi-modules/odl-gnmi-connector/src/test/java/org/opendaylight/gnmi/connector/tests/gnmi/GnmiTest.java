@@ -98,7 +98,7 @@ public class GnmiTest {
 
     @Test
     @SuppressWarnings("IllegalCatch")
-    public void lightyGnmiSessionTest() throws Exception {
+    public void gnmiSessionTest() throws Exception {
         final SessionManager sessionManager = TestUtils.createSessionManagerWithCerts();
         try (SessionProvider session =
                      sessionManager.createSession(new SessionConfiguration(DEFAULT_SERVER_ADDRESS, true))) {
