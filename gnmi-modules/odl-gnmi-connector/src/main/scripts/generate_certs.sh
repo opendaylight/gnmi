@@ -24,7 +24,7 @@ SUBJ="/C=NZ/ST=Test/L=Test/O=Test/OU=Test/CN=localhost"
 # Generate Server Private Key
 openssl genrsa -out server.key 4096
 
-# Transform server private key to pkcs8 format (Required by lighy-gnmi-simulator)
+# Transform server private key to pkcs8 format (Required by odl-gnmi-device-simulator)
 openssl pkcs8 -topk8 -inform PEM -outform PEM -nocrypt -in server.key -out server-pkcs8.key
 
 # Generate Req
