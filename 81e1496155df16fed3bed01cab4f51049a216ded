@@ -16,6 +16,24 @@
       "message": "Dont forget about:\ngnmi-modules/odl-gnmi-connector/README.md",
       "revId": "81e1496155df16fed3bed01cab4f51049a216ded",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae2015df_06029dbb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2025-12-09T09:07:36Z",
+      "side": 1,
+      "message": "https://git.opendaylight.org/gerrit/gitweb?p\u003dgnmi.git;a\u003dblob;f\u003dgnmi-modules/odl-gnmi-connector/README.md;h\u003dc0f669132bddae51bf6440c3da3781c383cb63d7;hb\u003d81e1496155df16fed3bed01cab4f51049a216ded",
+      "parentUuid": "6180ee39_0b69fa71",
+      "revId": "81e1496155df16fed3bed01cab4f51049a216ded",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
