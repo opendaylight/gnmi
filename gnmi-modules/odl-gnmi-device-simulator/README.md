@@ -91,7 +91,7 @@ This simulator provides gNMI device driven by gNMI proto files, with datastore d
 ## Additional configuration
 
 Any additional configuration has to be done before starting simulator. This configuration is available in
-[GnmiSimulatorConfiguration](src/main/java/org/opendaylight/modules/gnmi/simulatordevice/config/GnmiSimulatorConfiguration.java).
+[GnmiSimulatorConfiguration](src/main/java/org/opendaylight/gnmi/simulatordevice/config/GnmiSimulatorConfiguration.java).
 
 1. **setTargetAddress(String)** - (default: "0.0.0.0") Set host address.
 
@@ -247,4 +247,4 @@ This example will show how to execute basic operations on lighty.io gNMI device 
    - system.proto:
      - time - returns current time
    
-   [Other](src/main/java/org/opendaylight/modules/gnmi/simulatordevice/gnoi) gNOI grRPCs are also supported, but they have no logic behind them. They just returns some predefined response.
+   [Other](src/main/java/org/opendaylight/gnmi/simulatordevice/gnoi) gNOI grRPCs are also supported, but they have no logic behind them. They just returns some predefined response.

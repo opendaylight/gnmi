@@ -17,15 +17,13 @@
         <relativePath>../../gnmi-parent/pom.xml</relativePath>
     </parent>
 
-    <groupId>org.opendaylight.gnmi.modules</groupId>
     <artifactId>odl-gnmi-device-simulator</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-
     <name>${project.groupId}:${project.artifactId}</name>
     <url>https://lf-opendaylight.atlassian.net/wiki/spaces/ODL/pages/489062430/gNMI+project</url>
 
     <properties>
-        <application.main.class>org.opendaylight.modules.gnmi.simulatordevice.main.GnmiSimulatorApp</application.main.class>
+        <application.main.class>org.opendaylight.gnmi.simulatordevice.main.GnmiSimulatorApp</application.main.class>
         <slf4j.version>2.0.17</slf4j.version>
         <log4j2.version>2.25.2</log4j2.version>
     </properties>
@@ -36,12 +34,12 @@
             <artifactId>mdsal-dom-inmemory-datastore</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.opendaylight.gnmi.modules</groupId>
+            <groupId>org.opendaylight.gnmi</groupId>
             <artifactId>odl-gnmi-commons</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>org.opendaylight.gnmi.modules</groupId>
+            <groupId>org.opendaylight.gnmi</groupId>
             <artifactId>odl-gnmi-proto</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
