@@ -20,13 +20,13 @@ import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.eclipse.jdt.annotation.Nullable;
+import org.opendaylight.gnmi.commons.util.YangModelSanitizer;
 import org.opendaylight.gnmi.southbound.schema.yangstore.service.YangDataStoreService;
 import org.opendaylight.gnmi.southbound.timeout.TimeoutUtils;
 import org.opendaylight.mdsal.common.api.CommitInfo;
-import org.opendaylight.gnmi.commons.util.YangModelSanitizer;
-import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.yang.storage.rev210331.ModuleVersionType;
-import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.yang.storage.rev210331.gnmi.yang.models.GnmiYangModel;
-import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.yang.storage.rev210331.gnmi.yang.models.GnmiYangModelBuilder;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.yang.storage.rev210331.ModuleVersionType;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.yang.storage.rev210331.gnmi.yang.models.GnmiYangModel;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.yang.storage.rev210331.gnmi.yang.models.GnmiYangModelBuilder;
 
 public class TestYangDataStoreService implements YangDataStoreService {
 

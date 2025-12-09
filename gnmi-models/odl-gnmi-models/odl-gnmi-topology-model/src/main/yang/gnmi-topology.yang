@@ -1,5 +1,5 @@
 module gnmi-topology {
-    namespace "urn:lighty:gnmi:topology";
+    namespace "urn:opendaylight:gnmi:topology";
     prefix "gnmi";
 
     description

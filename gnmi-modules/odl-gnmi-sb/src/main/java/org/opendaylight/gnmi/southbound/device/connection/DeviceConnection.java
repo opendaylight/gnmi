@@ -9,15 +9,15 @@
 package org.opendaylight.gnmi.southbound.device.connection;
 
 import com.google.common.util.concurrent.FluentFuture;
+import org.opendaylight.gnmi.connector.gnmi.session.api.GnmiSession;
+import org.opendaylight.gnmi.connector.session.api.SessionProvider;
 import org.opendaylight.gnmi.southbound.device.session.listener.GnmiConnectionStatusException;
 import org.opendaylight.gnmi.southbound.device.session.listener.GnmiConnectionStatusListener;
 import org.opendaylight.gnmi.southbound.device.session.provider.GnmiSessionProvider;
 import org.opendaylight.gnmi.southbound.schema.provider.SchemaContextProvider;
 import org.opendaylight.mdsal.common.api.CommitInfo;
-import org.opendaylight.gnmi.connector.gnmi.session.api.GnmiSession;
-import org.opendaylight.gnmi.connector.session.api.SessionProvider;
-import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.topology.rev210316.GnmiNode;
-import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.topology.rev210316.gnmi.connection.parameters.ExtensionsParameters;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.GnmiNode;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.gnmi.connection.parameters.ExtensionsParameters;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NodeId;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node;
 import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
