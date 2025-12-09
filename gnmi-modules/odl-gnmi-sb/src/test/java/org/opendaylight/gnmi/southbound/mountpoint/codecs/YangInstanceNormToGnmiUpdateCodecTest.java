@@ -25,8 +25,6 @@ import org.opendaylight.yangtools.yang.data.api.schema.NormalizedNode;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.testng.Assert;
 
-// FIXME fix tests
-@Disabled
 public class YangInstanceNormToGnmiUpdateCodecTest {
 
     private static YangInstanceNormToGnmiUpdateTestCases testCases;
