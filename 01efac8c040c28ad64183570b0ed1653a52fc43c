@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "392f5d1d_b8d0f6e7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2025-12-09T10:56:55Z",
+      "side": 1,
+      "message": "Resolved",
+      "parentUuid": "8aa199f3_3532a869",
+      "revId": "01efac8c040c28ad64183570b0ed1653a52fc43c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "292416d3_c184e572",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-12-08T07:25:15Z",
       "side": 1,
       "message": "relocate with other test deps",
+      "revId": "01efac8c040c28ad64183570b0ed1653a52fc43c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37235837_00bcb8e3",
+        "filename": "gnmi-modules/odl-gnmi-device-simulator/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2025-12-09T10:56:55Z",
+      "side": 1,
+      "message": "Resolved - moved",
+      "parentUuid": "292416d3_c184e572",
       "revId": "01efac8c040c28ad64183570b0ed1653a52fc43c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
