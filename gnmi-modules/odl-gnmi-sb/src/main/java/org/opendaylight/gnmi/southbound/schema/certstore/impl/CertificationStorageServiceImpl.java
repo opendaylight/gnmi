@@ -21,11 +21,11 @@ import org.opendaylight.mdsal.binding.api.ReadTransaction;
 import org.opendaylight.mdsal.binding.api.WriteTransaction;
 import org.opendaylight.mdsal.common.api.CommitInfo;
 import org.opendaylight.mdsal.common.api.LogicalDatastoreType;
-import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.certificate.storage.rev210504.AddKeystoreCertificateInput;
-import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.certificate.storage.rev210504.Keystore;
-import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.certificate.storage.rev210504.KeystoreBuilder;
-import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.certificate.storage.rev210504.KeystoreKey;
-import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.certificate.storage.rev210504.RemoveKeystoreCertificateInput;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.certificate.storage.rev210504.AddKeystoreCertificateInput;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.certificate.storage.rev210504.Keystore;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.certificate.storage.rev210504.KeystoreBuilder;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.certificate.storage.rev210504.KeystoreKey;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.certificate.storage.rev210504.RemoveKeystoreCertificateInput;
 import org.opendaylight.yangtools.yang.binding.InstanceIdentifier;
 
 public class CertificationStorageServiceImpl implements CertificationStorageService {

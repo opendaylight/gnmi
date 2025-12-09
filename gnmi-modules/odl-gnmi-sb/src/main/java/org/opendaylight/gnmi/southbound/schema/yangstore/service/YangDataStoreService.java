@@ -12,7 +12,7 @@ package org.opendaylight.gnmi.southbound.schema.yangstore.service;
 import com.google.common.util.concurrent.ListenableFuture;
 import java.util.Optional;
 import org.opendaylight.mdsal.common.api.CommitInfo;
-import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.yang.storage.rev210331.gnmi.yang.models.GnmiYangModel;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.yang.storage.rev210331.gnmi.yang.models.GnmiYangModel;
 
 /**
  * Manages yangs, writes/reads them to/from operational datastore.

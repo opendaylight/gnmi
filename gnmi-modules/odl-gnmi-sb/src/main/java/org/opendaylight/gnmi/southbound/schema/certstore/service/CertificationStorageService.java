@@ -13,9 +13,9 @@ import java.security.GeneralSecurityException;
 import java.util.Optional;
 import org.eclipse.jdt.annotation.NonNull;
 import org.opendaylight.mdsal.common.api.CommitInfo;
-import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.certificate.storage.rev210504.AddKeystoreCertificateInput;
-import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.certificate.storage.rev210504.Keystore;
-import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.certificate.storage.rev210504.RemoveKeystoreCertificateInput;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.certificate.storage.rev210504.AddKeystoreCertificateInput;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.certificate.storage.rev210504.Keystore;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.certificate.storage.rev210504.RemoveKeystoreCertificateInput;
 
 public interface CertificationStorageService {
 

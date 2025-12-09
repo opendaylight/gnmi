@@ -1,6 +1,6 @@
 module gnmi-yang-storage {
     yang-version 1;
-    namespace "urn:lighty:gnmi:yang:storage";
+    namespace "urn:opendaylight:gnmi:yang:storage";
     prefix "gnmi-ys";
 
     description

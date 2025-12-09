@@ -32,6 +32,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.opendaylight.aaa.encrypt.impl.AAAEncryptionServiceImpl;
+import org.opendaylight.gnmi.simulatordevice.config.GnmiSimulatorConfiguration;
+import org.opendaylight.gnmi.simulatordevice.impl.SimulatedGnmiDevice;
+import org.opendaylight.gnmi.simulatordevice.utils.GnmiSimulatorConfUtils;
 import org.opendaylight.gnmi.southbound.identifier.IdentifierUtils;
 import org.opendaylight.gnmi.southbound.yangmodule.GnmiSouthboundModule;
 import org.opendaylight.gnmi.southbound.yangmodule.config.GnmiConfiguration;
@@ -53,9 +56,6 @@ import org.opendaylight.mdsal.dom.broker.DOMRpcRouter;
 import org.opendaylight.mdsal.dom.broker.RouterDOMRpcProviderService;
 import org.opendaylight.mdsal.dom.broker.RouterDOMRpcService;
 import org.opendaylight.mdsal.dom.spi.FixedDOMSchemaService;
-import org.opendaylight.gnmi.simulatordevice.config.GnmiSimulatorConfiguration;
-import org.opendaylight.gnmi.simulatordevice.impl.SimulatedGnmiDevice;
-import org.opendaylight.gnmi.simulatordevice.utils.GnmiSimulatorConfUtils;
 import org.opendaylight.yang.gen.v1.config.aaa.authn.encrypt.service.config.rev240202.AaaEncryptServiceConfig;
 import org.opendaylight.yang.gen.v1.config.aaa.authn.encrypt.service.config.rev240202.AaaEncryptServiceConfigBuilder;
 import org.opendaylight.yang.gen.v1.config.aaa.authn.encrypt.service.config.rev240202.EncryptServiceConfig;
@@ -63,22 +63,22 @@ import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.inet.types.
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.inet.types.rev130715.IpAddress;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.inet.types.rev130715.Ipv4Address;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.inet.types.rev130715.PortNumber;
-import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.certificate.storage.rev210504.Keystore;
-import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.certificate.storage.rev210504.KeystoreKey;
-import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.topology.rev210316.GnmiNode;
-import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.topology.rev210316.GnmiNodeBuilder;
-import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.topology.rev210316.gnmi.connection.parameters.ConnectionParametersBuilder;
-import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.topology.rev210316.gnmi.connection.parameters.ExtensionsParameters;
-import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.topology.rev210316.gnmi.connection.parameters.ExtensionsParametersBuilder;
-import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.topology.rev210316.gnmi.connection.parameters.extensions.parameters.GnmiParametersBuilder;
-import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.topology.rev210316.gnmi.node.state.NodeState;
-import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.topology.rev210316.security.SecurityChoice;
-import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.topology.rev210316.security.security.choice.InsecureDebugOnly;
-import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.topology.rev210316.security.security.choice.InsecureDebugOnlyBuilder;
-import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.yang.storage.rev210331.GnmiYangModels;
-import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.yang.storage.rev210331.ModuleVersionType;
-import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.yang.storage.rev210331.gnmi.yang.models.GnmiYangModel;
-import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.yang.storage.rev210331.gnmi.yang.models.GnmiYangModelKey;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.certificate.storage.rev210504.Keystore;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.certificate.storage.rev210504.KeystoreKey;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.GnmiNode;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.GnmiNodeBuilder;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.gnmi.connection.parameters.ConnectionParametersBuilder;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.gnmi.connection.parameters.ExtensionsParameters;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.gnmi.connection.parameters.ExtensionsParametersBuilder;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.gnmi.connection.parameters.extensions.parameters.GnmiParametersBuilder;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.gnmi.node.state.NodeState;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.security.SecurityChoice;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.security.security.choice.InsecureDebugOnly;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.security.security.choice.InsecureDebugOnlyBuilder;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.yang.storage.rev210331.GnmiYangModels;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.yang.storage.rev210331.ModuleVersionType;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.yang.storage.rev210331.gnmi.yang.models.GnmiYangModel;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.yang.storage.rev210331.gnmi.yang.models.GnmiYangModelKey;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NodeId;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.NodeBuilder;
@@ -130,7 +130,7 @@ public class GnmiWithoutRestconfTest extends AbstractDataBrokerTest {
     private static final QName TEST_LEAF_LIST_QN = QName.create(TEST_DATA_CONTAINER_QN, "test-leaf-list");
 
     private static final QNameModule CERT_STORAGE_QN_MODULE
-            = QNameModule.of(XMLNamespace.of("urn:lighty:gnmi:certificate:storage"), Revision.of("2021-05-04"));
+            = QNameModule.of(XMLNamespace.of("urn:opendaylight:gnmi:certificate:storage"), Revision.of("2021-05-04"));
     private static final QName ADD_KEYSTORE_RPC_QN = QName.create(CERT_STORAGE_QN_MODULE, "add-keystore-certificate");
     private static final QName ADD_KEYSTORE_INPUT_QN = QName.create(ADD_KEYSTORE_RPC_QN, "input");
     private static final QName KEYSTORE_ID_QN = QName.create(CERT_STORAGE_QN_MODULE, "keystore-id");
@@ -140,7 +140,7 @@ public class GnmiWithoutRestconfTest extends AbstractDataBrokerTest {
     private static final QName CLIENT_CERT_QN = QName.create(CERT_STORAGE_QN_MODULE, "client-cert");
 
     private static final QNameModule YANG_STORAGE_QN_MODULE
-            = QNameModule.of(XMLNamespace.of("urn:lighty:gnmi:yang:storage"), Revision.of("2021-03-31"));
+            = QNameModule.of(XMLNamespace.of("urn:opendaylight:gnmi:yang:storage"), Revision.of("2021-03-31"));
     private static final QName UPLOAD_YANG_RPC_QN = QName.create(YANG_STORAGE_QN_MODULE, "upload-yang-model");
     private static final QName UPLOAD_YANG_INPUT_QN = QName.create(UPLOAD_YANG_RPC_QN, "input");
     private static final QName GNMI_YANG_MODELS_QN = QName.create(YANG_STORAGE_QN_MODULE, "gnmi-yang-models");

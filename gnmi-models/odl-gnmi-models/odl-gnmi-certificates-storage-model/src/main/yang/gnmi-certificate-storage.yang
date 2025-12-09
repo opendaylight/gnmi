@@ -1,6 +1,6 @@
 module gnmi-certificate-storage {
     yang-version 1;
-    namespace "urn:lighty:gnmi:certificate:storage";
+    namespace "urn:opendaylight:gnmi:certificate:storage";
     prefix "gnmi-cs";
 
     description

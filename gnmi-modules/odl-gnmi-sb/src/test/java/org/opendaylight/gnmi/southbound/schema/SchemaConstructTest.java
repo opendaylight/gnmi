@@ -36,7 +36,7 @@ import org.opendaylight.gnmi.southbound.schema.loader.impl.ByPathYangLoaderServi
 import org.opendaylight.gnmi.southbound.timeout.TimeoutUtils;
 import org.opendaylight.gnmi.southbound.yangmodule.config.GnmiConfiguration;
 import org.opendaylight.gnmi.southbound.yangmodule.util.GnmiConfigUtils;
-import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.yang.storage.rev210331.gnmi.yang.models.GnmiYangModel;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.yang.storage.rev210331.gnmi.yang.models.GnmiYangModel;
 import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
 import org.opendaylight.yangtools.yang.model.api.Module;
 import org.opendaylight.yangtools.yang.parser.impl.DefaultYangParserFactory;
