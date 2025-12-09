@@ -8,7 +8,7 @@
 
 package org.opendaylight.gnmi.southbound.device.session.provider;
 
-import org.opendaylight.modules.gnmi.connector.gnmi.session.api.GnmiSession;
+import org.opendaylight.gnmi.connector.gnmi.session.api.GnmiSession;
 
 public interface GnmiSessionProvider {
     GnmiSession getGnmiSession();

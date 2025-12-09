@@ -14,8 +14,8 @@ import org.opendaylight.gnmi.southbound.device.session.listener.GnmiConnectionSt
 import org.opendaylight.gnmi.southbound.device.session.provider.GnmiSessionProvider;
 import org.opendaylight.gnmi.southbound.schema.provider.SchemaContextProvider;
 import org.opendaylight.mdsal.common.api.CommitInfo;
-import org.opendaylight.modules.gnmi.connector.gnmi.session.api.GnmiSession;
-import org.opendaylight.modules.gnmi.connector.session.api.SessionProvider;
+import org.opendaylight.gnmi.connector.gnmi.session.api.GnmiSession;
+import org.opendaylight.gnmi.connector.session.api.SessionProvider;
 import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.topology.rev210316.GnmiNode;
 import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.topology.rev210316.gnmi.connection.parameters.ExtensionsParameters;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NodeId;

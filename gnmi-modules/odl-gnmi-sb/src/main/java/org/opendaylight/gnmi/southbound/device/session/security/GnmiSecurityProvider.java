@@ -8,7 +8,7 @@
 
 package org.opendaylight.gnmi.southbound.device.session.security;
 
-import org.opendaylight.modules.gnmi.connector.security.Security;
+import org.opendaylight.gnmi.connector.security.Security;
 import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.topology.rev210316.GnmiNode;
 
 public interface GnmiSecurityProvider {

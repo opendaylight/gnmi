@@ -79,7 +79,7 @@
         </dependency>
 
         <dependency>
-            <groupId>org.opendaylight.gnmi.modules</groupId>
+            <groupId>org.opendaylight.gnmi</groupId>
             <artifactId>odl-gnmi-sb</artifactId>
             <version>${project.version}</version>
             <exclusions>
