@@ -51,10 +51,10 @@ public class GnmiSimulatorApp {
             device.start();
 
         } catch (EffectiveModelContextBuilderException e) {
-            LOG.error("Lighty gNMI application - failed during creating schema context: ", e);
+            LOG.error("ODL gNMI application - failed during creating schema context: ", e);
             shutdown();
         } catch (IOException e) {
-            LOG.error("Lighty gNMI application - failed to read configuration: ", e);
+            LOG.error("ODL gNMI application - failed to read configuration: ", e);
             shutdown();
         }
         if (registerShutdownHook) {

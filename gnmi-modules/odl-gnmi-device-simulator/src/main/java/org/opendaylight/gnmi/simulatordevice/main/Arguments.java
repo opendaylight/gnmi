@@ -12,7 +12,7 @@ import com.beust.jcommander.Parameter;
 
 public class Arguments {
 
-    @Parameter(names = {"-c", "--config-path"}, description = "Path to Lighty json config file. "
+    @Parameter(names = {"-c", "--config-path"}, description = "Path to gNMI json config file. "
             + " (If absent, the default will be used)")
     private String configPath;
 
