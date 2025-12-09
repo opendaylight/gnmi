@@ -21,10 +21,10 @@ import org.opendaylight.gnmi.southbound.device.session.listener.GnmiConnectionSt
 import org.opendaylight.gnmi.southbound.device.session.security.GnmiSecurityProvider;
 import org.opendaylight.gnmi.southbound.device.session.security.SessionSecurityException;
 import org.opendaylight.mdsal.binding.api.DataBroker;
-import org.opendaylight.modules.gnmi.connector.configuration.SessionConfiguration;
-import org.opendaylight.modules.gnmi.connector.session.SessionManagerFactory;
-import org.opendaylight.modules.gnmi.connector.session.api.SessionManager;
-import org.opendaylight.modules.gnmi.connector.session.api.SessionProvider;
+import org.opendaylight.gnmi.connector.configuration.SessionConfiguration;
+import org.opendaylight.gnmi.connector.session.SessionManagerFactory;
+import org.opendaylight.gnmi.connector.session.api.SessionManager;
+import org.opendaylight.gnmi.connector.session.api.SessionProvider;
 import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.topology.rev210316.GnmiNode;
 import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.topology.rev210316.credentials.Credentials;
 import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.topology.rev210316.gnmi.connection.parameters.ConnectionParameters;

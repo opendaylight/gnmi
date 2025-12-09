@@ -21,7 +21,7 @@ import org.opendaylight.mdsal.binding.api.ReadTransaction;
 import org.opendaylight.mdsal.binding.api.WriteTransaction;
 import org.opendaylight.mdsal.common.api.CommitInfo;
 import org.opendaylight.mdsal.common.api.LogicalDatastoreType;
-import org.opendaylight.modules.gnmi.commons.util.YangModelSanitizer;
+import org.opendaylight.gnmi.commons.util.YangModelSanitizer;
 import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.yang.storage.rev210331.GnmiYangModels;
 import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.yang.storage.rev210331.ModuleVersionType;
 import org.opendaylight.yang.gen.v1.urn.lighty.gnmi.yang.storage.rev210331.gnmi.yang.models.GnmiYangModel;
