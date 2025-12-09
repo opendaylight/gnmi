@@ -20,7 +20,7 @@
     <artifactId>odl-gnmi-connector</artifactId>
 
     <name>${project.groupId}:${project.artifactId}</name>
-    <url>https://github.com/PANTHEONtech/lighty</url>
+    <url>https://lf-opendaylight.atlassian.net/wiki/spaces/ODL/pages/489062430/gNMI+project</url>
 
     <dependencies>
         <dependency>
