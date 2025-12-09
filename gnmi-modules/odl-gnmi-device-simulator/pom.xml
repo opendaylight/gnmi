@@ -22,7 +22,7 @@
     <version>1.0.0-SNAPSHOT</version>
 
     <name>${project.groupId}:${project.artifactId}</name>
-    <url>https://github.com/PANTHEONtech/lighty</url>
+    <url>https://lf-opendaylight.atlassian.net/wiki/spaces/ODL/pages/489062430/gNMI+project</url>
 
     <properties>
         <application.main.class>org.opendaylight.modules.gnmi.simulatordevice.main.GnmiSimulatorApp</application.main.class>
@@ -114,7 +114,7 @@
             <version>7.11.0</version>
         </dependency>
 
-        <!-- Loggers dependencies used in lighty project -->
+        <!-- Loggers dependencies used in gnmi project -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
