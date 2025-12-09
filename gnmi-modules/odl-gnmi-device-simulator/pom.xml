@@ -86,7 +86,7 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.opendaylight.gnmi.models</groupId>
+            <groupId>org.opendaylight.gnmi</groupId>
             <artifactId>openconfig-models</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>

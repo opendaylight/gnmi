@@ -15,7 +15,7 @@
         <relativePath/>
     </parent>
 
-    <groupId>org.opendaylight.gnmi.models</groupId>
+    <groupId>org.opendaylight.gnmi</groupId>
     <artifactId>odl-gnoi-sonic-yang-model</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
