@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ad12e017_0b42b4ff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-12-10T14:41:27Z",
+      "side": 1,
+      "message": "certificates.",
+      "revId": "7162a9762ffc3cb9bcbe4ee01ae71725d8e7e0c0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a5dd9f0a_9b935430",
         "filename": "gnmi-modules/odl-gnmi-device-simulator/pom.xml",
         "patchSetId": 1
