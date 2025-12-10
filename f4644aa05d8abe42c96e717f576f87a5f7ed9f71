@@ -34,6 +34,24 @@
       "parentUuid": "1ac83095_91da57e9",
       "revId": "f4644aa05d8abe42c96e717f576f87a5f7ed9f71",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6acc2641_12d11e34",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-12-10T15:17:10Z",
+      "side": 1,
+      "message": "https://git.opendaylight.org/gerrit/c/gnmi/+/119776",
+      "parentUuid": "abe6870c_08c0d805",
+      "revId": "f4644aa05d8abe42c96e717f576f87a5f7ed9f71",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ],
   "submitRequirementResults": [
