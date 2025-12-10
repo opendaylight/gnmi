@@ -58,7 +58,7 @@ artifacts are available in your environment.
     .. code-block:: xml
 
         <dependency>
-            <groupId>org.opendaylight.gnmi.modules</groupId>
+            <groupId>org.opendaylight.gnmi</groupId>
             <artifactId>odl-gnmi-sb</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -251,7 +251,7 @@ Build and Run
     .. code-block:: xml
 
         <dependency>
-            <groupId>org.opendaylight.gnmi.modules</groupId>
+            <groupId>org.opendaylight.gnmi</groupId>
             <artifactId>odl-gnmi-device-simulator</artifactId>
         </dependency>
 
