@@ -7,8 +7,6 @@
  */
 package org.opendaylight.gnmi.southbound.schema;
 
-import org.opendaylight.yangtools.yang.parser.rfc7950.reactor.RFC7950Reactors;
-import org.opendaylight.yangtools.yang.parser.stmt.reactor.CrossSourceStatementReactor;
 
 public final class SchemaConstants {
 
@@ -20,9 +18,4 @@ public final class SchemaConstants {
 
     public static final String REVISION_REGEX = "\\d{4}-\\d{2}-\\d{2}";
 
-    /**
-     * Default reactor used for parsing yang modules with openconfig semver support enabled.
-     */
-    public static final CrossSourceStatementReactor DEFAULT_YANG_REACTOR = RFC7950Reactors.defaultReactorBuilder()
-            .build();
 }

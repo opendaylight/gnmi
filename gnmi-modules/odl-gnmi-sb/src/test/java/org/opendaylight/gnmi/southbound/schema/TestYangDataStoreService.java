@@ -80,7 +80,7 @@ public class TestYangDataStoreService implements YangDataStoreService {
 
         if (entriesWithRequestedName.size() == 1) {
             final Map.Entry<ImmutablePair<String, String>, String> matchedEntry =
-                    entriesWithRequestedName.stream().findFirst().get();
+                    entriesWithRequestedName.stream().findFirst().orElseThrow();
             return Futures.immediateFuture(Optional.of(new GnmiYangModelBuilder()
                     .setVersion(new ModuleVersionType(matchedEntry.getKey().right))
                     .setName(modelName)
