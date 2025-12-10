@@ -198,25 +198,21 @@
         <dependency>
             <groupId>org.opendaylight.gnmi</groupId>
             <artifactId>odl-gnmi-connector</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.opendaylight.gnmi</groupId>
             <artifactId>odl-gnmi-device-simulator</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.opendaylight.gnmi</groupId>
             <artifactId>odl-gnmi-sb</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.opendaylight.gnmi</groupId>
             <artifactId>openconfig-models</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
         <dependency>
