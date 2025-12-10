@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5dd9f0a_9b935430",
+        "filename": "gnmi-modules/odl-gnmi-device-simulator/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-12-10T14:41:16Z",
+      "side": 1,
+      "message": "really need this one?",
+      "revId": "7162a9762ffc3cb9bcbe4ee01ae71725d8e7e0c0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
