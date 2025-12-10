@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright © 2025 PANTHEON.tech, s.r.o. and others.
+
+ This program and the accompanying materials are made available under the
+ terms of the Eclipse Public License v1.0 which accompanies this distribution,
+ and is available at http://www.eclipse.org/legal/epl-v10.html
+ -->
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.6.0" name="odl-gnmi">
+    <repository>mvn:org.opendaylight.netconf/odl-restconf/9.0.1/xml/features</repository>
+    <repository>mvn:org.opendaylight.netconf/odl-netconf-topology/9.0.1/xml/features</repository>
+    <repository>mvn:org.opendaylight.aaa/odl-aaa-encryption-service/0.21.2/xml/features</repository>
+    <repository>mvn:org.opendaylight.yangtools/odl-yangtools-parser/14.0.17/xml/features</repository>
+    <repository>mvn:org.opendaylight.yangtools/odl-yangtools-xpath/14.0.17/xml/features</repository>
+    <feature name="odl-gnmi" description="OpenDaylight :: gNMI" version="1.0.0.SNAPSHOT">
+        <details>odl-gnmi</details>
+        <feature version="9.0.1" prerequisite="false" dependency="false">odl-restconf</feature>
+        <feature version="9.0.1" prerequisite="false" dependency="false">odl-netconf-topology</feature>
+        <feature version="0.21.2" prerequisite="false" dependency="false">odl-aaa-encryption-service</feature>
+        <feature version="14.0.17" prerequisite="false" dependency="false">odl-yangtools-parser</feature>
+        <feature version="14.0.17" prerequisite="false" dependency="false">odl-yangtools-xpath</feature>
+        <feature prerequisite="true" dependency="false">wrap</feature>
+        <bundle>wrap:mvn:io.grpc/grpc-protobuf-lite/1.77.0</bundle>
+        <bundle>wrap:mvn:io.grpc/grpc-api/1.77.0</bundle>
+        <bundle>mvn:com.google.protobuf/protobuf-javalite/3.25.8</bundle>
+        <bundle>wrap:mvn:io.perfmark/perfmark-api/0.26.0</bundle>
+        <bundle>mvn:org.opendaylight.gnmi/odl-gnmi-sb/1.0.0-SNAPSHOT</bundle>
+        <bundle>mvn:com.fasterxml.jackson.core/jackson-annotations/2.19.2</bundle>
+        <bundle>mvn:com.google.code.findbugs/jsr305/3.0.2</bundle>
+        <bundle>mvn:com.google.protobuf/protobuf-java/3.25.8</bundle>
+        <bundle>mvn:commons-io/commons-io/2.20.0</bundle>
+        <bundle>wrap:mvn:org.opendaylight.gnmi/openconfig-models/1.0.0-SNAPSHOT</bundle>
+        <bundle>wrap:mvn:org.opendaylight.gnmi/odl-gnmi-certificates-storage-model/1.0.0-SNAPSHOT</bundle>
+        <bundle>wrap:mvn:org.opendaylight.gnmi/odl-gnmi-force-capabilities/1.0.0-SNAPSHOT</bundle>
+        <bundle>wrap:mvn:org.opendaylight.gnmi/odl-gnmi-topology-model/1.0.0-SNAPSHOT</bundle>
+        <bundle>wrap:mvn:org.opendaylight.gnmi/odl-gnmi-yang-storage-model/1.0.0-SNAPSHOT</bundle>
+        <bundle>wrap:mvn:org.opendaylight.gnmi/odl-gnmi-commons/1.0.0-SNAPSHOT</bundle>
+        <bundle>wrap:mvn:org.opendaylight.gnmi/odl-gnmi-connector/1.0.0-SNAPSHOT</bundle>
+        <bundle>wrap:mvn:org.opendaylight.gnmi/odl-gnmi-proto/1.0.0-SNAPSHOT</bundle>
+        <bundle>wrap:mvn:io.grpc/grpc-protobuf/1.77.0</bundle>
+        <bundle>wrap:mvn:com.google.api.grpc/proto-google-common-protos/2.59.2</bundle>
+        <bundle>wrap:mvn:io.grpc/grpc-stub/1.77.0</bundle>
+        <bundle>wrap:mvn:org.codehaus.mojo/animal-sniffer-annotations/1.24</bundle>
+        <bundle>mvn:org.apache.commons/commons-collections4/4.5.0</bundle>
+        <bundle>mvn:org.opendaylight.mdsal.binding.model.iana/iana-if-type/14.0.18</bundle>
+    </feature>
+</features>
