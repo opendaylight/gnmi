@@ -93,9 +93,10 @@ Adding required certificates for gNMI device to gNMI application is performed by
    --data-raw "{
        \"input\": {
            \"keystore-id\": \"keystore-id-1\",
-           \"ca-certificate\": \"$(cat certificates/ca.crt)\",
-           \"client-key\": \"$(cat certificates/client.key)\",
-           \"client-cert\": \"$(cat certificates/client.crt)\"
+           \"ca-certificate\": \"$(cat src/main/resources/certs/ca.crt)\",
+           \"client-key\": \"$(cat src/main/resources/certs/client.key)\",
+           \"client-cert\": \"$(cat src/main/resources/certs/client.crt)\",
+           \"passphrase\": \"\"
        }
    }"
 
