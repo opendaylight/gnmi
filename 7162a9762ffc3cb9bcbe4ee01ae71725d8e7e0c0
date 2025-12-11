@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "98bd7c40_0e84ee93",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2025-12-11T12:34:01Z",
+      "side": 1,
+      "message": "fixed",
+      "parentUuid": "ad12e017_0b42b4ff",
+      "revId": "7162a9762ffc3cb9bcbe4ee01ae71725d8e7e0c0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a5dd9f0a_9b935430",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-12-10T14:41:16Z",
       "side": 1,
       "message": "really need this one?",
+      "revId": "7162a9762ffc3cb9bcbe4ee01ae71725d8e7e0c0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f76e193_8fddbe4f",
+        "filename": "gnmi-modules/odl-gnmi-device-simulator/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2025-12-11T12:34:01Z",
+      "side": 1,
+      "message": "You are right, we dont. removed",
+      "parentUuid": "a5dd9f0a_9b935430",
       "revId": "7162a9762ffc3cb9bcbe4ee01ae71725d8e7e0c0",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
