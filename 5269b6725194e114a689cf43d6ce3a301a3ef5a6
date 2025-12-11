@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b1e35e9_6b0a4b8b",
+        "filename": "gnmi-modules/odl-gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/mountpoint/codecs/YangInstanceIdentifierToGnmiPathCodecTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-12-11T08:44:20Z",
+      "side": 1,
+      "message": "enable again",
+      "revId": "5269b6725194e114a689cf43d6ce3a301a3ef5a6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
