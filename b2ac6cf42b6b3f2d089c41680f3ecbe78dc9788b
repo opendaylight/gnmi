@@ -16,6 +16,24 @@
       "message": "this fails?",
       "revId": "b2ac6cf42b6b3f2d089c41680f3ecbe78dc9788b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fe017d6_528acf9e",
+        "filename": "gnmi-modules/odl-gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/mountpoint/codecs/YangInstanceIdentifierToGnmiPathCodecTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2025-12-11T09:16:56Z",
+      "side": 1,
+      "message": "my bad, resolved",
+      "parentUuid": "bd6d94d2_8af9fa30",
+      "revId": "b2ac6cf42b6b3f2d089c41680f3ecbe78dc9788b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
