@@ -34,6 +34,24 @@
       "parentUuid": "1e05e1b0_2b6c91ae",
       "revId": "9d919ebe35cf2fc694608c3906a3ba173bcb02f9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33802636_b29ea2d9",
+        "filename": "gnmi-modules/odl-gnmi-device-simulator/src/main/resources/certs/client.crt",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-12-11T11:28:23Z",
+      "side": 1,
+      "message": "These are from https://github.com/PANTHEONtech/lighty/commit/e78bfae6831ad87ddda3d7139c91116811429b9b which we already have somewhere in our repository.",
+      "parentUuid": "5bd5f5db_494696d6",
+      "revId": "9d919ebe35cf2fc694608c3906a3ba173bcb02f9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ],
   "submitRequirementResults": [
