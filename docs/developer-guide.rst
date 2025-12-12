@@ -32,8 +32,105 @@ The module augments the OpenDaylight network-topology model with the
 southbound plugin establishes a connection to the device and creates a
 **Mount Point** containing a ``GnmiDataBroker``.
 
+gNMI Southbound Transaction Implementation
+------------------------------------------
+
+The gNMI Southbound plugin utilizes a custom implementation of the MD-SAL DOM Data Broker (``GnmiDataBroker``) to handle data transactions. Unlike standard ODL brokers that might use default internal transaction logic, the gNMI implementation explicitly defines transaction behaviors to bridge MD-SAL operations with gNMI ``Get`` and ``Set`` RPCs.
+
+Transaction Architecture
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+The transaction logic is encapsulated in three custom classes located in ``org.opendaylight.gnmi.southbound.mountpoint.transactions``. The ``GnmiDataBroker`` acts as a factory that instantiates and combines these transactions.
+
+1. Read-Only Transaction (ReadOnlyTx)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This transaction handles reading data from the device. It wraps the ``GnmiGet`` provider, which translates the read path into a gNMI Get Request.
+
+* **Implementation**: ``org.opendaylight.gnmi.southbound.mountpoint.transactions.ReadOnlyTx``
+* **Backing Logic**: Delegates ``read`` and ``exists`` calls to ``GnmiGet``.
+
+2. Write-Only Transaction (WriteOnlyTx)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This transaction handles data modifications (PUT, MERGE, DELETE). It wraps the ``GnmiSet`` provider, which collects modifications and translates them into a gNMI Set Request upon commit.
+
+* **Implementation**: ``org.opendaylight.gnmi.southbound.mountpoint.transactions.WriteOnlyTx``
+* **Backing Logic**: Buffers changes and delegates the ``commit`` to ``GnmiSet``.
+
+3. Read-Write Transaction (ReadWriteTx)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``ReadWriteTx`` is a **composite transaction**. It does not implement connection logic itself; instead, it coordinates the specialized ``ReadOnlyTx`` and ``WriteOnlyTx``. This ensures that a single transaction object can seamlessly handle both reading (via gNMI Get) and writing (via gNMI Set) by delegating to the appropriate underlying implementation.
+
+* **Implementation**: ``org.opendaylight.gnmi.southbound.mountpoint.transactions.ReadWriteTx``
+
+Usage and Instantiation
+~~~~~~~~~~~~~~~~~~~~~~~
+
+When ``GnmiDataBroker.newReadWriteTransaction()`` is called, it does not create a generic ODL transaction. Instead, it manually constructs a ``ReadWriteTx`` by instantiating the specific read and write components.
+
+The following code demonstrates how these transactions are composed "under the hood" within the broker:
+
+.. code-block:: java
+
+   // Logic inside GnmiDataBroker.java
+
+   @Override
+   public DOMDataTreeReadWriteTransaction newReadWriteTransaction() {
+       // 1. Create the specialized Read-Only transaction backed by GnmiGet
+       DOMDataTreeReadTransaction readDelegate = new ReadOnlyTx(gnmiGet);
+
+       // 2. Create the specialized Write-Only transaction backed by GnmiSet
+       DOMDataTreeWriteTransaction writeDelegate = new WriteOnlyTx(gnmiSet);
+
+       // 3. Compose them into the custom ReadWriteTx
+       return new ReadWriteTx(readDelegate, writeDelegate);
+   }
+
+Delegation in ReadWriteTx
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``ReadWriteTx`` class simply delegates method calls to the respective delegate provided during construction. This separation of concerns allows the read and write logic to remain distinct while providing a unified interface to MD-SAL applications.
+
+.. code-block:: java
+
+   // Logic inside ReadWriteTx.java
+
+   public class ReadWriteTx implements DOMDataTreeReadWriteTransaction {
+
+       private final DOMDataTreeReadTransaction delegateReadTx;
+       private final DOMDataTreeWriteTransaction delegateWriteTx;
+
+       public ReadWriteTx(final DOMDataTreeReadTransaction delegateReadTx,
+                          final DOMDataTreeWriteTransaction delegateWriteTx) {
+           this.delegateReadTx = delegateReadTx;
+           this.delegateWriteTx = delegateWriteTx;
+       }
+
+       // Read operations are delegated to ReadOnlyTx
+       @Override
+       public FluentFuture<Optional<NormalizedNode>> read(final LogicalDatastoreType store,
+                                                          final YangInstanceIdentifier path) {
+           return delegateReadTx.read(store, path);
+       }
+
+       // Write operations are delegated to WriteOnlyTx
+       @Override
+       public void put(final LogicalDatastoreType store, final YangInstanceIdentifier path,
+                       final NormalizedNode data) {
+           delegateWriteTx.put(store, path, data);
+       }
+
+       // Commit is delegated to WriteOnlyTx
+       @Override
+       public FluentFuture<? extends CommitInfo> commit() {
+           return delegateWriteTx.commit();
+       }
+   }
+
 Supported Encodings
-~~~~~~~~~~~~~~~~~~~
+-------------------
 
 Since the module operates solely with YANG modeled data, **only JSON_IETF
 encoding is supported** for structured data types (containers, lists, etc.), as
@@ -203,6 +300,85 @@ Delete Data
 
 Advanced Features
 -----------------
+
+Manually Creating GnmiDataBroker
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you need to instantiate a ``GnmiDataBroker`` manually (e.g., for testing or custom integration without using the Mount Point service), you can use the ``GnmiDataBrokerFactoryImpl``. This requires assembling several components, including the ``DeviceConnection``, which encapsulates the session, security, and status listener logic.
+
+Here is an example of how to manually wire these components:
+
+.. code-block:: java
+
+    public GnmiDataBroker createBroker(DataBroker dataBroker, ExecutorService executorService) {
+
+        // 1. Define Device Configuration (The Node)
+        String deviceIp = "127.0.0.1";
+        int devicePort = 10161;
+        NodeId nodeId = new NodeId("manual-device-1");
+
+        Node node = new NodeBuilder()
+            .setNodeId(nodeId)
+            // Note: addAugmentation takes the instance directly
+            .addAugmentation(new GnmiNodeBuilder()
+                .setConnectionParameters(new ConnectionParametersBuilder()
+                    .setHost(new Host(new IpAddress(new Ipv4Address(deviceIp))))
+                    .setPort(new PortNumber(Uint16.valueOf(devicePort)))
+                    // Using Insecure for this example
+                    .setSecurityChoice(new InsecureDebugOnlyBuilder()
+                        .setConnectionType(
+                            org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.security.security.choice.InsecureDebugOnly.ConnectionType.INSECURE)
+                        .build())
+                    .build())
+                .setExtensionsParameters(new ExtensionsParametersBuilder()
+                    .setGnmiParameters(new GnmiParametersBuilder()
+                        .setUseModelNamePrefix(true)
+                        .build())
+                    .build())
+                .build())
+            .build();
+
+        // 2. Prepare Internal Session Configuration
+        // Note: usePlainText=true implies no TLS.
+        SessionConfiguration sessionConfig = new SessionConfiguration(
+            new InetSocketAddress(deviceIp, devicePort), true);
+
+        // 3. Create Security Object
+        // For secure connections, you would use SecurityFactory.createGnmiSecurity(ca, clientCert, key)
+        Security security = SecurityFactory.createInsecureGnmiSecurity();
+
+        // 4. Initialize Session Factories
+        GnmiSessionFactory gnmiSessionFactory = new GnmiSessionFactoryImpl();
+        SessionManagerFactory sessionManagerFactory = new SessionManagerFactoryImpl(gnmiSessionFactory);
+
+        // 5. Create Session Manager & Provider
+        SessionManager sessionManager = sessionManagerFactory.createSessionManager(security);
+        SessionProvider sessionProvider = sessionManager.createSession(sessionConfig);
+
+        // 6. Create Status Listener
+        // This component monitors the gRPC channel and updates the Operational Datastore
+        GnmiConnectionStatusListener statusListener = new GnmiConnectionStatusListener(
+            sessionProvider,
+            dataBroker,
+            nodeId,
+            executorService);
+
+        // Start listening to state changes
+        statusListener.init();
+
+        // 7. Create Device Connection
+        // This wrapper holds the session, listener, and node configuration together
+        DeviceConnection deviceConnection = new DeviceConnection(
+            sessionProvider,
+            statusListener,
+            node);
+
+        // 8. Create the Data Broker
+        GnmiDataBrokerFactory dataBrokerFactory = new GnmiDataBrokerFactoryImpl();
+        GnmiDataBroker gnmiDataBroker = dataBrokerFactory.create(deviceConnection);
+
+        return gnmiDataBroker;
+    }
 
 Runtime YANG Model Updates
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
