@@ -4,17 +4,17 @@ GNMI use-case example
 This example shows gNMI south-bound interface utilized with RESTCONF north-bound interface to manage gNMI devices on the network. The controller is deployed using an OSGi (Karaf) container.
 It is capable to connect to gNMI devices and expose connected devices over RESTCONF north-bound APIs. In this example the gNMI simulator is started as gNMI target and all operations are performed on this device.
 
-The example is pre-prepared with `Openconfig YANG models <../gnmi-models/openconfig-models/src/main/yang>`_.
-These models are used by both the gNMI Karaf feature and the gNMI device simulator. Device has already preconfigured state data specified in `initialStateJsonData.json <../gnmi-modules/odl-gnmi-device-simulator/src/main/resources/simulator-data/initialStateJsonData.json>`_ JSON file and initial config data in `initialConfigJsonData.json <../gnmi-modules/odl-gnmi-device-simulator/src/main/resources/simulator-data/initialConfigJsonData.json>`_.
+The example is pre-prepared with ``Openconfig YANG models`` which can be found in ``/gnmi-models/openconfig-models/src/main/yang>``.
+These models are used by both the gNMI Karaf feature and the gNMI device simulator. Device has already preconfigured state data specified in ``initialStateJsonData.json`` JSON file and initial config data in ``initialConfigJsonData.json`` which can be found in ``/gnmi-modules/odl-gnmi-device-simulator/src/main/resources/simulator-data``.
 To communicate with gNMI device it is required to use TLS communication with certificates and username and password authorization.
 
 This example starts:
 
 * **OpenDaylight/Karaf Distribution** containing:
 
-* `gNMI feature <../features/odl-gnmi>`_
+* ``gNMI feature``.
 
-* `gNMI device simulator <../gnmi-modules/odl-gnmi-device-simulator>`_
+* ``gNMI device simulator``.
 
 
 Prerequisites
@@ -30,7 +30,7 @@ In order to build and start and run this example locally, you need:
 How to run use-case
 -------------------
 
-This example shows how to start the Karaf distribution with the gNMI feature and the `gNMI simulator <../gnmi-modules/odl-gnmi-device-simulator>`_ app.
+This example shows how to start the Karaf distribution with the gNMI feature and the ``gNMI simulator`` app.
 Next step describes how to perform basic CRUD operations on the gNMI device using RESTCONF.
 
 Clone gnmi repository and build it with maven.
@@ -65,7 +65,7 @@ Navigate to the karaf distribution folder (built from the root pom) and start th
 *Note: The RESTCONF and NETCONF features should be installed automatically as dependencies.*
 
 **Bruno Collection:**
-A ready-to-use API collection is available in the `bruno-collection.json <bruno-collection.json>`_ file. You can import this file directly into the Bruno API client to execute the requests described below.
+A ready-to-use API collection is available in the ``bruno-collection.json`` file. You can import this file directly into the Bruno API client to execute the requests described below.
 
 Start gNMI device simulator
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -73,7 +73,7 @@ Start gNMI device simulator
 Open a new terminal window, navigate back to the ``gnmi-modules/odl-gnmi-device-simulator`` folder, and start the simulator.
 
 
-Start the application with pre-prepared configuration `simulator_config.json <../gnmi-modules/odl-gnmi-device-simulator/src/main/resources/simulator-data/simulator_config.json>`_:
+Start the application with pre-prepared configuration ``simulator_config.json`` which can be found in ``/gnmi-modules/odl-gnmi-device-simulator/src/main/resources/simulator-data/simulator_config.json>``:
 
 .. code-block:: bash
 
@@ -82,7 +82,7 @@ Start the application with pre-prepared configuration `simulator_config.json <..
 Add client certificates  gNMI keystore
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Certificates used in this example can be found `here <../gnmi-modules/odl-gnmi-device-simulator/src/main/resources/certs>`_. Only the client certificates are added to keystore with RPC. This RPC stores certificates in configuration data-store and encrypt their private key and passphrase.
+Certificates used in this example can be found here ``/gnmi-modules/odl-gnmi-device-simulator/src/main/resources/certs>``. Only the client certificates are added to keystore with RPC. This RPC stores certificates in configuration data-store and encrypt their private key and passphrase.
 Adding required certificates for gNMI device to gNMI application is performed by postman request ``'Add Keystore'``.
 
 .. code-block:: bash
