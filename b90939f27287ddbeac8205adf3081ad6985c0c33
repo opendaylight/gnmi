@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b0adc2dd_7f328387",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-12-15T07:13:07Z",
+      "side": 1,
+      "message": "Developer guide and too long line",
+      "revId": "b90939f27287ddbeac8205adf3081ad6985c0c33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7bcba04b_57e4313d",
         "filename": "docs/developer-guide.rst",
         "patchSetId": 1
