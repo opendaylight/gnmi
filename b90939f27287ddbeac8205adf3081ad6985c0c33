@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "576e2d4c_231ec313",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-12-15T09:11:34Z",
+      "side": 1,
+      "message": "developer guide is a document we update",
+      "parentUuid": "8c7bb8f5_9a0afa75",
+      "revId": "b90939f27287ddbeac8205adf3081ad6985c0c33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7bcba04b_57e4313d",
         "filename": "docs/developer-guide.rst",
         "patchSetId": 1
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "Should be resolved, but this is a copy from ReadWriteTx.java",
       "parentUuid": "159cb21a_e44cf9ad",
+      "revId": "b90939f27287ddbeac8205adf3081ad6985c0c33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68b2be9d_605e9538",
+        "filename": "docs/developer-guide.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-12-15T09:11:34Z",
+      "side": 1,
+      "message": "ok, return it back 😊",
+      "parentUuid": "0add3b1b_ebfd1b7f",
       "revId": "b90939f27287ddbeac8205adf3081ad6985c0c33",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
