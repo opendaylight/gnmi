@@ -39,15 +39,15 @@ public class GnmiCertificatesTest extends GnmiITBase {
     private static final String CERTIFICATE_PATH = "src/test/resources/certs/server.crt";
 
     private static final String ADD_CERTIFICATE_PATH
-            = "http://localhost:8888/restconf/operations/gnmi-certificate-storage:add-keystore-certificate";
+            = "http://localhost:8181/rests/operations/gnmi-certificate-storage:add-keystore-certificate";
     private static final String REMOVE_CERTIFICATE_PATH
-            = "http://127.0.0.1:8888/restconf/operations/gnmi-certificate-storage:remove-keystore-certificate";
+            = "http://127.0.0.1:8181/rests/operations/gnmi-certificate-storage:remove-keystore-certificate";
     private static final String GET_CERTIFICATE_PATH
-            = "http://localhost:8888/restconf/data/gnmi-certificate-storage:keystore=%s";
+            = "http://localhost:8181/rests/data/gnmi-certificate-storage:keystore=%s";
     private static final String CREATE_MOUNTPOINT_PATH
-            = "http://127.0.0.1:8888/restconf/data/network-topology:network-topology/topology=gnmi-topology/node=%s";
+            = "http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=gnmi-topology/node=%s";
     private static final String TEST_DATA_PATH
-            = "http://127.0.0.1:8888/restconf/data/network-topology:network-topology/topology=gnmi-topology/node=%s/"
+            = "http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=gnmi-topology/node=%s/"
           + "yang-ext:mount/openconfig-interfaces:interfaces";
     private static final String MOUNTPOINT_STATUS_PATH
             = CREATE_MOUNTPOINT_PATH + "/gnmi-topology:node-state/node-status";
@@ -124,7 +124,7 @@ public class GnmiCertificatesTest extends GnmiITBase {
         // Register keystore
         final String keystoreId = "test-certificate";
         final String certificatesRequestBody = getCertificatesRequestBody(keystoreId, TEST_CERTIFICATES.getCaCert(),
-                TEST_CERTIFICATES.getClientKey(), TEST_CERTIFICATES.getClientCert());
+                TEST_CERTIFICATES.getClientKey(), "", TEST_CERTIFICATES.getClientCert());
         final HttpResponse<String> response = sendPostRequestJSON(ADD_CERTIFICATE_PATH, certificatesRequestBody);
         assertEquals(HttpURLConnection.HTTP_NO_CONTENT, response.statusCode());
 
@@ -267,7 +267,7 @@ public class GnmiCertificatesTest extends GnmiITBase {
         // Register keystore
         final String keystoreId = "test-without-passphrase";
         final String certificatesRequestBody = getCertificatesRequestBody(keystoreId, TEST_CERTIFICATES.getCaCert(),
-                TEST_CERTIFICATES.getClientEncKey(), TEST_CERTIFICATES.getClientCert());
+                TEST_CERTIFICATES.getClientEncKey(), "", TEST_CERTIFICATES.getClientCert());
 
         final HttpResponse<String> response = sendPostRequestJSON(ADD_CERTIFICATE_PATH, certificatesRequestBody);
         assertEquals(HttpURLConnection.HTTP_NO_CONTENT, response.statusCode());
@@ -335,18 +335,6 @@ public class GnmiCertificatesTest extends GnmiITBase {
                 + "        \"client-cert\": \"%s\"\n"
                 + "    }\n"
                 + "}", id, ca, key, passphrase, clientCert);
-    }
-
-    private String getCertificatesRequestBody(final String id, final String ca, final String key,
-                                              final String clientCert) {
-        return String.format("{\n"
-                + "    \"input\": {\n"
-                + "        \"keystore-id\": \"%s\",\n"
-                + "        \"ca-certificate\": \"%s\",\n"
-                + "        \"client-key\": \"%s\",\n"
-                + "        \"client-cert\": \"%s\"\n"
-                + "    }\n"
-                + "}", id, ca, key, clientCert);
     }
 
     private String getRemoveCertificateBody(final String keystoreId) {

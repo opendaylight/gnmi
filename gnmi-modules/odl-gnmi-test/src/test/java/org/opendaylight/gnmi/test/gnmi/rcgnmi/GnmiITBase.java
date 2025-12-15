@@ -15,15 +15,20 @@ import static org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants
 
 import gnmi.Gnmi;
 import java.io.IOException;
+import java.net.Authenticator;
+import java.net.ConnectException;
 import java.net.HttpURLConnection;
-import java.net.ServerSocket;
+import java.net.PasswordAuthentication;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.time.Duration;
+import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -38,12 +43,16 @@ import org.apache.shiro.realm.AuthenticatingRealm;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.awaitility.Awaitility;
 import org.awaitility.core.ConditionTimeoutException;
+import org.eclipse.jdt.annotation.NonNull;
 import org.json.JSONObject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.opendaylight.aaa.encrypt.impl.AAAEncryptionServiceImpl;
 import org.opendaylight.gnmi.simulatordevice.config.GnmiSimulatorConfiguration;
 import org.opendaylight.gnmi.simulatordevice.impl.SimulatedGnmiDevice;
 import org.opendaylight.gnmi.simulatordevice.utils.GnmiSimulatorConfUtils;
+import org.opendaylight.gnmi.southbound.yangmodule.GnmiSouthboundModule;
+import org.opendaylight.gnmi.southbound.yangmodule.config.GnmiConfiguration;
 import org.opendaylight.mdsal.binding.api.ActionProviderService;
 import org.opendaylight.mdsal.binding.api.RpcProviderService;
 import org.opendaylight.mdsal.binding.dom.adapter.BindingAdapterFactory;
@@ -60,7 +69,6 @@ import org.opendaylight.mdsal.dom.broker.RouterDOMNotificationService;
 import org.opendaylight.mdsal.dom.broker.RouterDOMRpcProviderService;
 import org.opendaylight.mdsal.dom.broker.RouterDOMRpcService;
 import org.opendaylight.mdsal.dom.spi.FixedDOMSchemaService;
-import org.opendaylight.mdsal.singleton.api.ClusterSingletonServiceProvider;
 import org.opendaylight.netconf.odl.device.notification.SubscribeDeviceNotificationRpc;
 import org.opendaylight.netconf.sal.remote.impl.CreateDataChangeEventSubscriptionRpc;
 import org.opendaylight.netconf.transport.http.ConfigUtils;
@@ -77,12 +85,18 @@ import org.opendaylight.restconf.server.mdsal.MdsalRestconfServer;
 import org.opendaylight.restconf.server.mdsal.MdsalRestconfStreamRegistry;
 import org.opendaylight.restconf.server.spi.ErrorTagMapping;
 import org.opendaylight.restconf.server.spi.RpcImplementation;
+import org.opendaylight.yang.gen.v1.config.aaa.authn.encrypt.service.config.rev240202.AaaEncryptServiceConfig;
+import org.opendaylight.yang.gen.v1.config.aaa.authn.encrypt.service.config.rev240202.AaaEncryptServiceConfigBuilder;
+import org.opendaylight.yang.gen.v1.config.aaa.authn.encrypt.service.config.rev240202.EncryptServiceConfig;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.http.client.rev240208.HttpClientStackGrouping;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.http.server.rev240208.HttpServerStackGrouping;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.http.server.rev240208.http.server.stack.grouping.Transport;
+import org.opendaylight.yangtools.binding.DataContainer;
 import org.opendaylight.yangtools.binding.data.codec.impl.di.DefaultBindingDOMCodecServices;
 import org.opendaylight.yangtools.yang.common.Uint16;
 import org.opendaylight.yangtools.yang.common.Uint32;
+import org.opendaylight.yangtools.yang.parser.impl.DefaultYangParserFactory;
+import org.opendaylight.yangtools.yang.xpath.impl.AntlrXPathParserFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -103,11 +117,12 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
     private static final String TEST_SCHEMA_PATH = "src/test/resources/additional/models";
     private static final String SIMULATOR_CONFIG = "/json/simulator_config.json";
 
-    protected static ExecutorService httpClientExecutor;
-    protected static HttpClient httpClient;
+    protected ExecutorService httpClientExecutor;
+    protected HttpClient httpClient;
 
-    protected static String localAddress;
-    protected static BootstrapFactory bootstrapFactory;
+    protected String localAddress = "127.0.0.1";
+
+    protected BootstrapFactory bootstrapFactory;
     protected HttpClientStackGrouping clientStackGrouping;
     protected HttpClientStackGrouping invalidClientStackGrouping;
     protected DOMMountPointService domMountPointService;
@@ -118,6 +133,7 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
     protected volatile EventStreamService clientStreamService;
     protected volatile EventStreamService.StreamControl streamControl;
 
+    private GnmiSouthboundModule gnmiSouthboundModule;
     private SimpleNettyEndpoint endpoint;
     private String host;
     private DOMNotificationRouter domNotificationRouter;
@@ -125,12 +141,25 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
 
     @BeforeEach
     public void startUp() throws Exception {
+        setup();
         httpClientExecutor = Executors.newSingleThreadExecutor();
-        httpClient = HttpClient.newBuilder().executor(httpClientExecutor).build();
+        httpClient = HttpClient.newBuilder()
+            .executor(httpClientExecutor)
+            .authenticator(new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(USERNAME, PASSWORD.toCharArray());
+                }
+            })
+            .build();
+
+        bootstrapFactory = new BootstrapFactory("gnmi-it-group", 1);
 
         // transport configuration
-        final var port = randomBindablePort();
+        final var port = 8181;
         host = localAddress + ":" + port;
+        LOG.info("RESTCONF Server starting on: {}", host);
+
         final var serverTransport = ConfigUtils.serverTransportTcp(localAddress, port);
         final var serverStackGrouping = new HttpServerStackGrouping() {
             @Override
@@ -164,7 +193,6 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
         final var principalService = new AAAShiroPrincipalService(securityManager);
 
         // MDSAL services
-        setup();
         final var domDataBroker = getDomBroker();
         final var schemaContext = getRuntimeContext().modelContext();
         final var schemaService = new FixedDOMSchemaService(schemaContext);
@@ -178,16 +206,26 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
         rpcProviderService = new BindingDOMRpcProviderServiceAdapter(adapterContext,
             new RouterDOMRpcProviderService(domRpcRouter));
         domNotificationRouter = new DOMNotificationRouter(32);
-        final ClusterSingletonServiceProvider cssProvider = service -> {
-            service.instantiateServiceInstance();
-            return service::closeServiceInstance;
-        };
+
+        final GnmiConfiguration gnmiConfiguration = new GnmiConfiguration();
+        gnmiConfiguration.addInitialYangsPaths(Collections.singletonList(TEST_SCHEMA_PATH));
+
+        // Initialize GnmiSouthboundModule to register RPCs
+        gnmiSouthboundModule = new GnmiSouthboundModule(
+            getDataBroker(),
+            rpcProviderService,
+            domMountPointService,
+            createEncryptionService(),
+            new DefaultYangParserFactory(),
+            new AntlrXPathParserFactory(),
+            gnmiConfiguration
+        );
+        gnmiSouthboundModule.init();
 
         streamRegistry = new MdsalRestconfStreamRegistry(domDataBroker,
             new RouterDOMNotificationService(domNotificationRouter),
             schemaService, uri -> uri.resolve("streams"), dataBindProvider);
         final var rpcImplementations = List.<RpcImplementation>of(
-            // rpcImplementations
             new CreateDataChangeEventSubscriptionRpc(streamRegistry, dataBindProvider, domDataBroker),
             new SubscribeDeviceNotificationRpc(streamRegistry, domMountPointService)
         );
@@ -199,13 +237,26 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
         final var configuration = new NettyEndpointConfiguration(
             ERROR_TAG_MAPPING, PrettyPrintParam.FALSE, Uint16.ZERO, Uint32.valueOf(1000),
             "rests", MessageEncoding.JSON, serverStackGrouping);
+
         endpoint = new SimpleNettyEndpoint(server, principalService, streamRegistry, bootstrapFactory, configuration);
     }
 
     @AfterEach
     public void teardown() throws Exception {
-        httpClientExecutor.shutdownNow();
-        endpoint.close();
+        cleanup();
+
+        if (httpClientExecutor != null) {
+            httpClientExecutor.shutdownNow();
+        }
+        if (endpoint != null) {
+            endpoint.close();
+        }
+        if (bootstrapFactory != null) {
+            bootstrapFactory.close();
+        }
+        if (gnmiSouthboundModule != null) {
+            gnmiSouthboundModule.close();
+        }
     }
 
     @AfterEach
@@ -217,12 +268,18 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
         as a failsafe to ensure when some test fails that device will be disconnected and wont affect other tests
         */
         try {
-            final HttpResponse<String> getGnmiTopologyResponse = sendGetRequestJSON(GNMI_TOPOLOGY_PATH);
-            if (getGnmiTopologyResponse.body().contains(GNMI_NODE_ID)) {
-                if (!disconnectDevice(GNMI_NODE_ID)) {
-                    LOG.info("Problem when disconnecting device {}", GNMI_NODE_ID);
+            if (httpClientExecutor != null && !httpClientExecutor.isShutdown()) {
+                final HttpResponse<String> getGnmiTopologyResponse = sendGetRequestJSON(GNMI_TOPOLOGY_PATH);
+                if (getGnmiTopologyResponse.body().contains(GNMI_NODE_ID)) {
+                    if (!disconnectDevice(GNMI_NODE_ID)) {
+                        LOG.info("Problem when disconnecting device {}", GNMI_NODE_ID);
+                    }
                 }
             }
+        } catch (ConnectException e) {
+            // 3. Ignore ConnectException: This happens if startUp failed (NPE) and the server never started.
+            // We don't want this error to mask the real NPE.
+            LOG.warn("Could not connect to server during cleanup (Server likely didn't start): {}", e.getMessage());
         } catch (ExecutionException | InterruptedException | TimeoutException | IOException e) {
             LOG.info("Problem when disconnecting device {}: {}", GNMI_NODE_ID, e);
         }
@@ -487,7 +544,7 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
 
     protected static final class GeneralConstants {
 
-        public static final String RESTCONF_DATA_PATH = "http://localhost:8182/restconf/data";
+        public static final String RESTCONF_DATA_PATH = "http://localhost:8181/rests/data";
         public static final String GNMI_NODE_ID = "gnmi-node-test";
         public static final String GNMI_NODE_STATUS = "/gnmi-topology:node-state/node-status";
         public static final String GNMI_TOPOLOGY_PATH =
@@ -512,16 +569,62 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
         }
     }
 
-    /**
-     * Find a local port which has a good chance of not failing {@code bind()} due to a conflict.
-     *
-     * @return a local port
-     */
-    protected static final int randomBindablePort() {
-        try (var socket = new ServerSocket(0)) {
-            return socket.getLocalPort();
-        } catch (IOException e) {
-            throw new AssertionError(e);
-        }
+    private static AAAEncryptionServiceImpl createEncryptionService()
+        throws NoSuchAlgorithmException, InvalidKeySpecException {
+        final AaaEncryptServiceConfig config = getDefaultAaaEncryptServiceConfig();
+        return new AAAEncryptionServiceImpl(new EncryptServiceConfig() {
+            @Override
+            public @NonNull Class<? extends DataContainer> implementedInterface() {
+                return config.implementedInterface();
+            }
+
+            @Override
+            public String getEncryptKey() {
+                return config.getEncryptKey();
+            }
+
+            @Override
+            public byte[] getEncryptSalt() {
+                return config.getEncryptSalt().getBytes();
+            }
+
+            @Override
+            public String getEncryptMethod() {
+                return config.getEncryptMethod();
+            }
+
+            @Override
+            public String getEncryptType() {
+                return config.getEncryptType();
+            }
+
+            @Override
+            public Integer getEncryptIterationCount() {
+                return config.getEncryptIterationCount();
+            }
+
+            @Override
+            public Integer getEncryptKeyLength() {
+                return config.getEncryptKeyLength();
+            }
+
+            @Override
+            public Integer getAuthTagLength() {
+                return config.getAuthTagLength();
+            }
+
+            @Override
+            public String getCipherTransforms() {
+                return config.getCipherTransforms();
+            }
+        });
+    }
+
+    private static AaaEncryptServiceConfig getDefaultAaaEncryptServiceConfig() {
+        return new AaaEncryptServiceConfigBuilder().setEncryptKey("V1S1ED4OMeEh")
+            .setPasswordLength(12).setEncryptSalt("TdtWeHbch/7xP52/rp3Usw==")
+            .setEncryptMethod("PBKDF2WithHmacSHA1").setEncryptType("AES")
+            .setEncryptIterationCount(32768).setEncryptKeyLength(128)
+            .setAuthTagLength(128).setCipherTransforms("AES/GCM/NoPadding").build();
     }
 }

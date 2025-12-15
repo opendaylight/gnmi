@@ -160,6 +160,7 @@ public class GnmiWithoutRestconfTest extends AbstractDataBrokerTest {
 
     @BeforeEach
     public void startUp() throws Exception {
+        setup();
         odlDataBroker = getDataBroker();
         odlDomMountPointService = new DOMMountPointServiceImpl();
 
