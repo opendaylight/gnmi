@@ -123,7 +123,7 @@ MD-SAL applications.
        // Read operations are delegated to ReadOnlyTx
        @Override
        public FluentFuture<Optional<NormalizedNode>> read(final LogicalDatastoreType store,
-                                                            final YangInstanceIdentifier path) {
+                                                          final YangInstanceIdentifier path) {
        return delegateReadTx.read(store, path);
        }
 
@@ -169,7 +169,7 @@ artifacts are available in your environment.
         <dependency>
             <groupId>org.opendaylight.gnmi</groupId>
             <artifactId>odl-gnmi-sb</artifactId>
-            <version>${project.version}</version>
+            <version>1.0.0</version>
         </dependency>
 
 2.  **Karaf Feature**:
