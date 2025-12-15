@@ -64,8 +64,9 @@ Navigate to the karaf distribution folder (built from the root pom) and start th
 
 *Note: The RESTCONF and NETCONF features should be installed automatically as dependencies.*
 
-**Bruno Collection:**
-A ready-to-use API collection is available in the ``bruno-collection.json`` file. You can import this file directly into the Bruno API client to execute the requests described below.
+**Bruno/Postman collection:**
+A ready-to-use API collection is available in the ``bruno-collection.json`` file. You can import this file directly into
+the Bruno/Postman API client to execute the requests described below.
 
 Start gNMI device simulator
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
