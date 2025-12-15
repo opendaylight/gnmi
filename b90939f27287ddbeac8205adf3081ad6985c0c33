@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c7bb8f5_9a0afa75",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2025-12-15T08:29:52Z",
+      "side": 1,
+      "message": "resolved",
+      "parentUuid": "b0adc2dd_7f328387",
+      "revId": "b90939f27287ddbeac8205adf3081ad6985c0c33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7bcba04b_57e4313d",
@@ -35,6 +53,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2790ecaf_9533ae08",
+        "filename": "docs/developer-guide.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2025-12-15T08:29:52Z",
+      "side": 1,
+      "message": "resolved",
+      "parentUuid": "7bcba04b_57e4313d",
+      "revId": "b90939f27287ddbeac8205adf3081ad6985c0c33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "159cb21a_e44cf9ad",
@@ -48,6 +84,24 @@
       "writtenOn": "2025-12-15T07:12:29Z",
       "side": 1,
       "message": "inconsistent formatting of parameters - use ODL style",
+      "revId": "b90939f27287ddbeac8205adf3081ad6985c0c33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0add3b1b_ebfd1b7f",
+        "filename": "docs/developer-guide.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2025-12-15T08:29:52Z",
+      "side": 1,
+      "message": "Should be resolved, but this is a copy from ReadWriteTx.java",
+      "parentUuid": "159cb21a_e44cf9ad",
       "revId": "b90939f27287ddbeac8205adf3081ad6985c0c33",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
