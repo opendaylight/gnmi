@@ -31,7 +31,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class GnmiUploadModelsITTest extends GnmiITBase {
-
     private static final Logger LOG = LoggerFactory.getLogger(GnmiUploadModelsITTest.class);
 
     private static final String GNMI_UPLOAD_MODEL_RPC = "/gnmi-yang-storage:upload-yang-model";
@@ -41,7 +40,8 @@ public class GnmiUploadModelsITTest extends GnmiITBase {
     private static final String REUPLOAD_YANG_NAME = "gnmi-test-model";
     private static final String REUPLOAD_YANG_SEMVER = "1.0.0";
     private static final String RESOURCES_PATH = "src/test/resources/";
-    private static final String RESTCONF_OPERATIONS_PATH = "http://localhost:8181/rests/operations";
+    private static final String RESTCONF_OPERATIONS_PATH = "http://localhost:%s/rests/operations"
+        .formatted(CONTROLLER_PORT);
     private static final String YANG_MODEL_RPC = RESTCONF_DATA_PATH + GNMI_YANG_STORAGE_MODELS + "/gnmi-yang-model=";
     private static final String YANG_MODEL_PATH = YANG_MODEL_RPC + TEST_YANG_NAME + "," + TEST_YANG_SEMVER;
     private static final String REUPLOAD_YANG_MODEL_PATH
