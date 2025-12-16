@@ -7,6 +7,9 @@
  -->
 <features xmlns="http://karaf.apache.org/xmlns/features/v1.4.0" name="odl-gnmi">
     <feature name="odl-gnmi" version="${project.version}">
+        <feature version="[14,15)">odl-mdsal-model-rfc7224</feature>
+        <feature version="[9,10)">odl-netconf-topology</feature>
+        <feature version="[9,10)">odl-restconf</feature>
         <bundle>wrap:mvn:com.google.protobuf/protobuf-java-util/3.25.8$overwrite=merge&amp;Import-Package=com.google.common.*;version="[32.0,34.0)",*</bundle>
         <bundle>wrap:mvn:io.grpc/grpc-api/1.75.0$Bundle-SymbolicName=io.grpc.grpc-api&amp;Bundle-Version=1.75.0</bundle>
         <bundle>wrap:mvn:io.grpc/grpc-core/1.75.0$Bundle-SymbolicName=io.grpc.grpc-core&amp;Bundle-Version=1.75.0&amp;Fragment-Host=io.grpc.grpc-api</bundle>

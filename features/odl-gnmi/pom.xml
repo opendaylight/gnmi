@@ -24,6 +24,13 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.opendaylight.mdsal.model</groupId>
+            <artifactId>odl-mdsal-model-rfc7224</artifactId>
+            <version>14.0.18</version>
+            <type>xml</type>
+            <classifier>features</classifier>
+        </dependency>
+        <dependency>
             <groupId>org.opendaylight.netconf</groupId>
             <artifactId>odl-restconf</artifactId>
             <version>9.0.1</version>
@@ -42,29 +49,6 @@
             <groupId>com.guicedee.services</groupId>
             <artifactId>javax.inject</artifactId>
             <optional>true</optional>
-        </dependency>
-
-        <dependency>
-            <groupId>org.opendaylight.aaa</groupId>
-            <artifactId>odl-aaa-encryption-service</artifactId>
-            <version>0.21.2</version>
-            <type>xml</type>
-            <classifier>features</classifier>
-        </dependency>
-
-        <dependency>
-            <groupId>org.opendaylight.yangtools</groupId>
-            <artifactId>odl-yangtools-parser</artifactId>
-            <version>14.0.17</version>
-            <type>xml</type>
-            <classifier>features</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.opendaylight.yangtools</groupId>
-            <artifactId>odl-yangtools-xpath</artifactId>
-            <version>14.0.17</version>
-            <type>xml</type>
-            <classifier>features</classifier>
         </dependency>
 
         <dependency>
