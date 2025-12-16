@@ -19,6 +19,7 @@ import java.net.Authenticator;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.PasswordAuthentication;
+import java.net.ServerSocket;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -106,10 +107,11 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
     private static final ErrorTagMapping ERROR_TAG_MAPPING = ErrorTagMapping.RFC8040;
     private static final String USERNAME = "username";
     private static final String PASSWORD = "pa$$w0Rd";
+    private static final Duration REQUEST_TIMEOUT_DURATION = Duration.ofMillis(10_000L);
 
-    protected static final int DEVICE_PORT = 9090;
+    protected static final int CONTROLLER_PORT = randomBindablePort();
+    protected static final int DEVICE_PORT = randomBindablePort();
     protected static final String DEVICE_IP = "127.0.0.1";
-    protected static final Duration REQUEST_TIMEOUT_DURATION = Duration.ofMillis(10_000L);
     protected static final Duration POLL_INTERVAL_DURATION = Duration.ofMillis(1_000L);
     protected static final Duration WAIT_TIME_DURATION = Duration.ofMillis(10_000L);
 
@@ -156,11 +158,10 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
         bootstrapFactory = new BootstrapFactory("gnmi-it-group", 1);
 
         // transport configuration
-        final var port = 8181;
-        host = localAddress + ":" + port;
+        host = localAddress + ":" + CONTROLLER_PORT;
         LOG.info("RESTCONF Server starting on: {}", host);
 
-        final var serverTransport = ConfigUtils.serverTransportTcp(localAddress, port);
+        final var serverTransport = ConfigUtils.serverTransportTcp(localAddress, CONTROLLER_PORT);
         final var serverStackGrouping = new HttpServerStackGrouping() {
             @Override
             public Class<? extends HttpServerStackGrouping> implementedInterface() {
@@ -173,9 +174,9 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
             }
         };
         clientStackGrouping = new HttpClientStackConfiguration(
-            ConfigUtils.clientTransportTcp(localAddress, port, USERNAME, PASSWORD));
+            ConfigUtils.clientTransportTcp(localAddress, CONTROLLER_PORT, USERNAME, PASSWORD));
         invalidClientStackGrouping = new HttpClientStackConfiguration(
-            ConfigUtils.clientTransportTcp(localAddress, port, USERNAME, "wrong-password"));
+            ConfigUtils.clientTransportTcp(localAddress, CONTROLLER_PORT, USERNAME, "wrong-password"));
 
         // AAA services
         final var securityManager = new DefaultWebSecurityManager(new AuthenticatingRealm() {
@@ -543,8 +544,7 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
     }
 
     protected static final class GeneralConstants {
-
-        public static final String RESTCONF_DATA_PATH = "http://localhost:8181/rests/data";
+        public static final String RESTCONF_DATA_PATH = "http://localhost:%d/rests/data".formatted(CONTROLLER_PORT);
         public static final String GNMI_NODE_ID = "gnmi-node-test";
         public static final String GNMI_NODE_STATUS = "/gnmi-topology:node-state/node-status";
         public static final String GNMI_TOPOLOGY_PATH =
@@ -626,5 +626,18 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
             .setEncryptMethod("PBKDF2WithHmacSHA1").setEncryptType("AES")
             .setEncryptIterationCount(32768).setEncryptKeyLength(128)
             .setAuthTagLength(128).setCipherTransforms("AES/GCM/NoPadding").build();
+    }
+
+    /**
+     * Find a local port which has a good chance of not failing {@code bind()} due to a conflict.
+     *
+     * @return a local port
+     */
+    private static int randomBindablePort() {
+        try (var socket = new ServerSocket(0)) {
+            return socket.getLocalPort();
+        } catch (IOException e) {
+            throw new AssertionError(e);
+        }
     }
 }
