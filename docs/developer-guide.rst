@@ -168,7 +168,7 @@ artifacts are available in your environment.
 
         <dependency>
             <groupId>org.opendaylight.gnmi</groupId>
-            <artifactId>odl-gnmi-sb</artifactId>
+            <artifactId>gnmi-sb</artifactId>
             <version>1.0.0</version>
         </dependency>
 
@@ -177,7 +177,7 @@ artifacts are available in your environment.
 
     .. code-block:: bash
 
-        feature:install odl-gnmi
+        feature:install odl-gnmi-all
 
 
 Connecting a Device
@@ -443,7 +443,8 @@ Build and Run
 
         <dependency>
             <groupId>org.opendaylight.gnmi</groupId>
-            <artifactId>odl-gnmi-device-simulator</artifactId>
+            <artifactId>gnmi-device-simulator</artifactId>
+            <version>1.0.0</version>
         </dependency>
 
 2.  **Initialize and Start**:
@@ -608,7 +609,7 @@ Certificates
 Valid SSL certificates are necessary for proper gNMI functionality. The project
 includes scripts to help generate certificates for testing purposes.
 
-The script ``src/main/scripts/generate_certs.sh`` in the ``odl-gnmi-connector``
+The script ``src/main/scripts/generate_certs.sh`` in the ``gnmi-connector``
 module can be used to generate new certificates if the included ones expire.
 
 To check expiration dates:
