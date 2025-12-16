@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bd0f3bbd_9ae17393",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-12-16T07:06:57Z",
+      "side": 1,
+      "message": "22:10:04 [INFO] --- dependency:3.8.1:analyze-only (analyze-declarations) @ odl-gnmi-device-simulator ---\n22:10:04 [WARNING] Unused declared dependencies found:\n22:10:04 [WARNING]    org.bouncycastle:bcprov-jdk18on:jar:1.81:compile\n22:10:04 [WARNING]    org.bouncycastle:bcpkix-jdk18on:jar:1.81:compile\n22:10:04 [WARNING]    org.opendaylight.gnmi:openconfig-models:jar:1.0.0-SNAPSHOT:compile\n22:10:04 [WARNING]    org.opendaylight.yangtools:yang-parser-impl:jar:14.0.17:compile",
+      "revId": "8b96ca036ec0cb22519a99ecadff125b15e6eb2b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "569fc88a_45f8720b",
         "filename": "gnmi-modules/odl-gnmi-test/pom.xml",
         "patchSetId": 1
