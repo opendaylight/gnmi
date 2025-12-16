@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33510f79_8e539b30",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-12-16T12:55:23Z",
+      "side": 1,
+      "message": "Fixed in previous patches.",
+      "parentUuid": "bd0f3bbd_9ae17393",
+      "revId": "8b96ca036ec0cb22519a99ecadff125b15e6eb2b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "569fc88a_45f8720b",
