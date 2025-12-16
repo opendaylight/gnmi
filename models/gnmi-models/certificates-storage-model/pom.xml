@@ -18,30 +18,10 @@
     </parent>
 
     <groupId>org.opendaylight.gnmi</groupId>
-    <artifactId>odl-gnmi-force-capabilities</artifactId>
+    <artifactId>certificates-storage-model</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
     <name>${project.groupId}:${project.artifactId}</name>
     <url>https://lf-opendaylight.atlassian.net/wiki/spaces/ODL/pages/489062430/gNMI+project</url>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.opendaylight.mdsal.model</groupId>
-            <artifactId>ietf-topology</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.opendaylight.mdsal.model</groupId>
-            <artifactId>yang-ext</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.opendaylight.gnmi</groupId>
-            <artifactId>odl-gnmi-topology-model</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.opendaylight.gnmi</groupId>
-            <artifactId>odl-gnmi-yang-storage-model</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    </dependencies>
 </project>

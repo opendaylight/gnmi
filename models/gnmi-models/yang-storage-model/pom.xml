@@ -10,26 +10,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.opendaylight.mdsal</groupId>
+        <artifactId>binding-parent</artifactId>
+        <version>14.0.18</version>
+        <relativePath/>
+    </parent>
+
     <groupId>org.opendaylight.gnmi</groupId>
-    <artifactId>odl-gnmi-models</artifactId>
+    <artifactId>yang-storage-model</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
-    <description>
-        The artifact contains models for ODL gNMI southbound module.
-    </description>
+    <url>https://lf-opendaylight.atlassian.net/wiki/spaces/ODL/pages/489062430/gNMI+project</url>
 
-    <properties>
-        <maven.deploy.skip>true</maven.deploy.skip>
-        <maven.install.skip>true</maven.install.skip>
-    </properties>
-
-    <modules>
-        <module>odl-gnmi-topology-model</module>
-        <module>odl-gnmi-yang-storage-model</module>
-        <module>odl-gnmi-certificates-storage-model</module>
-        <module>odl-gnmi-force-capabilities</module>
-        <module>odl-gnoi-sonic-yang-model</module>
-    </modules>
 </project>

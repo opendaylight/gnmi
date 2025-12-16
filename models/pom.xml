@@ -11,7 +11,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.opendaylight.gnmi</groupId>
-    <artifactId>gnmi-models</artifactId>
+    <artifactId>models</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -21,7 +21,7 @@
     </properties>
 
     <modules>
-        <module>odl-gnmi-models</module>
+        <module>gnmi-models</module>
         <module>openconfig-models</module>
     </modules>
 
