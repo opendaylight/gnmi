@@ -5,8 +5,8 @@
  terms of the Eclipse Public License v1.0 which accompanies this distribution,
  and is available at http://www.eclipse.org/legal/epl-v10.html
  -->
-<features xmlns="http://karaf.apache.org/xmlns/features/v1.4.0" name="odl-gnmi">
-    <feature name="odl-gnmi" version="${project.version}">
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.4.0" name="odl-gnmi-all">
+    <feature name="odl-gnmi-all" version="${project.version}">
         <feature version="[14,15)">odl-mdsal-model-rfc7224</feature>
         <feature version="[9,10)">odl-netconf-topology</feature>
         <feature version="[9,10)">odl-restconf</feature>
