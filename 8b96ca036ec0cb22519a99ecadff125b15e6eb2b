@@ -35,6 +35,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfd3341c_384b0faa",
+        "filename": "gnmi-modules/odl-gnmi-test/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-12-16T12:41:16Z",
+      "side": 1,
+      "message": "Done in https://git.opendaylight.org/gerrit/c/gnmi/+/119875/1/gnmi-parent/pom.xml",
+      "parentUuid": "569fc88a_45f8720b",
+      "revId": "8b96ca036ec0cb22519a99ecadff125b15e6eb2b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2283199c_143c71d3",
