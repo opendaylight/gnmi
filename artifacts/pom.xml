@@ -58,32 +58,32 @@
             <!-- gnmi modules -->
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>odl-gnmi-commons</artifactId>
+                <artifactId>gnmi-commons</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>odl-gnmi-connector</artifactId>
+                <artifactId>gnmi-connector</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>odl-gnmi-device-simulator</artifactId>
+                <artifactId>gnmi-device-simulator</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>odl-gnmi-proto</artifactId>
+                <artifactId>gnmi-proto</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>odl-gnmi-sb</artifactId>
+                <artifactId>gnmi-sb</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>odl-gnmi-test</artifactId>
+                <artifactId>gnmi-test</artifactId>
                 <version>${project.version}</version>
                 <scope>test</scope>
             </dependency>

@@ -17,7 +17,7 @@
         <relativePath>../../gnmi-parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>odl-gnmi-test</artifactId>
+    <artifactId>gnmi-test</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>${project.groupId}:${project.artifactId}</name>
     <url>https://lf-opendaylight.atlassian.net/wiki/spaces/ODL/pages/489062430/gNMI+project</url>
@@ -156,22 +156,22 @@
         </dependency>
         <dependency>
             <groupId>org.opendaylight.gnmi</groupId>
-            <artifactId>odl-gnmi-connector</artifactId>
+            <artifactId>gnmi-connector</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.opendaylight.gnmi</groupId>
-            <artifactId>odl-gnmi-device-simulator</artifactId>
+            <artifactId>gnmi-device-simulator</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.opendaylight.gnmi</groupId>
-            <artifactId>odl-gnmi-proto</artifactId>
+            <artifactId>gnmi-proto</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.opendaylight.gnmi</groupId>
-            <artifactId>odl-gnmi-sb</artifactId>
+            <artifactId>gnmi-sb</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
