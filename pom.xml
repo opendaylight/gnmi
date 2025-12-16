@@ -30,7 +30,7 @@
         <module>bnd-parent</module>
         <module>features</module>
         <module>models</module>
-        <module>gnmi-modules</module>
+        <module>modules</module>
         <module>gnmi-parent</module>
         <module>karaf</module>
     </modules>
