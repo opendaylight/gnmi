@@ -29,6 +29,6 @@
     <modules>
         <module>feature-parent</module>
         <module>features-gnmi</module>
-        <module>odl-gnmi</module>
+        <module>odl-gnmi-all</module>
     </modules>
 </project>
