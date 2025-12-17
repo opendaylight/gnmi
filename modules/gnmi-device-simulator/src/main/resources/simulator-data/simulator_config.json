@@ -6,7 +6,7 @@
     "certKeyPath": "src/main/resources/certs/server-pkcs8.key",
     "initialConfigDataPath": "src/main/resources/simulator-data/initialConfigJsonData.json",
     "initialStateDataPath": "src/main/resources/simulator-data/initialStateJsonData.json",
-    "yangsPath": "../../gnmi-models/openconfig-models/src/main/yang",
+    "yangsPath": "../../models/openconfig-models/src/main/yang",
     "username": "admin",
     "password": "admin",
     "schemaServiceConfig": {
