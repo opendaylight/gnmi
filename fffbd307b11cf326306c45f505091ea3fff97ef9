@@ -16,6 +16,24 @@
       "message": "what about these?",
       "revId": "fffbd307b11cf326306c45f505091ea3fff97ef9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b66a5e8_f297cec7",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiMultipleConnectionITTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-12-17T15:40:29Z",
+      "side": 1,
+      "message": "done in https://git.opendaylight.org/gerrit/c/gnmi/+/119904/1",
+      "parentUuid": "d62ee922_170996dc",
+      "revId": "fffbd307b11cf326306c45f505091ea3fff97ef9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
