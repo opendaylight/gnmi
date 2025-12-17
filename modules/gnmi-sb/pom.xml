@@ -66,19 +66,19 @@
         </dependency>
         <dependency>
             <groupId>org.opendaylight.gnmi</groupId>
-            <artifactId>odl-gnmi-certificates-storage-model</artifactId>
+            <artifactId>certificates-storage-model</artifactId>
         </dependency>
         <dependency>
             <groupId>org.opendaylight.gnmi</groupId>
-            <artifactId>odl-gnmi-force-capabilities</artifactId>
+            <artifactId>force-capabilities</artifactId>
         </dependency>
         <dependency>
             <groupId>org.opendaylight.gnmi</groupId>
-            <artifactId>odl-gnmi-topology-model</artifactId>
+            <artifactId>topology-model</artifactId>
         </dependency>
         <dependency>
             <groupId>org.opendaylight.gnmi</groupId>
-            <artifactId>odl-gnmi-yang-storage-model</artifactId>
+            <artifactId>yang-storage-model</artifactId>
         </dependency>
         <dependency>
             <groupId>org.opendaylight.gnmi</groupId>

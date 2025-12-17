@@ -27,27 +27,27 @@
             <!-- gnmi models -->
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>odl-gnmi-certificates-storage-model</artifactId>
+                <artifactId>certificates-storage-model</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>odl-gnmi-force-capabilities</artifactId>
+                <artifactId>force-capabilities</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>odl-gnmi-topology-model</artifactId>
+                <artifactId>topology-model</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>odl-gnmi-yang-storage-model</artifactId>
+                <artifactId>yang-storage-model</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>odl-gnoi-sonic-yang-model</artifactId>
+                <artifactId>sonic-yang-model</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -97,7 +97,7 @@
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>odl-gnmi</artifactId>
+                <artifactId>odl-gnmi-all</artifactId>
                 <version>${project.version}</version>
                 <type>xml</type>
                 <classifier>features</classifier>
