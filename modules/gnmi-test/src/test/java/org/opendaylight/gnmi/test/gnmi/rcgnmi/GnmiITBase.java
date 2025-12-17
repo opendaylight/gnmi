@@ -633,7 +633,7 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
      *
      * @return a local port
      */
-    private static int randomBindablePort() {
+    static int randomBindablePort() {
         try (var socket = new ServerSocket(0)) {
             return socket.getLocalPort();
         } catch (IOException e) {

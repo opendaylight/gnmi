@@ -56,7 +56,7 @@ public class GnmiConnectionITTest extends GnmiITBase {
     private static final int MAX_DEVICE_CONNECTION_ATTEMPTS = 4;
 
     private static final String ANOTHER_GNMI_NODE_ID = "gnmi-another-test-node";
-    private static final int ANOTHER_DEVICE_PORT = DEVICE_PORT + 1;
+    private static final int ANOTHER_DEVICE_PORT = randomBindablePort();
     private static final String ANOTHER_GNMI_DEVICE_MOUNTPOINT =
         GNMI_TOPOLOGY_PATH + "/node=" + ANOTHER_GNMI_NODE_ID + "/yang-ext:mount";
 
