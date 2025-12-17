@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fbcf359_86e23ebd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-12-17T12:35:42Z",
+      "side": 1,
+      "message": "Run:\n13:03:18 [INFO]  T E S T S\n13:03:18 [INFO] -------------------------------------------------------\n13:03:19 [INFO] Running org.opendaylight.gnmi.test.gnoi.FileServiceTest\n13:03:24 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.585 s -- in org.opendaylight.gnmi.test.gnoi.FileServiceTest\n13:03:24 [INFO] Running org.opendaylight.gnmi.test.gnmi.SimulatorCrudTest\n13:03:31 [INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.668 s -- in org.opendaylight.gnmi.test.gnmi.SimulatorCrudTest\n13:03:31 [INFO] Running org.opendaylight.gnmi.test.gnmi.AuthenticationTest\n13:03:33 [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.852 s -- in org.opendaylight.gnmi.test.gnmi.AuthenticationTest\n13:03:33 [INFO] Running org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiSetITTest\n13:05:17 [INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 97.90 s -- in org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiSetITTest\n13:05:17 [INFO] Running org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiCertificatesTest\n13:05:48 [INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 34.89 s -- in org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiCertificatesTest\n13:05:48 [INFO] Running org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiUploadModelsITTest\n13:06:01 [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 14.46 s -- in org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiUploadModelsITTest\n13:06:01 [INFO] Running org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiGetITTest\n13:07:00 [INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 56.48 s -- in org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiGetITTest\n13:07:00 [INFO] Running org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiConnectionITTest\n13:08:51 [INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 108.7 s -- in org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiConnectionITTest\n13:08:51 [INFO] Running org.opendaylight.gnmi.test.gnmi.GnmiWithoutRestconfTest\n13:08:55 [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.549 s -- in org.opendaylight.gnmi.test.gnmi.GnmiWithoutRestconfTest\n13:08:56 [INFO] \n13:08:56 [INFO] Results:\n13:08:56 [INFO] \n13:08:56 [INFO] Tests run: 59, Failures: 0, Errors: 0, Skipped: 0",
+      "revId": "4a82875e087f4111cc37acafa24c2b50c476de98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
