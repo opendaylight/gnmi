@@ -16,6 +16,24 @@
       "message": "Some of the old dependencies used will be fixed later in:",
       "revId": "e5072017a03be0cf61c417680eb147747e154795",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a10e03ef_47cccf84",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-12-17T11:40:41Z",
+      "side": 1,
+      "message": "https://git.opendaylight.org/gerrit/c/gnmi/+/119893",
+      "parentUuid": "ff0e39f0_f42afee4",
+      "revId": "e5072017a03be0cf61c417680eb147747e154795",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ],
   "submitRequirementResults": [
