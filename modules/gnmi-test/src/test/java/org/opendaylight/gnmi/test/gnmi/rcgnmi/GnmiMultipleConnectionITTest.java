@@ -26,9 +26,8 @@ import org.awaitility.Awaitility;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.opendaylight.gnmi.simulatordevice.impl.SimulatedGnmiDevice;
 import org.opendaylight.gnmi.simulatordevice.utils.EffectiveModelContextBuilder.EffectiveModelContextBuilderException;
@@ -43,9 +42,6 @@ public class GnmiMultipleConnectionITTest extends GnmiITBase {
     private static final int ANOTHER_DEVICE_PORT = randomBindablePort();
     private static final String ANOTHER_GNMI_DEVICE_MOUNTPOINT =
         GNMI_TOPOLOGY_PATH + "/node=" + ANOTHER_GNMI_NODE_ID + "/yang-ext:mount";
-
-    private static final String GNMI_NODE_WITH_WRONG_PASSWD_ID = "gnmi-credentials-test-node";
-    private static final String GNMI_NODE_MISSING_ENCODING_ID = "gnmi-missing-encoding-node";
 
     private static final String MULTIPLE_DEVICES_PAYLOAD = "{\n"
         + "    \"network-topology:topology\": [\n"
@@ -84,8 +80,8 @@ public class GnmiMultipleConnectionITTest extends GnmiITBase {
     private static SimulatedGnmiDevice anotherDevice;
     private static SimulatedGnmiDevice device;
 
-    @BeforeAll
-    public static void setupDevice() {
+    @BeforeEach
+    public void setupDevice() {
         device = getUnsecureGnmiDevice(DEVICE_IP, DEVICE_PORT);
         anotherDevice = getUnsecureGnmiDevice(DEVICE_IP, ANOTHER_DEVICE_PORT);
         try {
@@ -96,45 +92,15 @@ public class GnmiMultipleConnectionITTest extends GnmiITBase {
         }
     }
 
-    @AfterAll
-    public static void teardownDevice() {
+    @AfterEach
+    public void teardownDevice() {
         device.stop();
         anotherDevice.stop();
     }
 
-    @AfterEach
-    public void performSpecificCleanupAfterEach() {
-        /*
-        disconnect devices ANOTHER_GNMI_NODE_ID and GNMI_NODE_WITH_WRONG_PASSWD_ID - this cleanup is there
-        as a failsafe to ensure that devices will be disconnected when some test fails and assert with disconnection
-        wont be reached in the test in that case
-        */
-        try {
-            final HttpResponse<String> getGnmiTopologyResponse = sendGetRequestJSON(GNMI_TOPOLOGY_PATH);
-            if (getGnmiTopologyResponse.body().contains(ANOTHER_GNMI_NODE_ID)) {
-                if (!disconnectDevice(ANOTHER_GNMI_NODE_ID)) {
-                    LOG.info("Problem when disconnecting device {}", ANOTHER_GNMI_NODE_ID);
-                }
-            }
-            if (getGnmiTopologyResponse.body().contains(GNMI_NODE_WITH_WRONG_PASSWD_ID)) {
-                if (!disconnectDevice(GNMI_NODE_WITH_WRONG_PASSWD_ID)) {
-                    LOG.info("Problem when disconnecting device {}", GNMI_NODE_WITH_WRONG_PASSWD_ID);
-                }
-            }
-            if (getGnmiTopologyResponse.body().contains(GNMI_NODE_MISSING_ENCODING_ID)) {
-                if (!disconnectDevice(GNMI_NODE_MISSING_ENCODING_ID)) {
-                    LOG.info("Problem when disconnecting device {}", GNMI_NODE_MISSING_ENCODING_ID);
-                }
-            }
-        } catch (ExecutionException | InterruptedException | TimeoutException | IOException e) {
-            LOG.info("Problem when disconnecting devices {}, {}, {}: ",
-                    ANOTHER_GNMI_NODE_ID, GNMI_NODE_WITH_WRONG_PASSWD_ID, GNMI_NODE_MISSING_ENCODING_ID, e);
-        }
-    }
-
     @Test
     public void connectMultipleDevicesTest()
-        throws IOException, InterruptedException, ExecutionException, TimeoutException, JSONException {
+            throws IOException, InterruptedException, ExecutionException, TimeoutException, JSONException {
         //assert existing and empty gnmi topology
         final HttpResponse<String> getGnmiTopologyResponse = sendGetRequestJSON(GNMI_TOPOLOGY_PATH);
         final JSONArray topologies =
