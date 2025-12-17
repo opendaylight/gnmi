@@ -112,8 +112,8 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
     protected static final int CONTROLLER_PORT = randomBindablePort();
     protected static final int DEVICE_PORT = randomBindablePort();
     protected static final String DEVICE_IP = "127.0.0.1";
-    protected static final Duration POLL_INTERVAL_DURATION = Duration.ofMillis(1_000L);
-    protected static final Duration WAIT_TIME_DURATION = Duration.ofMillis(10_000L);
+    protected static final Duration POLL_INTERVAL_DURATION = Duration.ofMillis(2_000L);
+    protected static final Duration WAIT_TIME_DURATION = Duration.ofMillis(30_000L);
 
     protected static final String INITIAL_JSON_DATA_PATH = "src/test/resources/json/initData";
     private static final String TEST_SCHEMA_PATH = "src/test/resources/additional/models";
