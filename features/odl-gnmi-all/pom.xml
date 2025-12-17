@@ -50,11 +50,10 @@
             <artifactId>javax.inject</artifactId>
             <optional>true</optional>
         </dependency>
-
         <dependency>
-            <groupId>io.grpc</groupId>
-            <artifactId>grpc-protobuf-lite</artifactId>
-            <version>1.75.0</version>
+            <groupId>com.google.errorprone</groupId>
+            <artifactId>error_prone_annotations</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>io.perfmark</groupId>
