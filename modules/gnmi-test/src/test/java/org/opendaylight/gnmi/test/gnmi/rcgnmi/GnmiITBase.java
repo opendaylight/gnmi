@@ -288,7 +288,6 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
     }
 
     protected static SimulatedGnmiDevice getUnsecureGnmiDevice(final String host, final int port) {
-
         final GnmiSimulatorConfiguration simulatorConfiguration = GnmiSimulatorConfUtils
                 .loadGnmiSimulatorConfiguration(GnmiITBase.class.getResourceAsStream(SIMULATOR_CONFIG));
         simulatorConfiguration.setTargetAddress(host);

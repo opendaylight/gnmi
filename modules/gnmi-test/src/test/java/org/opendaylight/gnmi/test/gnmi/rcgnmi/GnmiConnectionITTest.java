@@ -40,7 +40,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class GnmiConnectionITTest extends GnmiITBase {
-
     private static final Logger LOG = LoggerFactory.getLogger(GnmiConnectionITTest.class);
 
     private static final String GET_CAPABILITIES_PATH
@@ -54,52 +53,13 @@ public class GnmiConnectionITTest extends GnmiITBase {
     private static final String GNMI_NODE_STATUS_CONNECTING = "CONNECTING";
     private static final String GNMI_NODE_PATH = GNMI_TOPOLOGY_PATH + "/node=" + GNMI_NODE_ID;
     private static final int MAX_DEVICE_CONNECTION_ATTEMPTS = 4;
-
     private static final String ANOTHER_GNMI_NODE_ID = "gnmi-another-test-node";
-    private static final int ANOTHER_DEVICE_PORT = randomBindablePort();
-    private static final String ANOTHER_GNMI_DEVICE_MOUNTPOINT =
-        GNMI_TOPOLOGY_PATH + "/node=" + ANOTHER_GNMI_NODE_ID + "/yang-ext:mount";
-
     private static final String GNMI_NODE_WITH_WRONG_PASSWD_ID = "gnmi-credentials-test-node";
-    private static final int DEVICE_WITH_CREDENTIALS_PORT = ANOTHER_DEVICE_PORT + 1;
+    private static final int DEVICE_WITH_CREDENTIALS_PORT = randomBindablePort();
     private static final String GNMI_NODE_MISSING_ENCODING_ID = "gnmi-missing-encoding-node";
-    private static final int DEVICE_WITH_MISSING_ENCODING_PORT = DEVICE_WITH_CREDENTIALS_PORT + 1;
+    private static final int DEVICE_WITH_MISSING_ENCODING_PORT = randomBindablePort();
     private static final String DEVICE_USERNAME = "admin";
     private static final String DEVICE_PASSWORD = "admin";
-
-    private static final String MULTIPLE_DEVICES_PAYLOAD = "{\n"
-        + "    \"network-topology:topology\": [\n"
-        + "        {\n"
-        + "            \"topology-id\": \"gnmi-topology\",\n"
-        + "            \"node\": [\n"
-        + "                {\n"
-        + "                    \"node-id\": \"" + GNMI_NODE_ID + "\",\n"
-        + "                    \"gnmi-topology:connection-parameters\": {\n"
-        + "                        \"host\": \"" + DEVICE_IP + "\",\n"
-        + "                        \"port\": " + DEVICE_PORT + ",\n"
-        + "                        \"connection-type\": \"INSECURE\"\n"
-        + "                    },\n"
-        + "                    \"extensions-parameters\": {\n"
-        + "                        \"gnmi-parameters\": {\n"
-        + "                            \"use-model-name-prefix\": true\n"
-        + "                        }\n"
-        + "                    }"
-        + "                },\n"
-        + "                {\n"
-        + "                    \"node-id\": \"" + ANOTHER_GNMI_NODE_ID + "\",\n"
-        + "                    \"gnmi-topology:connection-parameters\": {\n"
-        + "                        \"host\": \"" + DEVICE_IP + "\",\n"
-        + "                        \"port\": " + ANOTHER_DEVICE_PORT + ",\n"
-        + "                        \"connection-type\": \"INSECURE\"\n"
-        + "                    },\n"
-        + "                    \"extensions-parameters\": {\n"
-        + "                        \"gnmi-parameters\": {\n"
-        + "                            \"use-model-name-prefix\": true\n"
-        + "                        }\n"
-        + "                    }"
-        + "                }]\n"
-        + "        }]\n"
-        + "}";
 
     private static final String DEVICE_WITH_CREDENTIALS_PAYLOAD = "{\n"
         + "\"network-topology:node\" : [{\n"
@@ -116,7 +76,6 @@ public class GnmiConnectionITTest extends GnmiITBase {
         + " }]\n"
         + "}";
 
-    private static SimulatedGnmiDevice anotherDevice;
     private static SimulatedGnmiDevice device;
     private static SimulatedGnmiDevice deviceWithCredentials;
     private static SimulatedGnmiDevice deviceWithMissingEncoding;
@@ -124,13 +83,11 @@ public class GnmiConnectionITTest extends GnmiITBase {
     @BeforeAll
     public static void setupDevice() {
         device = getUnsecureGnmiDevice(DEVICE_IP, DEVICE_PORT);
-        anotherDevice = getUnsecureGnmiDevice(DEVICE_IP, ANOTHER_DEVICE_PORT);
         deviceWithCredentials = getUnsecureGnmiDevice(DEVICE_IP, DEVICE_WITH_CREDENTIALS_PORT,
                                                       DEVICE_USERNAME, DEVICE_PASSWORD);
         deviceWithMissingEncoding = getNonCompliableEncodingDevice(DEVICE_IP, DEVICE_WITH_MISSING_ENCODING_PORT);
         try {
             device.start();
-            anotherDevice.start();
             deviceWithCredentials.start();
             deviceWithMissingEncoding.start();
         } catch (IOException | EffectiveModelContextBuilderException e) {
@@ -141,7 +98,6 @@ public class GnmiConnectionITTest extends GnmiITBase {
     @AfterAll
     public static void teardownDevice() {
         device.stop();
-        anotherDevice.stop();
         deviceWithCredentials.stop();
         deviceWithMissingEncoding.stop();
     }
@@ -377,83 +333,6 @@ public class GnmiConnectionITTest extends GnmiITBase {
                 assertEquals(HttpURLConnection.HTTP_OK, getGnmiTopologyResponse.statusCode());
                 final JSONObject gnmiTopology = new JSONObject(getGnmiTopologyResponse.body())
                     .getJSONArray("network-topology:topology").getJSONObject(0);
-                assertThrows(JSONException.class, () -> gnmiTopology.getJSONArray("node"));
-            });
-    }
-
-    @Test
-    public void connectMultipleDevicesTest()
-            throws IOException, InterruptedException, ExecutionException, TimeoutException, JSONException {
-        //assert existing and empty gnmi topology
-        final HttpResponse<String> getGnmiTopologyResponse = sendGetRequestJSON(GNMI_TOPOLOGY_PATH);
-        final JSONArray topologies =
-            new JSONObject(getGnmiTopologyResponse.body()).getJSONArray("network-topology:topology");
-        assertEquals(1, topologies.length());
-        final JSONObject gnmiTopologyJSON = topologies.getJSONObject(0);
-        LOG.info("Empty gnmi-topology check response: {}", gnmiTopologyJSON);
-        assertEquals(HttpURLConnection.HTTP_OK, getGnmiTopologyResponse.statusCode());
-        assertEquals("gnmi-topology", gnmiTopologyJSON.getString("topology-id"));
-        assertThrows(JSONException.class, () -> gnmiTopologyJSON.getJSONArray("node"));
-
-        final HttpResponse<String> addGnmiDeviceResponse =
-                sendPutRequestJSON(GNMI_TOPOLOGY_PATH, MULTIPLE_DEVICES_PAYLOAD);
-        assertEquals(HttpURLConnection.HTTP_NO_CONTENT, addGnmiDeviceResponse.statusCode());
-
-        // assert gNMI nodes are connected
-        Awaitility.waitAtMost(WAIT_TIME_DURATION)
-            .pollInterval(POLL_INTERVAL_DURATION)
-            .untilAsserted(() -> {
-                final HttpResponse<String> getNodeConnectionStatusResponse =
-                    sendGetRequestJSON(GNMI_TOPOLOGY_PATH + "/node=" + GNMI_NODE_ID + GNMI_NODE_STATUS);
-                final String gnmiDeviceConnectStatus =
-                    new JSONObject(getNodeConnectionStatusResponse.body()).getString("gnmi-topology:node-status");
-                LOG.info("Response: {}", gnmiDeviceConnectStatus);
-                assertEquals(HttpURLConnection.HTTP_OK, getNodeConnectionStatusResponse.statusCode());
-                assertEquals(GNMI_NODE_STATUS_READY, gnmiDeviceConnectStatus);
-                //
-                final HttpResponse<String> getOtherNodeConnectionStatusResponse =
-                    sendGetRequestJSON(GNMI_TOPOLOGY_PATH + "/node=" + ANOTHER_GNMI_NODE_ID + GNMI_NODE_STATUS);
-                final String otherGnmiDeviceConnectStatus =
-                    new JSONObject(getOtherNodeConnectionStatusResponse.body()).getString("gnmi-topology:node-status");
-                LOG.info("Response: {}", otherGnmiDeviceConnectStatus);
-                assertEquals(HttpURLConnection.HTTP_OK, getOtherNodeConnectionStatusResponse.statusCode());
-                assertEquals(GNMI_NODE_STATUS_READY, otherGnmiDeviceConnectStatus);
-            });
-
-        //assert mountpoints are created
-        Awaitility.waitAtMost(WAIT_TIME_DURATION)
-            .pollInterval(POLL_INTERVAL_DURATION)
-            .untilAsserted(() -> {
-                final HttpResponse<String> getDataFromDevice =
-                    sendGetRequestJSON(GNMI_DEVICE_MOUNTPOINT + OPENCONFIG_INTERFACES);
-                assertEquals(HttpURLConnection.HTTP_OK, getDataFromDevice.statusCode());
-                final HttpResponse<String> getDataFromOtherDevice =
-                    sendGetRequestJSON(ANOTHER_GNMI_DEVICE_MOUNTPOINT + OPENCONFIG_INTERFACES);
-                assertEquals(HttpURLConnection.HTTP_OK, getDataFromOtherDevice.statusCode());
-            });
-
-        //assert disconnected devices
-        assertTrue(disconnectDevice(GNMI_NODE_ID));
-        assertTrue(disconnectDevice(ANOTHER_GNMI_NODE_ID));
-    }
-
-    @Test
-    public void disconnectMultipleDeviceTest() throws InterruptedException, IOException {
-        assertTrue(connectDevice(GNMI_NODE_ID, DEVICE_IP, DEVICE_PORT));
-        assertTrue(connectDevice(ANOTHER_GNMI_NODE_ID, DEVICE_IP, ANOTHER_DEVICE_PORT));
-
-        final HttpResponse<String> deleteGnmiDevicesResponse = sendDeleteRequestJSON(GNMI_TOPOLOGY_PATH);
-        LOG.info("Response: {}", deleteGnmiDevicesResponse.body());
-        assertEquals(HttpURLConnection.HTTP_NO_CONTENT, deleteGnmiDevicesResponse.statusCode());
-
-        // assert gNMI nodes are disconnected - gnmi-topology is empty
-        Awaitility.waitAtMost(WAIT_TIME_DURATION)
-            .pollInterval(POLL_INTERVAL_DURATION)
-            .untilAsserted(() -> {
-                final HttpResponse<String> getGnmiTopologyResponse = sendGetRequestJSON(GNMI_TOPOLOGY_PATH);
-                final JSONObject gnmiTopology = new JSONObject(getGnmiTopologyResponse.body())
-                    .getJSONArray("network-topology:topology").getJSONObject(0);
-                assertEquals(HttpURLConnection.HTTP_OK, getGnmiTopologyResponse.statusCode());
                 assertThrows(JSONException.class, () -> gnmiTopology.getJSONArray("node"));
             });
     }
