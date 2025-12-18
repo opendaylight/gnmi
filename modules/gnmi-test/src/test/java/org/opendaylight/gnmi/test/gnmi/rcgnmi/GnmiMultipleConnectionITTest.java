@@ -44,9 +44,6 @@ public class GnmiMultipleConnectionITTest extends GnmiITBase {
     private static final String ANOTHER_GNMI_DEVICE_MOUNTPOINT =
         GNMI_TOPOLOGY_PATH + "/node=" + ANOTHER_GNMI_NODE_ID + "/yang-ext:mount";
 
-    private static final String GNMI_NODE_WITH_WRONG_PASSWD_ID = "gnmi-credentials-test-node";
-    private static final String GNMI_NODE_MISSING_ENCODING_ID = "gnmi-missing-encoding-node";
-
     private static final String MULTIPLE_DEVICES_PAYLOAD = "{\n"
         + "    \"network-topology:topology\": [\n"
         + "        {\n"
@@ -116,19 +113,8 @@ public class GnmiMultipleConnectionITTest extends GnmiITBase {
                     LOG.info("Problem when disconnecting device {}", ANOTHER_GNMI_NODE_ID);
                 }
             }
-            if (getGnmiTopologyResponse.body().contains(GNMI_NODE_WITH_WRONG_PASSWD_ID)) {
-                if (!disconnectDevice(GNMI_NODE_WITH_WRONG_PASSWD_ID)) {
-                    LOG.info("Problem when disconnecting device {}", GNMI_NODE_WITH_WRONG_PASSWD_ID);
-                }
-            }
-            if (getGnmiTopologyResponse.body().contains(GNMI_NODE_MISSING_ENCODING_ID)) {
-                if (!disconnectDevice(GNMI_NODE_MISSING_ENCODING_ID)) {
-                    LOG.info("Problem when disconnecting device {}", GNMI_NODE_MISSING_ENCODING_ID);
-                }
-            }
         } catch (ExecutionException | InterruptedException | TimeoutException | IOException e) {
-            LOG.info("Problem when disconnecting devices {}, {}, {}: ",
-                    ANOTHER_GNMI_NODE_ID, GNMI_NODE_WITH_WRONG_PASSWD_ID, GNMI_NODE_MISSING_ENCODING_ID, e);
+            LOG.info("Problem when disconnecting devices {}: ", ANOTHER_GNMI_NODE_ID, e);
         }
     }
 
