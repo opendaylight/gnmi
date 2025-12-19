@@ -169,7 +169,7 @@ artifacts are available in your environment.
         <dependency>
             <groupId>org.opendaylight.gnmi</groupId>
             <artifactId>gnmi-sb</artifactId>
-            <version>1.0.1</version>
+            <version>2.0.0</version>
         </dependency>
 
 2.  **Karaf Feature**:
@@ -444,7 +444,7 @@ Build and Run
         <dependency>
             <groupId>org.opendaylight.gnmi</groupId>
             <artifactId>gnmi-device-simulator</artifactId>
-            <version>1.0.1</version>
+            <version>2.0.0</version>
         </dependency>
 
 2.  **Initialize and Start**:

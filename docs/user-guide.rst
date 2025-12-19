@@ -78,7 +78,7 @@ Start the application with pre-prepared configuration ``simulator_config.json`` 
 
 .. code-block:: bash
 
-   java -jar target/gnmi-device-simulator-1.0.1-SNAPSHOT.jar -c src/main/resources/simulator-data/simulator_config.json
+   java -jar target/gnmi-device-simulator-2.0.0-SNAPSHOT.jar -c src/main/resources/simulator-data/simulator_config.json
 
 Add client certificates  gNMI keystore
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
