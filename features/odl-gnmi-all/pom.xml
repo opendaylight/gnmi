@@ -14,11 +14,11 @@
         <groupId>org.opendaylight.gnmi</groupId>
         <artifactId>feature-parent</artifactId>
         <relativePath>../feature-parent/pom.xml</relativePath>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
 
     <artifactId>odl-gnmi-all</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>feature</packaging>
     <name>OpenDaylight :: gNMI</name>
 
