@@ -1,0 +1,5 @@
+distribution_type: maven
+log_dir: gnmi-maven-stage-master/4/
+project: gnmi
+version: 1.0.0
+git_tag: v1.0.0
