@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3cb502ee_26084bc7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 8449
+      },
+      "writtenOn": "2026-01-16T15:26:17Z",
+      "side": 1,
+      "message": "The READY state should be set in a separate method:\nhttps://git.opendaylight.org/gerrit/c/gnmi/+/120138/1/modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/session/listener/GnmiConnectionStatusListener.java#70\n\nTo avoid setting the device state prematurely. If I am correct, this could set the state to READY before we are actually prepared to communicate with the device.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 52
+      },
+      "revId": "f3a44e1600a42c692afe912cb9efe38f9165dcdb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5f9a17f8_f4f6c36c",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
