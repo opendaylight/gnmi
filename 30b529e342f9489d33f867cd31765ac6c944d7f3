@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "148c2070_bbb8b0a7",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/session/listener/GnmiConnectionStatusListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-01-16T13:00:17Z",
+      "side": 0,
+      "message": "IMO this can be causing \"random\" failures in our integration tests - needs deeper investigation why https://github.com/PANTHEONtech/lighty/commit/d7738ba7941941ed389b6e4097e09a2086d64b20 has chosen the way it did.",
+      "revId": "30b529e342f9489d33f867cd31765ac6c944d7f3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
