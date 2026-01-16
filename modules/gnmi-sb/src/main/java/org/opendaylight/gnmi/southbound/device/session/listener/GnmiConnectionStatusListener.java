@@ -90,10 +90,7 @@ public class GnmiConnectionStatusListener implements AutoCloseable {
             triggerCallbackIfPresent();
 
             sessionProvider.notifyOnStateChangedOneOff(currentState, this::updateStateStatus);
-            if (this.currentState != ConnectivityState.READY) {
-                // Ready status should be updated after creating device mountpoint
-                writeStateToDataStore(this.currentState);
-            }
+            writeStateToDataStore(this.currentState);
             LOG.debug("Current session status {}", currentState);
         }
     }
