@@ -39,6 +39,23 @@
       "message": "needs ODL jira ticket",
       "revId": "f3a44e1600a42c692afe912cb9efe38f9165dcdb",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6155e717_593a5281",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-01-19T12:40:37Z",
+      "side": 1,
+      "message": "This fix alone does not solve multiconnection test.\n\nWe still have https://github.com/opendaylight/gnmi/blob/v1.0.0/modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiMultipleConnectionITTest.java#L38.",
+      "revId": "f3a44e1600a42c692afe912cb9efe38f9165dcdb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
