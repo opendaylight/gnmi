@@ -19,7 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-import javax.annotation.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
 import org.opendaylight.gnmi.southbound.capabilities.GnmiDeviceCapability;
 import org.opendaylight.gnmi.southbound.schema.SchemaContextHolder;
 import org.opendaylight.gnmi.southbound.schema.yangstore.service.YangDataStoreService;
