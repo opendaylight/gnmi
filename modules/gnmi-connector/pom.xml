@@ -17,6 +17,7 @@
     </parent>
 
     <artifactId>gnmi-connector</artifactId>
+    <packaging>bundle</packaging>
     <name>${project.groupId}:${project.artifactId}</name>
     <url>https://lf-opendaylight.atlassian.net/wiki/spaces/ODL/pages/489062430/gNMI+project</url>
 
@@ -80,4 +81,18 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <configuration>
+                    <instructions>
+                        <!-- needed because gnmi-sb mucks with org.opendaylight.gnmi.connector.gnmi.session.impl -->
+                        <Export-Package>org.opendaylight.gnmi.connector.*</Export-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
