@@ -17,6 +17,7 @@
     </parent>
 
     <artifactId>gnmi-connector</artifactId>
+    <packaging>bundle</packaging>
     <name>${project.groupId}:${project.artifactId}</name>
     <url>https://lf-opendaylight.atlassian.net/wiki/spaces/ODL/pages/489062430/gNMI+project</url>
 
