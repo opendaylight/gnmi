@@ -26,7 +26,6 @@
         <application.main.class>org.opendaylight.gnmi.simulatordevice.main.GnmiSimulatorApp</application.main.class>
         <slf4j.version>2.0.17</slf4j.version>
         <protobuf.version>3.25.8</protobuf.version>
-        <grpc.version>1.75.0</grpc.version>
     </properties>
 
     <dependencies>
@@ -76,17 +75,14 @@
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-api</artifactId>
-            <version>${grpc.version}</version>
         </dependency>
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-netty</artifactId>
-            <version>${grpc.version}</version>
         </dependency>
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-stub</artifactId>
-            <version>${grpc.version}</version>
         </dependency>
         <dependency>
             <groupId>io.netty</groupId>
