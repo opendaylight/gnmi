@@ -9,6 +9,7 @@ package org.opendaylight.gnmi.southbound.schema.yangstore.service;
 
 
 import com.google.common.util.concurrent.ListenableFuture;
+import java.util.List;
 import java.util.Optional;
 import org.opendaylight.mdsal.common.api.CommitInfo;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.yang.storage.rev210331.gnmi.yang.models.GnmiYangModel;
@@ -44,7 +45,7 @@ public interface YangDataStoreService {
      * @param modelName name of the module
      * @return future optional yang model
      */
-    ListenableFuture<Optional<GnmiYangModel>> readYangModel(String modelName);
+    ListenableFuture<Optional<List<GnmiYangModel>>> readYangModel(String modelName);
 
 
 }
