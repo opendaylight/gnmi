@@ -12,19 +12,25 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.security.GeneralSecurityException;
 import java.security.KeyPair;
+import java.security.PrivateKey;
 import java.security.Provider;
 import java.security.cert.CertificateException;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import org.bouncycastle.asn1.pkcs.PrivateKeyInfo;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.openssl.PEMDecryptorProvider;
 import org.bouncycastle.openssl.PEMEncryptedKeyPair;
 import org.bouncycastle.openssl.PEMKeyPair;
 import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
+import org.bouncycastle.openssl.jcajce.JceOpenSSLPKCS8DecryptorProviderBuilder;
 import org.bouncycastle.openssl.jcajce.JcePEMDecryptorProviderBuilder;
+import org.bouncycastle.operator.OperatorCreationException;
+import org.bouncycastle.pkcs.PKCS8EncryptedPrivateKeyInfo;
+import org.bouncycastle.pkcs.PKCSException;
 import org.opendaylight.gnmi.connector.configuration.SecurityFactory;
 import org.opendaylight.gnmi.connector.security.Security;
 import org.opendaylight.gnmi.southbound.schema.certstore.service.CertificationStorageService;
@@ -105,7 +111,35 @@ public class KeystoreGnmiSecurityProvider implements GnmiSecurityProvider {
         }
     }
 
-    private KeyPair getKeyPair(final String clientKey, final String passphrase) throws SessionSecurityException {
+    public static KeyPair decodePrivateKey(final Reader reader, final String passphrase) throws IOException {
+        try (PEMParser keyReader = new PEMParser(reader)) {
+            final Provider bcprov;
+            final var prov = java.security.Security.getProvider(BouncyCastleProvider.PROVIDER_NAME);
+            bcprov = prov != null ? prov : new BouncyCastleProvider();
+
+            final var converter = new JcaPEMKeyConverter().setProvider(bcprov);
+
+            final PEMDecryptorProvider pemDecProv = new JcePEMDecryptorProviderBuilder()
+                    .setProvider(bcprov)
+                    .build(passphrase != null ? passphrase.toCharArray() : new char[0]);
+
+            final Object obj = keyReader.readObject();
+            if (obj == null) {
+                throw new IOException("No PEM object found in input");
+            }
+
+            // Strict check that a PEM entry does not contain more than one key.
+            if (keyReader.readObject() != null) {
+                throw new IllegalStateException("Pem object contains multiple keys, "
+                        + "make sure each PEM only contains one key.");
+            }
+
+            return getKeyPair(passphrase, obj, converter, pemDecProv, bcprov);
+        }
+    }
+
+    private KeyPair getKeyPair(final String clientKey,
+                               final String passphrase) throws SessionSecurityException {
         try {
             return decodePrivateKey(
                     new StringReader(this.certService
@@ -120,23 +154,51 @@ public class KeystoreGnmiSecurityProvider implements GnmiSecurityProvider {
         }
     }
 
-    public static KeyPair decodePrivateKey(final Reader reader, final String passphrase) throws IOException {
-        try (PEMParser keyReader = new PEMParser(reader)) {
-            final Provider bcprov;
-            final var prov = java.security.Security.getProvider(BouncyCastleProvider.PROVIDER_NAME);
-            bcprov = prov != null ? prov : new BouncyCastleProvider();
-            JcaPEMKeyConverter converter = new JcaPEMKeyConverter();
-            PEMDecryptorProvider decryptionProv = new JcePEMDecryptorProviderBuilder().setProvider(bcprov)
-                .build(passphrase.toCharArray());
-
-            Object privateKey = keyReader.readObject();
-            KeyPair keyPair;
-            if (privateKey instanceof PEMEncryptedKeyPair pemPrivateKey) {
-                keyPair = converter.getKeyPair(pemPrivateKey.decryptKeyPair(decryptionProv));
-            } else {
-                keyPair = converter.getKeyPair((PEMKeyPair) privateKey);
+    private static KeyPair getKeyPair(String passphrase,
+                                      Object obj,
+                                      JcaPEMKeyConverter converter,
+                                      PEMDecryptorProvider pemDecProv,
+                                      Provider bcprov) throws IOException {
+        switch (obj) {
+            // 1) Traditional OpenSSL encrypted key pair: -----BEGIN ... PRIVATE KEY----- with Proc-Type/DEK-Info
+            case PEMEncryptedKeyPair encKp -> {
+                return converter.getKeyPair(encKp.decryptKeyPair(pemDecProv));
             }
-            return keyPair;
+
+            // 2) Traditional key pair
+            case PEMKeyPair kp -> {
+                return converter.getKeyPair(kp);
+            }
+
+            // 3) PKCS#8 unencrypted: -----BEGIN PRIVATE KEY-----
+            case PrivateKeyInfo pki -> {
+                final PrivateKey priv = converter.getPrivateKey(pki);
+                return new KeyPair(null, priv);
+            }
+
+            // 4) PKCS#8 encrypted: -----BEGIN ENCRYPTED PRIVATE KEY-----
+            case PKCS8EncryptedPrivateKeyInfo encP8 -> {
+                try {
+                    final var decProv = new JceOpenSSLPKCS8DecryptorProviderBuilder()
+                            .setProvider(bcprov)
+                            .build(passphrase != null ? passphrase.toCharArray() : new char[0]);
+
+                    final PrivateKeyInfo pki = encP8.decryptPrivateKeyInfo(decProv);
+                    final PrivateKey priv = converter.getPrivateKey(pki);
+                    return new KeyPair(null, priv);
+                } catch (OperatorCreationException e) {
+                    throw new IOException("Failed to decrypt PKCS#8 private key" + e.getLocalizedMessage(), e);
+
+                } catch (PKCSException e) {
+                    throw new IOException("Failed to decrypt PKCS#8 private key" + e.getLocalizedMessage(), e);
+                }
+            }
+            default -> {
+                // Common gotcha: some PEMs may contain cert/CSR first by mistake
+                final String type = obj.getClass().getName();
+                throw new IOException("Unsupported PEM object type for private key: " + type
+                        + ". Ensure the input is a private key PEM (not a certificate/CSR/bundle).");
+            }
         }
     }
 }
