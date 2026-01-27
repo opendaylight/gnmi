@@ -9,7 +9,7 @@
 #
 
 mkdir certs
-cd certs
+cd certs || exit
 
 SUBJ="/C=NZ/ST=Test/L=Test/O=Test/OU=Test/CN=ca"
 
