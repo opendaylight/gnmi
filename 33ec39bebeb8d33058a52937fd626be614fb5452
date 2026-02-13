@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b5b73fb_49e9f11e",
+        "filename": ".releases/maven-release.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-02-13T08:52:26Z",
+      "side": 0,
+      "message": "what happens when we merge release trigger file again?",
+      "revId": "33ec39bebeb8d33058a52937fd626be614fb5452",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
