@@ -16,6 +16,24 @@
       "message": "what happens when we merge release trigger file again?",
       "revId": "33ec39bebeb8d33058a52937fd626be614fb5452",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1a8bfde_d7eb2e59",
+        "filename": ".releases/maven-release.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6258
+      },
+      "writtenOn": "2026-02-13T11:43:34Z",
+      "side": 0,
+      "message": "The release job should validate and fail, release wont proceed! Since the release is already done!",
+      "parentUuid": "0b5b73fb_49e9f11e",
+      "revId": "33ec39bebeb8d33058a52937fd626be614fb5452",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
