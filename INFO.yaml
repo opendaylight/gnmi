@@ -1,43 +1,43 @@
 ---
-project: 'gnmi'
-project_creation_date: '2025-10-25'
-project_category: ''
-lifecycle_state: 'Incubation'
+project: "gnmi"
+project_creation_date: "2025-10-25"
+project_category: ""
+lifecycle_state: "Incubation"
 project_lead: &odl_gnmi_ptl
-    name: 'Ivan Hraško'
-    email: 'ivan.hrasko@pantheon.tech'
-    company: 'pantheon'
-    id: 'ivanhrasko'
-    timezone: 'Europe/Bratislava'
+  name: "Ivan Hraško"
+  email: "ivan.hrasko@pantheon.tech"
+  company: "pantheon"
+  id: "ivanhrasko"
+  timezone: "Europe/Bratislava"
 primary_contact: *odl_gnmi_ptl
 issue_tracking:
-    type: 'jira'
-    url: 'https://jira.opendaylight.org/projects/'
-    key: 'gnmi'
+  type: "jira"
+  url: "https://jira.opendaylight.org/projects/"
+  key: "gnmi"
 mailing_list:
-    type: 'groups.io'
-    url: 'app-dev@lists.opendaylight.org'
-    tag: '[]'
+  type: "groups.io"
+  url: "app-dev@lists.opendaylight.org"
+  tag: "[]"
 realtime_discussion:
-    type: 'irc'
-    server: 'freenode.net'
-    channel: '#opendaylight'
+  type: "irc"
+  server: "freenode.net"
+  channel: "#opendaylight"
 meetings:
-    - type: 'gotomeeting+irc'
-      agenda: 'https://wiki.opendaylight.org'
-      url: ''
-      server: 'freenode.net'
-      channel: '#opendaylight'
-      repeats: ''
-      time: ''
+  - type: "gotomeeting+irc"
+    agenda: "https://wiki.opendaylight.org"
+    url: ""
+    server: "freenode.net"
+    channel: "#opendaylight"
+    repeats: ""
+    time: ""
 repositories:
-    - gnmi
+  - gnmi
 committers:
-    - <<: *odl_gnmi_ptl
+  - <<: *odl_gnmi_ptl
 tsc:
-    # yamllint disable rule:line-length
-    approval: 'https://lists.opendaylight.org/g/TSC/topic/115753991'
-    changes:
-        - type: ''
-          name: ''
-          link: ''
+  # yamllint disable rule:line-length
+  approval: "https://lists.opendaylight.org/g/TSC/topic/115753991"
+  changes:
+    - type: ""
+      name: ""
+      link: ""
