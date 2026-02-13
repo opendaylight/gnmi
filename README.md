@@ -6,9 +6,10 @@
 ## Overview
 
 gNMI plugin implementation which provides:
-* capabilities to manage network of gNMI capable devices
-* ability to users to manage this network with RESTCONF as a northbound
-* possibility to use this plugin within other projects such like TPCE
+
+- capabilities to manage network of gNMI capable devices
+- ability to users to manage this network with RESTCONF as a northbound
+- possibility to use this plugin within other projects such like TPCE
 
 The scope of this project is outlined in the
 [project proposal](https://lf-opendaylight.atlassian.net/wiki/spaces/ODL/pages/489062430/gNMI+project).
@@ -16,9 +17,10 @@ The scope of this project is outlined in the
 ## Repository organization
 
 The repository is split into the following logical parts:
-* the [Bill Of Materials](artifacts)
-* a library of [Karaf features](features) packaging all Java artifacts hosted in this repository
-* runnable Karaf [distribution](karaf)
-* gNMI plugin and simulator [implementation](modules)
-* YANG [models](models) defining plugin behaviour
-* user and developer guides [documentation](docs)
+
+- the [Bill Of Materials](artifacts)
+- a library of [Karaf features](features) packaging all Java artifacts hosted in this repository
+- runnable Karaf [distribution](karaf)
+- gNMI plugin and simulator [implementation](modules)
+- YANG [models](models) defining plugin behaviour
+- user and developer guides [documentation](docs)
