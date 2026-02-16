@@ -16,6 +16,24 @@
       "message": "FYI: connectMultipleDevicesTest can fail, just recheck, other tests has to be good",
       "revId": "7ecc49a2e4ce9cc13f3cd12cf2f433cd3beb1b67",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12f00744_badf192e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-02-16T06:31:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "89c6d33f_c65cabfb",
+      "revId": "7ecc49a2e4ce9cc13f3cd12cf2f433cd3beb1b67",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
