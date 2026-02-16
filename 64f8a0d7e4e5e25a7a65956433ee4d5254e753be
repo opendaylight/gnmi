@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a86ce8a7_1b083972",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-02-16T06:33:18Z",
+      "side": 1,
+      "message": "04:25:26 [ERROR]   GnmiCertificatesTest.connectDeviceWithEncryptedCertificate:180 » ConditionTimeout Assertion condition defined as a Lambda expression in org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiCertificatesTest expected: \u003c{\"gnmi-topology:node-status\":\"READY\"}\u003e but was: \u003c{\"gnmi-topology:node-status\":\"FAILURE\"}\u003e within 30 seconds.\n04:25:26 [ERROR]   GnmiCertificatesTest.connectDeviceWithWrongCaCertificatesAndReconnect:217 » ConditionTimeout Assertion condition defined as a Lambda expression in org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiCertificatesTest expected: \u003c{\"gnmi-topology:node-status\":\"TRANSIENT_FAILURE\"}\u003e but was: \u003c{\"gnmi-topology:node-status\":\"FAILURE\"}\u003e within 30 seconds.\n04:25:26 [ERROR]   GnmiMultipleConnectionITTest.connectMultipleDevicesTest » Runtime Failed writing reason of connection failure of node gnmi-another-test-node to datastore\n04:25:26 [INFO]",
+      "revId": "64f8a0d7e4e5e25a7a65956433ee4d5254e753be",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
