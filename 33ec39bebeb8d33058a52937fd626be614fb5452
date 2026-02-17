@@ -34,6 +34,24 @@
       "parentUuid": "0b5b73fb_49e9f11e",
       "revId": "33ec39bebeb8d33058a52937fd626be614fb5452",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42b7d29a_91d25de9",
+        "filename": ".releases/maven-release.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-02-17T08:18:19Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "b1a8bfde_d7eb2e59",
+      "revId": "33ec39bebeb8d33058a52937fd626be614fb5452",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
