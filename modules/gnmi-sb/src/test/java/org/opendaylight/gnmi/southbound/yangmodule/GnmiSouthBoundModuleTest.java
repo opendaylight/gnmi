@@ -23,7 +23,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.opendaylight.aaa.encrypt.AAAEncryptionService;
 import org.opendaylight.mdsal.binding.api.DataBroker;
-import org.opendaylight.mdsal.binding.api.DataTreeChangeListener;
 import org.opendaylight.mdsal.binding.api.RpcProviderService;
 import org.opendaylight.mdsal.binding.api.WriteTransaction;
 import org.opendaylight.mdsal.common.api.CommitInfo;
@@ -71,7 +70,7 @@ public class GnmiSouthBoundModuleTest {
 
         Registration listenerRegistration = mock(Registration.class);
         lenient().doReturn(listenerRegistration).when(dataBroker)
-            .registerDataTreeChangeListener(any(), (DataTreeChangeListener) any());
+            .registerTreeChangeListener(any(), any(), any());
 
         final GnmiSouthboundModule gnmiModule = new GnmiSouthboundModule(
             dataBroker,
