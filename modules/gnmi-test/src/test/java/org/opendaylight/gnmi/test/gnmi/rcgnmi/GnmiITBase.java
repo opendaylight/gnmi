@@ -70,6 +70,7 @@ import org.opendaylight.mdsal.dom.broker.RouterDOMNotificationService;
 import org.opendaylight.mdsal.dom.broker.RouterDOMRpcProviderService;
 import org.opendaylight.mdsal.dom.broker.RouterDOMRpcService;
 import org.opendaylight.mdsal.dom.spi.FixedDOMSchemaService;
+import org.opendaylight.mdsal.singleton.api.ClusterSingletonServiceProvider;
 import org.opendaylight.netconf.odl.device.notification.SubscribeDeviceNotificationRpc;
 import org.opendaylight.netconf.sal.remote.impl.CreateDataChangeEventSubscriptionRpc;
 import org.opendaylight.netconf.transport.http.ConfigUtils;
@@ -223,9 +224,14 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
         );
         gnmiSouthboundModule.init();
 
+        final ClusterSingletonServiceProvider cssProvider = SingletonService -> {
+            SingletonService.instantiateServiceInstance();
+            return SingletonService::closeServiceInstance;
+        };
+
         streamRegistry = new MdsalRestconfStreamRegistry(domDataBroker,
             new RouterDOMNotificationService(domNotificationRouter),
-            schemaService, uri -> uri.resolve("streams"), dataBindProvider);
+            schemaService, uri -> uri.resolve("streams"), dataBindProvider, cssProvider);
         final var rpcImplementations = List.<RpcImplementation>of(
             new CreateDataChangeEventSubscriptionRpc(streamRegistry, dataBindProvider, domDataBroker),
             new SubscribeDeviceNotificationRpc(streamRegistry, domMountPointService)
