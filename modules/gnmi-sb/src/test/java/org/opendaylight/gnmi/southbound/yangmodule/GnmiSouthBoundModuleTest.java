@@ -71,7 +71,7 @@ public class GnmiSouthBoundModuleTest {
 
         Registration listenerRegistration = mock(Registration.class);
         lenient().doReturn(listenerRegistration).when(dataBroker)
-            .registerDataTreeChangeListener(any(), (DataTreeChangeListener) any());
+            .registerTreeChangeListener(any(), any(), any());
 
         final GnmiSouthboundModule gnmiModule = new GnmiSouthboundModule(
             dataBroker,
