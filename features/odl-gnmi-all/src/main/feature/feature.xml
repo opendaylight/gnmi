@@ -7,7 +7,7 @@
  -->
 <features xmlns="http://karaf.apache.org/xmlns/features/v1.4.0" name="odl-gnmi-all">
     <feature name="odl-gnmi-all" version="${project.version}">
-        <feature version="[14,15)">odl-mdsal-model-rfc7224</feature>
+        <feature version="[1,2)">odl-ietf-model-rfc7224</feature>
         <feature version="[9,10)">odl-netconf-topology</feature>
         <feature version="[9,10)">odl-restconf</feature>
         <bundle>wrap:mvn:com.google.protobuf/protobuf-java-util/3.25.8$overwrite=merge&amp;Import-Package=com.google.common.*;version="[32.0,34.0)",*</bundle>
