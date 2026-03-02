@@ -24,9 +24,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.opendaylight.mdsal.model</groupId>
-            <artifactId>odl-mdsal-model-rfc7224</artifactId>
-            <version>15.0.2</version>
+            <groupId>org.opendaylight.ietf</groupId>
+            <artifactId>odl-ietf-model-rfc7224</artifactId>
+            <version>1.0.2</version>
             <type>xml</type>
             <classifier>features</classifier>
         </dependency>
