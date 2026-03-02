@@ -133,7 +133,8 @@ public class GnmiSouthboundProvider implements AutoCloseable {
 
         //-----Init gNMI topology------
         initGnmiTopology();
-        closeables.add(dataBroker.registerDataTreeChangeListener(IdentifierUtils.GNMI_NODE_DTI, topologyNodeListener));
+        closeables.add(dataBroker.registerTreeChangeListener(LogicalDatastoreType.CONFIGURATION,
+            IdentifierUtils.GNMI_NODE_DTI, topologyNodeListener));
         LOG.info("gNMI south-bound has successfully started");
     }
 
@@ -145,11 +146,11 @@ public class GnmiSouthboundProvider implements AutoCloseable {
                         .build())
                 .build();
         @NonNull WriteTransaction configTx = dataBroker.newWriteOnlyTransaction();
-        configTx.merge(LogicalDatastoreType.CONFIGURATION, IdentifierUtils.GNMI_TOPO_IID, topology);
+        configTx.merge(LogicalDatastoreType.CONFIGURATION, IdentifierUtils.GNMI_TOPOLOGY_PATH, topology);
         configTx.commit().get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
 
         @NonNull WriteTransaction operTx = dataBroker.newWriteOnlyTransaction();
-        operTx.merge(LogicalDatastoreType.OPERATIONAL, IdentifierUtils.GNMI_TOPO_IID, topology);
+        operTx.merge(LogicalDatastoreType.OPERATIONAL, IdentifierUtils.GNMI_TOPOLOGY_PATH, topology);
         operTx.commit().get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
     }
 
