@@ -148,6 +148,7 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
         httpClientExecutor = Executors.newSingleThreadExecutor();
         httpClient = HttpClient.newBuilder()
             .executor(httpClientExecutor)
+            .version(HttpClient.Version.HTTP_1_1)
             .authenticator(new Authenticator() {
                 @Override
                 protected PasswordAuthentication getPasswordAuthentication() {
