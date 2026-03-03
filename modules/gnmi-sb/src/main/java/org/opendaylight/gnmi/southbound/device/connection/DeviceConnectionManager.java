@@ -183,9 +183,23 @@ public class DeviceConnectionManager implements AutoCloseable {
                         .build())
                 .build();
 
-        final WriteTransaction tx = dataBroker.newWriteOnlyTransaction();
-        tx.merge(LogicalDatastoreType.OPERATIONAL, IdentifierUtils.gnmiNodeID(nodeId), operationalNode);
-        tx.commit().get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
+        int retries = 3;
+        while (true) {
+            final WriteTransaction tx = dataBroker.newWriteOnlyTransaction();
+            tx.merge(LogicalDatastoreType.OPERATIONAL, IdentifierUtils.gnmiNodeID(nodeId), operationalNode);
+            try {
+                tx.commit().get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
+                return;
+            } catch (ExecutionException e) {
+                if (e.getCause() instanceof IllegalStateException && retries > 0) {
+                    LOG.debug("OCC conflict writing capabilities for {}, retrying...", nodeId.getValue());
+                    retries--;
+                    Thread.sleep(100);
+                    continue;
+                }
+                throw e;
+            }
+        }
     }
 
     public boolean nodeActive(final NodeId nodeId) {

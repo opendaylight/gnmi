@@ -83,17 +83,29 @@ public class GnmiNodeListener implements DataTreeChangeListener<Node> {
 
     private void disconnectNode(final NodeId nodeId) {
         deviceConnectionManager.closeConnection(nodeId);
-        // Delete operational data
-        @NonNull WriteTransaction writeTransaction = dataBroker.newWriteOnlyTransaction();
-        writeTransaction.delete(LogicalDatastoreType.OPERATIONAL, IdentifierUtils.gnmiNodeID(nodeId));
-        try {
-            writeTransaction.commit().get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
-        } catch (ExecutionException | TimeoutException e) {
-            LOG.warn("Failed deleting node state of node {} from operational datastore", nodeId.getValue(), e);
-        } catch (InterruptedException e) {
-            LOG.error("Interrupted while deleting node state of node {} from operational datastore",
-                    nodeId.getValue(), e);
-            Thread.currentThread().interrupt();
+
+        int retries = 3;
+        while (true) {
+            @NonNull WriteTransaction writeTransaction = dataBroker.newWriteOnlyTransaction();
+            writeTransaction.delete(LogicalDatastoreType.OPERATIONAL, IdentifierUtils.gnmiNodeID(nodeId));
+            try {
+                writeTransaction.commit().get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
+                return;
+            } catch (ExecutionException e) {
+                if (e.getCause() instanceof IllegalStateException && retries > 0) {
+                    retries--;
+                    try { Thread.sleep(100); } catch (InterruptedException ie) { Thread.currentThread().interrupt(); }
+                    continue;
+                }
+                LOG.warn("Failed deleting node state of node {}", nodeId.getValue(), e);
+                return;
+            } catch (TimeoutException e) {
+                LOG.warn("Failed deleting node state of node {}", nodeId.getValue(), e);
+                return;
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return;
+            }
         }
     }
 
@@ -113,16 +125,23 @@ public class GnmiNodeListener implements DataTreeChangeListener<Node> {
                     try {
                         LOG.error("Connection of node {} failed", node.getNodeId(), throwable);
                         writeConnectionFailureReasonToDatastore(node.getNodeId(), throwable.toString());
-                    } catch (TimeoutException | ExecutionException e) {
-                        throw new RuntimeException(
-                                String.format("Failed writing reason of connection failure of node %s to datastore",
-                                        node.getNodeId().getValue()), e);
-
+                    } catch (ExecutionException e) {
+                        // If the cause is IllegalStateException, it means the node was deleted concurrently
+                        // by disconnectNode. We gracefully ignore it so we don't recreate a deleted node.
+                        if (e.getCause() instanceof IllegalStateException) {
+                            LOG.debug("Datastore conflict writing failure reason for node {}. Node was likely deleted.",
+                                node.getNodeId().getValue());
+                        } else {
+                            LOG.warn("Failed to write connection failure reason for node {}",
+                                node.getNodeId().getValue(), e);
+                        }
+                    } catch (TimeoutException e) {
+                        LOG.warn("Timeout while writing connection failure of node {} to datastore",
+                            node.getNodeId().getValue(), e);
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
-                        throw new RuntimeException(
-                                String.format("Interrupted while writing connection failure of node %s to datastore",
-                                        node.getNodeId().getValue()), e);
+                        LOG.warn("Interrupted while writing connection failure of node {} to datastore",
+                            node.getNodeId().getValue(), e);
                     }
                 } else {
                     LOG.info("Connection initialization to node {} was cancelled", node.getNodeId());
@@ -149,8 +168,6 @@ public class GnmiNodeListener implements DataTreeChangeListener<Node> {
 
     private void writeConnectionFailureReasonToDatastore(NodeId nodeId, String message)
             throws InterruptedException, ExecutionException, TimeoutException {
-        @NonNull final WriteTransaction tx = dataBroker.newWriteOnlyTransaction();
-
         final Node operationalNode = new NodeBuilder()
                 .setNodeId(nodeId)
                 .addAugmentation(new GnmiNodeBuilder()
@@ -160,8 +177,22 @@ public class GnmiNodeListener implements DataTreeChangeListener<Node> {
                         .build())
                 .build();
 
-        tx.merge(LogicalDatastoreType.OPERATIONAL, IdentifierUtils.gnmiNodeID(nodeId), operationalNode);
-        tx.commit().get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
+        int retries = 3;
+        while (true) {
+            @NonNull final WriteTransaction tx = dataBroker.newWriteOnlyTransaction();
+            tx.merge(LogicalDatastoreType.OPERATIONAL, IdentifierUtils.gnmiNodeID(nodeId), operationalNode);
+            try {
+                tx.commit().get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
+                return;
+            } catch (ExecutionException e) {
+                if (e.getCause() instanceof IllegalStateException && retries > 0) {
+                    retries--;
+                    Thread.sleep(100);
+                    continue;
+                }
+                throw e;
+            }
+        }
     }
 
 }

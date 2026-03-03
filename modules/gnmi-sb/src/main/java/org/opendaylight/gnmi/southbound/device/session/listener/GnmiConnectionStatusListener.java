@@ -8,6 +8,7 @@
 package org.opendaylight.gnmi.southbound.device.session.listener;
 
 import com.google.common.util.concurrent.FluentFuture;
+import com.google.common.util.concurrent.Futures;
 import io.grpc.ConnectivityState;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -70,7 +71,12 @@ public class GnmiConnectionStatusListener implements AutoCloseable {
     public synchronized FluentFuture<CommitInfo> copyDeviceStatusReadyToDatastore()
             throws GnmiConnectionStatusException {
         if (ConnectivityState.READY.equals(currentState)) {
-            return writeStateToDataStoreAsync(this.currentState);
+            try {
+                writeStateToDataStoreWithRetries(this.currentState);
+                return FluentFuture.from(Futures.immediateFuture(CommitInfo.empty()));
+            } catch (Exception e) {
+                return FluentFuture.from(Futures.immediateFailedFuture(e));
+            }
         } else {
             throw new GnmiConnectionStatusException(
                     String.format("Last observed status was %s, while READY was expected", currentState),
@@ -91,10 +97,41 @@ public class GnmiConnectionStatusListener implements AutoCloseable {
 
             sessionProvider.notifyOnStateChangedOneOff(currentState, this::updateStateStatus);
             if (this.currentState != ConnectivityState.READY) {
-                // Ready status should be updated after creating device mountpoint
-                writeStateToDataStore(this.currentState);
+                try {
+                    writeStateToDataStoreWithRetries(this.currentState);
+                } catch (Exception e) {
+                    LOG.warn("Unable to write connection state of node {} to datastore", nodeId.getValue(), e);
+                }
             }
             LOG.debug("Current session status {}", currentState);
+        }
+    }
+
+    private void writeStateToDataStoreWithRetries(final ConnectivityState state)
+        throws InterruptedException, ExecutionException, TimeoutException {
+        final Node operationalNode = new NodeBuilder()
+            .setNodeId(nodeId)
+            .addAugmentation(new GnmiNodeBuilder()
+                .setNodeState(new NodeStateBuilder().setNodeStatus(convertToNodeState(state)).build())
+                .build())
+            .build();
+
+        int retries = 3;
+        while (true) {
+            final @NonNull WriteTransaction tx = dataBroker.newWriteOnlyTransaction();
+            tx.merge(LogicalDatastoreType.OPERATIONAL, IdentifierUtils.gnmiNodeID(nodeId), operationalNode);
+            try {
+                tx.commit().get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
+                return;
+            } catch (ExecutionException e) {
+                if (e.getCause() instanceof IllegalStateException && retries > 0) {
+                    LOG.debug("OCC conflict writing status {} for {}, retrying...", state, nodeId.getValue());
+                    retries--;
+                    Thread.sleep(100);
+                    continue;
+                }
+                throw e;
+            }
         }
     }
 
@@ -140,10 +177,24 @@ public class GnmiConnectionStatusListener implements AutoCloseable {
         LOG.info("Stopping listening on gRPC channel state for node {}", nodeId.getValue());
         listenerActive = false;
         currentState = ConnectivityState.SHUTDOWN;
-        // Delete connection state data from operational datastore
-        @NonNull WriteTransaction writeTransaction = dataBroker.newWriteOnlyTransaction();
-        writeTransaction.delete(LogicalDatastoreType.OPERATIONAL, IdentifierUtils.gnmiNodeID(nodeId));
-        writeTransaction.commit().get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
+
+        int retries = 3;
+        while (true) {
+            @NonNull WriteTransaction writeTransaction = dataBroker.newWriteOnlyTransaction();
+            writeTransaction.delete(LogicalDatastoreType.OPERATIONAL, IdentifierUtils.gnmiNodeID(nodeId));
+            try {
+                writeTransaction.commit().get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
+                return;
+            } catch (ExecutionException e) {
+                if (e.getCause() instanceof IllegalStateException && retries > 0) {
+                    retries--;
+                    Thread.sleep(100);
+                    continue;
+                }
+                // Ignore if it's already deleted
+                return;
+            }
+        }
     }
 
     private NodeState.NodeStatus convertToNodeState(ConnectivityState state) {
