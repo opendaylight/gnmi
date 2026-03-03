@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d31493a_9e1b8054",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-03-03T15:05:12Z",
+      "side": 1,
+      "message": "why do we need to sleep, what are the issues?",
+      "revId": "95904c2aa37425e333025135432f66580ce5f20b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
