@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0ebff83_e34d196c",
+        "filename": "features/odl-gnmi-all/src/main/feature/feature.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-03-03T15:07:00Z",
+      "side": 0,
+      "message": "or we have already adapted for Vanadium - lighty main branch or 23.x",
+      "revId": "e7aac5bec7631f144ded65a9887333d78b1e1402",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
