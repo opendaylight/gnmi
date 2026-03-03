@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8ae3cfc_d57d378f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-03-03T15:06:11Z",
+      "side": 1,
+      "message": "IIRC we should be on the same Netty 4.2 as ODL?",
+      "revId": "05d40bb539d1c0c58e407da6178e26cd46e7b762",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
