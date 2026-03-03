@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ad2ecba_e8da0b16",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-03-03T15:11:17Z",
+      "side": 1,
+      "message": "what about to fix dependencies first?\n\nBuild failed to find artifact org.opendaylight.mdsal.model:odl-mdsal-model-rfc7224:xml:features:15.0.2 needed for sub-project org.opendaylight.gnmi:odl-gnmi-all:feature:2.0.0-SNAPSHOT: The following artifacts could not be resolved: org.opendaylight.mdsal.model:odl-mdsal-model-rfc7224:xml:features:15.0.2 (absent). Check correct groupId, artifactId and version. This may also indicate a problem with nexus.opendaylight.org. Another possibility is that this is a -SNAPSHOT version and it has expired from nexus -- in that case check with the project which provides the artifact. ( https://jenkins.opendaylight.org/releng/job/gnmi-maven-verify-master-mvn39-openjdk21/265/ )",
+      "revId": "75c9b1484892ca33c4adf7353377f125e196e8ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
