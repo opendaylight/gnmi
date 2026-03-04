@@ -22,6 +22,30 @@
       },
       "revId": "d2d1d0567d01628e42031bb097b3c2ad757ac8af",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9776bc7_f945e53c",
+        "filename": "modules/gnmi-sb/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-03-04T14:34:00Z",
+      "side": 1,
+      "message": "@tobias in ODL we have a lot of dependences from odlparent -its possible that you can just delete version tag to have the latest ..",
+      "parentUuid": "d5e8f82e_9a08fc6b",
+      "range": {
+        "startLine": 246,
+        "startChar": 21,
+        "endLine": 246,
+        "endChar": 27
+      },
+      "revId": "d2d1d0567d01628e42031bb097b3c2ad757ac8af",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
