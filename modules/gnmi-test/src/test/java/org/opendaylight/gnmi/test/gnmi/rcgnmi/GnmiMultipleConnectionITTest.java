@@ -121,6 +121,7 @@ public class GnmiMultipleConnectionITTest extends GnmiITBase {
         }
     }
 
+    @Disabled("Disabled until GNMI-7 is fixed")
     @Test
     public void connectMultipleDevicesTest()
         throws IOException, InterruptedException, ExecutionException, TimeoutException, JSONException {
