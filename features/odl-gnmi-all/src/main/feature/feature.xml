@@ -16,6 +16,6 @@
         <bundle>wrap:mvn:io.netty/netty-codec-http2/4.1.115.Final$overwrite=merge&amp;Import-Package=com.aayushatharva.brotli4j.*;resolution:=optional,com.github.luben.zstd.*;resolution:=optional,io.netty.*;version="[4.0,5.0)",*&amp;Export-Package=io.netty.handler.codec.http2.*;version=4.1.115.Final</bundle>
         <bundle>wrap:mvn:io.netty/netty-handler-proxy/4.1.115.Final$overwrite=merge&amp;Import-Package=io.netty.handler.codec.socksx.*;resolution:=optional,io.netty.*;version="[4.0,5.0)",*&amp;Export-Package=io.netty.handler.proxy.*;version=4.1.115.Final</bundle>
         <bundle>wrap:mvn:io.grpc/grpc-netty/1.75.0$Bundle-SymbolicName=io.grpc.grpc-netty&amp;Bundle-Version=1.75.0&amp;Import-Package=io.netty.*;version="[4.0,5.0)",*</bundle>
-        <bundle>wrap:mvn:com.google.errorprone/error_prone_annotations/2.23.0$overwrite=merge&amp;Export-Package=com.google.errorprone.annotations;version=2.23.0</bundle>
+        <bundle>wrap:mvn:com.google.errorprone/error_prone_annotations/2.43.0$overwrite=merge&amp;Export-Package=com.google.errorprone.annotations;version=2.43.0</bundle>
     </feature>
 </features>
