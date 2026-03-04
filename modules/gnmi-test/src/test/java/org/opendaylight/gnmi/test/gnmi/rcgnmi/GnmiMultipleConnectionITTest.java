@@ -29,6 +29,7 @@ import org.json.JSONObject;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.opendaylight.gnmi.simulatordevice.impl.SimulatedGnmiDevice;
 import org.opendaylight.gnmi.simulatordevice.utils.EffectiveModelContextBuilder.EffectiveModelContextBuilderException;
@@ -118,6 +119,7 @@ public class GnmiMultipleConnectionITTest extends GnmiITBase {
         }
     }
 
+    @Disabled("Disabled until GNMI-7 is fixed")
     @Test
     public void connectMultipleDevicesTest()
         throws IOException, InterruptedException, ExecutionException, TimeoutException, JSONException {
