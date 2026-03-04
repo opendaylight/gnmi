@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8f5391f_8d7c8373",
+        "filename": "modules/gnmi-sb/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-03-04T14:34:18Z",
+      "side": 1,
+      "message": "managed by odparent",
+      "revId": "957fe97fbb304ee43f3a493c9a50c8c920f8491e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
