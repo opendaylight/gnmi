@@ -163,7 +163,7 @@ jobs:
       GERRIT_REFSPEC: ${{ needs.call-gerrit-change-info.outputs.GERRIT_REFSPEC }}
       JDK_VERSION: "21"
       MVN_VERSION: "3.9.9"
-      MVN_PHASES: "clean verify"
+      MVN_PHASES: "clean install"
 
   call-gerrit-repo-linting:
     needs: [prepare, call-gerrit-change-info]
