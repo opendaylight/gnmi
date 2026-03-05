@@ -29,29 +29,9 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.apache.pekko</groupId>
-                <artifactId>pekko-persistence_2.13</artifactId>
-                <version>1.0.3</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.pekko</groupId>
-                <artifactId>pekko-cluster-sharding_2.13</artifactId>
-                <version>1.0.3</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.pekko</groupId>
-                <artifactId>pekko-cluster-tools_2.13</artifactId>
-                <version>1.0.3</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.pekko</groupId>
-                <artifactId>pekko-discovery_2.13</artifactId>
-                <version>1.0.3</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.pekko</groupId>
-                <artifactId>pekko-distributed-data_2.13</artifactId>
-                <version>1.0.3</version>
+                <groupId>org.opendaylight.controller</groupId>
+                <artifactId>repackaged-pekko</artifactId>
+                <version>12.0.3</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -94,29 +74,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.pekko</groupId>
-            <artifactId>pekko-cluster-sharding_2.13</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.pekko</groupId>
-            <artifactId>pekko-cluster-tools_2.13</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.pekko</groupId>
-            <artifactId>pekko-discovery_2.13</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.pekko</groupId>
-            <artifactId>pekko-distributed-data_2.13</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.pekko</groupId>
-            <artifactId>pekko-persistence_2.13</artifactId>
-            <scope>test</scope>
+            <groupId>org.opendaylight.controller</groupId>
+            <artifactId>repackaged-pekko</artifactId>
         </dependency>
         <dependency>
             <groupId>org.awaitility</groupId>
