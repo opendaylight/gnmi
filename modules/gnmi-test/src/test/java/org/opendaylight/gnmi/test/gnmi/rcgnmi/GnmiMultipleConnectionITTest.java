@@ -29,6 +29,7 @@ import org.json.JSONObject;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.opendaylight.gnmi.simulatordevice.impl.SimulatedGnmiDevice;
 import org.opendaylight.gnmi.simulatordevice.utils.EffectiveModelContextBuilder.EffectiveModelContextBuilderException;
@@ -36,6 +37,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 // FIXME we can easily misconfigure in-memory datastore similar like in: https://lf-opendaylight.atlassian.net/browse/NETCONF-1414
+// tracked in https://lf-opendaylight.atlassian.net/browse/GNMI-7
+@Disabled
 public class GnmiMultipleConnectionITTest extends GnmiITBase {
     private static final Logger LOG = LoggerFactory.getLogger(GnmiMultipleConnectionITTest.class);
 
