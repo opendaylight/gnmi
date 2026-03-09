@@ -376,13 +376,13 @@ public class GnmiCertificatesTest extends GnmiITBase {
         private final String wrongCaCert;
 
         TestCertificates() {
-            this.clientCert = getResource(CLIENT_CERT);
-            this.caCert = getResource(CA);
-            this.clientKey = getResource(CLIENT_KEY);
-            this.passphrase = getResource(PASSPHRASE);
-            this.clientEncKey = getResource(CLIENT_ENC_KEY);
-            this.clientEncCert = getResource(CLIENT_ENC_CERT);
-            this.wrongCaCert = getResource(WRONG_CA_CRT);
+            this.clientCert = getResource(CLIENT_CERT).trim();
+            this.caCert = getResource(CA).trim();
+            this.clientKey = getResource(CLIENT_KEY).trim();
+            this.passphrase = getResource(PASSPHRASE).trim();
+            this.clientEncKey = getResource(CLIENT_ENC_KEY).trim();
+            this.clientEncCert = getResource(CLIENT_ENC_CERT).trim();
+            this.wrongCaCert = getResource(WRONG_CA_CRT).trim();
         }
 
         public String getClientCert() {
