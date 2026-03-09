@@ -16,6 +16,24 @@
       "message": "or we have already adapted for Vanadium - lighty main branch or 23.x",
       "revId": "e7aac5bec7631f144ded65a9887333d78b1e1402",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "337e41b7_4e3d6411",
+        "filename": "features/odl-gnmi-all/src/main/feature/feature.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-03-09T11:14:19Z",
+      "side": 0,
+      "message": "Done in \nhttps://git.opendaylight.org/gerrit/c/gnmi/+/121321/2",
+      "parentUuid": "d0ebff83_e34d196c",
+      "revId": "e7aac5bec7631f144ded65a9887333d78b1e1402",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }

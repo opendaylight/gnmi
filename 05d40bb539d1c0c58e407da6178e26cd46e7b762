@@ -16,6 +16,24 @@
       "message": "IIRC we should be on the same Netty 4.2 as ODL?",
       "revId": "05d40bb539d1c0c58e407da6178e26cd46e7b762",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "668c30f4_2c6bd6db",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-03-09T11:14:19Z",
+      "side": 1,
+      "message": "done in \nhttps://git.opendaylight.org/gerrit/c/gnmi/+/121321/2",
+      "parentUuid": "d8ae3cfc_d57d378f",
+      "revId": "05d40bb539d1c0c58e407da6178e26cd46e7b762",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
