@@ -34,6 +34,24 @@
       "parentUuid": "3f5a4b8a_a9c4c3ec",
       "revId": "7cbc6c27b266aa22da4bd30baa13b7c4bc9243b8",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64070fb7_3c4735b3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-03-09T17:29:13Z",
+      "side": 1,
+      "message": "https://github.com/opendaylight/odlparent/blob/v14.1.6/odlparent-dependency-check/pom.xml#L252",
+      "parentUuid": "69f225e1_c5b0421c",
+      "revId": "7cbc6c27b266aa22da4bd30baa13b7c4bc9243b8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
