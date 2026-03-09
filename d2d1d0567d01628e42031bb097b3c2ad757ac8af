@@ -46,6 +46,30 @@
       },
       "revId": "d2d1d0567d01628e42031bb097b3c2ad757ac8af",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a24800b_609be2df",
+        "filename": "modules/gnmi-sb/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-03-09T11:04:29Z",
+      "side": 1,
+      "message": "done in \nhttps://git.opendaylight.org/gerrit/c/gnmi/+/121331/1?usp\u003drelated-change",
+      "parentUuid": "f9776bc7_f945e53c",
+      "range": {
+        "startLine": 246,
+        "startChar": 21,
+        "endLine": 246,
+        "endChar": 27
+      },
+      "revId": "d2d1d0567d01628e42031bb097b3c2ad757ac8af",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
