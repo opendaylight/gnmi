@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45380ac8_e9b71c80",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-03-10T07:50:46Z",
+      "side": 1,
+      "message": "https://github.com/opendaylight/gnmi/actions/runs/22849252394/job/66273422520",
+      "revId": "231336d87a96363ae7e126f25b31e2c141cac4fb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
