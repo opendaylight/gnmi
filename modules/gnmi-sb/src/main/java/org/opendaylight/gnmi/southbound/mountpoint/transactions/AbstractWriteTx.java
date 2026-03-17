@@ -18,8 +18,11 @@ import org.opendaylight.mdsal.common.api.LogicalDatastoreType;
 import org.opendaylight.mdsal.dom.api.DOMDataTreeWriteTransaction;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NodeId;
 import org.opendaylight.yangtools.yang.data.api.YangInstanceIdentifier;
-import org.opendaylight.yangtools.yang.data.api.schema.MixinNode;
+import org.opendaylight.yangtools.yang.data.api.schema.ChoiceNode;
+import org.opendaylight.yangtools.yang.data.api.schema.LeafSetNode;
+import org.opendaylight.yangtools.yang.data.api.schema.MapNode;
 import org.opendaylight.yangtools.yang.data.api.schema.NormalizedNode;
+import org.opendaylight.yangtools.yang.data.api.schema.UnkeyedListNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -102,7 +105,9 @@ public abstract class AbstractWriteTx implements DOMDataTreeWriteTransaction {
 
     private boolean containsOnlyNonVisibleData(final YangInstanceIdentifier path,
                                                final NormalizedNode data) {
-        return path.getPathArguments().size() == 1 && data instanceof MixinNode;
+        return path.getPathArguments().size() == 1
+               && (data instanceof ChoiceNode || data instanceof LeafSetNode
+               || data instanceof MapNode || data instanceof UnkeyedListNode);
     }
 
     @Override
