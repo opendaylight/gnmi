@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15735ada_1bd9c2a3",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/listener/GnmiNodeListener.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-03-18T12:58:19Z",
+      "side": 1,
+      "message": "You can import DataObjectModification.WithDataAfter directly",
+      "range": {
+        "startLine": 135,
+        "startChar": 44,
+        "endLine": 135,
+        "endChar": 67
+      },
+      "revId": "7d50c89b63b74444461aa0669c36fb8b6ebd9d44",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
