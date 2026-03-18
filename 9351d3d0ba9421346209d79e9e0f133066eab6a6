@@ -22,6 +22,30 @@
       },
       "revId": "9351d3d0ba9421346209d79e9e0f133066eab6a6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb6f7aba_df3f3b10",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/GnmiWithoutRestconfTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-03-18T18:28:32Z",
+      "side": 1,
+      "message": "changed, i hope its good now.",
+      "parentUuid": "322d782e_51a13535",
+      "range": {
+        "startLine": 372,
+        "startChar": 0,
+        "endLine": 373,
+        "endChar": 75
+      },
+      "revId": "9351d3d0ba9421346209d79e9e0f133066eab6a6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
