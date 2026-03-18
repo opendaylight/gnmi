@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e81696bf_b2c5515e",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/listener/GnmiNodeListener.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2026-03-18T11:16:04Z",
+      "side": 1,
+      "message": "why rename? it\u0027s still DataObjectModification\n\nalso the next two lines looks confusing after rename",
+      "range": {
+        "startLine": 135,
+        "startChar": 87,
+        "endLine": 135,
+        "endChar": 96
+      },
+      "revId": "58527778c4616121e898d10ced79ad321a978ed8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
