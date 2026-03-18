@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61f5aee6_0cafc7be",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/identifier/IdentifierUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2026-03-18T11:25:39Z",
+      "side": 1,
+      "message": "this rename could be confusing when we already have GNMI_TOPOLOGY_ID",
+      "range": {
+        "startLine": 31,
+        "startChar": 55,
+        "endLine": 31,
+        "endChar": 68
+      },
+      "revId": "1d17338aeb69ca615be2bac7c4243d0c93f2a024",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0a2eaa9_311a4352",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/yangstore/impl/YangDataStoreServiceImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2026-03-18T11:25:39Z",
+      "side": 1,
+      "message": "var?",
+      "revId": "1d17338aeb69ca615be2bac7c4243d0c93f2a024",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae77f12d_ee90c3d5",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/yangstore/impl/YangDataStoreServiceImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2026-03-18T11:25:39Z",
+      "side": 1,
+      "message": "var?",
+      "revId": "1d17338aeb69ca615be2bac7c4243d0c93f2a024",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cee3aac3_ed65bdc1",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/GnmiWithoutRestconfTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2026-03-18T11:25:39Z",
+      "side": 1,
+      "message": "var?",
+      "revId": "1d17338aeb69ca615be2bac7c4243d0c93f2a024",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f571b00_2a1e9d44",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/GnmiWithoutRestconfTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2026-03-18T11:25:39Z",
+      "side": 1,
+      "message": "indent",
+      "revId": "1d17338aeb69ca615be2bac7c4243d0c93f2a024",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
