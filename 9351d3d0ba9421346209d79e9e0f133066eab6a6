@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "322d782e_51a13535",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/GnmiWithoutRestconfTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-03-18T12:52:47Z",
+      "side": 1,
+      "message": "+1 indent, can be on one line",
+      "range": {
+        "startLine": 372,
+        "startChar": 0,
+        "endLine": 373,
+        "endChar": 75
+      },
+      "revId": "9351d3d0ba9421346209d79e9e0f133066eab6a6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
