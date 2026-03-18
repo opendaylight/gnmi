@@ -16,6 +16,29 @@
       "message": "recheck",
       "revId": "5ee294e8fc05ca8269f135100cb9174cdd0a5d0c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae53ccef_622d386e",
+        "filename": "features/odl-gnmi-all/src/main/feature/feature.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 649
+      },
+      "writtenOn": "2026-03-18T12:21:54Z",
+      "side": 1,
+      "message": "this should be coming from odl-netty-4",
+      "range": {
+        "startLine": 18,
+        "startChar": 16,
+        "endLine": 18,
+        "endChar": 45
+      },
+      "revId": "5ee294e8fc05ca8269f135100cb9174cdd0a5d0c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
