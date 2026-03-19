@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28437058_1a431314",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/listener/GnmiNodeListener.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-03-19T14:57:41Z",
+      "side": 1,
+      "message": "Remove this",
+      "range": {
+        "startLine": 70,
+        "startChar": 21,
+        "endLine": 70,
+        "endChar": 44
+      },
+      "revId": "36db02151683a94c0309ac18ea044f5bcbcdc7d6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
