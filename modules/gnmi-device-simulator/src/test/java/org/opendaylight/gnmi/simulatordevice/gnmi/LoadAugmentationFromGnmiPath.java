@@ -7,6 +7,10 @@
  */
 package org.opendaylight.gnmi.simulatordevice.gnmi;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import com.google.gson.Gson;
 import gnmi.Gnmi;
 import gnmi.Gnmi.Path;
@@ -17,9 +21,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.opendaylight.gnmi.simulatordevice.config.GnmiSimulatorConfiguration;
 import org.opendaylight.gnmi.simulatordevice.utils.EffectiveModelContextBuilder;
 import org.opendaylight.gnmi.simulatordevice.utils.EffectiveModelContextBuilder.EffectiveModelContextBuilderException;
@@ -30,7 +34,6 @@ import org.opendaylight.yangtools.binding.data.codec.impl.BindingCodecContext;
 import org.opendaylight.yangtools.yang.data.api.YangInstanceIdentifier;
 import org.opendaylight.yangtools.yang.data.api.schema.NormalizedNode;
 import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
-import org.testng.Assert;
 
 public class LoadAugmentationFromGnmiPath {
 
@@ -42,7 +45,7 @@ public class LoadAugmentationFromGnmiPath {
     YangDataService dataService;
     GnmiCrudService gnmiCrudService;
 
-    @Before
+    @BeforeEach
     public void startUp() throws IOException, EffectiveModelContextBuilderException {
         final GnmiSimulatorConfiguration simulatorConfiguration = GnmiSimulatorConfUtils
                 .loadGnmiSimulatorConfiguration(this.getClass().getResourceAsStream(SIMULATOR_CONFIG));
@@ -54,7 +57,7 @@ public class LoadAugmentationFromGnmiPath {
         this.gnmiCrudService = new GnmiCrudService(dataService, schemaContext, new Gson());
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         this.gnmiCrudService = null;
         this.dataService = null;
@@ -69,15 +72,15 @@ public class LoadAugmentationFromGnmiPath {
         for (final Map.Entry<Gnmi.Path, YangInstanceIdentifier> entry : yangInstanceIdMap.entrySet()) {
             Optional<NormalizedNode> result
                     = this.dataService.readDataByPath(DatastoreType.CONFIGURATION, entry.getValue());
-            Assert.assertTrue(result.isPresent(),
+            assertTrue(result.isPresent(),
                     String.format("Failed to load [%s] from data-store", entry.getValue().getLastPathArgument()));
             NormalizedNode normalizedNode = result.orElseThrow();
-            Assert.assertEquals(normalizedNode.name(), entry.getValue().getLastPathArgument());
+            assertEquals(normalizedNode.name(), entry.getValue().getLastPathArgument());
             //Test to parse data retrieved from data-store to JSON format.
             Map.Entry<Path, String> resultInJsonFormat
                     = this.gnmiCrudService.getResultInJsonFormat(entry, normalizedNode);
-            Assert.assertNotNull(resultInJsonFormat.getValue());
-            Assert.assertTrue(validJsonResponse.contains(resultInJsonFormat.getValue()));
+            assertNotNull(resultInJsonFormat.getValue());
+            assertTrue(validJsonResponse.contains(resultInJsonFormat.getValue()));
         }
     }
 
@@ -87,7 +90,7 @@ public class LoadAugmentationFromGnmiPath {
         for (final Map.Entry<Gnmi.Path, YangInstanceIdentifier> entry : yangInstanceIdMap.entrySet()) {
             Optional<NormalizedNode> result
                     = this.dataService.readDataByPath(DatastoreType.CONFIGURATION, entry.getValue());
-            Assert.assertTrue(result.isEmpty(),
+            assertTrue(result.isEmpty(),
                     String.format("Loaded wrong data [%s] from data-store", entry.getValue().getLastPathArgument()));
         }
     }

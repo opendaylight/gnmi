@@ -7,6 +7,11 @@
  */
 package org.opendaylight.gnmi.connector.tests.gnoi;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import com.google.protobuf.ByteString;
 import gnoi.file.FileGrpc;
 import gnoi.file.FileOuterClass;
@@ -17,10 +22,9 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.opendaylight.gnmi.connector.configuration.SessionConfiguration;
 import org.opendaylight.gnmi.connector.gnmi.util.AddressUtil;
 import org.opendaylight.gnmi.connector.gnoi.invokers.api.GnoiFileInvoker;
@@ -46,7 +50,7 @@ public class GnoiTest {
     private TestGnoiServiceImpl service;
     private Server server;
 
-    @Before
+    @BeforeEach
     public void before() throws IOException {
         service = new TestGnoiServiceImpl();
         server = ServerBuilder
@@ -58,7 +62,7 @@ public class GnoiTest {
         server.start();
     }
 
-    @After
+    @AfterEach
     public void after() {
         LOG.info("Shutting down server");
         server.shutdown();
@@ -79,13 +83,13 @@ public class GnoiTest {
                      sessionManager.createSession(new SessionConfiguration(DEFAULT_SERVER_ADDRESS, true))) {
             final GnoiSession gnoiSession = session.getGnoiSession();
 
-            Assert.assertNotNull(gnoiSession);
-            Assert.assertNotNull(gnoiSession.getCertInvoker());
-            Assert.assertNotNull(gnoiSession.getFileInvoker());
-            Assert.assertNotNull(gnoiSession.getOsInvoker());
-            Assert.assertNotNull(gnoiSession.getSystemInvoker());
+            assertNotNull(gnoiSession);
+            assertNotNull(gnoiSession.getCertInvoker());
+            assertNotNull(gnoiSession.getFileInvoker());
+            assertNotNull(gnoiSession.getOsInvoker());
+            assertNotNull(gnoiSession.getSystemInvoker());
         } catch (Exception e) {
-            Assert.fail("Exception thrown!" + e);
+            fail("Exception thrown!" + e);
         }
     }
 
@@ -111,15 +115,15 @@ public class GnoiTest {
                         ByteString receivedContents = value.getContents();
                         LOG.info("Received content: {}", receivedContents);
                         if (syncCounter.getCount() == 2) {
-                            Assert.assertArrayEquals(GNOI_RESPONSE_FILE_FIRST_CHUNK, receivedContents.toByteArray());
+                            assertArrayEquals(GNOI_RESPONSE_FILE_FIRST_CHUNK, receivedContents.toByteArray());
                         } else if (syncCounter.getCount() == 1) {
-                            Assert.assertArrayEquals(GNOI_RESPONSE_FILE_SECOND_CHUNK, receivedContents.toByteArray());
+                            assertArrayEquals(GNOI_RESPONSE_FILE_SECOND_CHUNK, receivedContents.toByteArray());
                         }
                     }
 
                     @Override
                     public void onError(Throwable throwable) {
-                        Assert.fail("Exception thrown! " + throwable);
+                        fail("Exception thrown! " + throwable);
                     }
 
                     @Override
@@ -128,9 +132,9 @@ public class GnoiTest {
                     }
                 };
             fileInvoker.get(request, responseObserver);
-            Assert.assertTrue(syncCounter.await(TimeoutUtil.TIMEOUT_MILLIS, TimeUnit.MILLISECONDS));
+            assertTrue(syncCounter.await(TimeoutUtil.TIMEOUT_MILLIS, TimeUnit.MILLISECONDS));
         } catch (Exception e) {
-            Assert.fail("Exception thrown!" + e);
+            fail("Exception thrown!" + e);
         }
     }
 
