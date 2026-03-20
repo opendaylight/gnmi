@@ -7,6 +7,8 @@
  */
 package org.opendaylight.gnmi.southbound.mountpoint.codecs;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 import com.google.gson.Gson;
 import gnmi.Gnmi;
 import java.io.IOException;
@@ -22,7 +24,6 @@ import org.opendaylight.gnmi.southbound.schema.loader.api.YangLoadException;
 import org.opendaylight.yangtools.yang.data.api.YangInstanceIdentifier;
 import org.opendaylight.yangtools.yang.data.api.schema.NormalizedNode;
 import org.skyscreamer.jsonassert.JSONAssert;
-import org.testng.Assert;
 
 public class YangInstanceNormToGnmiUpdateCodecTest {
 
@@ -112,7 +113,7 @@ public class YangInstanceNormToGnmiUpdateCodecTest {
                         second.getJsonIetfVal().toStringUtf8(), true);
                 break;
             default:
-                Assert.fail("Unexpected value");
+                fail("Unexpected value");
         }
     }
 }

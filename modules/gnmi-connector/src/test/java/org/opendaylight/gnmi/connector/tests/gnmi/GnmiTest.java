@@ -7,6 +7,10 @@
  */
 package org.opendaylight.gnmi.connector.tests.gnmi;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import com.google.common.util.concurrent.ListenableFuture;
 import gnmi.Gnmi;
 import gnmi.gNMIGrpc;
@@ -24,9 +28,9 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.opendaylight.gnmi.connector.configuration.SessionConfiguration;
 import org.opendaylight.gnmi.connector.gnmi.session.api.GnmiSession;
 import org.opendaylight.gnmi.connector.gnmi.util.AddressUtil;
@@ -36,7 +40,6 @@ import org.opendaylight.gnmi.connector.tests.commons.TestUtils;
 import org.opendaylight.gnmi.connector.tests.commons.TimeoutUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.Assert;
 
 public class GnmiTest {
 
@@ -46,7 +49,7 @@ public class GnmiTest {
     private TestGrpcServiceImpl service;
     private Server server;
 
-    @Before
+    @BeforeEach
     public void before() throws IOException {
         service = new TestGrpcServiceImpl();
         server = ServerBuilder
@@ -57,7 +60,7 @@ public class GnmiTest {
         server.start();
     }
 
-    @After
+    @AfterEach
     public void after() {
         LOG.info("Shutting down server");
         server.shutdown();
@@ -84,12 +87,12 @@ public class GnmiTest {
 
         final Gnmi.CapabilityRequest request = Gnmi.CapabilityRequest.newBuilder().build();
         Gnmi.CapabilityResponse response = stub.capabilities(request);
-        Assert.assertEquals(gnmiVersion, response.getGNMIVersion());
+        assertEquals(gnmiVersion, response.getGNMIVersion());
 
         gnmiVersion = "version 2";
         service.gnmiVersion = "version 2";
         response = stub.capabilities(request);
-        Assert.assertEquals(gnmiVersion, response.getGNMIVersion());
+        assertEquals(gnmiVersion, response.getGNMIVersion());
 
         LOG.info("Shutting down channel");
         channel.shutdown();
@@ -107,16 +110,16 @@ public class GnmiTest {
             String gnmiVersion = "version 1";
             service.gnmiVersion = gnmiVersion;
             ListenableFuture<Gnmi.CapabilityResponse> result = session.getGnmiSession().capabilities(request);
-            Assert.assertEquals(gnmiVersion,
+            assertEquals(gnmiVersion,
                     result.get(TimeoutUtil.TIMEOUT_MILLIS, TimeUnit.MILLISECONDS).getGNMIVersion());
 
             gnmiVersion = "version 2";
             service.gnmiVersion = gnmiVersion;
             result = session.getGnmiSession().capabilities(request);
-            Assert.assertEquals(gnmiVersion,
+            assertEquals(gnmiVersion,
                     result.get(TimeoutUtil.TIMEOUT_MILLIS, TimeUnit.MILLISECONDS).getGNMIVersion());
         } catch (Exception e) {
-            Assert.fail("Exception thrown!", e);
+            fail("Exception thrown!", e);
         }
     }
 
@@ -142,8 +145,8 @@ public class GnmiTest {
         final Map<SessionConfiguration, ManagedChannel> channelCache = sessionManager.getChannelCache();
         final Map<SessionConfiguration, Integer> openSessionsCounter = sessionManager.getOpenSessionsCounter();
 
-        Assert.assertTrue(channelCache.isEmpty());
-        Assert.assertTrue(openSessionsCounter.isEmpty());
+        assertTrue(channelCache.isEmpty());
+        assertTrue(openSessionsCounter.isEmpty());
 
         // create sessions
         ArrayList<SessionProvider> sessions = new ArrayList<>(10);
@@ -154,10 +157,10 @@ public class GnmiTest {
         }
 
         // check if everything is OK in cache
-        Assert.assertEquals(channelCache.size(), 2);
-        Assert.assertEquals(openSessionsCounter.size(), 2);
-        Assert.assertEquals(openSessionsCounter.get(config), Integer.valueOf(10));
-        Assert.assertEquals(openSessionsCounter.get(config2), Integer.valueOf(10));
+        assertEquals(2, channelCache.size());
+        assertEquals(2, openSessionsCounter.size());
+        assertEquals(Integer.valueOf(10), openSessionsCounter.get(config));
+        assertEquals(Integer.valueOf(10), openSessionsCounter.get(config2));
 
         // close half of the sessions
         for (int i = sessions.size() - 1; i >= 5; i--) {
@@ -166,10 +169,10 @@ public class GnmiTest {
         }
 
         // check if everything is OK in cache
-        Assert.assertEquals(channelCache.size(), 2);
-        Assert.assertEquals(openSessionsCounter.size(), 2);
-        Assert.assertEquals(openSessionsCounter.get(config), Integer.valueOf(5));
-        Assert.assertEquals(openSessionsCounter.get(config2), Integer.valueOf(5));
+        assertEquals(2, channelCache.size());
+        assertEquals(2, openSessionsCounter.size());
+        assertEquals(Integer.valueOf(5), openSessionsCounter.get(config));
+        assertEquals(Integer.valueOf(5), openSessionsCounter.get(config2));
 
         // send capabilities request from remaining sessions
         final Gnmi.CapabilityRequest request = Gnmi.CapabilityRequest.newBuilder().build();
@@ -182,16 +185,16 @@ public class GnmiTest {
         for (SessionProvider session : sessions) {
             session.close();
         }
-        Assert.assertEquals(channelCache.size(), 1);
-        Assert.assertEquals(openSessionsCounter.size(), 1);
-        Assert.assertEquals(openSessionsCounter.get(config2), Integer.valueOf(5));
+        assertEquals(1, channelCache.size());
+        assertEquals(1, openSessionsCounter.size());
+        assertEquals(Integer.valueOf(5), openSessionsCounter.get(config2));
 
         // close sessions to second server and check cache
         for (SessionProvider session : sessions2) {
             session.close();
         }
-        Assert.assertTrue(channelCache.isEmpty());
-        Assert.assertTrue(openSessionsCounter.isEmpty());
+        assertTrue(channelCache.isEmpty());
+        assertTrue(openSessionsCounter.isEmpty());
 
         server2.shutdown();
     }
@@ -200,11 +203,11 @@ public class GnmiTest {
                                            final List<GnmiSession> sessionsToCheck) {
         sessionsToCheck.forEach(gnmiSession -> {
             try {
-                Assert.assertEquals(expectedGnmiVersion,
+                assertEquals(expectedGnmiVersion,
                         gnmiSession.capabilities(request)
                                 .get(TimeoutUtil.TIMEOUT_MILLIS, TimeUnit.MILLISECONDS).getGNMIVersion());
             } catch (InterruptedException | ExecutionException | TimeoutException e) {
-                Assert.fail("Exception thrown!", e);
+                fail("Exception thrown!", e);
             }
         });
     }

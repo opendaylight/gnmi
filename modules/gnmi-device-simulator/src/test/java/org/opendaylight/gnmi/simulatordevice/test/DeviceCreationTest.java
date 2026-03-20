@@ -7,10 +7,13 @@
  */
 package org.opendaylight.gnmi.simulatordevice.test;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.IOException;
 import java.util.Optional;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.opendaylight.gnmi.simulatordevice.config.GnmiSimulatorConfiguration;
 import org.opendaylight.gnmi.simulatordevice.impl.SimulatedGnmiDevice;
 import org.opendaylight.gnmi.simulatordevice.utils.EffectiveModelContextBuilder.EffectiveModelContextBuilderException;
@@ -39,15 +42,15 @@ public class DeviceCreationTest {
         //Case with multiple top elements
         SimulatedGnmiDevice target = new SimulatedGnmiDevice(simulatorConfigurationMultipleTopElement);
         target.start();
-        Assert.assertNotNull(target);
-        Assert.assertNotNull(target.getSchemaContext());
-        Assert.assertNotNull(target.getDataService());
-        Assert.assertNotNull(target.getGnmiService());
-        Assert.assertNotNull(target.getGnoiCertService());
-        Assert.assertNotNull(target.getGnoiFileService());
-        Assert.assertNotNull(target.getGnoiOSService());
-        Assert.assertNotNull(target.getGnoiSystemService());
-        Assert.assertNotNull(target.getGnoiSonicService());
+        assertNotNull(target);
+        assertNotNull(target.getSchemaContext());
+        assertNotNull(target.getDataService());
+        assertNotNull(target.getGnmiService());
+        assertNotNull(target.getGnoiCertService());
+        assertNotNull(target.getGnoiFileService());
+        assertNotNull(target.getGnoiOSService());
+        assertNotNull(target.getGnoiSystemService());
+        assertNotNull(target.getGnoiSonicService());
         target.stop();
 
         final GnmiSimulatorConfiguration simulatorConfigurationOneTopElement = GnmiSimulatorConfUtils
@@ -58,15 +61,15 @@ public class DeviceCreationTest {
         //Case with one top elements
         target = new SimulatedGnmiDevice(simulatorConfigurationOneTopElement);
         target.start();
-        Assert.assertNotNull(target);
-        Assert.assertNotNull(target.getSchemaContext());
-        Assert.assertNotNull(target.getDataService());
-        Assert.assertNotNull(target.getGnmiService());
-        Assert.assertNotNull(target.getGnoiCertService());
-        Assert.assertNotNull(target.getGnoiFileService());
-        Assert.assertNotNull(target.getGnoiOSService());
-        Assert.assertNotNull(target.getGnoiSystemService());
-        Assert.assertNotNull(target.getGnoiSonicService());
+        assertNotNull(target);
+        assertNotNull(target.getSchemaContext());
+        assertNotNull(target.getDataService());
+        assertNotNull(target.getGnmiService());
+        assertNotNull(target.getGnoiCertService());
+        assertNotNull(target.getGnoiFileService());
+        assertNotNull(target.getGnoiOSService());
+        assertNotNull(target.getGnoiSystemService());
+        assertNotNull(target.getGnoiSonicService());
         target.stop();
     }
 
@@ -79,15 +82,15 @@ public class DeviceCreationTest {
 
         final SimulatedGnmiDevice target = new SimulatedGnmiDevice(simulatorConfiguration);
         target.start();
-        Assert.assertNotNull(target);
-        Assert.assertNotNull(target.getSchemaContext());
-        Assert.assertNotNull(target.getDataService());
-        Assert.assertNotNull(target.getGnmiService());
-        Assert.assertNotNull(target.getGnoiCertService());
-        Assert.assertNotNull(target.getGnoiFileService());
-        Assert.assertNotNull(target.getGnoiOSService());
-        Assert.assertNotNull(target.getGnoiSystemService());
-        Assert.assertNotNull(target.getGnoiSonicService());
+        assertNotNull(target);
+        assertNotNull(target.getSchemaContext());
+        assertNotNull(target.getDataService());
+        assertNotNull(target.getGnmiService());
+        assertNotNull(target.getGnoiCertService());
+        assertNotNull(target.getGnoiFileService());
+        assertNotNull(target.getGnoiOSService());
+        assertNotNull(target.getGnoiSystemService());
+        assertNotNull(target.getGnoiSonicService());
         target.stop();
     }
 
@@ -102,15 +105,15 @@ public class DeviceCreationTest {
 
         final SimulatedGnmiDevice target = new SimulatedGnmiDevice(simulatorConfiguration);
         target.start();
-        Assert.assertNotNull(target);
-        Assert.assertNotNull(target.getSchemaContext());
-        Assert.assertNotNull(target.getDataService());
-        Assert.assertNotNull(target.getGnmiService());
-        Assert.assertNotNull(target.getGnoiCertService());
-        Assert.assertNotNull(target.getGnoiFileService());
-        Assert.assertNotNull(target.getGnoiOSService());
-        Assert.assertNotNull(target.getGnoiSystemService());
-        Assert.assertNotNull(target.getGnoiSonicService());
+        assertNotNull(target);
+        assertNotNull(target.getSchemaContext());
+        assertNotNull(target.getDataService());
+        assertNotNull(target.getGnmiService());
+        assertNotNull(target.getGnoiCertService());
+        assertNotNull(target.getGnoiFileService());
+        assertNotNull(target.getGnoiOSService());
+        assertNotNull(target.getGnoiSystemService());
+        assertNotNull(target.getGnoiSonicService());
         target.stop();
     }
 
@@ -134,7 +137,7 @@ public class DeviceCreationTest {
                                         QName.create("http://openconfig.net/yang/interfaces",
                                                 "2021-04-06", "openconfig-interfaces"),
                                         "interfaces")));
-        Assert.assertTrue(optNormalizedNode.isPresent());
+        assertTrue(optNormalizedNode.isPresent());
 
         optNormalizedNode = target.getDataService()
                 .readDataByPath(DatastoreType.CONFIGURATION,
@@ -143,7 +146,7 @@ public class DeviceCreationTest {
                                         QName.create("http://openconfig.net/yang/platform",
                                                 "2021-01-18", "openconfig-platform"),
                                         "components")));
-        Assert.assertTrue(optNormalizedNode.isPresent());
+        assertTrue(optNormalizedNode.isPresent());
 
         optNormalizedNode = target.getDataService()
                 .readDataByPath(DatastoreType.STATE, YangInstanceIdentifier.of(
@@ -151,7 +154,7 @@ public class DeviceCreationTest {
                                 QName.create("http://openconfig.net/yang/interfaces",
                                         "2021-04-06", "openconfig-interfaces"),
                                 "interfaces")));
-        Assert.assertTrue(optNormalizedNode.isPresent());
+        assertTrue(optNormalizedNode.isPresent());
 
         optNormalizedNode = target.getDataService()
                 .readDataByPath(DatastoreType.STATE, YangInstanceIdentifier.of(
@@ -159,7 +162,7 @@ public class DeviceCreationTest {
                                 QName.create("http://openconfig.net/yang/system",
                                         "2020-04-13", "openconfig-system"),
                                 "system")));
-        Assert.assertTrue(optNormalizedNode.isPresent());
+        assertTrue(optNormalizedNode.isPresent());
         target.stop();
     }
 
@@ -182,7 +185,7 @@ public class DeviceCreationTest {
                                         QName.create("http://openconfig.net/yang/interfaces",
                                                 "2021-04-06", "openconfig-interfaces"),
                                         "interfaces")));
-        Assert.assertTrue(optNormalizedNode.isPresent());
+        assertTrue(optNormalizedNode.isPresent());
 
         optNormalizedNode = target.getDataService()
                 .readDataByPath(DatastoreType.CONFIGURATION,
@@ -191,7 +194,7 @@ public class DeviceCreationTest {
                                         QName.create("http://openconfig.net/yang/platform",
                                                 "2019-04-16", "openconfig-platform"),
                                         "components")));
-        Assert.assertFalse(optNormalizedNode.isPresent());
+        assertFalse(optNormalizedNode.isPresent());
 
         optNormalizedNode = target.getDataService()
                 .readDataByPath(DatastoreType.STATE, YangInstanceIdentifier.of(
@@ -199,7 +202,7 @@ public class DeviceCreationTest {
                                 QName.create("http://openconfig.net/yang/interfaces",
                                         "2021-04-06", "openconfig-interfaces"),
                                 "interfaces")));
-        Assert.assertTrue(optNormalizedNode.isPresent());
+        assertTrue(optNormalizedNode.isPresent());
 
         optNormalizedNode = target.getDataService()
                 .readDataByPath(DatastoreType.STATE, YangInstanceIdentifier.of(
@@ -207,7 +210,7 @@ public class DeviceCreationTest {
                                 QName.create("http://openconfig.net/yang/system",
                                         "2020-04-13", "openconfig-system"),
                                 "system")));
-        Assert.assertFalse(optNormalizedNode.isPresent());
+        assertFalse(optNormalizedNode.isPresent());
         target.stop();
     }
 
@@ -230,7 +233,7 @@ public class DeviceCreationTest {
                                         QName.create("http://openconfig.net/yang/interfaces",
                                                 "2021-04-06", "openconfig-interfaces"),
                                         "interfaces")));
-        Assert.assertTrue(optNormalizedNode.isPresent());
+        assertTrue(optNormalizedNode.isPresent());
         target.stop();
     }
 
@@ -254,7 +257,7 @@ public class DeviceCreationTest {
                                         QName.create("http://openconfig.net/yang/interfaces",
                                                 "2021-04-06", "openconfig-interfaces"),
                                         "interfaces")));
-        Assert.assertTrue(optNormalizedNode.isPresent());
+        assertTrue(optNormalizedNode.isPresent());
         target.stop();
     }
 }
