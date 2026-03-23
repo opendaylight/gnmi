@@ -14,6 +14,7 @@ import static org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.URISyntaxException;
 import java.net.http.HttpResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,7 +40,7 @@ public class GnmiUploadModelsITTest extends GnmiITBase {
     private static final String TEST_YANG_SEMVER = "1.2.3";
     private static final String REUPLOAD_YANG_NAME = "gnmi-test-model";
     private static final String REUPLOAD_YANG_SEMVER = "1.0.0";
-    private static final String RESOURCES_PATH = "src/test/resources/";
+    private static final String RESOURCES_PATH = "/";
     private static final String RESTCONF_OPERATIONS_PATH = "http://localhost:%d/rests/operations"
         .formatted(CONTROLLER_PORT);
     private static final String YANG_MODEL_RPC = RESTCONF_DATA_PATH + GNMI_YANG_STORAGE_MODELS + "/gnmi-yang-model=";
@@ -49,7 +50,7 @@ public class GnmiUploadModelsITTest extends GnmiITBase {
     private static SimulatedGnmiDevice device;
 
     @BeforeAll
-    public static void setupDevice() {
+    public static void setupDevice() throws URISyntaxException, IOException {
         device = getUnsecureGnmiDevice(DEVICE_IP, DEVICE_PORT);
         try {
             device.start();

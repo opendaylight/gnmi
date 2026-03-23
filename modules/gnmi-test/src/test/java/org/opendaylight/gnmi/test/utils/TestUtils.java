@@ -13,7 +13,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
 import java.security.KeyPair;
 import java.security.cert.CertificateException;
 import org.apache.commons.io.IOUtils;
@@ -66,6 +65,6 @@ public final class TestUtils {
     }
 
     public static String readFile(final String filePath) throws IOException {
-        return IOUtils.toString(Path.of(filePath).toUri(), StandardCharsets.UTF_8);
+        return IOUtils.resourceToString(filePath, StandardCharsets.UTF_8);
     }
 }
