@@ -7,6 +7,8 @@
  */
 package org.opendaylight.gnmi.simulatordevice.impl;
 
+import static org.opendaylight.gnmi.simulatordevice.utils.FileUtils.getResourceAsStream;
+
 import com.google.gson.Gson;
 import gnmi.Gnmi;
 import io.grpc.Server;
@@ -19,7 +21,6 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.util.internal.StringUtil;
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.nio.file.Path;
 import java.util.EnumSet;
 import java.util.Objects;
 import java.util.Set;
@@ -33,7 +34,6 @@ import org.opendaylight.gnmi.simulatordevice.gnoi.GnoiSonicService;
 import org.opendaylight.gnmi.simulatordevice.gnoi.GnoiSystemService;
 import org.opendaylight.gnmi.simulatordevice.utils.EffectiveModelContextBuilder;
 import org.opendaylight.gnmi.simulatordevice.utils.EffectiveModelContextBuilder.EffectiveModelContextBuilderException;
-import org.opendaylight.gnmi.simulatordevice.utils.FileUtils;
 import org.opendaylight.gnmi.simulatordevice.utils.UsernamePasswordAuth;
 import org.opendaylight.gnmi.simulatordevice.yang.YangDataService;
 import org.opendaylight.yangtools.binding.meta.YangModuleInfo;
@@ -46,8 +46,8 @@ public class SimulatedGnmiDevice {
 
     private static final Logger LOG = LoggerFactory.getLogger(SimulatedGnmiDevice.class);
 
-    private static final String DEFAULT_SERVER_CRT_FILE_PATH = "certs/server.crt";
-    private static final String DEFAULT_SERVER_KEY_FILE_PATH = "certs/server-pkcs8.key";
+    private static final String DEFAULT_SERVER_CRT_FILE_PATH = "/certs/server.crt";
+    private static final String DEFAULT_SERVER_KEY_FILE_PATH = "/certs/server-pkcs8.key";
 
     private final EventLoopGroup bossGroup;
     private final EventLoopGroup workerGroup;
@@ -113,12 +113,13 @@ public class SimulatedGnmiDevice {
             if (StringUtil.isNullOrEmpty(certificatePath) || StringUtil.isNullOrEmpty(keyPath)) {
                 // Use default certificates for insecure mode
                 serverBuilder.useTransportSecurity(
-                        FileUtils.getResourceAsStream(DEFAULT_SERVER_CRT_FILE_PATH),
-                        FileUtils.getResourceAsStream(DEFAULT_SERVER_KEY_FILE_PATH)
+                        getResourceAsStream(DEFAULT_SERVER_CRT_FILE_PATH),
+                        getResourceAsStream(DEFAULT_SERVER_KEY_FILE_PATH)
                 );
                 LOG.info("Combination of server certificate and key not provided, using default ones.");
             } else {
-                serverBuilder.useTransportSecurity(Path.of(certificatePath).toFile(), Path.of(keyPath).toFile());
+                serverBuilder.useTransportSecurity(getResourceAsStream(certificatePath),
+                        getResourceAsStream(keyPath));
             }
         }
 
