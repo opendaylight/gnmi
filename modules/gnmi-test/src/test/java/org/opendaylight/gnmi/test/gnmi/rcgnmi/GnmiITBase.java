@@ -7,6 +7,7 @@
  */
 package org.opendaylight.gnmi.test.gnmi.rcgnmi;
 
+import static org.opendaylight.gnmi.simulatordevice.utils.FileUtils.getResourceAsStream;
 import static org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.GNMI_NODE_ID;
 import static org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.GNMI_NODE_STATUS;
 import static org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.GNMI_NODE_STATUS_READY;
@@ -21,6 +22,7 @@ import java.net.HttpURLConnection;
 import java.net.PasswordAuthentication;
 import java.net.ServerSocket;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublishers;
@@ -115,8 +117,8 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
     protected static final Duration POLL_INTERVAL_DURATION = Duration.ofMillis(2_000L);
     protected static final Duration WAIT_TIME_DURATION = Duration.ofMillis(30_000L);
 
-    protected static final String INITIAL_JSON_DATA_PATH = "src/test/resources/json/initData";
-    private static final String TEST_SCHEMA_PATH = "src/test/resources/additional/models";
+    protected static final String INITIAL_JSON_DATA_PATH = "/json/initData";
+    private static final String TEST_SCHEMA_PATH = "/additional/models";
     private static final String SIMULATOR_CONFIG = "/json/simulator_config.json";
 
     protected ExecutorService httpClientExecutor;
@@ -287,9 +289,10 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
         LOG.info("Cleanup done!");
     }
 
-    protected static SimulatedGnmiDevice getUnsecureGnmiDevice(final String host, final int port) {
+    protected static SimulatedGnmiDevice getUnsecureGnmiDevice(final String host, final int port)
+            throws URISyntaxException, IOException {
         final GnmiSimulatorConfiguration simulatorConfiguration = GnmiSimulatorConfUtils
-                .loadGnmiSimulatorConfiguration(GnmiITBase.class.getResourceAsStream(SIMULATOR_CONFIG));
+                .loadGnmiSimulatorConfiguration(getResourceAsStream(SIMULATOR_CONFIG));
         simulatorConfiguration.setTargetAddress(host);
         simulatorConfiguration.setTargetPort(port);
         simulatorConfiguration.setYangsPath(TEST_SCHEMA_PATH);
@@ -300,13 +303,14 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
     }
 
     protected static SimulatedGnmiDevice getUnsecureGnmiDevice(final String host, final int port,
-                                                              final String username, final String password) {
+                                                              final String username, final String password)
+            throws URISyntaxException, IOException {
         final GnmiSimulatorConfiguration simulatorConfiguration = GnmiSimulatorConfUtils
-                .loadGnmiSimulatorConfiguration(GnmiITBase.class.getResourceAsStream(SIMULATOR_CONFIG));
+                .loadGnmiSimulatorConfiguration(getResourceAsStream(SIMULATOR_CONFIG));
         simulatorConfiguration.setTargetAddress(host);
         simulatorConfiguration.setTargetPort(port);
         simulatorConfiguration.setYangsPath(TEST_SCHEMA_PATH);
-        simulatorConfiguration.setInitialConfigDataPath(INITIAL_JSON_DATA_PATH + "/config.json");
+        simulatorConfiguration.setInitialConfigDataPath((INITIAL_JSON_DATA_PATH + "/config.json"));
         simulatorConfiguration.setInitialStateDataPath(INITIAL_JSON_DATA_PATH + "/state.json");
         simulatorConfiguration.setUsername(username);
         simulatorConfiguration.setPassword(password);
@@ -314,9 +318,10 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
         return new SimulatedGnmiDevice(simulatorConfiguration);
     }
 
-    protected static SimulatedGnmiDevice getNonCompliableEncodingDevice(final String host, final int port) {
+    protected static SimulatedGnmiDevice getNonCompliableEncodingDevice(final String host, final int port) throws
+            URISyntaxException, IOException {
         final GnmiSimulatorConfiguration simulatorConfiguration = GnmiSimulatorConfUtils
-                .loadGnmiSimulatorConfiguration(GnmiITBase.class.getResourceAsStream(SIMULATOR_CONFIG));
+                .loadGnmiSimulatorConfiguration(getResourceAsStream(SIMULATOR_CONFIG));
         simulatorConfiguration.setTargetAddress(host);
         simulatorConfiguration.setTargetPort(port);
         simulatorConfiguration.setYangsPath(TEST_SCHEMA_PATH);
@@ -329,9 +334,10 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
 
     protected static SimulatedGnmiDevice getSecureGnmiDevice(final String host, final int port,
                                                              final String keyPath, final String certPath,
-                                                             final String username, final String password) {
+                                                             final String username, final String password)
+            throws URISyntaxException, IOException {
         final GnmiSimulatorConfiguration simulatorConfiguration = GnmiSimulatorConfUtils
-                .loadGnmiSimulatorConfiguration(GnmiITBase.class.getResourceAsStream(SIMULATOR_CONFIG));
+                .loadGnmiSimulatorConfiguration(getResourceAsStream(SIMULATOR_CONFIG));
         simulatorConfiguration.setTargetAddress(host);
         simulatorConfiguration.setTargetPort(port);
         simulatorConfiguration.setYangsPath(TEST_SCHEMA_PATH);
