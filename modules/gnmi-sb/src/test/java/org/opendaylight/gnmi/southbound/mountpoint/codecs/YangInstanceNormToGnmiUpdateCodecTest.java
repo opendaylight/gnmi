@@ -10,6 +10,7 @@ package org.opendaylight.gnmi.southbound.mountpoint.codecs;
 import com.google.gson.Gson;
 import gnmi.Gnmi;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Map;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.logging.log4j.core.config.ConfigurationException;
@@ -30,7 +31,8 @@ public class YangInstanceNormToGnmiUpdateCodecTest {
     private static YangInstanceNormToGnmiUpdateCodec codec;
 
     @BeforeAll
-    public static void init() throws IOException, YangLoadException, SchemaException, ConfigurationException {
+    public static void init() throws IOException, YangLoadException, SchemaException, ConfigurationException,
+            URISyntaxException {
         testCases = new YangInstanceNormToGnmiUpdateTestCases();
         codec = new YangInstanceNormToGnmiUpdateCodec(
                 testCases.getSchemaContextProvider(),

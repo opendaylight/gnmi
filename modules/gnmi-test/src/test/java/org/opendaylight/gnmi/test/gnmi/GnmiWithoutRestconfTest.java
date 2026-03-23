@@ -12,10 +12,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.opendaylight.gnmi.simulatordevice.utils.FileUtils.getResourceAsStream;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.time.Duration;
@@ -101,10 +102,10 @@ import org.opendaylight.yangtools.yang.parser.impl.DefaultYangParserFactory;
 import org.opendaylight.yangtools.yang.xpath.impl.AntlrXPathParserFactory;
 
 public class GnmiWithoutRestconfTest extends AbstractDataBrokerTest {
-    private static final String INITIAL_JSON_DATA_PATH = "src/test/resources/json/initData";
-    private static final String TEST_SCHEMA_PATH = "src/test/resources/additional/models";
+    private static final String INITIAL_JSON_DATA_PATH = "/json/initData";
+    private static final String TEST_SCHEMA_PATH = "/additional/models";
     private static final String SIMULATOR_CONFIG = "/json/simulator_config.json";
-    private static final Path CONFIGURATION_PATH = Path.of("src/test/resources/json/app_init_config.json");
+    private static final String CONFIGURATION_PATH = "/json/app_init_config.json";
     private static final Duration POLL_INTERVAL_DURATION = Duration.ofMillis(1_000L);
     private static final Duration WAIT_TIME_DURATION = Duration.ofMillis(10_000L);
     public static final long TIMEOUT_MILLIS = 30_000;
@@ -170,7 +171,7 @@ public class GnmiWithoutRestconfTest extends AbstractDataBrokerTest {
         final var adapterContext = new ConstantAdapterContext(new DefaultBindingDOMCodecServices(getRuntimeContext()));
         final var rpcProviderService = new BindingDOMRpcProviderServiceAdapter(adapterContext,
             new RouterDOMRpcProviderService(domRpcRouter));
-        final var configTree = mapper.readTree(Files.newInputStream(CONFIGURATION_PATH)).path("gnmi");
+        final var configTree = mapper.readTree(getResourceAsStream(CONFIGURATION_PATH)).path("gnmi");
         final var config = mapper.treeToValue(configTree, GnmiConfiguration.class);
         gnmiSouthboundModule = new GnmiSouthboundModule(odlDataBroker, rpcProviderService, odlDomMountPointService,
             createEncryptionService(), new DefaultYangParserFactory(),
@@ -549,9 +550,10 @@ public class GnmiWithoutRestconfTest extends AbstractDataBrokerTest {
                 .setAuthTagLength(128).setCipherTransforms("AES/GCM/NoPadding").build();
     }
 
-    private static SimulatedGnmiDevice getUnsecureGnmiDevice(final String host, final int port) {
+    private static SimulatedGnmiDevice getUnsecureGnmiDevice(final String host, final int port)
+            throws IOException, URISyntaxException {
         final GnmiSimulatorConfiguration simulatorConfiguration = GnmiSimulatorConfUtils
-                .loadGnmiSimulatorConfiguration(GnmiWithoutRestconfTest.class.getResourceAsStream(SIMULATOR_CONFIG));
+                .loadGnmiSimulatorConfiguration(getResourceAsStream(SIMULATOR_CONFIG));
         simulatorConfiguration.setTargetAddress(host);
         simulatorConfiguration.setTargetPort(port);
         simulatorConfiguration.setYangsPath(TEST_SCHEMA_PATH);

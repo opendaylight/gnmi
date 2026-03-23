@@ -10,6 +10,7 @@ package org.opendaylight.gnmi.southbound.mountpoint.codecs;
 import com.google.gson.Gson;
 import gnmi.Gnmi;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Map;
 import java.util.Optional;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -29,7 +30,8 @@ public class GetResponseToNormalizedNodeCodecTest {
     private static GetResponseToNormalizedNodeCodec codec;
 
     @BeforeAll
-    public static void init() throws YangLoadException, IOException, SchemaException, ConfigurationException {
+    public static void init() throws YangLoadException, IOException, SchemaException, ConfigurationException,
+            URISyntaxException {
         testCases = new GetResponseToNormalizedNodeTestCases();
         final Gson gson = new Gson();
         codec = new GetResponseToNormalizedNodeCodec(testCases.getSchemaContextProvider(), gson);

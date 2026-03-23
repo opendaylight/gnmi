@@ -7,6 +7,8 @@
  */
 package org.opendaylight.gnmi.southbound.mountpoint.codecs.testcases;
 
+import static org.opendaylight.gnmi.southbound.resources.ResourceLoader.toResourcePath;
+
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -16,6 +18,7 @@ import com.google.gson.JsonParser;
 import com.google.protobuf.ByteString;
 import gnmi.Gnmi;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
@@ -29,15 +32,15 @@ import org.opendaylight.yangtools.yang.data.api.schema.NormalizedNode;
 public class GetResponseToNormalizedNodeTestCases extends CodecTestCasesBase {
 
     private static final Path BASE_JSON_PATH = Path.of(
-            "src/test/resources/codecs/jsons/reference_data.json");
+            "/codecs/jsons/reference_data.json");
     private static final Gson GSON = new Gson();
 
     private final String baseJson;
 
     public GetResponseToNormalizedNodeTestCases()
-            throws IOException, YangLoadException, SchemaException, ConfigurationException {
+            throws IOException, YangLoadException, SchemaException, ConfigurationException, URISyntaxException {
         super();
-        this.baseJson = Files.readString(BASE_JSON_PATH);
+        this.baseJson = Files.readString(toResourcePath(BASE_JSON_PATH));
     }
 
     /**
