@@ -99,7 +99,7 @@ public class GnmiSetITTest extends GnmiITBase {
     private static SimulatedGnmiDevice device;
 
     @BeforeAll
-    public static void setupDevice() {
+    public static void setupDevice() throws URISyntaxException, IOException {
         device = getUnsecureGnmiDevice(DEVICE_IP, DEVICE_PORT);
         try {
             device.start();

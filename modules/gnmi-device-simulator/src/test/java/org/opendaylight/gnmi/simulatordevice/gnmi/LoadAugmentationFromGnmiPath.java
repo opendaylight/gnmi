@@ -38,7 +38,7 @@ import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
 public class LoadAugmentationFromGnmiPath {
 
     private static final String SIMULATOR_CONFIG = "/initData/simulator_config.json";
-    private static final String INIT_DATA_PATH = "src/test/resources/initData";
+    private static final String INIT_DATA_PATH = "/initData";
 
     BindingCodecContext codecContext;
     EffectiveModelContext schemaContext;
