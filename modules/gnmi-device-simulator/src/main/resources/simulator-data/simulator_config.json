@@ -2,11 +2,11 @@
   "gnmi_simulator": {
     "targetAddress": "127.0.0.1",
     "targetPort": 10161,
-    "certPath": "src/main/resources/certs/server.crt",
-    "certKeyPath": "src/main/resources/certs/server-pkcs8.key",
-    "initialConfigDataPath": "src/main/resources/simulator-data/initialConfigJsonData.json",
-    "initialStateDataPath": "src/main/resources/simulator-data/initialStateJsonData.json",
-    "yangsPath": "../../models/openconfig-models/src/main/yang",
+    "certPath": "/certs/server.crt",
+    "certKeyPath": "/certs/server-pkcs8.key",
+    "initialConfigDataPath": "/simulator-data/initialConfigJsonData.json",
+    "initialStateDataPath": "/simulator-data/initialStateJsonData.json",
+    "yangsPath": "/yangs",
     "username": "admin",
     "password": "admin",
     "schemaServiceConfig": {

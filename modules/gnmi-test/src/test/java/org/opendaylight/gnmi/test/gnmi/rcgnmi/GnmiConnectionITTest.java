@@ -21,6 +21,7 @@ import static org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.URISyntaxException;
 import java.net.http.HttpResponse;
 import org.awaitility.Awaitility;
 import org.json.JSONArray;
@@ -79,7 +80,7 @@ class GnmiConnectionITTest extends GnmiITBase {
     private static SimulatedGnmiDevice deviceWithMissingEncoding;
 
     @BeforeAll
-    static void setupDevice() {
+    static void setupDevice() throws URISyntaxException, IOException {
         device = getUnsecureGnmiDevice(DEVICE_IP, DEVICE_PORT);
         deviceWithCredentials = getUnsecureGnmiDevice(DEVICE_IP, DEVICE_WITH_CREDENTIALS_PORT,
                                                       DEVICE_USERNAME, DEVICE_PASSWORD);
