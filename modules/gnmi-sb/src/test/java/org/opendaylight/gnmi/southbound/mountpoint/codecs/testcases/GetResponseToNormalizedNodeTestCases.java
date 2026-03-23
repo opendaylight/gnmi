@@ -29,7 +29,7 @@ import org.opendaylight.yangtools.yang.data.api.schema.NormalizedNode;
 public class GetResponseToNormalizedNodeTestCases extends CodecTestCasesBase {
 
     private static final Path BASE_JSON_PATH = Path.of(
-            "src/test/resources/codecs/jsons/reference_data.json");
+            "/codecs/jsons/reference_data.json");
     private static final Gson GSON = new Gson();
 
     private final String baseJson;

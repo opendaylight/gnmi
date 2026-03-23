@@ -7,9 +7,12 @@
  */
 package org.opendaylight.gnmi.simulatordevice.utils;
 
+import static org.opendaylight.gnmi.simulatordevice.utils.FileUtils.toResourcePath;
+
 import com.google.common.io.CharSource;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -102,7 +105,7 @@ public class EffectiveModelContextBuilder {
     private static List<YangStatementStreamSource> getYangStatementsFromYangModulesPath(final String path)
             throws EffectiveModelContextBuilderException {
         final ArrayList<YangStatementStreamSource> sourceArrayList = new ArrayList<>();
-        try (Stream<Path> pathStream = Files.walk(Path.of(path))) {
+        try (Stream<Path> pathStream = Files.walk(Path.of(toResourcePath(path)))) {
             final List<File> filesInFolder = pathStream
                     .filter(Files::isRegularFile)
                     .map(Path::toFile)
@@ -118,9 +121,9 @@ public class EffectiveModelContextBuilder {
                 sourceArrayList.add(statementSource);
             }
             return sourceArrayList;
-        } catch (IOException | YangParserException e) {
+        } catch (IOException | YangParserException | URISyntaxException e) {
             final String errorMsg = String.format("Failed to create YangStatementStreamSource from"
-                    + "provided path: [%s]", path);
+                    + "provided path: [%s]: %s", path, e.getMessage());
             throw new EffectiveModelContextBuilderException(errorMsg, e);
         }
     }

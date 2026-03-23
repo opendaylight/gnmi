@@ -44,8 +44,8 @@ import org.opendaylight.yangtools.yang.xpath.impl.AntlrXPathParserFactory;
 
 public class SchemaConstructTest {
 
-    private static final String SCHEMA_PATH = "src/test/resources/additional/test/schema";
-    private static final String SYNTAX_ERROR_YANGS_PATH = "src/test/resources/syntax_error_yangs";
+    private static final String SCHEMA_PATH = "/additional/test/schema";
+    private static final String SYNTAX_ERROR_YANGS_PATH = "/syntax_error_yangs";
     private static final List<String> MODELS_TO_MISS = Arrays.asList("openconfig-alarms",
         "openconfig-platform");
     private static final List<String> CAPABILITIES_TO_MISS = Arrays.asList("openconfig-alarm-types",
