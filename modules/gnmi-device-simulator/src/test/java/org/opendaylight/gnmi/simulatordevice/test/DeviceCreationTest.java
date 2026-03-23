@@ -22,7 +22,7 @@ import org.opendaylight.yangtools.yang.data.api.schema.NormalizedNode;
 
 public class DeviceCreationTest {
 
-    private static final String INIT_DATA_PATH = "src/test/resources/initData";
+    private static final String INIT_DATA_PATH = "/initData";
     private static final String SIMULATOR_CONFIG = "/initData/simulator_config.json";
     public static final String USERNAME_TEST = "Test";
     public static final String PASSWORD_TEST = "Test";

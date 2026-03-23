@@ -7,8 +7,11 @@
  */
 package org.opendaylight.gnmi.southbound.schema;
 
+import static org.opendaylight.gnmi.southbound.resources.ResourceLoader.toResourcePath;
+
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -44,8 +47,8 @@ import org.opendaylight.yangtools.yang.xpath.impl.AntlrXPathParserFactory;
 
 public class SchemaConstructTest {
 
-    private static final String SCHEMA_PATH = "src/test/resources/additional/test/schema";
-    private static final String SYNTAX_ERROR_YANGS_PATH = "src/test/resources/syntax_error_yangs";
+    private static final String SCHEMA_PATH = "/additional/test/schema";
+    private static final String SYNTAX_ERROR_YANGS_PATH = "/syntax_error_yangs";
     private static final List<String> MODELS_TO_MISS = Arrays.asList("openconfig-alarms",
         "openconfig-platform");
     private static final List<String> CAPABILITIES_TO_MISS = Arrays.asList("openconfig-alarm-types",
@@ -204,9 +207,9 @@ public class SchemaConstructTest {
      */
     @Test
     public void schemaConstructWrongSyntaxTest()
-            throws IOException, InterruptedException, ExecutionException, TimeoutException {
+            throws IOException, InterruptedException, ExecutionException, TimeoutException, URISyntaxException {
         // Delete models with correct syntax and add them back with wrong syntax
-        final List<File> filesInFolder = Files.walk(Path.of(SYNTAX_ERROR_YANGS_PATH))
+        final List<File> filesInFolder = Files.walk(Path.of(toResourcePath(SYNTAX_ERROR_YANGS_PATH)))
                 .filter(Files::isRegularFile)
                 .map(Path::toFile)
                 .collect(Collectors.toList());
@@ -241,9 +244,9 @@ public class SchemaConstructTest {
      */
     @Test
     public void schemaConstructWrongSyntaxAndMissingModelsTest()
-            throws IOException, InterruptedException, ExecutionException, TimeoutException {
+            throws IOException, InterruptedException, ExecutionException, TimeoutException, URISyntaxException {
         // Delete models with correct syntax and add them back with wrong syntax
-        final List<File> filesInFolder = Files.walk(Path.of(SYNTAX_ERROR_YANGS_PATH))
+        final List<File> filesInFolder = Files.walk(Path.of(toResourcePath(SYNTAX_ERROR_YANGS_PATH)))
                 .filter(Files::isRegularFile)
                 .map(Path::toFile)
                 .collect(Collectors.toList());

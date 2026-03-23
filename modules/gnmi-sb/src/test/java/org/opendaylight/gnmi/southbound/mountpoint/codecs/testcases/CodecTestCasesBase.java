@@ -31,7 +31,7 @@ import org.opendaylight.yangtools.yang.model.api.SchemaContext;
  * Contains various YangInstanceIdentifier and NormalizeNode pairs uses for testing codecs.
  */
 public class CodecTestCasesBase {
-    private static final String BASE_YANGS_PATH = "src/test/resources/additional/test/schema";
+    private static final String BASE_YANGS_PATH = "/additional/test/schema";
     private static final String OC_IF_TYPES_ID = "openconfig-if-types";
     private static final String OC_VLAN_ID = "openconfig-vlan";
     private static final String OC_PLATFORM_ID = "openconfig-platform";
