@@ -12,14 +12,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.EnumMap;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import org.apache.commons.lang3.StringUtils;
 import org.opendaylight.gnmi.commons.util.DataConverter;
+import org.opendaylight.gnmi.simulatordevice.utils.FileUtils;
 import org.opendaylight.mdsal.common.api.LogicalDatastoreType;
 import org.opendaylight.mdsal.dom.api.DOMDataTreeChangeListener;
 import org.opendaylight.mdsal.dom.spi.store.DOMStoreReadTransaction;
@@ -102,11 +101,11 @@ public class YangDataService {
             throws IOException {
         // Init config data
         if (StringUtils.isNotEmpty(initialConfigDataPath)) {
-            final InputStream configFile = Files.newInputStream(Path.of(initialConfigDataPath));
+            final InputStream configFile = FileUtils.getResourceAsStream(initialConfigDataPath);
             initDataTree(configFile, DatastoreType.CONFIGURATION, schemaContext);
         }
         if (StringUtils.isNotEmpty(initialStateDataPath)) {
-            final InputStream configFile = Files.newInputStream(Path.of(initialStateDataPath));
+            final InputStream configFile = FileUtils.getResourceAsStream(initialStateDataPath);
             initDataTree(configFile, DatastoreType.STATE, schemaContext);
         }
     }

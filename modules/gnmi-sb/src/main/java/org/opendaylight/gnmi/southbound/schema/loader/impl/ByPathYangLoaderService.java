@@ -12,10 +12,12 @@ import static java.util.Objects.requireNonNull;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -56,7 +58,7 @@ public class ByPathYangLoaderService implements YangLoaderService {
 
     @Override
     public List<GnmiDeviceCapability> load(final YangDataStoreService storeService) throws YangLoadException {
-        try (Stream<Path> pathStream = Files.walk(yangsPath)) {
+        try (Stream<Path> pathStream = Files.walk(toResourcePath(yangsPath))) {
             final List<GnmiDeviceCapability> loadedModels = new ArrayList<>();
             final List<Path> paths = pathStream
                 .filter(Files::isRegularFile)
@@ -85,11 +87,24 @@ public class ByPathYangLoaderService implements YangLoaderService {
                 }
             }
             return loadedModels;
-        } catch (IOException | YangParserException | ExecutionException | TimeoutException | SourceSyntaxException e) {
+        } catch (IOException | YangParserException | ExecutionException | TimeoutException | SourceSyntaxException
+                 | URISyntaxException e) {
             throw new YangLoadException("Loading yang files failed!", e);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new YangLoadException("Interrupted while loading yang files!", e);
         }
+    }
+
+    public static Path toResourcePath(Path input) throws URISyntaxException {
+        if (input.isAbsolute() && Files.exists(input)) {
+            return input;
+        }
+
+        var url = Objects.requireNonNull(
+                ByPathYangLoaderService.class.getResource(input.toString()),
+                "Missing resource: " + input
+        );
+        return Path.of(url.toURI());
     }
 }

@@ -1,7 +1,7 @@
 {
   "gnmi": {
     "initialYangsPaths" : [
-      "src/test/resources/additional/models"
+      "/additional/models"
     ],
     "initialYangModels": [
       {"name":"openconfig-aaa","revision":"2020-07-30","nameSpace":"http://openconfig.net/yang/aaa"},
