@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a42ed44a_dec439aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-03-25T12:27:54Z",
+      "side": 1,
+      "message": "too long header",
+      "revId": "80f52dfd189e44db07924f0168a6b05000c473f6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f518192f_7be8f62a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-03-25T12:27:54Z",
+      "side": 1,
+      "message": "Instead, we are migrating to netty 4.2",
+      "revId": "80f52dfd189e44db07924f0168a6b05000c473f6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
