@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6380a7d9_a53ef3b9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-03-25T16:05:17Z",
+      "side": 1,
+      "message": "depends on https://git.opendaylight.org/gerrit/q/230d1f5cb78a750819f7c729362534a81fef4e65 which does not exist?",
+      "revId": "d7d8281d8605e7be2903b59d605ef14273299e72",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
