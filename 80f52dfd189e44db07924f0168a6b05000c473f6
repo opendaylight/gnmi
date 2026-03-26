@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce922546_4e023f2f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-03-26T11:35:43Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "a42ed44a_dec439aa",
+      "revId": "80f52dfd189e44db07924f0168a6b05000c473f6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f518192f_7be8f62a",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-03-25T12:27:54Z",
       "side": 1,
       "message": "Instead, we are migrating to netty 4.2",
+      "revId": "80f52dfd189e44db07924f0168a6b05000c473f6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f7c77d7_14f3cda8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-03-26T11:35:43Z",
+      "side": 1,
+      "message": "yes, its done in:\nhttps://git.opendaylight.org/gerrit/c/gnmi/+/121321/12\nShould i squash the changes?",
+      "parentUuid": "f518192f_7be8f62a",
       "revId": "80f52dfd189e44db07924f0168a6b05000c473f6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
