@@ -16,6 +16,24 @@
       "message": "In vanadium SR 0 we are aligned with 1.0.2.",
       "revId": "80149e8c440318f6dfecf9fa3aca0e6c7f7deafc",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14812822_45c2f441",
+        "filename": "features/odl-gnmi-all/pom.xml",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-03-26T11:03:30Z",
+      "side": 1,
+      "message": "Changed back to 1.0.2",
+      "parentUuid": "1ca96e16_cd1914d2",
+      "revId": "80149e8c440318f6dfecf9fa3aca0e6c7f7deafc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
