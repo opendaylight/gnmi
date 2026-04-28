@@ -1,6 +1,40 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "16b8d9bb_388381f5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-04-28T13:30:44Z",
+      "side": 1,
+      "message": "https://cbea.ms/git-commit/",
+      "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "193b619c_92eee012",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-04-28T13:30:44Z",
+      "side": 1,
+      "message": "one fix at a time please, if possible",
+      "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "8852a742_4214c7b1",
@@ -14,6 +48,193 @@
       "writtenOn": "2026-03-24T10:38:37Z",
       "side": 1,
       "message": "Rebased on master.",
+      "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7e31538_1788d0da",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-04-28T13:30:44Z",
+      "side": 1,
+      "message": "IMO: Try to split the patch and improve the code style",
+      "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a94b4950_a965d710",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/session/security/KeystoreGnmiSecurityProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-04-28T13:30:44Z",
+      "side": 1,
+      "message": "just 8 spaces as indent, we are not align by columns",
+      "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "208e974a_92ce0fc8",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/session/security/KeystoreGnmiSecurityProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-04-28T13:30:44Z",
+      "side": 1,
+      "message": "not needed empty line",
+      "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6207910d_4bc48f3a",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/session/security/KeystoreGnmiSecurityProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-04-28T13:30:44Z",
+      "side": 1,
+      "message": "not needed empty line",
+      "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c2f110a_ccf90745",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-04-28T13:30:44Z",
+      "side": 1,
+      "message": "final var",
+      "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b641d5ba_a48f044b",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-04-28T13:30:44Z",
+      "side": 1,
+      "message": "static?",
+      "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b45e90b2_85a04da8",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-04-28T13:30:44Z",
+      "side": 1,
+      "message": "final List\u003cGnmiYangModel\u003e models",
+      "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b87c8290_9f74ff3d",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-04-28T13:30:44Z",
+      "side": 1,
+      "message": "final var",
+      "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc2337ef_52027d8a",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-04-28T13:30:44Z",
+      "side": 1,
+      "message": "not needed empty line",
+      "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d7a87ac_1fc603fc",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/yangstore/service/YangDataStoreService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-04-28T13:30:44Z",
+      "side": 1,
+      "message": "update docs please",
+      "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "213b2e21_e33b6798",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/schema/SchemaConstructTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-04-28T13:30:44Z",
+      "side": 1,
+      "message": "maybe, you can apply a little bit more functional style?",
       "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
