@@ -52,6 +52,24 @@
       "parentUuid": "d1a9ca98_e49af69e",
       "revId": "57ac5d0b040bc9518711baccd661a624bc7067b0",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1993dc29_0d52f6e9",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/schema/SchemaConstructTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-04-29T14:19:34Z",
+      "side": 0,
+      "message": "y, it seems to be just random hit of delete button, it has no meaning for the commit..\n\nyou do not have to modify code in all places across the project\n\nbut, in ODL - we try to have smaller number of lines - do not arrange method parameters on separate line, do not add double empty lines, etc.\n\nTx",
+      "parentUuid": "afe12493_1f002fde",
+      "revId": "57ac5d0b040bc9518711baccd661a624bc7067b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
