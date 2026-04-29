@@ -86,7 +86,7 @@ public class SchemaConstructTest {
                         .readYangModel(capability.getName(), capability.getVersionString().orElseThrow())
                         .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS).orElseThrow());
             } else {
-                storedModels.add(dataStoreService
+                storedModels.addAll(dataStoreService
                         .readYangModel(capability.getName())
                         .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS).orElseThrow());
             }
@@ -212,12 +212,14 @@ public class SchemaConstructTest {
         // Change body of model to syntax error one
         for (File file : filesInFolder) {
             final String body = new String(Files.newInputStream(file.toPath()).readAllBytes(), StandardCharsets.UTF_8);
-            final GnmiYangModel model = dataStoreService.readYangModel(
+            final List<GnmiYangModel> modelList = dataStoreService.readYangModel(
                     FilenameUtils.removeExtension(file.getName()))
                     .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
                     .orElseThrow();
-            dataStoreService.deleteYangModel(model.getName(), null);
-            dataStoreService.addYangModel(model.getName(), model.getVersion().getValue(), body);
+            for (GnmiYangModel model : modelList) {
+                dataStoreService.deleteYangModel(model.getName(), null);
+                dataStoreService.addYangModel(model.getName(), model.getVersion().getValue(), body);
+            }
         }
         final SchemaContextHolderImpl schemaContextHolder = new SchemaContextHolderImpl(
                 dataStoreService, new DefaultYangParserFactory(), new DefaultYangTextToIRSourceTransformer());
@@ -246,12 +248,14 @@ public class SchemaConstructTest {
         // Change body of model to syntax error one
         for (File file : filesInFolder) {
             final String body = new String(Files.newInputStream(file.toPath()).readAllBytes(), StandardCharsets.UTF_8);
-            final GnmiYangModel model = dataStoreService.readYangModel(
+            final List<GnmiYangModel> modelList = dataStoreService.readYangModel(
                     FilenameUtils.removeExtension(file.getName()))
                     .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
                     .orElseThrow();
-            dataStoreService.deleteYangModel(model.getName(), null);
-            dataStoreService.addYangModel(model.getName(), model.getVersion().getValue(), body);
+            for (GnmiYangModel model: modelList) {
+                dataStoreService.deleteYangModel(model.getName(), null);
+                dataStoreService.addYangModel(model.getName(), model.getVersion().getValue(), body);
+            }
         }
 
         //Delete models so they should be reported as missing
@@ -293,5 +297,4 @@ public class SchemaConstructTest {
             Assertions.assertTrue(match.isPresent());
         }
     }
-
 }
