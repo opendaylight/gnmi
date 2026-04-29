@@ -70,6 +70,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "543a0e2f_e3a3cac4",
+        "filename": "modules/gnmi-device-simulator/src/main/java/org/opendaylight/gnmi/simulatordevice/utils/FileUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 9387
+      },
+      "writtenOn": "2026-04-29T13:48:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47ef0483_f6ea184e",
+      "revId": "e8b3e23ab6978cc0d106d2180625173a43025b38",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "edb2750b_fb8eb56c",
@@ -136,6 +154,24 @@
       "side": 1,
       "message": ":D",
       "parentUuid": "dccea862_a7e6819a",
+      "revId": "e8b3e23ab6978cc0d106d2180625173a43025b38",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fae4a0bf_65088cd6",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/resources/ResourceLoader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 9387
+      },
+      "writtenOn": "2026-04-29T13:48:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef71173e_742116e5",
       "revId": "e8b3e23ab6978cc0d106d2180625173a43025b38",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
