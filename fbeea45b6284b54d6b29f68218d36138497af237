@@ -69,6 +69,23 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "57499380_7238cd01",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9387
+      },
+      "writtenOn": "2026-04-29T10:58:00Z",
+      "side": 1,
+      "message": "I had some comments regarding some of the codestyle changes.\n\nI will split this one up into its repsective commits in a bit.",
+      "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a94b4950_a965d710",
@@ -82,6 +99,24 @@
       "writtenOn": "2026-04-28T13:30:44Z",
       "side": 1,
       "message": "just 8 spaces as indent, we are not align by columns",
+      "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dd61657_ba80ecc5",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/session/security/KeystoreGnmiSecurityProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 9387
+      },
+      "writtenOn": "2026-04-29T10:58:00Z",
+      "side": 1,
+      "message": "This is very very readable code. I dont see why this should not be allowed?\nCheckstyle allows it!\n\nAlso, I dont know how to make my intelliJ _not_ do this.",
+      "parentUuid": "a94b4950_a965d710",
       "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -103,6 +138,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "23ec4f93_12415127",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/session/security/KeystoreGnmiSecurityProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 9387
+      },
+      "writtenOn": "2026-04-29T10:58:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "208e974a_92ce0fc8",
+      "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6207910d_4bc48f3a",
@@ -120,6 +173,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "68cb6747_902fdd02",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/session/security/KeystoreGnmiSecurityProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 9387
+      },
+      "writtenOn": "2026-04-29T10:58:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6207910d_4bc48f3a",
+      "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c2f110a_ccf90745",
@@ -133,6 +204,24 @@
       "writtenOn": "2026-04-28T13:30:44Z",
       "side": 1,
       "message": "final var",
+      "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fe80f28_667633c0",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 9387
+      },
+      "writtenOn": "2026-04-29T10:58:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c2f110a_ccf90745",
       "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -173,6 +262,42 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4c3c7ab3_4761a864",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 9387
+      },
+      "writtenOn": "2026-04-29T10:58:00Z",
+      "side": 1,
+      "message": "There is no reason to make this static since it is private. You cannot reference this from outside an instance, so why make it static?",
+      "parentUuid": "b641d5ba_a48f044b",
+      "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecc7c5e8_be13cdb7",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 9387
+      },
+      "writtenOn": "2026-04-29T10:58:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b45e90b2_85a04da8",
+      "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b87c8290_9f74ff3d",
         "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
         "patchSetId": 8
@@ -184,6 +309,24 @@
       "writtenOn": "2026-04-28T13:30:44Z",
       "side": 1,
       "message": "final var",
+      "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87b0d5b4_5eb31768",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 9387
+      },
+      "writtenOn": "2026-04-29T10:58:00Z",
+      "side": 1,
+      "message": "Not going to do final var, but I can do final on it.\n\nNot sure why you want it here, since the list is clearly not being manipulated in any way before it is thrown away.\n\nImo, var should only barely be allowed in tests.\n\nvar decreases readability and understanding of the code.",
+      "parentUuid": "b87c8290_9f74ff3d",
       "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -205,6 +348,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3842dd3_64e90ebc",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 9387
+      },
+      "writtenOn": "2026-04-29T10:58:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc2337ef_52027d8a",
+      "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7d7a87ac_1fc603fc",
@@ -222,6 +383,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "645d6d06_091d8579",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/yangstore/service/YangDataStoreService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 9387
+      },
+      "writtenOn": "2026-04-29T10:58:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d7a87ac_1fc603fc",
+      "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "213b2e21_e33b6798",
@@ -235,6 +414,24 @@
       "writtenOn": "2026-04-28T13:30:44Z",
       "side": 1,
       "message": "maybe, you can apply a little bit more functional style?",
+      "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3f2164d_295795a6",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/schema/SchemaConstructTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 9387
+      },
+      "writtenOn": "2026-04-29T10:58:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "213b2e21_e33b6798",
       "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }

@@ -16,6 +16,24 @@
       "message": "why?",
       "revId": "57ac5d0b040bc9518711baccd661a624bc7067b0",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1a9ca98_e49af69e",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/schema/SchemaConstructTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 9387
+      },
+      "writtenOn": "2026-04-29T10:58:00Z",
+      "side": 0,
+      "message": "Not sure what you mean here, and I get a little bit confused.\n\nAre you saying it should be an empty line here, and you are asking why I removed it? \n\nAt the same time, you are asking me to remove empty lines through-out the code?\n\nI think I removed it because I see no point of having an empty line there.\n\nWhat purpose does an empty line have there?\n\nBut there is no problem putting it back. nitpick.",
+      "parentUuid": "641149f8_77455f49",
+      "revId": "57ac5d0b040bc9518711baccd661a624bc7067b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
