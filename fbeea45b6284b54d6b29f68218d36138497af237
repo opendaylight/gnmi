@@ -37,6 +37,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "90a43344_b97ecf5e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 9387
+      },
+      "writtenOn": "2026-04-29T13:29:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "193b619c_92eee012",
+      "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8852a742_4214c7b1",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 8
@@ -292,6 +310,24 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "b45e90b2_85a04da8",
+      "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "522d1ecc_d561e398",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 9387
+      },
+      "writtenOn": "2026-04-29T13:29:14Z",
+      "side": 1,
+      "message": "Splitted commit, this is not valid here",
+      "parentUuid": "4c3c7ab3_4761a864",
       "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
