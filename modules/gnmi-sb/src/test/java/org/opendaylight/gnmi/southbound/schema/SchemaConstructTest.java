@@ -86,9 +86,10 @@ public class SchemaConstructTest {
                         .readYangModel(capability.getName(), capability.getVersionString().orElseThrow())
                         .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS).orElseThrow());
             } else {
-                storedModels.add(dataStoreService
+                dataStoreService
                         .readYangModel(capability.getName())
-                        .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS).orElseThrow());
+                        .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS).orElseThrow()
+                        .stream().forEach(mod -> storedModels.add(mod));
             }
         }
         for (GnmiYangModel model : storedModels) {
@@ -212,12 +213,14 @@ public class SchemaConstructTest {
         // Change body of model to syntax error one
         for (File file : filesInFolder) {
             final String body = IOUtils.toString(Files.newInputStream(file.toPath()), StandardCharsets.UTF_8);
-            final GnmiYangModel model = dataStoreService.readYangModel(
+            final List<GnmiYangModel> modelList = dataStoreService.readYangModel(
                     FilenameUtils.removeExtension(file.getName()))
                     .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
                     .orElseThrow();
-            dataStoreService.deleteYangModel(model.getName(), null);
-            dataStoreService.addYangModel(model.getName(), model.getVersion().getValue(), body);
+            for (GnmiYangModel model : modelList) {
+                dataStoreService.deleteYangModel(model.getName(), null);
+                dataStoreService.addYangModel(model.getName(), model.getVersion().getValue(), body);
+            }
         }
         // FIX: Pass RFC7950Reactors.defaultReactor() instead of null
         final SchemaContextHolderImpl schemaContextHolder = new SchemaContextHolderImpl(
@@ -247,12 +250,14 @@ public class SchemaConstructTest {
         // Change body of model to syntax error one
         for (File file : filesInFolder) {
             final String body = IOUtils.toString(Files.newInputStream(file.toPath()), StandardCharsets.UTF_8);
-            final GnmiYangModel model = dataStoreService.readYangModel(
+            final List<GnmiYangModel> modelList = dataStoreService.readYangModel(
                     FilenameUtils.removeExtension(file.getName()))
                     .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
                     .orElseThrow();
-            dataStoreService.deleteYangModel(model.getName(), null);
-            dataStoreService.addYangModel(model.getName(), model.getVersion().getValue(), body);
+            for (GnmiYangModel model: modelList) {
+                dataStoreService.deleteYangModel(model.getName(), null);
+                dataStoreService.addYangModel(model.getName(), model.getVersion().getValue(), body);
+            }
         }
 
         //Delete models so they should be reported as missing
@@ -294,5 +299,4 @@ public class SchemaConstructTest {
             Assertions.assertTrue(match.isPresent());
         }
     }
-
 }

@@ -70,7 +70,7 @@ public class YangDataStoreServiceImpl implements YangDataStoreService {
     }
 
     @Override
-    public ListenableFuture<Optional<GnmiYangModel>> readYangModel(final String modelName) {
+    public ListenableFuture<Optional<List<GnmiYangModel>>> readYangModel(final String modelName) {
         // In case we only know the modelName, return found module if only one is present in datastore
         final InstanceIdentifier<GnmiYangModels> instanceIdentifier = InstanceIdentifier.builder(GnmiYangModels.class)
                 .build();
@@ -85,14 +85,7 @@ public class YangDataStoreServiceImpl implements YangDataStoreService {
                             yangModelOptional.orElseThrow().nonnullGnmiYangModel().entrySet().stream()
                                     .filter(m -> m.getKey().getName().equals(modelName))
                                     .collect(Collectors.toList());
-
-                    if (modelsWithRequestedName.size() == 1) {
-                        return Optional.of(modelsWithRequestedName.stream().findFirst().orElseThrow().getValue());
-                    } else if (modelsWithRequestedName.size() > 1) {
-                        LOG.warn("There are multiple version of model {} in datastore, unable to safely determine"
-                                + " which one to use, since only the model name is known", modelName);
-                    }
-
+                    return Optional.of(modelsWithRequestedName.stream().map(m -> m.getValue()).toList());
                 }
                 return Optional.empty();
 
