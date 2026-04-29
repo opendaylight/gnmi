@@ -88,6 +88,24 @@
       "parentUuid": "1993dc29_0d52f6e9",
       "revId": "57ac5d0b040bc9518711baccd661a624bc7067b0",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8aec5ed9_0659f2d5",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/schema/SchemaConstructTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-04-29T14:33:23Z",
+      "side": 0,
+      "message": "in my experience, a nitpick can cause conflicts during cherry-picks 😊",
+      "parentUuid": "121e85f0_83b18333",
+      "revId": "57ac5d0b040bc9518711baccd661a624bc7067b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
