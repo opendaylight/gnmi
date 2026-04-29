@@ -23,12 +23,11 @@ import org.opendaylight.gnmi.commons.util.YangModelSanitizer;
 import org.opendaylight.yangtools.binding.meta.YangModuleInfo;
 import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
 import org.opendaylight.yangtools.yang.model.api.source.SourceIdentifier;
-import org.opendaylight.yangtools.yang.model.spi.source.DelegatedYangTextSource;
+import org.opendaylight.yangtools.yang.model.api.source.YangTextSource;
+import org.opendaylight.yangtools.yang.model.spi.source.StringYangTextSource;
+import org.opendaylight.yangtools.yang.parser.api.YangParser;
 import org.opendaylight.yangtools.yang.parser.api.YangParserException;
-import org.opendaylight.yangtools.yang.parser.rfc7950.reactor.RFC7950Reactors;
-import org.opendaylight.yangtools.yang.parser.rfc7950.repo.YangStatementStreamSource;
-import org.opendaylight.yangtools.yang.parser.spi.meta.ReactorException;
-import org.opendaylight.yangtools.yang.parser.stmt.reactor.CrossSourceStatementReactor.BuildAction;
+import org.opendaylight.yangtools.yang.parser.ri.DefaultYangParserFactory;
 
 /**
  * EffectiveModelContextBuilder build {@link EffectiveModelContext} from provided path to folder which contains
@@ -80,28 +79,33 @@ public class EffectiveModelContextBuilder {
      *                                               during construct EffectiveModelContext
      */
     public EffectiveModelContext build() throws EffectiveModelContextBuilderException {
-        if (this.yangModulesPath != null || this.yangModulesInfo != null) {
-            final BuildAction buildAction = RFC7950Reactors.defaultReactorBuilder().build().newBuild();
+        if (this.yangModulesPath == null && this.yangModulesInfo == null) {
+            throw new EffectiveModelContextBuilderException("Cannot create EffectiveModelContext without "
+                + "yangModulesPath or yangModulesInfo");
+        }
+
+        final YangParser parser = new DefaultYangParserFactory().createParser();
+        try {
             if (this.yangModulesInfo != null) {
-                buildAction.addSources(getYangStatementsFromYangModulesInfo(this.yangModulesInfo));
+                for (final YangTextSource source : createYangSourcesFromYangModulesInfo(this.yangModulesInfo)) {
+                    parser.addSource(source);
+                }
             }
+
             if (this.yangModulesPath != null) {
-                buildAction.addSources(getYangStatementsFromYangModulesPath(this.yangModulesPath));
+                for (final YangTextSource source : createYangSourcesFromYangModulesPath(this.yangModulesPath)) {
+                    parser.addSource(source);
+                }
             }
-            try {
-                return buildAction.buildEffective();
-            } catch (ReactorException e) {
-                throw new EffectiveModelContextBuilderException("Failed to create EffectiveModelContext", e);
-            }
-        } else {
-            throw new EffectiveModelContextBuilderException("Cannot create EffectiveModelContext without"
-                    + "yangModulesPath or yangModulesInfo");
+            return parser.buildEffectiveModel();
+        } catch (YangParserException | IOException e) {
+            throw new EffectiveModelContextBuilderException("Failed to create EffectiveModelContext", e);
         }
     }
 
-    private static List<YangStatementStreamSource> getYangStatementsFromYangModulesPath(final String path)
+    private static List<YangTextSource> createYangSourcesFromYangModulesPath(final String path)
             throws EffectiveModelContextBuilderException {
-        final ArrayList<YangStatementStreamSource> sourceArrayList = new ArrayList<>();
+        final List<YangTextSource> sources = new ArrayList<>();
         try (Stream<Path> pathStream = Files.walk(Path.of(path))) {
             final List<File> filesInFolder = pathStream
                     .filter(Files::isRegularFile)
@@ -110,40 +114,34 @@ public class EffectiveModelContextBuilder {
             for (File file : filesInFolder) {
                 final CharSource sanitizedYangByteSource = YangModelSanitizer
                         .removeRegexpPosix(com.google.common.io.Files.asCharSource(file, StandardCharsets.UTF_8));
-                final YangStatementStreamSource statementSource = YangStatementStreamSource.create(
-                        new DelegatedYangTextSource(
-                                SourceIdentifier.ofYangFileName(file.getName()),
-                                sanitizedYangByteSource));
-
-                sourceArrayList.add(statementSource);
+                sources.add(new StringYangTextSource(
+                    SourceIdentifier.ofYangFileName(file.getName()),
+                    sanitizedYangByteSource.read()));
             }
-            return sourceArrayList;
-        } catch (IOException | YangParserException e) {
-            final String errorMsg = String.format("Failed to create YangStatementStreamSource from"
-                    + "provided path: [%s]", path);
+        } catch (IOException e) {
+            final String errorMsg = String.format("Failed to create YangTextSource from provided path: [%s]", path);
             throw new EffectiveModelContextBuilderException(errorMsg, e);
         }
+        return sources;
     }
 
-    private static List<YangStatementStreamSource> getYangStatementsFromYangModulesInfo(
-            final Set<YangModuleInfo> yangModulesInfo) throws EffectiveModelContextBuilderException {
-        final ArrayList<YangStatementStreamSource> sourceArrayList = new ArrayList<>();
+    private static List<YangTextSource> createYangSourcesFromYangModulesInfo(final Set<YangModuleInfo> yangModulesInfo)
+            throws EffectiveModelContextBuilderException {
+        final List<YangTextSource> sources = new ArrayList<>(yangModulesInfo.size());
         for (YangModuleInfo yangModuleInfo : yangModulesInfo) {
             try {
                 final CharSource sanitizedYangByteSource = YangModelSanitizer
                         .removeRegexpPosix(yangModuleInfo.getYangTextCharSource());
-                final YangStatementStreamSource statementSource
-                        = YangStatementStreamSource.create(new DelegatedYangTextSource(
-                        SourceIdentifier.ofYangFileName(yangModuleInfo.getName().getLocalName() + ".yang"),
-                        sanitizedYangByteSource));
-                sourceArrayList.add(statementSource);
-            } catch (IOException | YangParserException e) {
-                final String errorMsg = String.format("Failed to create YangStatementStreamSource from"
+                sources.add(new StringYangTextSource(
+                        new SourceIdentifier(yangModuleInfo.getName().getLocalName()),
+                        sanitizedYangByteSource.read()));
+            } catch (IOException e) {
+                final String errorMsg = String.format("Failed to create YangTextSource from "
                         + "provided YangModuleInfo: [%s]", yangModuleInfo);
                 throw new EffectiveModelContextBuilderException(errorMsg, e);
             }
         }
-        return sourceArrayList;
+        return sources;
     }
 
     public static class EffectiveModelContextBuilderException extends Exception {

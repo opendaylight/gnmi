@@ -66,6 +66,10 @@
         </dependency>
         <dependency>
             <groupId>org.opendaylight.yangtools</groupId>
+            <artifactId>yang-ir</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.yangtools</groupId>
             <artifactId>yang-model-api</artifactId>
         </dependency>
         <dependency>
@@ -105,6 +109,11 @@
         <dependency>
             <groupId>org.opendaylight.yangtools</groupId>
             <artifactId>yang-parser-spi</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.yangtools</groupId>
+            <artifactId>yang-test-util</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

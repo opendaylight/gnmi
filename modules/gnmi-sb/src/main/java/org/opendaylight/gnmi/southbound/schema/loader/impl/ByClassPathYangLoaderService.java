@@ -7,12 +7,13 @@
  */
 package org.opendaylight.gnmi.southbound.schema.loader.impl;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -25,7 +26,9 @@ import org.opendaylight.gnmi.southbound.schema.yangstore.service.YangDataStoreSe
 import org.opendaylight.gnmi.southbound.timeout.TimeoutUtils;
 import org.opendaylight.yangtools.binding.meta.YangModuleInfo;
 import org.opendaylight.yangtools.yang.model.api.source.SourceIdentifier;
+import org.opendaylight.yangtools.yang.model.api.source.SourceSyntaxException;
 import org.opendaylight.yangtools.yang.model.spi.source.DelegatedYangTextSource;
+import org.opendaylight.yangtools.yang.model.spi.source.YangTextToIRSourceTransformer;
 import org.opendaylight.yangtools.yang.parser.api.YangParserFactory;
 import org.opendaylight.yangtools.yang.parser.api.YangSyntaxErrorException;
 import org.slf4j.Logger;
@@ -37,10 +40,13 @@ public class ByClassPathYangLoaderService implements YangLoaderService {
 
     private final Set<YangModuleInfo> yangModulesInfo;
     private final YangParserFactory yangParser;
+    private final YangTextToIRSourceTransformer textToIrTransformer;
 
-    public ByClassPathYangLoaderService(final Set<YangModuleInfo> yangModulesInfo, final YangParserFactory yangParser) {
-        this.yangModulesInfo = Objects.requireNonNull(yangModulesInfo);
-        this.yangParser = Objects.requireNonNull(yangParser);
+    public ByClassPathYangLoaderService(final Set<YangModuleInfo> yangModulesInfo, final YangParserFactory yangParser,
+            final YangTextToIRSourceTransformer textToIrTransformer) {
+        this.yangModulesInfo = requireNonNull(yangModulesInfo);
+        this.yangParser = requireNonNull(yangParser);
+        this.textToIrTransformer = requireNonNull(textToIrTransformer);
     }
 
     @Override
@@ -55,7 +61,8 @@ public class ByClassPathYangLoaderService implements YangLoaderService {
             try (InputStream yangTextStream = yangModuleInfo.openYangTextStream()) {
                 this.yangParser.createParser().addSource(yangTextSchemaSource);
 
-                final YangLoadModelUtil yangLoadModelUtil = new YangLoadModelUtil(yangTextSchemaSource, yangTextStream);
+                final YangLoadModelUtil yangLoadModelUtil = new YangLoadModelUtil(yangTextSchemaSource, yangTextStream,
+                    textToIrTransformer);
                 storeService.addYangModel(yangLoadModelUtil.getModelName(), yangLoadModelUtil.getVersionToStore(),
                         yangLoadModelUtil.getModelBody())
                     .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
@@ -64,7 +71,8 @@ public class ByClassPathYangLoaderService implements YangLoaderService {
                     yangLoadModelUtil.getModelSemVer(), yangLoadModelUtil.getModelRevision()));
                 LOG.info("Loaded yang model {} with version {}", yangLoadModelUtil.getModelName(),
                     yangLoadModelUtil.getVersionToStore());
-            } catch (YangSyntaxErrorException | ExecutionException | TimeoutException | IOException e) {
+            } catch (YangSyntaxErrorException | ExecutionException | TimeoutException | IOException
+                    | SourceSyntaxException e) {
                 throw new YangLoadException(
                     String.format("Loading YangModuleInfo [%s] failed!", yangModuleInfo.getName()), e);
             } catch (InterruptedException e) {
