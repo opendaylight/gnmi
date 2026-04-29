@@ -24,12 +24,9 @@ import org.opendaylight.yangtools.yang.model.api.source.YangTextSource;
 import org.opendaylight.yangtools.yang.model.spi.source.YangIRSource;
 import org.opendaylight.yangtools.yang.model.spi.source.YangTextToIRSourceTransformer;
 import org.opendaylight.yangtools.yang.parser.api.YangSyntaxErrorException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class YangLoadModelUtil {
 
-    private static final Logger LOG = LoggerFactory.getLogger(YangLoadModelUtil.class);
     private static final String OPENCONFIG_VERSION = OpenConfigVersionStatement.DEF.getStatementName().getLocalName();
     private final Revision modelRevision;
     private final SemVer modelSemVer;
@@ -92,7 +89,10 @@ public class YangLoadModelUtil {
         return Optional.empty();
     }
 
-    private static Revision extractMaxRevision(final IRStatement rootStatement) {
+    /**
+     * Returns the latest revision declared by the module, or {@code null} if it declares none.
+     */
+    public static Revision extractMaxRevision(final IRStatement rootStatement) {
         final List<Revision> revisions = new ArrayList<>();
 
         for (final IRStatement stmt : rootStatement.statements()) {
