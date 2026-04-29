@@ -47,10 +47,10 @@ import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
 import org.opendaylight.yangtools.yang.model.api.Module;
 import org.opendaylight.yangtools.yang.model.api.TypeDefinition;
 import org.opendaylight.yangtools.yang.model.api.TypedDataSchemaNode;
+import org.opendaylight.yangtools.yang.model.api.meta.BuiltInType;
 import org.opendaylight.yangtools.yang.model.api.stmt.SchemaNodeIdentifier.Absolute;
 import org.opendaylight.yangtools.yang.model.api.type.IdentityrefTypeDefinition;
 import org.opendaylight.yangtools.yang.model.api.type.LeafrefTypeDefinition;
-import org.opendaylight.yangtools.yang.model.api.type.TypeDefinitions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -377,7 +377,7 @@ public class GnmiCrudService {
     private TypeDefinition<?> getBaseTypeDef(final YangInstanceIdentifier identifier) {
         final var nodeAndStack = DataSchemaContextTree.from(context).enterPath(identifier).get();
         final var dataSchemaNode = nodeAndStack.node().dataSchemaNode();
-        var resultDataSchemaType = ((TypedDataSchemaNode) dataSchemaNode).getType();
+        var resultDataSchemaType = ((TypedDataSchemaNode) dataSchemaNode).typeDefinition();
         if (resultDataSchemaType instanceof LeafrefTypeDefinition leafRefType) {
             final var leafRefPathOrig = leafRefType.getPathStatement().getOriginalString();
             final var leafRefPathList = Arrays.stream(leafRefPathOrig.split("/")).filter(s -> !s.isEmpty()).toList();
@@ -389,7 +389,7 @@ public class GnmiCrudService {
                     stack.enterSchemaTree(QName.create(stack.currentModule().localQNameModule(), path));
                 }
             }
-            resultDataSchemaType = ((TypedDataSchemaNode) stack.currentStatement()).getType();
+            resultDataSchemaType = ((TypedDataSchemaNode) stack.currentStatement()).typeDefinition();
         }
         return resultDataSchemaType.getBaseType() != null ? resultDataSchemaType.getBaseType() : resultDataSchemaType;
     }
@@ -402,20 +402,20 @@ public class GnmiCrudService {
             final var values = value.split(":");
             final var identityRefName = values[values.length - 1];
             return QName.create(identityQname, identityRefName);
-        } else if (qname.equals(TypeDefinitions.BOOLEAN)) {
+        } else if (qname.equals(BuiltInType.BOOLEAN.typeName())) {
             return Boolean.valueOf(value);
-        } else if (qname.equals(TypeDefinitions.DECIMAL64)) {
+        } else if (qname.equals(BuiltInType.DECIMAL64.typeName())) {
             return Decimal64.valueOf(value);
-        } else if (qname.equals(TypeDefinitions.INT8) || qname.equals(TypeDefinitions.INT16)
-                || qname.equals(TypeDefinitions.INT32) || qname.equals(TypeDefinitions.INT64)) {
+        } else if (qname.equals(BuiltInType.INT8.typeName()) || qname.equals(BuiltInType.INT16.typeName())
+                || qname.equals(BuiltInType.INT32.typeName()) || qname.equals(BuiltInType.INT64.typeName())) {
             return Integer.parseInt(value);
-        } else if (qname.equals(TypeDefinitions.UINT8)) {
+        } else if (qname.equals(BuiltInType.UINT8.typeName())) {
             return Uint8.valueOf(value);
-        } else if (qname.equals(TypeDefinitions.UINT16)) {
+        } else if (qname.equals(BuiltInType.UINT16.typeName())) {
             return Uint16.valueOf(value);
-        } else if (qname.equals(TypeDefinitions.UINT32)) {
+        } else if (qname.equals(BuiltInType.UINT32.typeName())) {
             return Uint32.valueOf(value);
-        } else if (qname.equals(TypeDefinitions.UINT64)) {
+        } else if (qname.equals(BuiltInType.UINT64.typeName())) {
             return Uint64.valueOf(value);
         } else {
             // Other types which can be sent as a String type.
