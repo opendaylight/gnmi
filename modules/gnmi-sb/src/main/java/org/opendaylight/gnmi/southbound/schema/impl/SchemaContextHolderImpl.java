@@ -7,8 +7,13 @@
  */
 package org.opendaylight.gnmi.southbound.schema.impl;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.Sets;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -18,9 +23,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.function.Function;
+import java.util.regex.Pattern;
 import org.eclipse.jdt.annotation.Nullable;
 import org.opendaylight.gnmi.southbound.capabilities.GnmiDeviceCapability;
 import org.opendaylight.gnmi.southbound.schema.SchemaContextHolder;
+import org.opendaylight.gnmi.southbound.schema.loader.util.YangLoadModelUtil;
 import org.opendaylight.gnmi.southbound.schema.yangstore.service.YangDataStoreService;
 import org.opendaylight.gnmi.southbound.timeout.TimeoutUtils;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.yang.storage.rev210331.gnmi.yang.models.GnmiYangModel;
@@ -44,6 +52,13 @@ import org.slf4j.LoggerFactory;
 public class SchemaContextHolderImpl implements SchemaContextHolder {
 
     private static final Logger LOG = LoggerFactory.getLogger(SchemaContextHolderImpl.class);
+    // Semantic version with up to three numeric parts, without pre-release or build suffixes
+    private static final Pattern SEMVER_PATTERN = Pattern.compile("\\d+(\\.\\d+){0,2}");
+    // Total order over version strings: by scheme first, then by version within the scheme, then textually
+    private static final Comparator<String> VERSION_ORDER = Comparator
+            .comparing(SchemaContextHolderImpl::schemeOf)
+            .thenComparing(SchemaContextHolderImpl::compareVersions)
+            .thenComparing(Comparator.naturalOrder());
 
     private final YangDataStoreService yangDataStoreService;
     private final Map<CapabilitiesKey, EffectiveModelContext> contextCache;
@@ -99,7 +114,6 @@ public class SchemaContextHolderImpl implements SchemaContextHolder {
             Thread.currentThread().interrupt();
             schemaException.addErrorMessage(e.getMessage());
         }
-
         if (schemaException.getMissingModels().isEmpty() && schemaException.getErrorMessages().isEmpty()) {
             return fullModelSet;
         }
@@ -129,32 +143,297 @@ public class SchemaContextHolderImpl implements SchemaContextHolder {
             throws InterruptedException, ExecutionException, TimeoutException {
         // Try to find the model stored with version
         Optional<GnmiYangModel> readImport;
-        Optional<String> capabilityVersion = capability.getVersionString();
+        final var capabilityVersion = capability.getVersionString();
         if (capabilityVersion.isPresent()) {
             readImport = yangDataStoreService.readYangModel(capability.getName(), capabilityVersion.orElseThrow())
                     .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
+
             if (readImport.isEmpty()) {
-                LOG.warn("Requested gNMI (capability/dependency of capability) {} was not found with requested version"
+                LOG.warn("Requested gNMI (capability/dependency of capability) {} was not found with requested version."
                         + " {}.", capability.getName(), capabilityVersion.orElseThrow());
-                readImport = yangDataStoreService.readYangModel(capability.getName())
-                        .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
-                readImport.ifPresent(gnmiYangModel ->
-                        LOG.warn("Model {} was found, but with version {}, since it is the only one"
-                                        + " present, using it for schema.", capability.getName(),
-                                gnmiYangModel.getVersion().getValue()));
+                final var optModelList = yangDataStoreService.readYangModel(capability.getName())
+                    .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
+
+                if (optModelList.isPresent() && !optModelList.orElseThrow().isEmpty()) {
+                    final var models = optModelList.orElseThrow();
+                    LOG.warn("{} different version(s) for this model were found, fetching the highest version...",
+                            models.size());
+
+                    final var requestedVersion = capabilityVersion.orElseThrow();
+                    final var compatibleModel = findCompatibleModel(models, requestedVersion);
+                    if (compatibleModel.isPresent()) {
+                        final var foundVersion = versionOf(compatibleModel.orElseThrow());
+                        LOG.warn("{} is backwards compatible with {}, model is KEPT.", foundVersion, requestedVersion);
+                        readImport = compatibleModel;
+                    } else {
+                        LOG.warn("No backwards compatible version was found for {}, model is DROPPED.",
+                                requestedVersion);
+                        readImport = Optional.empty();
+                    }
+                }
             }
         } else {
-            readImport = yangDataStoreService.readYangModel(capability.toString())
-                    .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
+            LOG.debug("Capability {} has no version, using the highest stored version.", capability.getName());
+            final var optModelList =
+                    yangDataStoreService.readYangModel(capability.getName())
+                            .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
+            if (optModelList.isPresent() && !optModelList.orElseThrow().isEmpty()) {
+                readImport = getHighestVersion(optModelList.orElseThrow());
+            } else {
+                readImport = Optional.empty();
+            }
         }
 
         return readImport;
     }
 
+    /**
+     * Selects the model with the highest version, ignoring models that carry no version.
+     *
+     * <p>If there is no model with a version, but there is a model with no version then the noversion mdodel
+     * is returned</p>
+     *
+     * @param models candidate models, must not be empty
+     * @return the highest-versioned model, or empty if every candidate lacks a version
+     */
+    private static Optional<GnmiYangModel> getHighestVersion(final List<GnmiYangModel> models) {
+        final var versionOpt = models.stream()
+                .filter(model -> model != null && !Strings.isNullOrEmpty(versionOf(model)))
+                .max(Comparator.comparing(SchemaContextHolderImpl::versionOf, VERSION_ORDER));
+
+        if (versionOpt.isEmpty() && !models.isEmpty()) {
+            return Optional.of(models.getLast());
+        }
+
+        return versionOpt;
+    }
+
+    /**
+     * Selects, among the models backwards compatible with {@code requestedVersion}, the one closest to it.
+     *
+     * <p>Versions are compared in the scheme of the requested version. When a revision is requested and a stored
+     * model's revision history references the semantic version introduced by that revision (as OpenConfig models
+     * do), the semantic version is requested instead, so that a newer revision with a different major version is
+     * not accepted. Otherwise, a model stored under its semantic version is compared by its latest revision.
+     *
+     * @param models candidate models
+     * @param requestedVersion version requested by the device
+     * @return the lowest compatible model, or empty if no candidate is compatible
+     */
+    private Optional<GnmiYangModel> findCompatibleModel(final List<GnmiYangModel> models,
+            final String requestedVersion) {
+        final var requested = requestedVersion.trim();
+        if (!isRevisionDate(requested)) {
+            return findClosestCompatible(models, requested, SchemaContextHolderImpl::versionOf);
+        }
+        final var referencedSemVer = models.stream()
+                .map(model -> semVerOfRevision(model, requested))
+                .flatMap(Optional::stream)
+                .min(VERSION_ORDER);
+        if (referencedSemVer.isPresent()) {
+            return findClosestCompatible(models, referencedSemVer.orElseThrow(), SchemaContextHolderImpl::versionOf);
+        }
+        return findClosestCompatible(models, requested, this::latestRevisionOf);
+    }
+
+    private static Optional<GnmiYangModel> findClosestCompatible(final List<GnmiYangModel> models,
+            final String requestedVersion, final Function<GnmiYangModel, String> versionFunction) {
+        return models.stream()
+                .map(model -> new Candidate(model, versionFunction.apply(model)))
+                .filter(candidate -> isBackwardsCompatible(candidate.version(), requestedVersion))
+                // Ties (same revision under different stored versions) are broken by the stored version
+                .min(Comparator.comparing(Candidate::version, VERSION_ORDER)
+                        .thenComparing(candidate -> versionOf(candidate.model()), VERSION_ORDER))
+                .map(Candidate::model);
+    }
+
+    /**
+     * Returns the latest revision of the model, taken from its stored version or, for models stored under
+     * a semantic version, from the revision statements in its body.
+     */
+    private String latestRevisionOf(final GnmiYangModel model) {
+        final var version = versionOf(model);
+        if (isRevisionDate(version)) {
+            return version;
+        }
+        final var rootStmt = parseModel(model);
+        if (rootStmt == null) {
+            return null;
+        }
+        try {
+            final var revision = YangLoadModelUtil.extractMaxRevision(rootStmt);
+            return revision == null ? null : revision.toString();
+        } catch (DateTimeParseException e) {
+            // A malformed revision in one stored model must not prevent choosing another one
+            LOG.debug("Model {} with version {} has a malformed revision", model.getName(), version, e);
+            return null;
+        }
+    }
+
+    /**
+     * Returns the semantic version referenced by the given revision statement of the model, e.g. "2.4.3" for
+     * {@code revision "2019-11-19" { reference "2.4.3"; }}.
+     */
+    private Optional<String> semVerOfRevision(final GnmiYangModel model, final String revision) {
+        final var rootStmt = parseModel(model);
+        if (rootStmt == null) {
+            return Optional.empty();
+        }
+        for (final var stmt : rootStmt.statements()) {
+            if ("revision".equals(stmt.keyword().identifier())
+                    && revision.equals(extractArgumentString(stmt.argument()))) {
+                for (final var subStmt : stmt.statements()) {
+                    final var reference = "reference".equals(subStmt.keyword().identifier())
+                            ? extractArgumentString(subStmt.argument()) : null;
+                    if (reference != null && schemeOf(reference) == VersionScheme.SEMVER) {
+                        return Optional.of(reference.trim());
+                    }
+                }
+            }
+        }
+        return Optional.empty();
+    }
+
+    private IRStatement parseModel(final GnmiYangModel model) {
+        if (Strings.isNullOrEmpty(model.getBody())) {
+            return null;
+        }
+        try {
+            return textToIrTransformer.transformSource(makeTextSchemaSource(model)).statement();
+        } catch (SourceSyntaxException | IOException e) {
+            LOG.debug("Failed to parse model {} with version {}", model.getName(), versionOf(model), e);
+            return null;
+        }
+    }
+
+    private static String versionOf(final GnmiYangModel model) {
+        return model.getVersion() == null ? null : model.getVersion().getValue();
+    }
+
+    private static VersionScheme schemeOf(final String version) {
+        final var trimmed = version.trim();
+        if (isRevisionDate(trimmed)) {
+            return parseDate(trimmed) != null ? VersionScheme.REVISION : VersionScheme.UNKNOWN;
+        }
+        return parseSemVer(trimmed) != null ? VersionScheme.SEMVER : VersionScheme.UNKNOWN;
+    }
+
+    /**
+     * Compares two version strings of the same scheme.
+     *
+     * <p>Supported schemes:
+     * <ul>
+     *   <li>Revision date: {@code yyyy-MM-dd}</li>
+     *   <li>Semantic version: {@code X.Y.Z}, {@code X.Y} or {@code X}, missing parts default to 0</li>
+     * </ul>
+     *
+     * <p>Both version strings must use the same scheme (date or semantic version).
+     *
+     * @return a negative value if {@code v1} is lower than {@code v2},
+     *         zero if {@code v1} and {@code v2} are equal or not comparable,
+     *         or a positive value if {@code v1} is higher than {@code v2}.
+     */
+    static int compareVersions(final String v1, final String v2) {
+        if (v1 == null || v2 == null) {
+            return 0;
+        }
+
+        final var av = v1.trim();
+        final var bv = v2.trim();
+        if (av.isEmpty() || bv.isEmpty()) {
+            return 0;
+        }
+
+        final boolean date1 = isRevisionDate(av);
+        final boolean date2 = isRevisionDate(bv);
+
+        // Don't compare across schemes. Treat as "equal"/non-orderable.
+        if (date1 != date2) {
+            return 0;
+        }
+
+        if (date1) {
+            final var ad = parseDate(av);
+            final var bd = parseDate(bv);
+            if (ad == null || bd == null) {
+                return 0;
+            }
+            return ad.compareTo(bd);
+        }
+
+        final var as = parseSemVer(av);
+        final var bs = parseSemVer(bv);
+        if (as == null || bs == null) {
+            return 0;
+        }
+
+        return as.compareTo(bs);
+    }
+
+    /**
+     * Returns true if a model with {@code foundVersion} can be used in place of {@code requestedVersion}.
+     *
+     * <p>Both versions must use the same scheme:
+     * <ul>
+     *   <li>Revision date: compatible when not older than the requested one, since later revisions must be
+     *       backwards compatible (RFC 7950, section 11).</li>
+     *   <li>Semantic version: compatible when the major version is the same and the version is not lower
+     *       than the requested one (OpenConfig semantic versioning).</li>
+     * </ul>
+     *
+     * <p>Major version 0 is treated as a single major version, so 0.9.0 is compatible with 0.5.0, although semantic
+     * versioning allows breaking changes in 0.x minor releases. Many OpenConfig models are still 0.x and a stricter
+     * rule would reject most of them.
+     */
+    static boolean isBackwardsCompatible(final String foundVersion, final String requestedVersion) {
+        if (foundVersion == null || requestedVersion == null) {
+            return false;
+        }
+        final var scheme = schemeOf(foundVersion);
+        if (scheme == VersionScheme.UNKNOWN || scheme != schemeOf(requestedVersion)) {
+            return false;
+        }
+        if (scheme == VersionScheme.SEMVER
+                && parseSemVer(foundVersion.trim()).major() != parseSemVer(requestedVersion.trim()).major()) {
+            return false;
+        }
+        return compareVersions(foundVersion, requestedVersion) >= 0;
+    }
+
+    private static boolean isRevisionDate(final String str) {
+        return str != null
+                && Revision.STRING_FORMAT_PATTERN.matcher(str).matches();
+    }
+
+    private static LocalDate parseDate(final String str) {
+        try {
+            return LocalDate.parse(str, DateTimeFormatter.ISO_LOCAL_DATE);
+        } catch (DateTimeParseException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Parses a semantic version such as "1.2.3", "1.2" or "1", missing parts default to 0.
+     *
+     * @return the semantic version, or {@code null} if the string is not one (e.g. "1.0.0-beta")
+     */
+    private static SemVer parseSemVer(final String version) {
+        if (!SEMVER_PATTERN.matcher(version).matches()) {
+            return null;
+        }
+        try {
+            return SemVer.valueOf(version);
+        } catch (NumberFormatException e) {
+            // A part does not fit into int
+            return null;
+        }
+    }
+
     private Set<GnmiDeviceCapability> getDependenciesOfModels(final Set<GnmiYangModel> toCheck,
             final SchemaException schemaException) {
-        Set<GnmiDeviceCapability> dependencies = new HashSet<>();
-        for (GnmiYangModel model : toCheck) {
+        final Set<GnmiDeviceCapability> dependencies = new HashSet<>();
+        for (final GnmiYangModel model : toCheck) {
             try {
                 dependencies.addAll(extractDependenciesFromYang(model));
             } catch (SourceSyntaxException | IOException e) {
@@ -203,6 +482,15 @@ public class SchemaContextHolderImpl implements SchemaContextHolder {
                                 LOG.warn("Failed to parse SemVer for module import: {}", moduleName);
                             }
                         }
+                    }
+                }
+
+                if ("include".equals(keyword) && revision == null && semVer == null) {
+                    // OpenConfig submodules share the semantic version of their parent, request the matching one
+                    // instead of any stored version. Submodule revision dates are independent of the parent's.
+                    final var parentVersion = versionOf(model);
+                    if (parentVersion != null && schemeOf(parentVersion) == VersionScheme.SEMVER) {
+                        semVer = parseSemVer(parentVersion.trim());
                     }
                 }
 
@@ -281,5 +569,26 @@ public class SchemaContextHolderImpl implements SchemaContextHolder {
     private static YangTextSource makeTextSchemaSource(final GnmiYangModel model) {
         return new StringYangTextSource(
             new SourceIdentifier(model.getName()), model.getBody());
+    }
+
+    /**
+     * Format of a version string. Only versions of the same scheme are comparable.
+     *
+     * <p>Declaration order is the order of schemes in {@link #VERSION_ORDER}: semantic version ranks above revision
+     * date, matching the version the loader stores for a model carrying both.
+     */
+    private enum VersionScheme {
+        /** Neither a valid revision date nor a dotted numeric version. */
+        UNKNOWN,
+        /** YANG revision date, {@code yyyy-MM-dd}. */
+        REVISION,
+        /** Dotted numeric (semantic) version, {@code X.Y.Z}. */
+        SEMVER
+    }
+
+    /**
+     * A candidate model together with the version it is compared by.
+     */
+    private record Candidate(GnmiYangModel model, String version) {
     }
 }

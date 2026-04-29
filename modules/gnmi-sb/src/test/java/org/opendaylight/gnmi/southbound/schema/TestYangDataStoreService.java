@@ -9,14 +9,13 @@ package org.opendaylight.gnmi.southbound.schema;
 
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-import java.util.stream.Collectors;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.eclipse.jdt.annotation.Nullable;
 import org.opendaylight.gnmi.commons.util.YangModelSanitizer;
@@ -32,7 +31,7 @@ public class TestYangDataStoreService implements YangDataStoreService {
     private Map<ImmutablePair<String, String>, String> yangs;
 
     public TestYangDataStoreService() {
-        yangs = new HashMap<>();
+        yangs = new LinkedHashMap<>();
     }
 
     @Override
@@ -51,8 +50,10 @@ public class TestYangDataStoreService implements YangDataStoreService {
             model = readYangModel(modelName, modelVersion)
                     .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
         } else {
-            model = readYangModel(modelName)
-                    .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
+            final List<GnmiYangModel> models = readYangModel(modelName)
+                    .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
+                    .orElse(List.of());
+            model = models.isEmpty() ? Optional.empty() : Optional.of(models.get(0));
         }
         return model.filter(gnmiYangModel -> yangs.remove(ImmutablePair.of(gnmiYangModel.getName(),
                 gnmiYangModel.getVersion().getValue())) != null).isPresent();
@@ -72,22 +73,15 @@ public class TestYangDataStoreService implements YangDataStoreService {
     }
 
     @Override
-    public ListenableFuture<Optional<GnmiYangModel>> readYangModel(final String modelName) {
-        final List<Map.Entry<ImmutablePair<String, String>, String>> entriesWithRequestedName =
-                yangs.entrySet().stream()
-                        .filter(e -> e.getKey().left.equals(modelName))
-                        .collect(Collectors.toList());
-
-        if (entriesWithRequestedName.size() == 1) {
-            final Map.Entry<ImmutablePair<String, String>, String> matchedEntry =
-                    entriesWithRequestedName.stream().findFirst().orElseThrow();
-            return Futures.immediateFuture(Optional.of(new GnmiYangModelBuilder()
-                    .setVersion(new ModuleVersionType(matchedEntry.getKey().right))
-                    .setName(modelName)
-                    .setBody(matchedEntry.getValue()).build()));
-        }
-
-        return Futures.immediateFuture(Optional.empty());
+    public ListenableFuture<Optional<List<GnmiYangModel>>> readYangModel(final String modelName) {
+        // Like YangDataStoreServiceImpl, return every stored version of the model, in insertion order
+        final var modelsWithRequestedName = yangs.entrySet().stream()
+                .filter(e -> e.getKey().left.equals(modelName))
+                .map(e -> new GnmiYangModelBuilder()
+                        .setVersion(new ModuleVersionType(e.getKey().right))
+                        .setName(modelName)
+                        .setBody(e.getValue()).build())
+                .toList();
+        return Futures.immediateFuture(Optional.of(modelsWithRequestedName));
     }
-
 }
