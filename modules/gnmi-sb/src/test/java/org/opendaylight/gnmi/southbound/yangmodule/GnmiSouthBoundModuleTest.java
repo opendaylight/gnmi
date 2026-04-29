@@ -32,6 +32,7 @@ import org.opendaylight.yangtools.concepts.ObjectRegistration;
 import org.opendaylight.yangtools.concepts.Registration;
 import org.opendaylight.yangtools.yang.parser.api.YangParser;
 import org.opendaylight.yangtools.yang.parser.api.YangParserFactory;
+import org.opendaylight.yangtools.yang.source.ir.DefaultYangTextToIRSourceTransformer;
 import org.opendaylight.yangtools.yang.xpath.api.YangXPathParserFactory;
 
 @ExtendWith(MockitoExtension.class)
@@ -78,7 +79,8 @@ public class GnmiSouthBoundModuleTest {
             mountPointService,
             aaaEncryptionService,
             parserFactory,
-            xpathParserFactory
+            xpathParserFactory,
+            new DefaultYangTextToIRSourceTransformer()
         );
 
         gnmiModule.init();
