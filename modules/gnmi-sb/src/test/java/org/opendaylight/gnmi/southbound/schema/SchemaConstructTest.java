@@ -38,9 +38,7 @@ import org.opendaylight.gnmi.southbound.yangmodule.util.GnmiConfigUtils;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.yang.storage.rev210331.gnmi.yang.models.GnmiYangModel;
 import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
 import org.opendaylight.yangtools.yang.model.api.Module;
-import org.opendaylight.yangtools.yang.parser.impl.DefaultYangParserFactory;
-import org.opendaylight.yangtools.yang.parser.rfc7950.reactor.RFC7950Reactors;
-import org.opendaylight.yangtools.yang.xpath.impl.AntlrXPathParserFactory;
+import org.opendaylight.yangtools.yang.parser.ri.DefaultYangParserFactory;
 
 public class SchemaConstructTest {
 
@@ -60,15 +58,15 @@ public class SchemaConstructTest {
     @BeforeEach
     public void setup() throws YangLoadException, ConfigurationException {
         dataStoreService = new TestYangDataStoreService();
-        completeCapabilities = new ByPathYangLoaderService(Path.of(SCHEMA_PATH), new DefaultYangParserFactory(
-            new AntlrXPathParserFactory())).load(dataStoreService);
+        completeCapabilities = new ByPathYangLoaderService(Path.of(SCHEMA_PATH), new DefaultYangParserFactory())
+            .load(dataStoreService);
         Assertions.assertFalse(completeCapabilities.isEmpty());
 
         final GnmiConfiguration gnmiConfiguration = new GnmiConfiguration();
         gnmiConfiguration.setYangModulesInfo(GnmiConfigUtils.OPENCONFIG_YANG_MODELS);
         final List<GnmiDeviceCapability> openconfigCapabilities
-            = new ByClassPathYangLoaderService(gnmiConfiguration.getYangModulesInfo(), new DefaultYangParserFactory(
-                new AntlrXPathParserFactory())).load(dataStoreService);
+            = new ByClassPathYangLoaderService(gnmiConfiguration.getYangModulesInfo(), new DefaultYangParserFactory())
+            .load(dataStoreService);
         Assertions.assertFalse(openconfigCapabilities.isEmpty());
         completeCapabilities.addAll(openconfigCapabilities);
     }
