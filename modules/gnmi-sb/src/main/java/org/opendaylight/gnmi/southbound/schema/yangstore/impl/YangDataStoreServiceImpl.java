@@ -9,11 +9,9 @@ package org.opendaylight.gnmi.southbound.schema.yangstore.impl;
 
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.MoreExecutors;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.ExecutorService;
-import java.util.stream.Collectors;
 import org.opendaylight.gnmi.commons.util.YangModelSanitizer;
 import org.opendaylight.gnmi.southbound.schema.yangstore.service.YangDataStoreService;
 import org.opendaylight.mdsal.binding.api.DataBroker;
@@ -34,11 +32,9 @@ public class YangDataStoreServiceImpl implements YangDataStoreService {
     private static final Logger LOG = LoggerFactory.getLogger(YangDataStoreServiceImpl.class);
 
     private final DataBroker dataBroker;
-    private final ExecutorService executorService;
 
-    public YangDataStoreServiceImpl(final DataBroker dataBroker, final ExecutorService executorService) {
+    public YangDataStoreServiceImpl(final DataBroker dataBroker) {
         this.dataBroker = dataBroker;
-        this.executorService = executorService;
     }
 
     @Override
@@ -70,33 +66,21 @@ public class YangDataStoreServiceImpl implements YangDataStoreService {
     }
 
     @Override
-    public ListenableFuture<Optional<GnmiYangModel>> readYangModel(final String modelName) {
-        // In case we only know the modelName, return found module if only one is present in datastore
+    public ListenableFuture<List<GnmiYangModel>> readYangModel(final String modelName) {
+        // When only the model name is known, return every stored version of that model
         final var identifier = DataObjectIdentifier.builder(GnmiYangModels.class).build();
-
 
         try (ReadTransaction readOnlyTransaction = this.dataBroker.newReadOnlyTransaction()) {
             final ListenableFuture<Optional<GnmiYangModels>> yangModelOptionalFuture = readOnlyTransaction.read(
                     LogicalDatastoreType.OPERATIONAL, identifier);
-            return Futures.transform(yangModelOptionalFuture, yangModelOptional -> {
-                if (yangModelOptional.isPresent()) {
-                    // Keep only models with requested name
-                    final List<Map.Entry<GnmiYangModelKey, GnmiYangModel>> modelsWithRequestedName =
-                            yangModelOptional.orElseThrow().nonnullGnmiYangModel().entrySet().stream()
-                                    .filter(m -> m.getKey().getName().equals(modelName))
-                                    .collect(Collectors.toList());
-
-                    if (modelsWithRequestedName.size() == 1) {
-                        return Optional.of(modelsWithRequestedName.stream().findFirst().orElseThrow().getValue());
-                    } else if (modelsWithRequestedName.size() > 1) {
-                        LOG.warn("There are multiple version of model {} in datastore, unable to safely determine"
-                                + " which one to use, since only the model name is known", modelName);
-                    }
-
-                }
-                return Optional.empty();
-
-            }, executorService);
+            return Futures.transform(yangModelOptionalFuture, yangModelOptional -> yangModelOptional
+                    // Keep only models with requested name, no container means nothing is stored
+                    .map(yangModels -> yangModels.nonnullGnmiYangModel().values().stream()
+                            .filter(m -> m.getName().equals(modelName))
+                            .toList())
+                    // Cheap filter, run it directly: callers block on the result from the gNMI pool, so queueing
+                    // it on that same pool can starve it
+                    .orElse(List.of()), MoreExecutors.directExecutor());
         }
     }
 
