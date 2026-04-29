@@ -94,7 +94,7 @@ public class GnmiSouthboundProvider implements AutoCloseable {
     public void init() throws ExecutionException, InterruptedException, TimeoutException, YangLoadException {
         LOG.info("gNMI init started");
         //----Load initial yang models to datastore and register yang load rpc----
-        final YangDataStoreService yangDataStoreService = new YangDataStoreServiceImpl(dataBroker, gnmiExecutorService);
+        final YangDataStoreService yangDataStoreService = new YangDataStoreServiceImpl(dataBroker);
         final YangStorageServiceRpcImpl yangStorageServiceRpc = new YangStorageServiceRpcImpl(yangDataStoreService);
         closeables.add(rpcProvider.registerRpcImplementations(yangStorageServiceRpc.getRpcClassToInstanceMap()));
 
