@@ -25,6 +25,7 @@ import org.opendaylight.gnmi.southbound.schema.yangstore.service.YangDataStoreSe
 import org.opendaylight.gnmi.southbound.timeout.TimeoutUtils;
 import org.opendaylight.yangtools.binding.meta.YangModuleInfo;
 import org.opendaylight.yangtools.yang.model.api.source.SourceIdentifier;
+import org.opendaylight.yangtools.yang.model.api.source.SourceSyntaxException;
 import org.opendaylight.yangtools.yang.model.spi.source.DelegatedYangTextSource;
 import org.opendaylight.yangtools.yang.parser.api.YangParserFactory;
 import org.opendaylight.yangtools.yang.parser.api.YangSyntaxErrorException;
@@ -67,7 +68,7 @@ public class ByClassPathYangLoaderService implements YangLoaderService {
             } catch (YangSyntaxErrorException | ExecutionException | TimeoutException | IOException e) {
                 throw new YangLoadException(
                     String.format("Loading YangModuleInfo [%s] failed!", yangModuleInfo.getName()), e);
-            } catch (InterruptedException e) {
+            } catch (InterruptedException | SourceSyntaxException e) {
                 Thread.currentThread().interrupt();
                 throw new YangLoadException(String.format("Interrupted while loading YangModuleInfo [%s] failed!",
                     yangModuleInfo.getName()), e);

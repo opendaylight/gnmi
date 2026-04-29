@@ -27,6 +27,7 @@ import org.opendaylight.gnmi.southbound.schema.loader.util.YangLoadModelUtil;
 import org.opendaylight.gnmi.southbound.schema.yangstore.service.YangDataStoreService;
 import org.opendaylight.gnmi.southbound.timeout.TimeoutUtils;
 import org.opendaylight.yangtools.yang.common.YangConstants;
+import org.opendaylight.yangtools.yang.model.api.source.SourceSyntaxException;
 import org.opendaylight.yangtools.yang.model.api.source.YangTextSource;
 import org.opendaylight.yangtools.yang.model.spi.source.FileYangTextSource;
 import org.opendaylight.yangtools.yang.parser.api.YangParserException;
@@ -82,7 +83,7 @@ public class ByPathYangLoaderService implements YangLoaderService {
             return loadedModels;
         } catch (IOException | YangParserException | ExecutionException | TimeoutException e) {
             throw new YangLoadException("Loading yang files failed!", e);
-        } catch (InterruptedException e) {
+        } catch (InterruptedException | SourceSyntaxException e) {
             Thread.currentThread().interrupt();
             throw new YangLoadException("Interrupted while loading yang files!", e);
         }

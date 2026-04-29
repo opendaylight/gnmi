@@ -21,9 +21,7 @@ import org.opendaylight.gnmi.southbound.schema.loader.impl.ByPathYangLoaderServi
 import org.opendaylight.gnmi.southbound.schema.provider.SchemaContextProvider;
 import org.opendaylight.yangtools.binding.meta.YangModuleInfo;
 import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
-import org.opendaylight.yangtools.yang.parser.impl.DefaultYangParserFactory;
-import org.opendaylight.yangtools.yang.parser.rfc7950.reactor.RFC7950Reactors;
-import org.opendaylight.yangtools.yang.xpath.impl.AntlrXPathParserFactory;
+import org.opendaylight.yangtools.yang.parser.ri.DefaultYangParserFactory;
 
 public class TestSchemaContextProvider implements SchemaContextProvider {
 
@@ -41,13 +39,13 @@ public class TestSchemaContextProvider implements SchemaContextProvider {
     public static TestSchemaContextProvider createInstance(final Path path, final Set<YangModuleInfo> moduleInfoSet)
         throws YangLoadException, SchemaException {
         final TestYangDataStoreService dataStoreService = new TestYangDataStoreService();
-        final DefaultYangParserFactory parserFactory = new DefaultYangParserFactory(new AntlrXPathParserFactory());
+        final DefaultYangParserFactory parserFactory = new DefaultYangParserFactory();
         final List<GnmiDeviceCapability> capabilities = new ByPathYangLoaderService(path, parserFactory).load(
             dataStoreService);
         capabilities.addAll(new ByClassPathYangLoaderService(moduleInfoSet, parserFactory).load(dataStoreService));
 
         final SchemaContextHolder schemaContextHolder = new SchemaContextHolderImpl(dataStoreService,
-            RFC7950Reactors.defaultReactor());
+            new DefaultYangParserFactory());
         return new TestSchemaContextProvider(schemaContextHolder.getSchemaContext(capabilities));
     }
 

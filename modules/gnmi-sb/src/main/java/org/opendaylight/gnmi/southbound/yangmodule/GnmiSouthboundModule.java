@@ -28,8 +28,6 @@ import org.opendaylight.mdsal.binding.api.DataBroker;
 import org.opendaylight.mdsal.binding.api.RpcProviderService;
 import org.opendaylight.mdsal.dom.api.DOMMountPointService;
 import org.opendaylight.yangtools.yang.parser.api.YangParserFactory;
-import org.opendaylight.yangtools.yang.parser.rfc7950.reactor.RFC7950Reactors;
-import org.opendaylight.yangtools.yang.parser.stmt.reactor.CrossSourceStatementReactor;
 import org.opendaylight.yangtools.yang.xpath.api.YangXPathParserFactory;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -85,7 +83,6 @@ public final class GnmiSouthboundModule {
     public void init() {
         LOG.info("Starting ODL gNMI Southbound Component");
         gnmiExecutor = Executors.newFixedThreadPool(4);
-        CrossSourceStatementReactor reactor = RFC7950Reactors.defaultReactorBuilder(xpathParserFactory).build();
 
         try {
             gnmiProvider = new GnmiSouthboundProvider(
@@ -95,7 +92,7 @@ public final class GnmiSouthboundModule {
                 gnmiExecutor,
                 prepareByPathLoaders(gnmiConfiguration),
                 encryptionService,
-                reactor);
+                (YangParserFactory) xpathParserFactory.newParser());
 
             gnmiProvider.init();
             LOG.info("gNMI Southbound Provider initialized");

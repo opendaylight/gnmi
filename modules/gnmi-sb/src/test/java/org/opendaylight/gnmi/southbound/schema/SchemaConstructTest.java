@@ -112,7 +112,7 @@ public class SchemaConstructTest {
     @Test
     public void schemaConstructSemVerTest() throws SchemaException {
         final SchemaContextHolderImpl schemaContextHolder = new SchemaContextHolderImpl(dataStoreService,
-            RFC7950Reactors.defaultReactor());
+            new DefaultYangParserFactory());
         final EffectiveModelContext schemaContext = schemaContextHolder.getSchemaContext(completeCapabilities);
         // Check that every module in requested capabilities is contained in resulting schema
         assertSchemaContainsModels(schemaContext, completeCapabilities);
@@ -126,7 +126,7 @@ public class SchemaConstructTest {
     @Test
     public void schemaConstructDependenciesTest() throws SchemaException {
         final SchemaContextHolderImpl schemaContextHolder = new SchemaContextHolderImpl(
-                dataStoreService, RFC7950Reactors.defaultReactor());
+                dataStoreService, new DefaultYangParserFactory());
 
         // Remove some models which are required for building models from capabilities
         final List<GnmiDeviceCapability> requestedCapabilities = completeCapabilities.stream()
@@ -147,7 +147,7 @@ public class SchemaConstructTest {
     public void schemaConstructionModelsMissingTest()
             throws InterruptedException, ExecutionException, TimeoutException {
         final SchemaContextHolderImpl schemaContextHolder = new SchemaContextHolderImpl(
-                dataStoreService, RFC7950Reactors.defaultReactor());
+                dataStoreService, new DefaultYangParserFactory());
         //Delete models so they should be reported as missing
         for (String name : MODELS_TO_MISS) {
             Assertions.assertTrue(dataStoreService.deleteYangModel(name, null));
@@ -175,7 +175,7 @@ public class SchemaConstructTest {
     public void schemaConstructionModelsImportsMissingTest()
             throws InterruptedException, ExecutionException, TimeoutException {
         final SchemaContextHolderImpl schemaContextHolder = new SchemaContextHolderImpl(
-                dataStoreService, RFC7950Reactors.defaultReactor());
+                dataStoreService, new DefaultYangParserFactory());
         //Delete models so they should be reported as missing
         final ArrayList<String> modelsToDelete = new ArrayList<>(MODELS_TO_MISS);
         modelsToDelete.addAll(CAPABILITIES_TO_MISS);
@@ -221,7 +221,7 @@ public class SchemaConstructTest {
         }
         // FIX: Pass RFC7950Reactors.defaultReactor() instead of null
         final SchemaContextHolderImpl schemaContextHolder = new SchemaContextHolderImpl(
-                dataStoreService, RFC7950Reactors.defaultReactor());
+                dataStoreService, new DefaultYangParserFactory());
         try {
             schemaContextHolder.getSchemaContext(completeCapabilities);
             Assertions.fail("Schema context creation should fail!");
@@ -263,7 +263,7 @@ public class SchemaConstructTest {
         }
 
         final SchemaContextHolderImpl schemaContextHolder = new SchemaContextHolderImpl(
-                dataStoreService, RFC7950Reactors.defaultReactor());
+                dataStoreService, new DefaultYangParserFactory());
         try {
             schemaContextHolder.getSchemaContext(completeCapabilities);
             Assertions.fail("Schema context creation should fail!");

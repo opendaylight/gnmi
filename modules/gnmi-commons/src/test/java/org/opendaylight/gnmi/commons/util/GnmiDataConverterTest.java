@@ -7,29 +7,19 @@
  */
 package org.opendaylight.gnmi.commons.util;
 
-import com.google.common.io.CharSource;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Arrays;
 import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
 import org.opendaylight.yangtools.yang.model.api.Module;
-import org.opendaylight.yangtools.yang.model.api.source.SourceIdentifier;
-import org.opendaylight.yangtools.yang.model.spi.source.DelegatedYangTextSource;
-import org.opendaylight.yangtools.yang.parser.api.YangSyntaxErrorException;
-import org.opendaylight.yangtools.yang.parser.rfc7950.reactor.RFC7950Reactors;
-import org.opendaylight.yangtools.yang.parser.rfc7950.repo.YangStatementStreamSource;
-import org.opendaylight.yangtools.yang.parser.spi.meta.ReactorException;
-import org.opendaylight.yangtools.yang.parser.stmt.reactor.CrossSourceStatementReactor;
+import org.opendaylight.yangtools.yang.test.util.YangParserTestUtils;
 
 class GnmiDataConverterTest {
     private static final String YANG_MODEL_1_FILE_NAME = "rootModel1.yang";
     private static final String YANG_MODEL_2_FILE_NAME = "rootModel2.yang";
 
     @Test
-    public void findCorrectRootYangModel() throws ReactorException, YangSyntaxErrorException, IOException {
+    public void findCorrectRootYangModel() {
         EffectiveModelContext schemaContext = prepareSchemaWithMultipleRootContainersWithSameName();
         final Optional<? extends Module> rootModel1
                 = DataConverter.findModuleByElement("root-model-1:root-container", schemaContext);
@@ -44,25 +34,9 @@ class GnmiDataConverterTest {
         Assertions.assertTrue(unspecifiedRootModule.isEmpty());
     }
 
-    private static EffectiveModelContext prepareSchemaWithMultipleRootContainersWithSameName()
-            throws ReactorException, IOException, YangSyntaxErrorException {
-
-        final CrossSourceStatementReactor.BuildAction buildAction = RFC7950Reactors.defaultReactorBuilder()
-                .build().newBuild();
-
-        for (String modelName : Arrays.asList(YANG_MODEL_1_FILE_NAME, YANG_MODEL_2_FILE_NAME)) {
-            InputStream inputStream = Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("test/schema/" + modelName);
-            byte[] bytes = inputStream.readAllBytes();
-            String content = new String(bytes); // Convert byte[] to String
-
-            final YangStatementStreamSource yangModelRootSource = YangStatementStreamSource.create(
-                    new DelegatedYangTextSource(
-                        SourceIdentifier.ofYangFileName(modelName),
-                        CharSource.wrap(content))); // Pass String as argument
-            buildAction.addSource(yangModelRootSource);
-        }
-
-        return buildAction.buildEffective();
+    private static EffectiveModelContext prepareSchemaWithMultipleRootContainersWithSameName() {
+        return YangParserTestUtils.parseYangResources(GnmiDataConverterTest.class,
+            "/test/schema/" + YANG_MODEL_1_FILE_NAME,
+            "/test/schema/" + YANG_MODEL_2_FILE_NAME);
     }
 }

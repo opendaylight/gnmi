@@ -64,9 +64,7 @@ import org.opendaylight.yangtools.yang.data.api.schema.MapEntryNode;
 import org.opendaylight.yangtools.yang.data.api.schema.MapNode;
 import org.opendaylight.yangtools.yang.data.spi.node.ImmutableNodes;
 import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
-import org.opendaylight.yangtools.yang.parser.impl.DefaultYangParserFactory;
-import org.opendaylight.yangtools.yang.parser.rfc7950.reactor.RFC7950Reactors;
-import org.opendaylight.yangtools.yang.xpath.impl.AntlrXPathParserFactory;
+import org.opendaylight.yangtools.yang.parser.ri.DefaultYangParserFactory;
 import org.skyscreamer.jsonassert.JSONAssert;
 
 public class WriteTransactionTest {
@@ -114,12 +112,12 @@ public class WriteTransactionTest {
         gnmiConfiguration.setYangModulesInfo(GnmiConfigUtils.OPENCONFIG_YANG_MODELS);
         Assertions.assertNotNull(gnmiConfiguration.getYangModulesInfo());
         final TestYangDataStoreService dataStoreService = new TestYangDataStoreService();
-        final DefaultYangParserFactory parserFactory = new DefaultYangParserFactory(new AntlrXPathParserFactory());
+        final DefaultYangParserFactory parserFactory = new DefaultYangParserFactory();
         final List<GnmiDeviceCapability> completeCapabilities = new ByClassPathYangLoaderService(
             gnmiConfiguration.getYangModulesInfo(), parserFactory).load(dataStoreService);
 
         final SchemaContextHolder schemaContextHolder = new SchemaContextHolderImpl(
-            dataStoreService, RFC7950Reactors.defaultReactor());
+            dataStoreService, parserFactory);
         final EffectiveModelContext schemaContext = schemaContextHolder.getSchemaContext(completeCapabilities);
         deviceConnection.setSchemaContext(schemaContext);
         final YangInstanceIdentifierToPathCodec yiiToPathCodec
