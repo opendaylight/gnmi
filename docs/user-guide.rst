@@ -273,3 +273,18 @@ When is required restart of connection or removal of device, just send request `
    -u admin:admin
 
 For restarting connection it is required to send request ``'Connect device'``.
+
+YANG model versions
+-------------------
+
+When a device reports a model version that is not stored exactly, the controller uses the closest stored version
+that is backwards compatible with it. For a semantic version that is the same major version and not lower, for a
+revision date a revision that is not older. A model reported without a version uses the highest stored version.
+
+Since gNMI 5.0.0 a model is no longer used if no stored version is compatible, e.g. when a device reports
+openconfig-interfaces 2.6.0 or 3.0.0 while only the bundled 2.5.0 is stored. The device then fails to connect, and
+the connection failure reason lists the missing models. To connect such a device, either
+
+- upload the model in the version the device reports with the ``upload-yang-model`` RPC of ``gnmi-yang-storage``, or
+- force the capabilities of the node to stored versions with the ``force-capability`` list of
+  ``gnmi-force-capabilities`` in its ``extensions-parameters``.
