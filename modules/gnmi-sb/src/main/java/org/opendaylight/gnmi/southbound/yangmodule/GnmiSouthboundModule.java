@@ -27,9 +27,8 @@ import org.opendaylight.gnmi.southbound.yangmodule.config.GnmiConfiguration;
 import org.opendaylight.mdsal.binding.api.DataBroker;
 import org.opendaylight.mdsal.binding.api.RpcProviderService;
 import org.opendaylight.mdsal.dom.api.DOMMountPointService;
+import org.opendaylight.yangtools.yang.model.spi.source.YangTextToIRSourceTransformer;
 import org.opendaylight.yangtools.yang.parser.api.YangParserFactory;
-import org.opendaylight.yangtools.yang.parser.rfc7950.reactor.RFC7950Reactors;
-import org.opendaylight.yangtools.yang.parser.stmt.reactor.CrossSourceStatementReactor;
 import org.opendaylight.yangtools.yang.xpath.api.YangXPathParserFactory;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -52,6 +51,7 @@ public final class GnmiSouthboundModule {
     private final YangParserFactory parserFactory;
     private final YangXPathParserFactory xpathParserFactory;
     private final GnmiConfiguration gnmiConfiguration;
+    private final YangTextToIRSourceTransformer textToIrTransformer;
 
     private ExecutorService gnmiExecutor;
     private GnmiSouthboundProvider gnmiProvider;
@@ -63,21 +63,23 @@ public final class GnmiSouthboundModule {
             @Reference DOMMountPointService domMountPointService,
             @Reference AAAEncryptionService encryptionService,
             @Reference YangParserFactory parserFactory,
-            @Reference YangXPathParserFactory xpathParserFactory) {
+            @Reference YangXPathParserFactory xpathParserFactory,
+            @Reference YangTextToIRSourceTransformer textToIrTransformer) {
         this(dataBroker, rpcProviderService, domMountPointService,
-            encryptionService, parserFactory, xpathParserFactory, null);
+            encryptionService, parserFactory, xpathParserFactory, textToIrTransformer, null);
     }
 
     public GnmiSouthboundModule(DataBroker dataBroker, RpcProviderService rpcProviderService,
             DOMMountPointService domMountPointService, AAAEncryptionService encryptionService,
             YangParserFactory parserFactory, YangXPathParserFactory xpathParserFactory,
-            GnmiConfiguration gnmiConfiguration) {
+            YangTextToIRSourceTransformer textToIrTransformer, GnmiConfiguration gnmiConfiguration) {
         this.dataBroker = requireNonNull(dataBroker);
         this.rpcProviderService = requireNonNull(rpcProviderService);
         this.domMountPointService = requireNonNull(domMountPointService);
         this.encryptionService = requireNonNull(encryptionService);
         this.parserFactory = requireNonNull(parserFactory);
         this.xpathParserFactory = requireNonNull(xpathParserFactory);
+        this.textToIrTransformer = requireNonNull(textToIrTransformer);
         this.gnmiConfiguration = gnmiConfiguration;
     }
 
@@ -85,7 +87,6 @@ public final class GnmiSouthboundModule {
     public void init() {
         LOG.info("Starting ODL gNMI Southbound Component");
         gnmiExecutor = Executors.newFixedThreadPool(4);
-        CrossSourceStatementReactor reactor = RFC7950Reactors.defaultReactorBuilder(xpathParserFactory).build();
 
         try {
             gnmiProvider = new GnmiSouthboundProvider(
@@ -95,7 +96,8 @@ public final class GnmiSouthboundModule {
                 gnmiExecutor,
                 prepareByPathLoaders(gnmiConfiguration),
                 encryptionService,
-                reactor);
+                parserFactory,
+                textToIrTransformer);
 
             gnmiProvider.init();
             LOG.info("gNMI Southbound Provider initialized");
@@ -127,14 +129,14 @@ public final class GnmiSouthboundModule {
         final List<YangLoaderService> services = new ArrayList<>();
         if (config != null) {
             config.getInitialYangsPaths().stream()
-                .map(path -> new ByPathYangLoaderService(Path.of(path), parserFactory))
+                .map(path -> new ByPathYangLoaderService(Path.of(path), parserFactory, textToIrTransformer))
                 .forEach(services::add);
             if (config.getYangModulesInfo() != null) {
-                services.add(new ByClassPathYangLoaderService(config.getYangModulesInfo(), parserFactory));
+                services.add(new ByClassPathYangLoaderService(config.getYangModulesInfo(), parserFactory,
+                    textToIrTransformer));
             }
         }
-        services.add(new ByClassPathYangLoaderService(OPENCONFIG_YANG_MODELS, parserFactory));
-
+        services.add(new ByClassPathYangLoaderService(OPENCONFIG_YANG_MODELS, parserFactory, textToIrTransformer));
         return services;
     }
 }

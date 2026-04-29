@@ -8,7 +8,6 @@
 package org.opendaylight.gnmi.southbound.schema.impl;
 
 import com.google.common.collect.Sets;
-import com.google.common.io.CharSource;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
@@ -25,16 +24,21 @@ import org.opendaylight.gnmi.southbound.schema.SchemaContextHolder;
 import org.opendaylight.gnmi.southbound.schema.yangstore.service.YangDataStoreService;
 import org.opendaylight.gnmi.southbound.timeout.TimeoutUtils;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.yang.storage.rev210331.gnmi.yang.models.GnmiYangModel;
+import org.opendaylight.yangtools.concepts.SemVer;
+import org.opendaylight.yangtools.yang.common.Revision;
+import org.opendaylight.yangtools.yang.ir.IRArgument;
+import org.opendaylight.yangtools.yang.ir.IRStatement;
 import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
-import org.opendaylight.yangtools.yang.model.api.source.SourceDependency;
 import org.opendaylight.yangtools.yang.model.api.source.SourceIdentifier;
-import org.opendaylight.yangtools.yang.model.spi.source.DelegatedYangTextSource;
-import org.opendaylight.yangtools.yang.model.spi.source.SourceInfo;
+import org.opendaylight.yangtools.yang.model.api.source.SourceSyntaxException;
+import org.opendaylight.yangtools.yang.model.api.source.YangTextSource;
+import org.opendaylight.yangtools.yang.model.spi.source.StringYangTextSource;
+import org.opendaylight.yangtools.yang.model.spi.source.YangIRSource;
+import org.opendaylight.yangtools.yang.model.spi.source.YangTextToIRSourceTransformer;
+import org.opendaylight.yangtools.yang.parser.api.YangParser;
+import org.opendaylight.yangtools.yang.parser.api.YangParserException;
+import org.opendaylight.yangtools.yang.parser.api.YangParserFactory;
 import org.opendaylight.yangtools.yang.parser.api.YangSyntaxErrorException;
-import org.opendaylight.yangtools.yang.parser.rfc7950.repo.YangIRSourceInfoExtractor;
-import org.opendaylight.yangtools.yang.parser.rfc7950.repo.YangStatementStreamSource;
-import org.opendaylight.yangtools.yang.parser.spi.meta.ReactorException;
-import org.opendaylight.yangtools.yang.parser.stmt.reactor.CrossSourceStatementReactor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,13 +48,16 @@ public class SchemaContextHolderImpl implements SchemaContextHolder {
 
     private final YangDataStoreService yangDataStoreService;
     private final Map<CapabilitiesKey, EffectiveModelContext> contextCache;
-    private final CrossSourceStatementReactor yangReactor;
+    private final YangParserFactory yangParserFactory;
+    private final YangTextToIRSourceTransformer textToIrTransformer;
 
     public SchemaContextHolderImpl(final YangDataStoreService yangDataStoreService,
-                                   final @Nullable CrossSourceStatementReactor reactor) {
+                                   final @Nullable YangParserFactory yangParserFactory,
+                                   final YangTextToIRSourceTransformer textToIrTransformer) {
         this.yangDataStoreService = yangDataStoreService;
-        this.yangReactor = reactor;
+        this.yangParserFactory = yangParserFactory;
         this.contextCache = new ConcurrentHashMap<>();
+        this.textToIrTransformer = textToIrTransformer;
     }
 
     /**
@@ -71,21 +78,18 @@ public class SchemaContextHolderImpl implements SchemaContextHolder {
         try {
             // Read models reported in capabilities
             fullModelSet = readCapabilities(baseCaps, processedModuleNames, schemaException);
-            // Get dependencies of models reported in capabilities
-            Set<SourceInfo> dependencyInfos = getDependenciesOfModels(fullModelSet, schemaException);
+            // Get dependencies using native AST extractor
+            Set<GnmiDeviceCapability> dependencyCaps = getDependenciesOfModels(fullModelSet, schemaException);
 
             boolean nonComplete = true;
             while (nonComplete) {
-                // Read dependency models
-                Set<GnmiYangModel> dependencyModels = new HashSet<>();
-                for (SourceInfo dependencyInfo : dependencyInfos) {
-                    final Set<GnmiYangModel> gnmiYangModels =
-                            readDependencyModels(dependencyInfo, processedModuleNames, schemaException);
-                    dependencyModels.addAll(gnmiYangModels);
-                }
+                // Read dependency models directly from the generated capabilities
+                final Set<GnmiYangModel> dependencyModels = readDependencyModels(
+                    dependencyCaps, processedModuleNames, schemaException);
+
                 // See which models are new, if any, do it again
                 final Sets.SetView<GnmiYangModel> newModels = Sets.difference(dependencyModels, fullModelSet);
-                dependencyInfos = getDependenciesOfModels(newModels.immutableCopy(), schemaException);
+                dependencyCaps = getDependenciesOfModels(newModels.immutableCopy(), schemaException);
                 nonComplete = fullModelSet.addAll(newModels);
             }
         } catch (ExecutionException | TimeoutException e) {
@@ -148,52 +152,93 @@ public class SchemaContextHolderImpl implements SchemaContextHolder {
         return readImport;
     }
 
-    private Set<SourceInfo> getDependenciesOfModels(final Set<GnmiYangModel> toCheck,
+    private Set<GnmiDeviceCapability> getDependenciesOfModels(final Set<GnmiYangModel> toCheck,
                                                                  final SchemaException schemaException) {
-        Set<SourceInfo> dependencies = new HashSet<>();
+        Set<GnmiDeviceCapability> dependencies = new HashSet<>();
         for (GnmiYangModel model : toCheck) {
             try {
-                final SourceInfo dependencyInfo = YangIRSourceInfoExtractor.forYangText(
-                        makeTextSchemaSource(model));
-                dependencies.add(dependencyInfo);
-            } catch (IOException | YangSyntaxErrorException e) {
+                dependencies.addAll(extractDependenciesFromYang(model));
+            } catch (SourceSyntaxException | IOException e) {
                 schemaException.addErrorMessage(e.getMessage());
             }
         }
         return dependencies;
     }
 
-    private Set<GnmiYangModel> readDependencyModels(final SourceInfo dependencyInfo,
-                                                    final Set<String> processedModuleNames,
-                                                    final SchemaException schemaException)
-            throws InterruptedException, ExecutionException, TimeoutException {
-        Set<GnmiYangModel> models = new HashSet<>();
-        for (SourceDependency.Include moduleImport : dependencyInfo.includes()) {
-            if (!processedModuleNames.contains(moduleImport.name().getLocalName())) {
-                final GnmiDeviceCapability importedCapability = new GnmiDeviceCapability(
-                        moduleImport.name().getLocalName(), null,
-                        moduleImport.revision());
-                final Optional<GnmiYangModel> gnmiYangModel = tryToReadModel(importedCapability);
-                if (gnmiYangModel.isPresent()) {
-                    models.add(gnmiYangModel.orElseThrow());
-                } else {
-                    schemaException.addMissingModel(importedCapability);
+    private Set<GnmiDeviceCapability> extractDependenciesFromYang(final GnmiYangModel model)
+                                                                    throws SourceSyntaxException, IOException {
+        final Set<GnmiDeviceCapability> deps = new HashSet<>();
+        if (model.getBody() == null || model.getBody().isEmpty()) {
+            return deps;
+        }
+
+        final var textSource = new StringYangTextSource(
+            new SourceIdentifier(model.getName()), model.getBody());
+
+        final YangIRSource irSource = this.textToIrTransformer.transformSource(textSource);
+        final IRStatement rootStmt = irSource.statement();
+
+        for (final IRStatement stmt : rootStmt.statements()) {
+            final String keyword = stmt.keyword().identifier();
+
+            if ("import".equals(keyword) || "include".equals(keyword)) {
+                final String moduleName = getArgumentString(stmt.argument());
+
+                Revision revision = null;
+                SemVer semVer = null;
+
+                for (final IRStatement subStmt : stmt.statements()) {
+                    final String subKw = subStmt.keyword().identifier();
+
+                    if ("revision-date".equals(subKw)) {
+                        final String revStr = getArgumentString(subStmt.argument());
+                        if (revStr != null && !revStr.isEmpty()) {
+                            revision = Revision.ofNullable(revStr).orElse(null);
+                        }
+                    } else if ("semantic-version".equals(subKw) || "openconfig-version".equals(subKw)) {
+                        final String semVerStr = getArgumentString(subStmt.argument());
+                        if (semVerStr != null && !semVerStr.isEmpty()) {
+                            try {
+                                semVer = SemVer.valueOf(semVerStr);
+                            } catch (IllegalArgumentException e) {
+                                LOG.warn("Failed to parse SemVer for module import: {}", moduleName);
+                            }
+                        }
+                    }
                 }
-                processedModuleNames.add(moduleImport.name().getLocalName());
+
+                if (moduleName != null && !moduleName.isEmpty()) {
+                    deps.add(new GnmiDeviceCapability(moduleName, semVer, revision));
+                }
             }
         }
-        for (SourceDependency.Import moduleImport : dependencyInfo.imports()) {
-            if (!processedModuleNames.contains(moduleImport.name().getLocalName())) {
-                final GnmiDeviceCapability importedCapability = new GnmiDeviceCapability(
-                        moduleImport.name().getLocalName(), null,
-                        moduleImport.revision());
+        return deps;
+    }
+
+    /**
+     * Helper to safely extract the raw string from an IRArgument.
+     */
+    private static String getArgumentString(final IRArgument argument) {
+        if (argument instanceof IRArgument.Single) {
+            return ((IRArgument.Single) argument).string();
+        }
+        return null;
+    }
+
+    private Set<GnmiYangModel> readDependencyModels(final Set<GnmiDeviceCapability> dependencyCaps,
+                                                      final Set<String> processedModuleNames,
+                                                      final SchemaException schemaException)
+                                                    throws InterruptedException, ExecutionException, TimeoutException {
+        final var models = new HashSet<>();
+        for (GnmiDeviceCapability importedCapability : dependencyCaps) {
+            if (!processedModuleNames.contains(importedCapability.getName())) {
                 final Optional<GnmiYangModel> gnmiYangModel = tryToReadModel(importedCapability);
                 if (gnmiYangModel.isPresent()) {
                     models.add(gnmiYangModel.orElseThrow());
                 } else {
                     schemaException.addMissingModel(importedCapability);
                 }
-                processedModuleNames.add(moduleImport.name().getLocalName());
+                processedModuleNames.add(importedCapability.getName());
             }
         }
         return models;
@@ -208,41 +253,35 @@ public class SchemaContextHolderImpl implements SchemaContextHolder {
             return contextCache.get(key);
         }
         // Compute schema and add to cache
-        final CrossSourceStatementReactor.BuildAction buildAction = yangReactor.newBuild();
+        final YangParser parser = yangParserFactory.createParser();
         final SchemaException schemaException = new SchemaException();
         boolean success = true;
         final Set<GnmiYangModel> completeCapabilities = prepareModelsForSchema(capabilities);
         for (GnmiYangModel model : completeCapabilities) {
             try {
-                buildAction.addSource(YangStatementStreamSource.create(makeTextSchemaSource(model)));
+                parser.addSource(makeTextSchemaSource(model));
             } catch (IOException | YangSyntaxErrorException e) {
-                LOG.error("Adding YANG {} to reactor failed!", model, e);
+                LOG.error("Adding YANG {} to parser failed!", model, e);
                 schemaException.addErrorMessage(e.getMessage());
                 success = false;
             }
         }
         if (success) {
             try {
-                final EffectiveModelContext context = buildAction.buildEffective();
+                final EffectiveModelContext context = parser.buildEffectiveModel();
                 LOG.debug("Schema context created {}", context.getModules());
                 contextCache.put(key, context);
                 return context;
-            } catch (ReactorException e) {
-                LOG.error("Reactor failed processing schema context", e);
+            } catch (YangParserException e) {
+                LOG.error("Parser failed processing schema context", e);
                 schemaException.addErrorMessage(e.getMessage());
             }
         }
         throw schemaException;
     }
 
-    private DelegatedYangTextSource makeTextSchemaSource(final GnmiYangModel model) {
-        return new DelegatedYangTextSource(
-                new SourceIdentifier(model.getName()), bodyCharSource(model.getBody()));
-
+    private static YangTextSource makeTextSchemaSource(final GnmiYangModel model) {
+        return new StringYangTextSource(
+            new SourceIdentifier(model.getName()), model.getBody());
     }
-
-    private CharSource bodyCharSource(final String yangBody) {
-        return CharSource.wrap(yangBody);
-    }
-
 }
