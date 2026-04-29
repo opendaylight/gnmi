@@ -7,8 +7,6 @@
  */
 package org.opendaylight.gnmi.simulatordevice.gnmi;
 
-import static org.opendaylight.yangtools.openconfig.model.api.OpenConfigStatements.OPENCONFIG_VERSION;
-
 import gnmi.Gnmi;
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -17,6 +15,7 @@ import java.util.Objects;
 import java.util.Optional;
 import org.eclipse.jdt.annotation.Nullable;
 import org.opendaylight.yangtools.concepts.SemVer;
+import org.opendaylight.yangtools.openconfig.model.api.OpenConfigVersionStatement;
 import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
 import org.opendaylight.yangtools.yang.model.api.Module;
 import org.opendaylight.yangtools.yang.model.ri.stmt.impl.decl.UnrecognizedStatementImpl;
@@ -70,7 +69,7 @@ public class GnmiCapabilitiesService {
         }
 
         return declared.declaredSubstatements(UnrecognizedStatementImpl.class).stream()
-                .filter(t -> OPENCONFIG_VERSION.getStatementName()
+                .filter(t -> OpenConfigVersionStatement.DEF.getStatementName()
                         .equals(t.statementDefinition().getStatementName().withoutRevision()))
                 .findFirst()
                 .map(stmt -> SemVer.valueOf(stmt.argument().toString()));

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 import org.apache.commons.io.IOUtils;
 import org.opendaylight.yangtools.concepts.SemVer;
-import org.opendaylight.yangtools.openconfig.model.api.OpenConfigStatements;
+import org.opendaylight.yangtools.openconfig.model.api.OpenConfigVersionStatement;
 import org.opendaylight.yangtools.yang.common.Revision;
 import org.opendaylight.yangtools.yang.ir.IRArgument.Single;
 import org.opendaylight.yangtools.yang.ir.IRStatement;
@@ -31,8 +31,7 @@ import org.slf4j.LoggerFactory;
 public class YangLoadModelUtil {
 
     private static final Logger LOG = LoggerFactory.getLogger(YangLoadModelUtil.class);
-    private static final String OPENCONFIG_VERSION = OpenConfigStatements.OPENCONFIG_VERSION.getStatementName()
-            .getLocalName();
+    private static final String OPENCONFIG_VERSION = OpenConfigVersionStatement.DEF.getStatementName().getLocalName();
     private final Revision modelRevision;
     private final SemVer modelSemVer;
     private final String modelBody;
