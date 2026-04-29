@@ -10,10 +10,8 @@ package org.opendaylight.gnmi.southbound.schema.yangstore.impl;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ExecutorService;
-import java.util.stream.Collectors;
 import org.opendaylight.gnmi.commons.util.YangModelSanitizer;
 import org.opendaylight.gnmi.southbound.schema.yangstore.service.YangDataStoreService;
 import org.opendaylight.mdsal.binding.api.DataBroker;
@@ -70,10 +68,9 @@ public class YangDataStoreServiceImpl implements YangDataStoreService {
     }
 
     @Override
-    public ListenableFuture<Optional<GnmiYangModel>> readYangModel(final String modelName) {
-        // In case we only know the modelName, return found module if only one is present in datastore
+    public ListenableFuture<Optional<List<GnmiYangModel>>> readYangModel(final String modelName) {
+        // When only the model name is known, return every stored version of that model
         final var identifier = DataObjectIdentifier.builder(GnmiYangModels.class).build();
-
 
         try (ReadTransaction readOnlyTransaction = this.dataBroker.newReadOnlyTransaction()) {
             final ListenableFuture<Optional<GnmiYangModels>> yangModelOptionalFuture = readOnlyTransaction.read(
@@ -81,21 +78,13 @@ public class YangDataStoreServiceImpl implements YangDataStoreService {
             return Futures.transform(yangModelOptionalFuture, yangModelOptional -> {
                 if (yangModelOptional.isPresent()) {
                     // Keep only models with requested name
-                    final List<Map.Entry<GnmiYangModelKey, GnmiYangModel>> modelsWithRequestedName =
-                            yangModelOptional.orElseThrow().nonnullGnmiYangModel().entrySet().stream()
-                                    .filter(m -> m.getKey().getName().equals(modelName))
-                                    .collect(Collectors.toList());
-
-                    if (modelsWithRequestedName.size() == 1) {
-                        return Optional.of(modelsWithRequestedName.stream().findFirst().orElseThrow().getValue());
-                    } else if (modelsWithRequestedName.size() > 1) {
-                        LOG.warn("There are multiple version of model {} in datastore, unable to safely determine"
-                                + " which one to use, since only the model name is known", modelName);
-                    }
-
+                    final List<GnmiYangModel> modelsWithRequestedName =
+                            yangModelOptional.orElseThrow().nonnullGnmiYangModel().values().stream()
+                                    .filter(m -> m.getName().equals(modelName))
+                                    .toList();
+                    return Optional.of(modelsWithRequestedName);
                 }
                 return Optional.empty();
-
             }, executorService);
         }
     }
