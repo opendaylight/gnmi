@@ -97,7 +97,8 @@ import org.opendaylight.yangtools.yang.data.api.schema.LeafSetEntryNode;
 import org.opendaylight.yangtools.yang.data.api.schema.LeafSetNode;
 import org.opendaylight.yangtools.yang.data.api.schema.NormalizedNode;
 import org.opendaylight.yangtools.yang.data.spi.node.ImmutableNodes;
-import org.opendaylight.yangtools.yang.parser.impl.DefaultYangParserFactory;
+import org.opendaylight.yangtools.yang.parser.ri.DefaultYangParserFactory;
+import org.opendaylight.yangtools.yang.source.ir.DefaultYangTextToIRSourceTransformer;
 import org.opendaylight.yangtools.yang.xpath.impl.AntlrXPathParserFactory;
 
 public class GnmiWithoutRestconfTest extends AbstractDataBrokerTest {
@@ -174,7 +175,7 @@ public class GnmiWithoutRestconfTest extends AbstractDataBrokerTest {
         final var config = mapper.treeToValue(configTree, GnmiConfiguration.class);
         gnmiSouthboundModule = new GnmiSouthboundModule(odlDataBroker, rpcProviderService, odlDomMountPointService,
             createEncryptionService(), new DefaultYangParserFactory(),
-            new AntlrXPathParserFactory(), config);
+            new AntlrXPathParserFactory(), new DefaultYangTextToIRSourceTransformer(), config);
         gnmiSouthboundModule.init();
         gnmiDevice = getUnsecureGnmiDevice(DEVICE_ADDRESS, DEVICE_PORT);
         gnmiDevice.start();
