@@ -9,6 +9,7 @@ package org.opendaylight.gnmi.southbound.schema.yangstore.service;
 
 
 import com.google.common.util.concurrent.ListenableFuture;
+import java.util.List;
 import java.util.Optional;
 import org.opendaylight.mdsal.common.api.CommitInfo;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.yang.storage.rev210331.gnmi.yang.models.GnmiYangModel;
@@ -39,12 +40,11 @@ public interface YangDataStoreService {
     ListenableFuture<Optional<GnmiYangModel>> readYangModel(String modelName, String modelVersion);
 
     /**
-     * Tries to read yang model from datastore without independent of it's version.
-     * Model is returned only if one version is present in the datastore.
+     * Tries to read yang model from datastore independent of it's version.
      * @param modelName name of the module
-     * @return future optional yang model
+     * @return A list of Yang models for all versions found for this moduleName
      */
-    ListenableFuture<Optional<GnmiYangModel>> readYangModel(String modelName);
+    ListenableFuture<Optional<List<GnmiYangModel>>> readYangModel(String modelName);
 
 
 }
