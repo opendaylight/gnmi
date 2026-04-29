@@ -86,9 +86,10 @@ public class SchemaConstructTest {
                         .readYangModel(capability.getName(), capability.getVersionString().orElseThrow())
                         .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS).orElseThrow());
             } else {
-                storedModels.add(dataStoreService
-                        .readYangModel(capability.getName())
-                        .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS).orElseThrow());
+                final var models = dataStoreService.readYangModel(capability.getName())
+                        .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
+                Assertions.assertFalse(models.isEmpty(), capability.getName());
+                storedModels.addAll(models);
             }
         }
         for (GnmiYangModel model : storedModels) {
@@ -210,14 +211,15 @@ public class SchemaConstructTest {
                 .map(Path::toFile)
                 .collect(Collectors.toList());
         // Change body of model to syntax error one
-        for (File file : filesInFolder) {
-            final String body = new String(Files.newInputStream(file.toPath()).readAllBytes(), StandardCharsets.UTF_8);
-            final GnmiYangModel model = dataStoreService.readYangModel(
+        for (final var file : filesInFolder) {
+            final var body = new String(Files.newInputStream(file.toPath()).readAllBytes(), StandardCharsets.UTF_8);
+            final var modelList = dataStoreService.readYangModel(
                     FilenameUtils.removeExtension(file.getName()))
-                    .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
-                    .orElseThrow();
-            dataStoreService.deleteYangModel(model.getName(), null);
-            dataStoreService.addYangModel(model.getName(), model.getVersion().getValue(), body);
+                    .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
+            for (final var model : modelList) {
+                dataStoreService.deleteYangModel(model.getName(), model.getVersion().getValue());
+                dataStoreService.addYangModel(model.getName(), model.getVersion().getValue(), body);
+            }
         }
         final SchemaContextHolderImpl schemaContextHolder = new SchemaContextHolderImpl(
                 dataStoreService, new DefaultYangParserFactory(), new DefaultYangTextToIRSourceTransformer());
@@ -244,14 +246,15 @@ public class SchemaConstructTest {
                 .map(Path::toFile)
                 .collect(Collectors.toList());
         // Change body of model to syntax error one
-        for (File file : filesInFolder) {
-            final String body = new String(Files.newInputStream(file.toPath()).readAllBytes(), StandardCharsets.UTF_8);
-            final GnmiYangModel model = dataStoreService.readYangModel(
+        for (final var file : filesInFolder) {
+            final var body = new String(Files.newInputStream(file.toPath()).readAllBytes(), StandardCharsets.UTF_8);
+            final var modelList = dataStoreService.readYangModel(
                     FilenameUtils.removeExtension(file.getName()))
-                    .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
-                    .orElseThrow();
-            dataStoreService.deleteYangModel(model.getName(), null);
-            dataStoreService.addYangModel(model.getName(), model.getVersion().getValue(), body);
+                    .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
+            for (final var model : modelList) {
+                dataStoreService.deleteYangModel(model.getName(), model.getVersion().getValue());
+                dataStoreService.addYangModel(model.getName(), model.getVersion().getValue(), body);
+            }
         }
 
         //Delete models so they should be reported as missing
@@ -272,7 +275,7 @@ public class SchemaConstructTest {
             // Check that all missing models are reported in SchemaException
             Assertions.assertFalse(schemaException.getMissingModels().isEmpty());
             Assertions.assertEquals(modelsToDelete.size(), schemaException.getMissingModels().size());
-            for (GnmiDeviceCapability missingCap : schemaException.getMissingModels()) {
+            for (final var missingCap : schemaException.getMissingModels()) {
                 Assertions.assertTrue(modelsToDelete.contains(missingCap.getName()));
             }
         }
