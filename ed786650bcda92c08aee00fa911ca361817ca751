@@ -50,6 +50,23 @@
       "message": "recheck",
       "revId": "ed786650bcda92c08aee00fa911ca361817ca751",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a844690_d111d853",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9387
+      },
+      "writtenOn": "2026-04-29T14:20:01Z",
+      "side": 1,
+      "message": "Removed done tasks.",
+      "revId": "ed786650bcda92c08aee00fa911ca361817ca751",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
