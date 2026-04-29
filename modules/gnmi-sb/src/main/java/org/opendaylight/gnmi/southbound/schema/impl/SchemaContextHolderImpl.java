@@ -7,8 +7,12 @@
  */
 package org.opendaylight.gnmi.southbound.schema.impl;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.Sets;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -99,7 +103,6 @@ public class SchemaContextHolderImpl implements SchemaContextHolder {
             Thread.currentThread().interrupt();
             schemaException.addErrorMessage(e.getMessage());
         }
-
         if (schemaException.getMissingModels().isEmpty() && schemaException.getErrorMessages().isEmpty()) {
             return fullModelSet;
         }
@@ -129,32 +132,200 @@ public class SchemaContextHolderImpl implements SchemaContextHolder {
             throws InterruptedException, ExecutionException, TimeoutException {
         // Try to find the model stored with version
         Optional<GnmiYangModel> readImport;
-        Optional<String> capabilityVersion = capability.getVersionString();
+        final Optional<String> capabilityVersion = capability.getVersionString();
         if (capabilityVersion.isPresent()) {
             readImport = yangDataStoreService.readYangModel(capability.getName(), capabilityVersion.orElseThrow())
                     .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
+
             if (readImport.isEmpty()) {
-                LOG.warn("Requested gNMI (capability/dependency of capability) {} was not found with requested version"
+                LOG.warn("Requested gNMI (capability/dependency of capability) {} was not found with requested version."
                         + " {}.", capability.getName(), capabilityVersion.orElseThrow());
-                readImport = yangDataStoreService.readYangModel(capability.getName())
-                        .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
-                readImport.ifPresent(gnmiYangModel ->
-                        LOG.warn("Model {} was found, but with version {}, since it is the only one"
-                                        + " present, using it for schema.", capability.getName(),
-                                gnmiYangModel.getVersion().getValue()));
+                final Optional<List<GnmiYangModel>> optModelList =
+                        yangDataStoreService.readYangModel(capability.getName())
+                                .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
+
+                if (optModelList.isPresent() && !optModelList.orElseThrow().isEmpty()) {
+                    final List<GnmiYangModel> models = optModelList.orElseThrow();
+                    LOG.warn("{} different version(s) for this model were found, fetching the highest version...",
+                            models.size());
+
+                    final Optional<GnmiYangModel> highestModel = getHighestVersion(models);
+                    final String requestedVersion = capabilityVersion.orElseThrow();
+                    if (highestModel.isPresent()
+                            && isBackwardsCompatible(highestModel.orElseThrow().getVersion().getValue(),
+                            requestedVersion)) {
+                        final String foundVersion = highestModel.orElseThrow().getVersion().getValue();
+                        LOG.warn("{} is backwards compatible with {}, model is KEPT.", foundVersion, requestedVersion);
+                        readImport = highestModel;
+                    } else {
+                        LOG.warn("No backwards compatible version was found for {}, model is DROPPED.",
+                                requestedVersion);
+                        readImport = Optional.empty();
+                    }
+                }
             }
         } else {
-            readImport = yangDataStoreService.readYangModel(capability.toString())
-                    .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
+            LOG.warn("Capability version is not present, any version should do.");
+            final Optional<List<GnmiYangModel>> optModelList =
+                    yangDataStoreService.readYangModel(capability.getName())
+                            .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
+            if (optModelList.isPresent() && !optModelList.orElseThrow().isEmpty()) {
+                readImport = getHighestVersion(optModelList.orElseThrow());
+            } else {
+                readImport = Optional.empty();
+            }
         }
 
         return readImport;
     }
 
+    /**
+     * Selects the model with the highest version, ignoring models that carry no version.
+     *
+     * <p>If there is no model with a version, but there is a model with no version then the noversion mdodel
+     * is returned</p>
+     *
+     * @param models candidate models, must not be empty
+     * @return the highest-versioned model, or empty if every candidate lacks a version
+     */
+    private static Optional<GnmiYangModel> getHighestVersion(final List<GnmiYangModel> models) {
+        Optional<GnmiYangModel> versionOpt = models.stream()
+                .filter(model -> model != null
+                        && model.getVersion() != null
+                        && !Strings.isNullOrEmpty(model.getVersion().getValue()))
+                .max((a, b) -> compareVersions(a.getVersion().getValue(), b.getVersion().getValue()));
+
+        if (versionOpt.isEmpty() && !models.isEmpty()) {
+            return Optional.of(models.get(models.size() - 1));
+        }
+
+        return versionOpt;
+    }
+
+    /**
+     * Compares two version strings of the same scheme.
+     *
+     * <p>Supported schemes:
+     * <ul>
+     *   <li>Revision date: {@code yyyy-MM-dd}</li>
+     *   <li>Dotted numeric: {@code X.Y.Z} (any number of dot-separated numeric segments)</li>
+     * </ul>
+     *
+     * <p>Both version strings must use the same scheme (date or dotted numeric).
+     *
+     * @return a negative value if {@code v1} is lower than {@code v2},
+     *         zero if {@code v1} and {@code v2} are equal or not comparable,
+     *         or a positive value if {@code v1} is higher than {@code v2}.
+     */
+    static int compareVersions(final String v1, final String v2) {
+        if (v1 == null || v2 == null) {
+            return 0;
+        }
+
+        final var av = v1.trim();
+        final var bv = v2.trim();
+        if (av.isEmpty() || bv.isEmpty()) {
+            return 0;
+        }
+
+        final boolean date1 = isRevisionDate(av);
+        final boolean date2 = isRevisionDate(bv);
+
+        // Don't compare across schemes. Treat as "equal"/non-orderable.
+        if (date1 != date2) {
+            return 0;
+        }
+
+        if (date1) {
+            final var ad = parseDate(av);
+            final var bd = parseDate(bv);
+            if (ad == null || bd == null) {
+                return 0;
+            }
+            return ad.compareTo(bd);
+        }
+
+        final int[] an = parseDottedNumeric(av);
+        final int[] bn = parseDottedNumeric(bv);
+        if (an.length == 0 || bn.length == 0) {
+            return 0;
+        }
+
+        return compareDottedNumeric(an, bn);
+    }
+
+    /**
+     * Returns true if {@code foundVersion} is strictly higher than {@code requestedVersion},
+     * within the same version scheme, meaning it can be treated as backwards compatible.
+     */
+    static boolean isBackwardsCompatible(final String foundVersion, final String requestedVersion) {
+        return compareVersions(foundVersion, requestedVersion) > 0;
+    }
+
+    private static boolean isRevisionDate(final String str) {
+        return str != null
+                && Revision.STRING_FORMAT_PATTERN.matcher(str).matches();
+    }
+
+    private static LocalDate parseDate(final String str) {
+        try {
+            return LocalDate.parse(str, DateTimeFormatter.ISO_LOCAL_DATE);
+        } catch (DateTimeParseException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Parses "1.2.3" (or "1.2", "9", "1.2.3.4") into int segments.
+     * Returns an empty array if any segment is non-numeric or empty.
+     */
+    private static int[] parseDottedNumeric(final String version) {
+        final String[] parts = version.split("\\.");
+        if (parts.length == 0) {
+            return new int[0];
+        }
+
+        final int[] out = new int[parts.length];
+        for (int i = 0; i < parts.length; i++) {
+            final String part = parts[i];
+            if (part.isEmpty()) {
+                return new int[0];
+            }
+            // Reject leading '+'/'-' and non-digits.
+            for (int k = 0; k < part.length(); k++) {
+                if (!Character.isDigit(part.charAt(k))) {
+                    return new int[0];
+                }
+            }
+            try {
+                out[i] = Integer.parseInt(part);
+            } catch (NumberFormatException e) {
+                return new int[0]; // overflow etc.
+            }
+        }
+        return out;
+    }
+
+    /**
+     * Lexicographic compare with implicit zero-extension.
+     * 1.2 == 1.2.0, 1.2 < 1.2.1, 2 > 1.9.9
+     */
+    private static int compareDottedNumeric(final int[] v1, final int[] v2) {
+        final int maxLength = Math.max(v1.length, v2.length);
+        for (int i = 0; i < maxLength; i++) {
+            final int ai = i < v1.length ? v1[i] : 0;
+            final int bi = i < v2.length ? v2[i] : 0;
+            if (ai != bi) {
+                return Integer.compare(ai, bi);
+            }
+        }
+        return 0;
+    }
+
     private Set<GnmiDeviceCapability> getDependenciesOfModels(final Set<GnmiYangModel> toCheck,
             final SchemaException schemaException) {
-        Set<GnmiDeviceCapability> dependencies = new HashSet<>();
-        for (GnmiYangModel model : toCheck) {
+        final Set<GnmiDeviceCapability> dependencies = new HashSet<>();
+        for (final GnmiYangModel model : toCheck) {
             try {
                 dependencies.addAll(extractDependenciesFromYang(model));
             } catch (SourceSyntaxException | IOException e) {
