@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2f0582f_59261204",
+        "filename": ".github/workflows/call-github2gerrit.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-04-30T07:24:46Z",
+      "side": 1,
+      "message": "unrelated update",
+      "revId": "504aae83f128bbb033fac4693b6a07d8868a39d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d1652f8_8740f6b9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-04-30T07:24:46Z",
+      "side": 1,
+      "message": "please split and check that build pass",
+      "revId": "504aae83f128bbb033fac4693b6a07d8868a39d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
