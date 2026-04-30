@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51734664_6a06826c",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 649
+      },
+      "writtenOn": "2026-04-30T14:04:50Z",
+      "side": 1,
+      "message": "use yangtools.common.Revision.STRING_FORMAT_PATTERN instead",
+      "range": {
+        "startLine": 246,
+        "startChar": 27,
+        "endLine": 246,
+        "endChar": 41
+      },
+      "revId": "79d730ce347ba34177439b260207ee3ef23ef9f1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
