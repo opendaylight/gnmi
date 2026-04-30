@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be302385_b0fabd9a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9387
+      },
+      "writtenOn": "2026-04-30T12:07:41Z",
+      "side": 1,
+      "message": "Resolved the last comments. Two of the comments where on code in the other pr.",
+      "revId": "99e188ad2a485a89289761161606806a1cee3938",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}

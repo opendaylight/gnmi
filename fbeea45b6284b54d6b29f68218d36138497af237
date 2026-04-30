@@ -175,6 +175,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1ffac4c_b18394cd",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/session/security/KeystoreGnmiSecurityProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 9387
+      },
+      "writtenOn": "2026-04-30T12:07:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5dd61657_ba80ecc5",
+      "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "208e974a_92ce0fc8",
@@ -399,6 +417,24 @@
       "side": 1,
       "message": "Not going to do final var, but I can do final on it.\n\nNot sure why you want it here, since the list is clearly not being manipulated in any way before it is thrown away.\n\nImo, var should only barely be allowed in tests.\n\nvar decreases readability and understanding of the code.",
       "parentUuid": "b87c8290_9f74ff3d",
+      "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0101997c_09c6936f",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 9387
+      },
+      "writtenOn": "2026-04-30T12:07:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87b0d5b4_5eb31768",
       "revId": "fbeea45b6284b54d6b29f68218d36138497af237",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
