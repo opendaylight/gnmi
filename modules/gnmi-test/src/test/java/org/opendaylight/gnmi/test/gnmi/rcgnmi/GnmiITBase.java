@@ -75,6 +75,7 @@ import org.opendaylight.netconf.odl.device.notification.SubscribeDeviceNotificat
 import org.opendaylight.netconf.sal.remote.impl.CreateDataChangeEventSubscriptionRpc;
 import org.opendaylight.netconf.transport.http.ConfigUtils;
 import org.opendaylight.netconf.transport.http.EventStreamService;
+import org.opendaylight.netconf.transport.http.HTTPServerOverTcp;
 import org.opendaylight.netconf.transport.http.HttpClientStackConfiguration;
 import org.opendaylight.netconf.transport.tcp.BootstrapFactory;
 import org.opendaylight.restconf.api.query.PrettyPrintParam;
@@ -91,13 +92,14 @@ import org.opendaylight.yang.gen.v1.config.aaa.authn.encrypt.service.config.rev2
 import org.opendaylight.yang.gen.v1.config.aaa.authn.encrypt.service.config.rev240202.AaaEncryptServiceConfigBuilder;
 import org.opendaylight.yang.gen.v1.config.aaa.authn.encrypt.service.config.rev240202.EncryptServiceConfig;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.http.client.rev240208.HttpClientStackGrouping;
-import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.http.server.rev240208.HttpServerStackGrouping;
-import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.http.server.rev240208.http.server.stack.grouping.Transport;
+import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.http.server.rev260204.HttpServerListenStackGrouping;
+import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.http.server.rev260204.http.server.listen.stack.grouping.Transport;
 import org.opendaylight.yangtools.binding.DataContainer;
 import org.opendaylight.yangtools.binding.data.codec.impl.di.DefaultBindingDOMCodecServices;
 import org.opendaylight.yangtools.yang.common.Uint16;
 import org.opendaylight.yangtools.yang.common.Uint32;
-import org.opendaylight.yangtools.yang.parser.impl.DefaultYangParserFactory;
+import org.opendaylight.yangtools.yang.common.Uint64;
+import org.opendaylight.yangtools.yang.parser.ri.DefaultYangParserFactory;
 import org.opendaylight.yangtools.yang.xpath.impl.AntlrXPathParserFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -163,11 +165,11 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
         host = localAddress + ":" + CONTROLLER_PORT;
         LOG.info("RESTCONF Server starting on: {}", host);
 
-        final var serverTransport = ConfigUtils.serverTransportTcp(localAddress, CONTROLLER_PORT);
-        final var serverStackGrouping = new HttpServerStackGrouping() {
+        final var serverTransport = HTTPServerOverTcp.of(localAddress, CONTROLLER_PORT);
+        final var serverStackGrouping = new HttpServerListenStackGrouping() {
             @Override
-            public Class<? extends HttpServerStackGrouping> implementedInterface() {
-                return HttpServerStackGrouping.class;
+            public Class<? extends HttpServerListenStackGrouping> implementedInterface() {
+                return HttpServerListenStackGrouping .class;
             }
 
             @Override
@@ -244,7 +246,9 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
         // Netty endpoint
         final var configuration = new NettyEndpointConfiguration(
             ERROR_TAG_MAPPING, PrettyPrintParam.FALSE, Uint16.ZERO, Uint32.valueOf(1000),
-            "rests", MessageEncoding.JSON, serverStackGrouping);
+            "rests", MessageEncoding.JSON, serverStackGrouping, Uint32.valueOf(256 * 1024), Uint32.valueOf(16 * 1024),
+            Uint32.valueOf(32 * 1024), Uint32.valueOf(64 * 1024), "h3=\":8443\"; ma=3600", Uint32.valueOf(3600),
+            Uint64.valueOf(4L * 1024 * 1024), Uint64.valueOf(256L * 1024), Uint32.valueOf(100));
 
         endpoint = new SimpleNettyEndpoint(server, principalService, streamRegistry, bootstrapFactory, configuration);
     }

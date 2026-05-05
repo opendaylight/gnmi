@@ -67,7 +67,7 @@ public class SchemaContextHolderImpl implements SchemaContextHolder {
             // Read models reported in capabilities
             fullModelSet = readCapabilities(baseCaps, processedModuleNames, schemaException);
             // Get dependencies using native AST extractor
-            Set<GnmiDeviceCapability> dependencyCaps = getDependenciesOfModels(fullModelSet);
+            Set<GnmiDeviceCapability> dependencyCaps = getDependenciesOfModels(fullModelSet, schemaException);
 
             boolean nonComplete = true;
             while (nonComplete) {
@@ -77,7 +77,7 @@ public class SchemaContextHolderImpl implements SchemaContextHolder {
 
                 // See which models are new, if any, do it again
                 final Sets.SetView<GnmiYangModel> newModels = Sets.difference(dependencyModels, fullModelSet);
-                dependencyCaps = getDependenciesOfModels(newModels.immutableCopy());
+                dependencyCaps = getDependenciesOfModels(newModels.immutableCopy(), schemaException);
                 nonComplete = fullModelSet.addAll(newModels);
             }
         } catch (ExecutionException | TimeoutException e) {
@@ -140,72 +140,72 @@ public class SchemaContextHolderImpl implements SchemaContextHolder {
         return readImport;
     }
 
-    private Set<GnmiDeviceCapability> getDependenciesOfModels(final Set<GnmiYangModel> toCheck) {
+    private Set<GnmiDeviceCapability> getDependenciesOfModels(final Set<GnmiYangModel> toCheck,
+        final SchemaException schemaException) {
         Set<GnmiDeviceCapability> dependencies = new HashSet<>();
         for (GnmiYangModel model : toCheck) {
-            dependencies.addAll(extractDependenciesFromYang(model));
+            try {
+                dependencies.addAll(extractDependenciesFromYang(model));
+            } catch (IOException | SourceSyntaxException e) {
+                schemaException.addErrorMessage(e.getMessage());
+            }
         }
         return dependencies;
     }
 
-    private Set<GnmiDeviceCapability> extractDependenciesFromYang(final GnmiYangModel model) {
+    private Set<GnmiDeviceCapability> extractDependenciesFromYang(final GnmiYangModel model)
+        throws SourceSyntaxException, IOException {
         final Set<GnmiDeviceCapability> deps = new HashSet<>();
         if (model.getBody() == null || model.getBody().isEmpty()) {
             return deps;
         }
 
-        try {
-            // 1. Create the Text Source
-            final StringYangTextSource textSource = new StringYangTextSource(
-                new SourceIdentifier(model.getName()), model.getBody());
+        // 1. Create the Text Source
+        final StringYangTextSource textSource = new StringYangTextSource(
+            new SourceIdentifier(model.getName()), model.getBody());
 
-            // 2. Parse into Native OpenDaylight IR using the Transformer
-            final YangIRSource irSource = new DefaultYangTextToIRSourceTransformer().transformSource(textSource);
-            final IRStatement rootStmt = irSource.statement();
+        // 2. Parse into Native OpenDaylight IR using the Transformer
+        final YangIRSource irSource = new DefaultYangTextToIRSourceTransformer().transformSource(textSource);
+        final IRStatement rootStmt = irSource.statement();
 
-            // 3. Traverse the AST looking for 'import' or 'include'
-            for (final IRStatement stmt : rootStmt.statements()) {
-                // Native identifier call
-                final String keyword = stmt.keyword().identifier();
+        // 3. Traverse the AST looking for 'import' or 'include'
+        for (final IRStatement stmt : rootStmt.statements()) {
+            final String keyword = stmt.keyword().identifier();
 
-                if ("import".equals(keyword) || "include".equals(keyword)) {
-                    final String moduleName = getArgumentString(stmt.argument());
+            if ("import".equals(keyword) || "include".equals(keyword)) {
+                final String moduleName = getArgumentString(stmt.argument());
 
-                    Revision revision = null;
-                    SemVer semVer = null;
+                Revision revision = null;
+                SemVer semVer = null;
 
-                    // 4. Traverse substatements inside the import/include block
-                    for (final IRStatement subStmt : stmt.statements()) {
-                        final String subKw = subStmt.keyword().identifier();
+                // 4. Traverse substatements inside the import/include block
+                for (final IRStatement subStmt : stmt.statements()) {
+                    final String subKw = subStmt.keyword().identifier();
 
-                        if ("revision-date".equals(subKw)) {
-                            final String revStr = getArgumentString(subStmt.argument());
-                            if (revStr != null && !revStr.isEmpty()) {
-                                revision = Revision.ofNullable(revStr).orElse(null);
-                            }
-                        }
-                        // Catches both "semantic-version" and "ext:openconfig-version"
-                        else if ("semantic-version".equals(subKw) || "openconfig-version".equals(subKw)) {
-                            final String semVerStr = getArgumentString(subStmt.argument());
-                            if (semVerStr != null && !semVerStr.isEmpty()) {
-                                try {
-                                    semVer = SemVer.valueOf(semVerStr);
-                                } catch (IllegalArgumentException e) {
-                                    LOG.warn("Failed to parse SemVer for module import: {}", moduleName);
-                                }
-                            }
+                    if ("revision-date".equals(subKw)) {
+                        final String revStr = getArgumentString(subStmt.argument());
+                        if (revStr != null && !revStr.isEmpty()) {
+                            revision = Revision.ofNullable(revStr).orElse(null);
                         }
                     }
-
-                    if (moduleName != null && !moduleName.isEmpty()) {
-                        deps.add(new GnmiDeviceCapability(moduleName, semVer, revision));
+                    // Catches both "semantic-version" and "ext:openconfig-version"
+                    else if ("semantic-version".equals(subKw) || "openconfig-version".equals(subKw)) {
+                        final String semVerStr = getArgumentString(subStmt.argument());
+                        if (semVerStr != null && !semVerStr.isEmpty()) {
+                            try {
+                                semVer = SemVer.valueOf(semVerStr);
+                            } catch (IllegalArgumentException e) {
+                                LOG.warn("Failed to parse SemVer for module import: {}", moduleName);
+                            }
+                        }
                     }
                 }
-            }
-        } catch (IOException | SourceSyntaxException e) {
-            LOG.error("Failed to parse IR for model {}", model.getName(), e);
-        }
 
+                if (moduleName != null && !moduleName.isEmpty()) {
+                    deps.add(new GnmiDeviceCapability(moduleName, semVer, revision));
+                }
+            }
+        }
         return deps;
     }
 

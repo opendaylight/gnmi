@@ -92,7 +92,7 @@ public final class GnmiSouthboundModule {
                 gnmiExecutor,
                 prepareByPathLoaders(gnmiConfiguration),
                 encryptionService,
-                (YangParserFactory) xpathParserFactory.newParser());
+                parserFactory);
 
             gnmiProvider.init();
             LOG.info("gNMI Southbound Provider initialized");
