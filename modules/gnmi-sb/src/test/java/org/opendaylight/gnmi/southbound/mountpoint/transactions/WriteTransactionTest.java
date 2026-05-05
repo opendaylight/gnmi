@@ -65,6 +65,7 @@ import org.opendaylight.yangtools.yang.data.api.schema.MapNode;
 import org.opendaylight.yangtools.yang.data.spi.node.ImmutableNodes;
 import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
 import org.opendaylight.yangtools.yang.parser.ri.DefaultYangParserFactory;
+import org.opendaylight.yangtools.yang.source.ir.DefaultYangTextToIRSourceTransformer;
 import org.skyscreamer.jsonassert.JSONAssert;
 
 public class WriteTransactionTest {
@@ -114,10 +115,11 @@ public class WriteTransactionTest {
         final TestYangDataStoreService dataStoreService = new TestYangDataStoreService();
         final DefaultYangParserFactory parserFactory = new DefaultYangParserFactory();
         final List<GnmiDeviceCapability> completeCapabilities = new ByClassPathYangLoaderService(
-            gnmiConfiguration.getYangModulesInfo(), parserFactory).load(dataStoreService);
+            gnmiConfiguration.getYangModulesInfo(), parserFactory,
+            new DefaultYangTextToIRSourceTransformer()).load(dataStoreService);
 
         final SchemaContextHolder schemaContextHolder = new SchemaContextHolderImpl(
-            dataStoreService, parserFactory);
+            dataStoreService, parserFactory, new DefaultYangTextToIRSourceTransformer());
         final EffectiveModelContext schemaContext = schemaContextHolder.getSchemaContext(completeCapabilities);
         deviceConnection.setSchemaContext(schemaContext);
         final YangInstanceIdentifierToPathCodec yiiToPathCodec

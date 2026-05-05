@@ -22,6 +22,7 @@ import org.opendaylight.gnmi.southbound.schema.provider.SchemaContextProvider;
 import org.opendaylight.yangtools.binding.meta.YangModuleInfo;
 import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
 import org.opendaylight.yangtools.yang.parser.ri.DefaultYangParserFactory;
+import org.opendaylight.yangtools.yang.source.ir.DefaultYangTextToIRSourceTransformer;
 
 public class TestSchemaContextProvider implements SchemaContextProvider {
 
@@ -40,12 +41,14 @@ public class TestSchemaContextProvider implements SchemaContextProvider {
         throws YangLoadException, SchemaException {
         final TestYangDataStoreService dataStoreService = new TestYangDataStoreService();
         final DefaultYangParserFactory parserFactory = new DefaultYangParserFactory();
-        final List<GnmiDeviceCapability> capabilities = new ByPathYangLoaderService(path, parserFactory).load(
+        final List<GnmiDeviceCapability> capabilities = new ByPathYangLoaderService(path, parserFactory,
+            new DefaultYangTextToIRSourceTransformer()).load(
             dataStoreService);
-        capabilities.addAll(new ByClassPathYangLoaderService(moduleInfoSet, parserFactory).load(dataStoreService));
+        capabilities.addAll(new ByClassPathYangLoaderService(moduleInfoSet, parserFactory,
+            new DefaultYangTextToIRSourceTransformer()).load(dataStoreService));
 
         final SchemaContextHolder schemaContextHolder = new SchemaContextHolderImpl(dataStoreService,
-            new DefaultYangParserFactory());
+            new DefaultYangParserFactory(), new DefaultYangTextToIRSourceTransformer());
         return new TestSchemaContextProvider(schemaContextHolder.getSchemaContext(capabilities));
     }
 
