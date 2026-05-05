@@ -47,6 +47,7 @@ import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.Topology;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.TopologyBuilder;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.TopologyTypesBuilder;
+import org.opendaylight.yangtools.yang.model.spi.source.YangTextToIRSourceTransformer;
 import org.opendaylight.yangtools.yang.parser.api.YangParserFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,6 +65,7 @@ public class GnmiSouthboundProvider implements AutoCloseable {
     private final RpcProviderService rpcProvider;
     private final ExecutorService gnmiExecutorService;
     private final AAAEncryptionService encryptionService;
+    private final YangTextToIRSourceTransformer textToIrTransformer;
     /**
      * Optional list of YangLoaderService which loads initial yang models to datastore.
      * These models are then used to construct schema context for gNMI devices based on gNMI.CapabilityResponse.
@@ -78,7 +80,8 @@ public class GnmiSouthboundProvider implements AutoCloseable {
                                   final RpcProviderService rpcProvider, final ExecutorService gnmiExecutorService,
                                   final List<YangLoaderService> initialYangsLoaders,
                                   final AAAEncryptionService encryptionService,
-                                  final @Nullable YangParserFactory parserFactory) {
+                                  final @Nullable YangParserFactory parserFactory,
+                                  final YangTextToIRSourceTransformer textToIrTransformer){
         this.mountPointService = mountService;
         this.dataBroker = dataBroker;
         this.gnmiExecutorService = gnmiExecutorService;
@@ -87,6 +90,7 @@ public class GnmiSouthboundProvider implements AutoCloseable {
         this.initialYangsLoaders = initialYangsLoaders;
         this.encryptionService = encryptionService;
         this.parserFactory = parserFactory;
+        this.textToIrTransformer = textToIrTransformer;
     }
 
     public void init() throws ExecutionException, InterruptedException, TimeoutException, YangLoadException {
@@ -113,7 +117,7 @@ public class GnmiSouthboundProvider implements AutoCloseable {
 
         //----Start and wire up core components----
         final SchemaContextHolder schemaContextHolder =
-                new SchemaContextHolderImpl(yangDataStoreService, parserFactory);
+            new SchemaContextHolderImpl(yangDataStoreService, parserFactory, textToIrTransformer);
         final GnmiMountPointRegistrator mountPointRegistrator = new GnmiMountPointRegistrator(mountPointService);
         closeables.add(mountPointRegistrator);
 

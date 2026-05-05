@@ -38,9 +38,8 @@ import org.opendaylight.gnmi.southbound.yangmodule.util.GnmiConfigUtils;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.yang.storage.rev210331.gnmi.yang.models.GnmiYangModel;
 import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
 import org.opendaylight.yangtools.yang.model.api.Module;
-import org.opendaylight.yangtools.yang.parser.impl.DefaultYangParserFactory;
-import org.opendaylight.yangtools.yang.parser.rfc7950.reactor.RFC7950Reactors;
-import org.opendaylight.yangtools.yang.xpath.impl.AntlrXPathParserFactory;
+import org.opendaylight.yangtools.yang.parser.ri.DefaultYangParserFactory;
+import org.opendaylight.yangtools.yang.source.ir.DefaultYangTextToIRSourceTransformer;
 
 public class SchemaConstructTest {
 
@@ -60,15 +59,17 @@ public class SchemaConstructTest {
     @BeforeEach
     public void setup() throws YangLoadException, ConfigurationException {
         dataStoreService = new TestYangDataStoreService();
-        completeCapabilities = new ByPathYangLoaderService(Path.of(SCHEMA_PATH), new DefaultYangParserFactory(
-            new AntlrXPathParserFactory())).load(dataStoreService);
+        completeCapabilities = new ByPathYangLoaderService(Path.of(SCHEMA_PATH), new DefaultYangParserFactory(),
+            new DefaultYangTextToIRSourceTransformer())
+            .load(dataStoreService);
         Assertions.assertFalse(completeCapabilities.isEmpty());
 
         final GnmiConfiguration gnmiConfiguration = new GnmiConfiguration();
         gnmiConfiguration.setYangModulesInfo(GnmiConfigUtils.OPENCONFIG_YANG_MODELS);
         final List<GnmiDeviceCapability> openconfigCapabilities
-            = new ByClassPathYangLoaderService(gnmiConfiguration.getYangModulesInfo(), new DefaultYangParserFactory(
-                new AntlrXPathParserFactory())).load(dataStoreService);
+            = new ByClassPathYangLoaderService(gnmiConfiguration.getYangModulesInfo(), new DefaultYangParserFactory(),
+                new DefaultYangTextToIRSourceTransformer())
+            .load(dataStoreService);
         Assertions.assertFalse(openconfigCapabilities.isEmpty());
         completeCapabilities.addAll(openconfigCapabilities);
     }
@@ -112,7 +113,7 @@ public class SchemaConstructTest {
     @Test
     public void schemaConstructSemVerTest() throws SchemaException {
         final SchemaContextHolderImpl schemaContextHolder = new SchemaContextHolderImpl(dataStoreService,
-            new DefaultYangParserFactory());
+            new DefaultYangParserFactory(), new DefaultYangTextToIRSourceTransformer());
         final EffectiveModelContext schemaContext = schemaContextHolder.getSchemaContext(completeCapabilities);
         // Check that every module in requested capabilities is contained in resulting schema
         assertSchemaContainsModels(schemaContext, completeCapabilities);
@@ -126,7 +127,7 @@ public class SchemaConstructTest {
     @Test
     public void schemaConstructDependenciesTest() throws SchemaException {
         final SchemaContextHolderImpl schemaContextHolder = new SchemaContextHolderImpl(
-                dataStoreService, new DefaultYangParserFactory());
+                dataStoreService, new DefaultYangParserFactory(),new DefaultYangTextToIRSourceTransformer());
 
         // Remove some models which are required for building models from capabilities
         final List<GnmiDeviceCapability> requestedCapabilities = completeCapabilities.stream()
@@ -147,7 +148,7 @@ public class SchemaConstructTest {
     public void schemaConstructionModelsMissingTest()
             throws InterruptedException, ExecutionException, TimeoutException {
         final SchemaContextHolderImpl schemaContextHolder = new SchemaContextHolderImpl(
-                dataStoreService, new DefaultYangParserFactory());
+                dataStoreService, new DefaultYangParserFactory(), new DefaultYangTextToIRSourceTransformer());
         //Delete models so they should be reported as missing
         for (String name : MODELS_TO_MISS) {
             Assertions.assertTrue(dataStoreService.deleteYangModel(name, null));
@@ -175,7 +176,7 @@ public class SchemaConstructTest {
     public void schemaConstructionModelsImportsMissingTest()
             throws InterruptedException, ExecutionException, TimeoutException {
         final SchemaContextHolderImpl schemaContextHolder = new SchemaContextHolderImpl(
-                dataStoreService, new DefaultYangParserFactory());
+                dataStoreService, new DefaultYangParserFactory(), new DefaultYangTextToIRSourceTransformer());
         //Delete models so they should be reported as missing
         final ArrayList<String> modelsToDelete = new ArrayList<>(MODELS_TO_MISS);
         modelsToDelete.addAll(CAPABILITIES_TO_MISS);
@@ -221,7 +222,7 @@ public class SchemaConstructTest {
         }
         // FIX: Pass RFC7950Reactors.defaultReactor() instead of null
         final SchemaContextHolderImpl schemaContextHolder = new SchemaContextHolderImpl(
-                dataStoreService, new DefaultYangParserFactory());
+                dataStoreService, new DefaultYangParserFactory(), new DefaultYangTextToIRSourceTransformer());
         try {
             schemaContextHolder.getSchemaContext(completeCapabilities);
             Assertions.fail("Schema context creation should fail!");
@@ -263,7 +264,7 @@ public class SchemaConstructTest {
         }
 
         final SchemaContextHolderImpl schemaContextHolder = new SchemaContextHolderImpl(
-                dataStoreService, new DefaultYangParserFactory());
+                dataStoreService, new DefaultYangParserFactory(), new DefaultYangTextToIRSourceTransformer());
         try {
             schemaContextHolder.getSchemaContext(completeCapabilities);
             Assertions.fail("Schema context creation should fail!");
