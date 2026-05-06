@@ -203,15 +203,13 @@
         </dependency>
         <dependency>
             <groupId>org.opendaylight.yangtools</groupId>
-            <artifactId>yang-parser-reactor</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.opendaylight.yangtools</groupId>
             <artifactId>yang-parser-rfc7950</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.opendaylight.yangtools</groupId>
-            <artifactId>yang-parser-spi</artifactId>
+            <artifactId>yang-source-ir</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.opendaylight.yangtools</groupId>
@@ -265,12 +263,12 @@
         </dependency>
         <dependency>
             <groupId>org.opendaylight.yangtools</groupId>
-            <artifactId>yang-parser-impl</artifactId>
+            <artifactId>yang-xpath-impl</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.opendaylight.yangtools</groupId>
-            <artifactId>yang-xpath-impl</artifactId>
+            <artifactId>yin-source-dom</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>

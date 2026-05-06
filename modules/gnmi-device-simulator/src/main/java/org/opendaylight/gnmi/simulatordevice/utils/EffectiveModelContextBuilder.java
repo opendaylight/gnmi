@@ -13,8 +13,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ServiceLoader;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -23,12 +23,12 @@ import org.opendaylight.gnmi.commons.util.YangModelSanitizer;
 import org.opendaylight.yangtools.binding.meta.YangModuleInfo;
 import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
 import org.opendaylight.yangtools.yang.model.api.source.SourceIdentifier;
-import org.opendaylight.yangtools.yang.model.spi.source.DelegatedYangTextSource;
+import org.opendaylight.yangtools.yang.model.api.source.YangTextSource;
+import org.opendaylight.yangtools.yang.model.spi.source.StringYangTextSource;
+import org.opendaylight.yangtools.yang.parser.api.YangParser;
 import org.opendaylight.yangtools.yang.parser.api.YangParserException;
-import org.opendaylight.yangtools.yang.parser.rfc7950.reactor.RFC7950Reactors;
-import org.opendaylight.yangtools.yang.parser.rfc7950.repo.YangStatementStreamSource;
-import org.opendaylight.yangtools.yang.parser.spi.meta.ReactorException;
-import org.opendaylight.yangtools.yang.parser.stmt.reactor.CrossSourceStatementReactor.BuildAction;
+import org.opendaylight.yangtools.yang.parser.api.YangParserFactory;
+import org.opendaylight.yangtools.yang.parser.api.YangSyntaxErrorException;
 
 /**
  * EffectiveModelContextBuilder build {@link EffectiveModelContext} from provided path to folder which contains
@@ -81,16 +81,22 @@ public class EffectiveModelContextBuilder {
      */
     public EffectiveModelContext build() throws EffectiveModelContextBuilderException {
         if (this.yangModulesPath != null || this.yangModulesInfo != null) {
-            final BuildAction buildAction = RFC7950Reactors.defaultReactorBuilder().build().newBuild();
+            final YangParserFactory factory = ServiceLoader.load(
+                    YangParserFactory.class, YangParserFactory.class.getClassLoader())
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("YangParserFactory service not found"));
+
+            final YangParser parser = factory.createParser();
+
             if (this.yangModulesInfo != null) {
-                buildAction.addSources(getYangStatementsFromYangModulesInfo(this.yangModulesInfo));
+                addYangSourcesFromYangModulesInfo(parser, this.yangModulesInfo);
             }
             if (this.yangModulesPath != null) {
-                buildAction.addSources(getYangStatementsFromYangModulesPath(this.yangModulesPath));
+                addYangSourcesFromYangModulesPath(parser, this.yangModulesPath);
             }
             try {
-                return buildAction.buildEffective();
-            } catch (ReactorException e) {
+                return parser.buildEffectiveModel();
+            } catch (YangParserException e) {
                 throw new EffectiveModelContextBuilderException("Failed to create EffectiveModelContext", e);
             }
         } else {
@@ -99,9 +105,8 @@ public class EffectiveModelContextBuilder {
         }
     }
 
-    private static List<YangStatementStreamSource> getYangStatementsFromYangModulesPath(final String path)
+    private static void addYangSourcesFromYangModulesPath(final YangParser parser, final String path)
             throws EffectiveModelContextBuilderException {
-        final ArrayList<YangStatementStreamSource> sourceArrayList = new ArrayList<>();
         try (Stream<Path> pathStream = Files.walk(Path.of(path))) {
             final List<File> filesInFolder = pathStream
                     .filter(Files::isRegularFile)
@@ -109,41 +114,39 @@ public class EffectiveModelContextBuilder {
                     .collect(Collectors.toList());
             for (File file : filesInFolder) {
                 final CharSource sanitizedYangByteSource = YangModelSanitizer
-                        .removeRegexpPosix(com.google.common.io.Files.asCharSource(file, StandardCharsets.UTF_8));
-                final YangStatementStreamSource statementSource = YangStatementStreamSource.create(
-                        new DelegatedYangTextSource(
-                                SourceIdentifier.ofYangFileName(file.getName()),
-                                sanitizedYangByteSource));
+                    .removeRegexpPosix(com.google.common.io.Files.asCharSource(file, StandardCharsets.UTF_8));
 
-                sourceArrayList.add(statementSource);
+                final YangTextSource statementSource = new StringYangTextSource(
+                    new SourceIdentifier(file.getName()),
+                    sanitizedYangByteSource.read());
+
+                parser.addSource(statementSource);
             }
-            return sourceArrayList;
-        } catch (IOException | YangParserException e) {
-            final String errorMsg = String.format("Failed to create YangStatementStreamSource from"
-                    + "provided path: [%s]", path);
+        } catch (IOException | YangSyntaxErrorException e) {
+            final String errorMsg = String.format("Failed to create and add YangTextSource from "
+                + "provided path: [%s]", path);
             throw new EffectiveModelContextBuilderException(errorMsg, e);
         }
     }
 
-    private static List<YangStatementStreamSource> getYangStatementsFromYangModulesInfo(
-            final Set<YangModuleInfo> yangModulesInfo) throws EffectiveModelContextBuilderException {
-        final ArrayList<YangStatementStreamSource> sourceArrayList = new ArrayList<>();
+    private static void addYangSourcesFromYangModulesInfo(final YangParser parser,
+        final Set<YangModuleInfo> yangModulesInfo) throws EffectiveModelContextBuilderException {
         for (YangModuleInfo yangModuleInfo : yangModulesInfo) {
             try {
                 final CharSource sanitizedYangByteSource = YangModelSanitizer
-                        .removeRegexpPosix(yangModuleInfo.getYangTextCharSource());
-                final YangStatementStreamSource statementSource
-                        = YangStatementStreamSource.create(new DelegatedYangTextSource(
-                        SourceIdentifier.ofYangFileName(yangModuleInfo.getName().getLocalName() + ".yang"),
-                        sanitizedYangByteSource));
-                sourceArrayList.add(statementSource);
-            } catch (IOException | YangParserException e) {
-                final String errorMsg = String.format("Failed to create YangStatementStreamSource from"
-                        + "provided YangModuleInfo: [%s]", yangModuleInfo);
+                    .removeRegexpPosix(yangModuleInfo.getYangTextCharSource());
+
+                final YangTextSource statementSource = new StringYangTextSource(
+                    new SourceIdentifier(yangModuleInfo.getName().getLocalName() + ".yang"),
+                    sanitizedYangByteSource.read());
+
+                parser.addSource(statementSource);
+            } catch (IOException | YangSyntaxErrorException e) {
+                final String errorMsg = String.format("Failed to create and add YangTextSource from "
+                    + "provided YangModuleInfo: [%s]", yangModuleInfo);
                 throw new EffectiveModelContextBuilderException(errorMsg, e);
             }
         }
-        return sourceArrayList;
     }
 
     public static class EffectiveModelContextBuilderException extends Exception {
