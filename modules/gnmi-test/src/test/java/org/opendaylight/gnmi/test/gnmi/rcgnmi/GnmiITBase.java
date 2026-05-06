@@ -91,8 +91,8 @@ import org.opendaylight.yang.gen.v1.config.aaa.authn.encrypt.service.config.rev2
 import org.opendaylight.yang.gen.v1.config.aaa.authn.encrypt.service.config.rev240202.AaaEncryptServiceConfigBuilder;
 import org.opendaylight.yang.gen.v1.config.aaa.authn.encrypt.service.config.rev240202.EncryptServiceConfig;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.http.client.rev240208.HttpClientStackGrouping;
-import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.http.server.rev240208.HttpServerStackGrouping;
-import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.http.server.rev240208.http.server.stack.grouping.Transport;
+import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.http.server.rev260204.HttpServerListenStackGrouping;
+import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.http.server.rev260204.http.server.listen.stack.grouping.Transport;
 import org.opendaylight.yangtools.binding.DataContainer;
 import org.opendaylight.yangtools.binding.data.codec.impl.di.DefaultBindingDOMCodecServices;
 import org.opendaylight.yangtools.yang.common.Uint16;
