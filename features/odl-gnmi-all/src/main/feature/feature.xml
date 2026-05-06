@@ -16,6 +16,6 @@
         <bundle>mvn:io.netty/netty-codec-socks/4.2.7.Final</bundle>
         <bundle>mvn:io.netty/netty-handler-proxy/4.2.7.Final</bundle>
         <bundle>wrap:mvn:io.grpc/grpc-netty/1.75.0$Bundle-SymbolicName=io.grpc.grpc-netty&amp;Bundle-Version=1.75.0</bundle>
-        <bundle>wrap:mvn:com.google.errorprone/error_prone_annotations/2.43.0$overwrite=merge&amp;Export-Package=com.google.errorprone.annotations;version=2.43.0</bundle>
+        <bundle>wrap:mvn:com.google.errorprone/error_prone_annotations/2.47.0$overwrite=merge&amp;Export-Package=com.google.errorprone.annotations;version=2.47.0</bundle>
     </feature>
 </features>
