@@ -8,6 +8,7 @@
 <features xmlns="http://karaf.apache.org/xmlns/features/v1.4.0" name="odl-gnmi-all">
     <feature name="odl-gnmi-all" version="${project.version}">
         <feature version="[14,15)">odl-errorprone</feature>
+        <feature version="[14,15)">odl-netty-4</feature>
         <feature version="[2,3)">odl-ietf-model-rfc7224</feature>
         <feature version="[11,12)">odl-netconf-topology</feature>
         <feature version="[11,12)">odl-restconf</feature>
@@ -18,8 +19,6 @@
         <bundle>wrap:mvn:io.grpc/grpc-protobuf-lite/1.75.0$overwrite=merge&amp;Bundle-SymbolicName=io.grpc.grpc-protobuf-lite</bundle>
         <bundle>wrap:mvn:io.grpc/grpc-api/1.75.0$Bundle-SymbolicName=io.grpc.grpc-api&amp;Bundle-Version=1.75.0</bundle>
         <bundle>wrap:mvn:io.grpc/grpc-core/1.75.0$Bundle-SymbolicName=io.grpc.grpc-core&amp;Bundle-Version=1.75.0&amp;Fragment-Host=io.grpc.grpc-api</bundle>
-        <bundle>mvn:io.netty/netty-codec-socks/4.2.7.Final</bundle>
-        <bundle>mvn:io.netty/netty-handler-proxy/4.2.7.Final</bundle>
         <bundle>wrap:mvn:io.grpc/grpc-netty/1.75.0$Bundle-SymbolicName=io.grpc.grpc-netty&amp;Bundle-Version=1.75.0</bundle>
     </feature>
 </features>
