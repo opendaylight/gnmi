@@ -24,6 +24,30 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eda54318_85871d33",
+        "filename": "modules/gnmi-device-simulator/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-07T10:17:21Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "73a292dd_fd8d93ed",
+      "range": {
+        "startLine": 196,
+        "startChar": 29,
+        "endLine": 196,
+        "endChar": 34
+      },
+      "revId": "68848ba56e0320361645bf67dbef2c0985a1a79d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c114ae5_41a3c8d4",
@@ -47,6 +71,30 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d4509c6_e96e1735",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-07T10:17:21Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "2c114ae5_41a3c8d4",
+      "range": {
+        "startLine": 189,
+        "startChar": 20,
+        "endLine": 189,
+        "endChar": 27
+      },
+      "revId": "68848ba56e0320361645bf67dbef2c0985a1a79d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0f1e85ec_97662554",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-05-07T07:55:40Z",
       "side": 1,
       "message": "missing space",
+      "range": {
+        "startLine": 130,
+        "startChar": 64,
+        "endLine": 130,
+        "endChar": 66
+      },
+      "revId": "68848ba56e0320361645bf67dbef2c0985a1a79d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33a86c1f_867cb406",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/schema/SchemaConstructTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-07T10:17:21Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "0f1e85ec_97662554",
       "range": {
         "startLine": 130,
         "startChar": 64,
