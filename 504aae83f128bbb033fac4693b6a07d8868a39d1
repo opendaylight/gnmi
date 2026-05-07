@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ea46092_7cde0c74",
+        "filename": ".github/workflows/call-github2gerrit.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 6258
+      },
+      "writtenOn": "2026-05-07T02:20:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2f0582f_59261204",
+      "revId": "504aae83f128bbb033fac4693b6a07d8868a39d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d1652f8_8740f6b9",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-04-30T07:24:46Z",
       "side": 1,
       "message": "please split and check that build pass",
+      "revId": "504aae83f128bbb033fac4693b6a07d8868a39d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbbf2570_2cc357a1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 6258
+      },
+      "writtenOn": "2026-05-07T02:20:37Z",
+      "side": 1,
+      "message": "Done! Note: both changes are related to v1.2.1 and can be kept in the same change, pls read release notes for v1.2.1 for more details.",
+      "parentUuid": "6d1652f8_8740f6b9",
       "revId": "504aae83f128bbb033fac4693b6a07d8868a39d1",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
