@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73a292dd_fd8d93ed",
+        "filename": "modules/gnmi-device-simulator/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-05-07T07:50:31Z",
+      "side": 1,
+      "message": "alphabetical order please",
+      "range": {
+        "startLine": 196,
+        "startChar": 29,
+        "endLine": 196,
+        "endChar": 34
+      },
+      "revId": "68848ba56e0320361645bf67dbef2c0985a1a79d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
