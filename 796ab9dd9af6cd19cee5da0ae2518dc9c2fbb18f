@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f856d34_2b833165",
+        "filename": "features/odl-gnmi-all/src/main/feature/feature.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-05-07T11:00:09Z",
+      "side": 1,
+      "message": "we should use netty from odlaprent, please",
+      "revId": "796ab9dd9af6cd19cee5da0ae2518dc9c2fbb18f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
