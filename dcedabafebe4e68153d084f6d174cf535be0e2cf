@@ -16,6 +16,24 @@
       "message": "don/t we have it in odlparent?",
       "revId": "dcedabafebe4e68153d084f6d174cf535be0e2cf",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "366d6da6_7edd865b",
+        "filename": "features/odl-gnmi-all/src/main/feature/feature.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-08T11:53:35Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "493435f4_e2c8727b",
+      "revId": "dcedabafebe4e68153d084f6d174cf535be0e2cf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
