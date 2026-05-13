@@ -16,6 +16,24 @@
       "message": "Let\u0027s follow https://docs.opendaylight.org/en/latest/contributor-guides/coding-guidelines/coding-guidelines-java.html and use 8-space indentation",
       "revId": "c6c170a9af3bc3460d8ed78915788695f00b25b4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd4ae906_1676d4bb",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-13T11:29:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50a2eabc_b7292d4e",
+      "revId": "c6c170a9af3bc3460d8ed78915788695f00b25b4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }

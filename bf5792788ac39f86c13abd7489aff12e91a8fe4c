@@ -176,6 +176,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ea22b6b_71075696",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-13T11:29:02Z",
+      "side": 1,
+      "message": "Cannot access tryToReadModel() method in that case, and tryToReadModel() cannot be static because then we cannot access fields.",
+      "parentUuid": "fc46a84a_e0f6a70e",
+      "revId": "bf5792788ac39f86c13abd7489aff12e91a8fe4c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83c27413_efaf7d28",
@@ -207,6 +225,24 @@
       "side": 1,
       "message": "I think this was supposed to be on this line:\nSet\u003cGnmiYangModel\u003e models \u003d new HashSet\u003c\u003e();\n\nCannot be var because return of the method does not match:\nRequired type:\nSet\n\u003cGnmiYangModel\u003e\n\nProvided:\nHashSet\n\u003cObject\u003e",
       "parentUuid": "83c27413_efaf7d28",
+      "revId": "bf5792788ac39f86c13abd7489aff12e91a8fe4c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7da9bc42_eee40531",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-13T11:29:02Z",
+      "side": 1,
+      "message": "I think this was supposed to be on this line:\nSet\u003cGnmiYangModel\u003e models \u003d new HashSet\u003c\u003e();\n\nCannot be var because return of the method does not match:\nRequired type:\nSet\n\u003cGnmiYangModel\u003e\n\nProvided:\nHashSet\n\u003cObject\u003e",
+      "parentUuid": "b54d9e95_d7daf37b",
       "revId": "bf5792788ac39f86c13abd7489aff12e91a8fe4c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -246,6 +282,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fdffeb6_fb63f7ce",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-13T11:29:02Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "35f067a9_5e447b9e",
+      "revId": "bf5792788ac39f86c13abd7489aff12e91a8fe4c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3092e202_675bbb96",
@@ -277,6 +331,24 @@
       "side": 1,
       "message": "done",
       "parentUuid": "3092e202_675bbb96",
+      "revId": "bf5792788ac39f86c13abd7489aff12e91a8fe4c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c93c700f_1f9e5846",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-13T11:29:02Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "4fba22f2_ed3a2086",
       "revId": "bf5792788ac39f86c13abd7489aff12e91a8fe4c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
