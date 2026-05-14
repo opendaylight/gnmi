@@ -16,6 +16,24 @@
       "message": "bad formatting",
       "revId": "97227f9d042c45c7392f3e777aafed32abb87339",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8760411_159f4ef0",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-14T07:27:27Z",
+      "side": 1,
+      "message": "added one more tab",
+      "parentUuid": "707f4029_f20491d6",
+      "revId": "97227f9d042c45c7392f3e777aafed32abb87339",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
