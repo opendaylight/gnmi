@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42f25aa2_30af95a7",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiITBase.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 8449
+      },
+      "writtenOn": "2026-05-15T07:38:39Z",
+      "side": 1,
+      "message": "Extra space :)",
+      "range": {
+        "startLine": 173,
+        "startChar": 52,
+        "endLine": 173,
+        "endChar": 53
+      },
+      "revId": "bd27be46e21a3f602de872fe5be1a0feeeb39561",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
