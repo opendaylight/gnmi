@@ -24,6 +24,30 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fb856b1_4be06c77",
+        "filename": "modules/gnmi-device-simulator/src/main/java/org/opendaylight/gnmi/simulatordevice/utils/EffectiveModelContextBuilder.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-15T12:12:32Z",
+      "side": 1,
+      "message": "now using DefaultYangParserFactory, did not make it an attribute, as this method is only executed once.",
+      "parentUuid": "4aa07c50_aeb5476a",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 101
+      },
+      "revId": "a291427c52d202e4fea1adf64f3963dee9f2f0bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "010e4b72_5f4356c1",
@@ -37,6 +61,24 @@
       "writtenOn": "2026-05-15T07:38:20Z",
       "side": 1,
       "message": "SourceIdentifier.ofYangFileName(file.getName())",
+      "revId": "a291427c52d202e4fea1adf64f3963dee9f2f0bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fc47161_f4432ff4",
+        "filename": "modules/gnmi-device-simulator/src/main/java/org/opendaylight/gnmi/simulatordevice/utils/EffectiveModelContextBuilder.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-15T12:12:32Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "010e4b72_5f4356c1",
       "revId": "a291427c52d202e4fea1adf64f3963dee9f2f0bf",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -64,6 +106,30 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "73a6178b_9173a6b7",
+        "filename": "modules/gnmi-device-simulator/src/main/java/org/opendaylight/gnmi/simulatordevice/utils/EffectiveModelContextBuilder.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-15T12:12:32Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "c2f0ebc0_9d3482a6",
+      "range": {
+        "startLine": 138,
+        "startChar": 86,
+        "endLine": 138,
+        "endChar": 94
+      },
+      "revId": "a291427c52d202e4fea1adf64f3963dee9f2f0bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "53145c75_a29d7496",
@@ -77,6 +143,24 @@
       "writtenOn": "2026-05-15T07:38:20Z",
       "side": 1,
       "message": "Probably dead code.",
+      "revId": "a291427c52d202e4fea1adf64f3963dee9f2f0bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49918f0a_1b4cf283",
+        "filename": "modules/gnmi-device-simulator/src/main/java/org/opendaylight/gnmi/simulatordevice/utils/FileUtils.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-15T12:12:32Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "53145c75_a29d7496",
       "revId": "a291427c52d202e4fea1adf64f3963dee9f2f0bf",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -98,6 +182,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "af4b2b24_a871bf2b",
+        "filename": "modules/gnmi-device-simulator/src/main/java/org/opendaylight/gnmi/simulatordevice/utils/FileUtils.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-15T12:12:32Z",
+      "side": 1,
+      "message": "code was removed",
+      "parentUuid": "ea4b6356_30f3b436",
+      "revId": "a291427c52d202e4fea1adf64f3963dee9f2f0bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e6fbe8a5_abc6c7c6",
@@ -115,6 +217,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ebff49f_8123d940",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/loader/impl/ByClassPathYangLoaderService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-15T12:12:32Z",
+      "side": 1,
+      "message": "collapsed into YangSyntaxErrorException ...",
+      "parentUuid": "e6fbe8a5_abc6c7c6",
+      "revId": "a291427c52d202e4fea1adf64f3963dee9f2f0bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0e9486b0_b1504782",
@@ -128,6 +248,24 @@
       "writtenOn": "2026-05-15T07:38:20Z",
       "side": 1,
       "message": "Is this still valid?",
+      "revId": "a291427c52d202e4fea1adf64f3963dee9f2f0bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c70153ad_cbda77ce",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/schema/SchemaConstructTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-15T12:12:32Z",
+      "side": 1,
+      "message": "removed comment",
+      "parentUuid": "0e9486b0_b1504782",
       "revId": "a291427c52d202e4fea1adf64f3963dee9f2f0bf",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
