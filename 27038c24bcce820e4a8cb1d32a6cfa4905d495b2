@@ -16,6 +16,24 @@
       "message": "use odlparent packaging instead?",
       "revId": "27038c24bcce820e4a8cb1d32a6cfa4905d495b2",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89ec22d4_e25de467",
+        "filename": "features/odl-gnmi-all/src/main/feature/feature.xml",
+        "patchSetId": 13
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-18T12:48:07Z",
+      "side": 0,
+      "message": "done",
+      "parentUuid": "ae644c07_12eaaaec",
+      "revId": "27038c24bcce820e4a8cb1d32a6cfa4905d495b2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
