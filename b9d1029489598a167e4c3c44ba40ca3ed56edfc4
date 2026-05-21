@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "117be53b_7a44345c",
+        "filename": "modules/gnmi-commons/pom.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-21T18:06:07Z",
+      "side": 1,
+      "message": "reordered",
+      "parentUuid": "668432ed_0c4a7440",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3efdfb0c_edd26636",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-05-21T08:09:04Z",
       "side": 1,
       "message": "abcd order please",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6adbbe2f_c8e49001",
+        "filename": "modules/gnmi-device-simulator/pom.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-21T18:06:07Z",
+      "side": 1,
+      "message": "reordered",
+      "parentUuid": "3efdfb0c_edd26636",
       "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -52,6 +88,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2a8de82_1584c0ca",
+        "filename": "modules/gnmi-device-simulator/src/main/java/org/opendaylight/gnmi/simulatordevice/utils/EffectiveModelContextBuilder.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-21T18:06:07Z",
+      "side": 1,
+      "message": "Reworked, is no longer void",
+      "parentUuid": "a3eea746_bb2e7329",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8058eb13_632b817e",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-05-21T08:09:04Z",
       "side": 1,
       "message": "if not void, we do not need to add \"add\" to error msg",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bad413bd_e7fcf492",
+        "filename": "modules/gnmi-device-simulator/src/main/java/org/opendaylight/gnmi/simulatordevice/utils/EffectiveModelContextBuilder.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-21T18:06:07Z",
+      "side": 1,
+      "message": "Reworked, is no longer void",
+      "parentUuid": "8058eb13_632b817e",
       "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -86,6 +158,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4ebd652_174e1151",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-21T18:06:07Z",
+      "side": 1,
+      "message": "cannot be final, we are later rewriting this",
+      "parentUuid": "cfe70d8a_1ebd0f67",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c584975d_c0d86785",
@@ -99,6 +189,24 @@
       "writtenOn": "2026-05-21T08:09:04Z",
       "side": 1,
       "message": "final",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2187715d_dcdffa25",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-21T18:06:07Z",
+      "side": 1,
+      "message": "cannot be final, later we do:\ndependencies.addAll(extractDependenciesFromYang(model));",
+      "parentUuid": "c584975d_c0d86785",
       "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -120,6 +228,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa702b7c_30fa0c1b",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-21T18:06:07Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "c37e3c7b_e9916526",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f8f12559_f17c412b",
@@ -133,6 +259,24 @@
       "writtenOn": "2026-05-21T08:09:04Z",
       "side": 1,
       "message": "try to use names which does not start with get..",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec489697_34ae6b1e",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-21T18:06:07Z",
+      "side": 1,
+      "message": "renamed to extractArgumentString",
+      "parentUuid": "f8f12559_f17c412b",
       "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -154,6 +298,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6219ccd6_5ffe0a37",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/loader/impl/ByClassPathYangLoaderService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-21T18:06:07Z",
+      "side": 1,
+      "message": "reformated",
+      "parentUuid": "4e515fe0_ac851c8a",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e35ec109_b2208610",
@@ -167,6 +329,24 @@
       "writtenOn": "2026-05-21T08:09:04Z",
       "side": 1,
       "message": "static import requireNonNUll()",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a50fc487_67925a4c",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/loader/impl/ByPathYangLoaderService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-21T18:06:07Z",
+      "side": 1,
+      "message": "added static import here and in ByClassPathYangLoaderService.java",
+      "parentUuid": "e35ec109_b2208610",
       "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -188,6 +368,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60d50ecc_09b04998",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/loader/util/YangLoadModelUtil.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-21T18:06:07Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "d50e8446_478e40c8",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a1c6b86_dd8b4310",
@@ -201,6 +399,24 @@
       "writtenOn": "2026-05-21T08:09:04Z",
       "side": 1,
       "message": "this is dangerous: https://docs.opendaylight.org/en/latest/developer-guides/logging-subsystem.html",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7f35cc0_82a5ab16",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/loader/util/YangLoadModelUtil.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-21T18:06:07Z",
+      "side": 1,
+      "message": "now throws IllegalArgumentException",
+      "parentUuid": "6a1c6b86_dd8b4310",
       "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -222,6 +438,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "98d6f374_928c5275",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/loader/util/YangLoadModelUtil.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-21T18:06:07Z",
+      "side": 1,
+      "message": "return type does not match if its var:\n\nRequired type:\nComparator\n\u003c? super Object\u003e\nProvided:\nComparator\n\u003cT\u003e",
+      "parentUuid": "cb9fa6b5_347f45f1",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "37c464ef_f813b784",
@@ -235,6 +469,24 @@
       "writtenOn": "2026-05-21T08:09:04Z",
       "side": 1,
       "message": "can we replace with simple if-else?",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be28c988_7ba945fe",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/loader/util/YangLoadModelUtil.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-21T18:06:07Z",
+      "side": 1,
+      "message": "If i replace it with this:\n                    final Revision revision \u003d Revision.ofNullable(revStr).orElse(null);\n                    if (revision !\u003d null) {\n                        revisions.add(revision);\n                    }\n\nIDE shows a warning on the code saying: \"Null check can be eliminated with \u0027ifPresent\u0027\" and suggests this code which is already present",
+      "parentUuid": "37c464ef_f813b784",
       "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -256,6 +508,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "666a2a6e_750dd68c",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/mountpoint/codecs/TestSchemaContextProvider.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-21T18:06:07Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "5053e4a9_43e71724",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f8ae53be_6554652b",
@@ -269,6 +539,24 @@
       "writtenOn": "2026-05-21T08:09:04Z",
       "side": 1,
       "message": "inline",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cf61367_8082d26a",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/schema/SchemaConstructTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-21T18:06:07Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "f8ae53be_6554652b",
       "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -290,6 +578,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "11ab62da_a5f2f499",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/schema/SchemaConstructTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-21T18:06:07Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "efb8884d_3c80f74b",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be25e2a6_1b904518",
@@ -303,6 +609,24 @@
       "writtenOn": "2026-05-21T08:09:04Z",
       "side": 1,
       "message": "just mock would be enough?",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7f5e4da_37db12cb",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/yangmodule/GnmiSouthBoundModuleTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-21T18:06:07Z",
+      "side": 1,
+      "message": "I initially attempted to mock YangTextToIRSourceTransformer, but doing so caused a NullPointerException because the utility code calls .statement() on the returned AST.\n\nWhen I tried to deeply mock the returned AST (YangIRSource and IRStatement), Mockito threw a fatal MockitoException because OpenDaylight has migrated these AST representations to Java sealed classes. Mockito cannot generate proxy subclasses for sealed classes.\n\nBecause DefaultYangTextToIRSourceTransformer is a lightweight, stateless utility, instantiating the real implementation directly in the unit test is the cleanest workaround to satisfy the parser chain. (The OSGi classloading restrictions don\u0027t apply here since unit tests run on a flat classpath).",
+      "parentUuid": "be25e2a6_1b904518",
       "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
