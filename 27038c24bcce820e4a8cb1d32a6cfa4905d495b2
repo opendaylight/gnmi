@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d921ba5f_e030f5c3",
+        "filename": "features/odl-gnmi-all/src/main/feature/feature.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-05-21T08:08:47Z",
+      "side": 1,
+      "message": "we have \u003cartifactId\u003eodl-errorprone\u003c/artifactId\u003e feature",
+      "revId": "27038c24bcce820e4a8cb1d32a6cfa4905d495b2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
