@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e3c1240_aab0a8af",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-21T18:06:53Z",
+      "side": 1,
+      "message": "Yes it was removed in YANGTOOLS-1739\n\nSee: https://git.opendaylight.org/gerrit/c/yangtools/+/120175",
+      "parentUuid": "ea504ddf_6f009da6",
+      "revId": "e952d7db6d779c88fe72a884e86b5c7fe9e8f834",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c3f0e828_da7565a0",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-05-21T08:08:53Z",
       "side": 1,
       "message": "why? is this really correct replacement?",
+      "revId": "e952d7db6d779c88fe72a884e86b5c7fe9e8f834",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd4a0dba_f00d98da",
+        "filename": "modules/gnmi-device-simulator/src/main/java/org/opendaylight/gnmi/simulatordevice/gnmi/GnmiCapabilitiesService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-05-21T18:06:53Z",
+      "side": 1,
+      "message": "changed to OpenConfigVersionStatement.DEF.getStatementName().getLocalName();",
+      "parentUuid": "c3f0e828_da7565a0",
       "revId": "e952d7db6d779c88fe72a884e86b5c7fe9e8f834",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
