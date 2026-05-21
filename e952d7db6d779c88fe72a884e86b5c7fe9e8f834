@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea504ddf_6f009da6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-05-21T08:08:53Z",
+      "side": 1,
+      "message": "why it was removed? completelly?",
+      "revId": "e952d7db6d779c88fe72a884e86b5c7fe9e8f834",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3f0e828_da7565a0",
+        "filename": "modules/gnmi-device-simulator/src/main/java/org/opendaylight/gnmi/simulatordevice/gnmi/GnmiCapabilitiesService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-05-21T08:08:53Z",
+      "side": 1,
+      "message": "why? is this really correct replacement?",
+      "revId": "e952d7db6d779c88fe72a884e86b5c7fe9e8f834",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
