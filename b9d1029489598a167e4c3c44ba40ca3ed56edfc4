@@ -1,0 +1,310 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "668432ed_0c4a7440",
+        "filename": "modules/gnmi-commons/pom.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-05-21T08:09:04Z",
+      "side": 1,
+      "message": "alphabetic order please",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3efdfb0c_edd26636",
+        "filename": "modules/gnmi-device-simulator/pom.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-05-21T08:09:04Z",
+      "side": 1,
+      "message": "abcd order please",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3eea746_bb2e7329",
+        "filename": "modules/gnmi-device-simulator/src/main/java/org/opendaylight/gnmi/simulatordevice/utils/EffectiveModelContextBuilder.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-05-21T08:09:04Z",
+      "side": 1,
+      "message": "try to avoid void methods if possible",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8058eb13_632b817e",
+        "filename": "modules/gnmi-device-simulator/src/main/java/org/opendaylight/gnmi/simulatordevice/utils/EffectiveModelContextBuilder.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-05-21T08:09:04Z",
+      "side": 1,
+      "message": "if not void, we do not need to add \"add\" to error msg",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfe70d8a_1ebd0f67",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-05-21T08:09:04Z",
+      "side": 1,
+      "message": "final",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c584975d_c0d86785",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-05-21T08:09:04Z",
+      "side": 1,
+      "message": "final",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c37e3c7b_e9916526",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-05-21T08:09:04Z",
+      "side": 1,
+      "message": "final var",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8f12559_f17c412b",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-05-21T08:09:04Z",
+      "side": 1,
+      "message": "try to use names which does not start with get..",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e515fe0_ac851c8a",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/loader/impl/ByClassPathYangLoaderService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-05-21T08:09:04Z",
+      "side": 1,
+      "message": "bad formatting",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e35ec109_b2208610",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/loader/impl/ByPathYangLoaderService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-05-21T08:09:04Z",
+      "side": 1,
+      "message": "static import requireNonNUll()",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d50e8446_478e40c8",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/loader/util/YangLoadModelUtil.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-05-21T08:09:04Z",
+      "side": 1,
+      "message": "bad formatting",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a1c6b86_dd8b4310",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/loader/util/YangLoadModelUtil.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-05-21T08:09:04Z",
+      "side": 1,
+      "message": "this is dangerous: https://docs.opendaylight.org/en/latest/developer-guides/logging-subsystem.html",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb9fa6b5_347f45f1",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/loader/util/YangLoadModelUtil.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-05-21T08:09:04Z",
+      "side": 1,
+      "message": "final var",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37c464ef_f813b784",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/loader/util/YangLoadModelUtil.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-05-21T08:09:04Z",
+      "side": 1,
+      "message": "can we replace with simple if-else?",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5053e4a9_43e71724",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/mountpoint/codecs/TestSchemaContextProvider.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-05-21T08:09:04Z",
+      "side": 1,
+      "message": "inline",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8ae53be_6554652b",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/schema/SchemaConstructTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-05-21T08:09:04Z",
+      "side": 1,
+      "message": "inline",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efb8884d_3c80f74b",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/schema/SchemaConstructTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-05-21T08:09:04Z",
+      "side": 1,
+      "message": "inline",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be25e2a6_1b904518",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/yangmodule/GnmiSouthBoundModuleTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-05-21T08:09:04Z",
+      "side": 1,
+      "message": "just mock would be enough?",
+      "revId": "b9d1029489598a167e4c3c44ba40ca3ed56edfc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
