@@ -34,6 +34,24 @@
       "parentUuid": "d921ba5f_e030f5c3",
       "revId": "27038c24bcce820e4a8cb1d32a6cfa4905d495b2",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bad44faa_4679e480",
+        "filename": "features/odl-gnmi-all/src/main/feature/feature.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-05-22T06:25:15Z",
+      "side": 1,
+      "message": "what does it have common with protobuf? do error prone uses protobuf? do we have to bump it?",
+      "parentUuid": "0d73a5c5_9bb471ad",
+      "revId": "27038c24bcce820e4a8cb1d32a6cfa4905d495b2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
