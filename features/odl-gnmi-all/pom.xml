@@ -44,6 +44,12 @@
             <type>xml</type>
             <classifier>features</classifier>
         </dependency>
+        <dependency>
+            <groupId>org.opendaylight.odlparent</groupId>
+            <artifactId>odl-errorprone</artifactId>
+            <type>xml</type>
+            <classifier>features</classifier>
+        </dependency>
 
         <dependency>
             <groupId>com.guicedee.services</groupId>
@@ -55,12 +61,6 @@
             <groupId>io.perfmark</groupId>
             <artifactId>perfmark-api</artifactId>
             <version>0.26.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.errorprone</groupId>
-            <artifactId>error_prone_annotations</artifactId>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
