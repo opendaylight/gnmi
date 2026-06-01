@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2d2ec22_b5be9188",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-06-01T07:22:28Z",
+      "side": 1,
+      "message": "This would require clarification of current state and supposed solution in JIRA ticket and fixing current test failures according to it.",
+      "revId": "99e94b32f82fa8983c741d61ccf972b4345751b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
