@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf13db13_e4f74fa1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9387
+      },
+      "writtenOn": "2026-06-01T11:42:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b306be9d_9753d61c",
+      "revId": "28efc08b9334c45397b8ec33f64fcb7512db6859",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0291dd7f_6fe64550",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-06-01T07:27:16Z",
       "side": 1,
       "message": "This is a duplicate of FileUtils.java, in addition please relocate it to src/test as its not used in production.a",
+      "revId": "28efc08b9334c45397b8ec33f64fcb7512db6859",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd1056d7_9931d34a",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/resources/ResourceLoader.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 9387
+      },
+      "writtenOn": "2026-06-01T11:42:10Z",
+      "side": 1,
+      "message": "Did I do the same fix twice?\n\nMaybe we should use `FiletUtils.java` in testing as well then?\n\nWhat do you think?",
+      "parentUuid": "0291dd7f_6fe64550",
       "revId": "28efc08b9334c45397b8ec33f64fcb7512db6859",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
