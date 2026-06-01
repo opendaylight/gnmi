@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0291dd7f_6fe64550",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/resources/ResourceLoader.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-06-01T07:27:16Z",
+      "side": 1,
+      "message": "This is a duplicate of FileUtils.java, in addition please relocate it to src/test as its not used in production.a",
+      "revId": "28efc08b9334c45397b8ec33f64fcb7512db6859",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
