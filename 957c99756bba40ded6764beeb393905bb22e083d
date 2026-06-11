@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b76ba18_e3b76d2d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9387
+      },
+      "writtenOn": "2026-06-11T09:17:41Z",
+      "side": 1,
+      "message": "Who put Claude as Coauthor of this change?\nAnd why?\nClaude has nothing to do with this change.",
+      "revId": "957c99756bba40ded6764beeb393905bb22e083d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
