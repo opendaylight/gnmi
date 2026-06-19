@@ -87,7 +87,7 @@ jobs:
       - name: Check if running in ACT
         if: ${{ env.ACT == 'true' }}
         run: echo "Running local tox build via ACT"
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         if: ${{ env.ACT == 'true' }}
       - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         if: ${{ env.ACT == 'true' }}
@@ -203,7 +203,7 @@ jobs:
       - name: Skip if ACT
         if: ${{ env.ACT == 'true' }}
         run: echo "Skipping vote in ACT mode" && exit 0
-      - uses: im-open/workflow-conclusion@7b146947e59eaf7fc3328822357861ab1758c088 # v2.2.5
+      - uses: im-open/workflow-conclusion@8eac7f17381a6917bc04fec3e2c92e70ebc37526 # v3.0.0
         if: ${{ env.ACT != 'true' }}
       - name: Set vote
         if: ${{ env.ACT != 'true' }}
