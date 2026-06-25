@@ -3,6 +3,8 @@
 
 # gNMI Project
 
+This release maintains compatibility with OpenDaylight Titanium (2025.03) SR2.
+
 ## Overview
 
 gNMI plugin implementation which provides:
