@@ -104,10 +104,11 @@ import org.slf4j.LoggerFactory;
 public abstract class GnmiITBase extends AbstractDataBrokerTest {
     private static final Logger LOG = LoggerFactory.getLogger(GnmiITBase.class);
 
-    private static final ErrorTagMapping ERROR_TAG_MAPPING = ErrorTagMapping.RFC8040;
     private static final String USERNAME = "username";
     private static final String PASSWORD = "pa$$w0Rd";
     private static final Duration REQUEST_TIMEOUT_DURATION = Duration.ofMillis(10_000L);
+    private static final Uint32 CHUNK_SIZE = Uint32.valueOf(256 * 1024);
+    private static final Uint32 FRAME_SIZE = Uint32.valueOf(16 * 1024);
 
     protected static final int CONTROLLER_PORT = randomBindablePort();
     protected static final int DEVICE_PORT = randomBindablePort();
@@ -236,8 +237,8 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
 
         // Netty endpoint
         final var configuration = new NettyEndpointConfiguration(
-            ERROR_TAG_MAPPING, PrettyPrintParam.FALSE, Uint16.ZERO, Uint32.valueOf(1000),
-            "rests", MessageEncoding.JSON, serverStackGrouping);
+            ErrorTagMapping.RFC8040, PrettyPrintParam.FALSE, Uint16.ZERO, Uint32.valueOf(1000),
+            "rests", MessageEncoding.JSON, serverStackGrouping, CHUNK_SIZE, FRAME_SIZE);
 
         endpoint = new SimpleNettyEndpoint(server, principalService, streamRegistry, bootstrapFactory, configuration);
     }
