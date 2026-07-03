@@ -59,7 +59,7 @@ import org.opendaylight.mdsal.binding.api.RpcProviderService;
 import org.opendaylight.mdsal.binding.dom.adapter.BindingAdapterFactory;
 import org.opendaylight.mdsal.binding.dom.adapter.BindingDOMRpcProviderServiceAdapter;
 import org.opendaylight.mdsal.binding.dom.adapter.ConstantAdapterContext;
-import org.opendaylight.mdsal.binding.dom.adapter.test.AbstractDataBrokerTest;
+import org.opendaylight.mdsal.binding.dom.adapter.test.AbstractConcurrentDataBrokerTest;
 import org.opendaylight.mdsal.dom.api.DOMMountPointService;
 import org.opendaylight.mdsal.dom.broker.DOMMountPointServiceImpl;
 import org.opendaylight.mdsal.dom.broker.DOMNotificationRouter;
@@ -105,7 +105,7 @@ import org.opendaylight.yangtools.yang.xpath.impl.AntlrXPathParserFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class GnmiITBase extends AbstractDataBrokerTest {
+public abstract class GnmiITBase extends AbstractConcurrentDataBrokerTest {
     private static final Logger LOG = LoggerFactory.getLogger(GnmiITBase.class);
 
     private static final ErrorTagMapping ERROR_TAG_MAPPING = ErrorTagMapping.RFC8040;
@@ -144,6 +144,12 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
     private String host;
     private DOMNotificationRouter domNotificationRouter;
     private MdsalRestconfStreamRegistry streamRegistry;
+
+    protected GnmiITBase() {
+        // The true flag runs data-tree-change listeners on a separate thread pool instead of the single commit
+        // thread, so GnmiNodeListener's synchronous commit (disconnectNode) does not deadlock on that thread.
+        super(true);
+    }
 
     @BeforeEach
     public void startUp() throws Exception {
