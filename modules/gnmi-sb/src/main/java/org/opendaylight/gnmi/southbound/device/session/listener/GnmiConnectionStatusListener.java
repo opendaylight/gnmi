@@ -40,6 +40,7 @@ public class GnmiConnectionStatusListener implements AutoCloseable {
     private final ExecutorService executorService;
     private ConnectivityState currentState;
     private boolean listenerActive;
+    private boolean mountpointCreated = false;
     // Callback related attributes
     private Runnable onStatusCallback;
     private ConnectivityState callbackDesiredState;
@@ -70,6 +71,7 @@ public class GnmiConnectionStatusListener implements AutoCloseable {
     public synchronized FluentFuture<CommitInfo> copyDeviceStatusReadyToDatastore()
             throws GnmiConnectionStatusException {
         if (ConnectivityState.READY.equals(currentState)) {
+            this.mountpointCreated = true;
             return writeStateToDataStoreAsync(this.currentState);
         } else {
             throw new GnmiConnectionStatusException(
@@ -90,8 +92,8 @@ public class GnmiConnectionStatusListener implements AutoCloseable {
             triggerCallbackIfPresent();
 
             sessionProvider.notifyOnStateChangedOneOff(currentState, this::updateStateStatus);
-            if (this.currentState != ConnectivityState.READY) {
-                // Ready status should be updated after creating device mountpoint
+            // Allow writing to datastore if state is NOT READY
+            if (this.currentState != ConnectivityState.READY || this.mountpointCreated) {
                 writeStateToDataStore(this.currentState);
             }
             LOG.debug("Current session status {}", currentState);
