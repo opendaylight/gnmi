@@ -559,4 +559,52 @@ public class GnmiConnectionITTest extends GnmiITBase {
                 });
     }
 
+    @Test
+    public void deviceReconnectionUpdatesStatusToReadyTest() throws Exception {
+        // 1. Connect to the device
+        LOG.info("Step 1: Connecting device to gNMI topology");
+        assertTrue(connectDevice(GNMI_NODE_ID, DEVICE_IP, DEVICE_PORT));
+
+        // 2. Stop the simulated device
+        LOG.info("Step 2: Stopping the simulated device to trigger a connection failure");
+        device.stop();
+
+        // 3. Wait and assert that the node status in the datastore changes
+        LOG.info("Step 3: Waiting for node status to reflect the disconnection");
+        Awaitility.waitAtMost(WAIT_TIME_DURATION)
+            .pollInterval(POLL_INTERVAL_DURATION)
+            .untilAsserted(() -> {
+                final HttpResponse<String> getConnectionStatusResponse =
+                    sendGetRequestJSON(GNMI_NODE_PATH + GNMI_NODE_STATUS);
+                assertEquals(HttpURLConnection.HTTP_OK, getConnectionStatusResponse.statusCode());
+                final String gnmiDeviceConnectStatus =
+                    new JSONObject(getConnectionStatusResponse.body()).getString("gnmi-topology:node-status");
+
+                LOG.info("Current offline status: {}", gnmiDeviceConnectStatus);
+                assertNotEquals(GNMI_NODE_STATUS_READY, gnmiDeviceConnectStatus);
+            });
+
+        // 4. Start the simulated device back up
+        LOG.info("Step 4: Restarting the simulated device to trigger reconnection");
+        device.start();
+
+        // 5. Wait and assert that the node status changes back to READY
+        LOG.info("Step 5: Waiting for node status to switch back to READY");
+        Awaitility.waitAtMost(WAIT_TIME_DURATION)
+            .pollInterval(POLL_INTERVAL_DURATION)
+            .untilAsserted(() -> {
+                final HttpResponse<String> getConnectionStatusResponse =
+                    sendGetRequestJSON(GNMI_NODE_PATH + GNMI_NODE_STATUS);
+                assertEquals(HttpURLConnection.HTTP_OK, getConnectionStatusResponse.statusCode());
+                final String gnmiDeviceConnectStatus =
+                    new JSONObject(getConnectionStatusResponse.body()).getString("gnmi-topology:node-status");
+
+                LOG.info("Current reconnected status: {}", gnmiDeviceConnectStatus);
+                assertEquals(GNMI_NODE_STATUS_READY, gnmiDeviceConnectStatus);
+            });
+
+        LOG.info("Step 6: Disconnecting and cleaning up");
+        assertTrue(disconnectDevice(GNMI_NODE_ID));
+    }
+
 }
