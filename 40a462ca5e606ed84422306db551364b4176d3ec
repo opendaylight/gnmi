@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33131af4_4f7359f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-07-07T15:59:34Z",
+      "side": 1,
+      "message": "This test fails when not rebased on \nhttps://git.opendaylight.org/gerrit/c/gnmi/+/123864/1?usp\u003drelated-change\nwhich verifies the GNMI-10 bug",
+      "revId": "40a462ca5e606ed84422306db551364b4176d3ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
