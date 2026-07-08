@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eec26ba7_f3d0481f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-07-08T09:08:28Z",
+      "side": 1,
+      "message": "Are we solving root cause or just adding workaround?",
+      "revId": "ab50f291870edfaab50015ea974a297e00d6a7ee",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ecf6087e_6b4255cf",
         "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/session/listener/GnmiConnectionStatusListener.java",
         "patchSetId": 1
