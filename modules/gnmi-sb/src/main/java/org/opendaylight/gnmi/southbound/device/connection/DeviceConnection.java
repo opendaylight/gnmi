@@ -69,8 +69,11 @@ public class DeviceConnection implements GnmiSessionProvider, SchemaContextProvi
 
     @Override
     public void close() throws Exception {
-        sessionProvider.close();
-        connectionStatusListener.close();
+        try {
+            connectionStatusListener.close();
+        } finally {
+            sessionProvider.close();
+        }
     }
 
     public NodeId getIdentifier() {

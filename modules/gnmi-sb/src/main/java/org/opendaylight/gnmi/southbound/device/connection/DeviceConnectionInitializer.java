@@ -20,6 +20,7 @@ import org.opendaylight.gnmi.connector.configuration.SessionConfiguration;
 import org.opendaylight.gnmi.connector.session.SessionManagerFactory;
 import org.opendaylight.gnmi.connector.session.api.SessionManager;
 import org.opendaylight.gnmi.connector.session.api.SessionProvider;
+import org.opendaylight.gnmi.southbound.device.session.listener.GnmiConnectionStatusException;
 import org.opendaylight.gnmi.southbound.device.session.listener.GnmiConnectionStatusListener;
 import org.opendaylight.gnmi.southbound.device.session.security.GnmiSecurityProvider;
 import org.opendaylight.gnmi.southbound.device.session.security.SessionSecurityException;
@@ -122,6 +123,7 @@ public class DeviceConnectionInitializer implements AutoCloseable {
         private final Node node;
         private final SettableFuture<DeviceConnection> futureManager;
         private final SessionProvider sessionProvider;
+        private DeviceConnection deviceConnection;
 
         SessionInitializationHolder(final SessionProvider sessionProvider, final Node node) {
             this.node = node;
@@ -136,19 +138,36 @@ public class DeviceConnectionInitializer implements AutoCloseable {
             return futureManager;
         }
 
-        // Called when session reaches status READY
-        public void onSessionReady() {
-            final DeviceConnection manager = new DeviceConnection(sessionProvider, listener, node);
-            activeInitializers.remove(node.getNodeId());
-            futureManager.set(manager);
+        public synchronized void onSessionReady() {
+            if (deviceConnection == null) {
+                // When we connect to device for first time, the DeviceConnection is null so create it and pass it to
+                // DeviceConnectionManager which will set status READY.
+                deviceConnection = new DeviceConnection(sessionProvider, listener, node);
+                activeInitializers.remove(node.getNodeId());
+                futureManager.set(deviceConnection);
+            } else {
+                // Reconnect: Now DeviceConnection is not null and exist, so just set status as READY.
+                try {
+                    deviceConnection.setDeviceStatusReady();
+                } catch (GnmiConnectionStatusException e) {
+                    LOG.debug("Node {} left READY again before status could be refreshed; "
+                        + "will retry on the next READY transition", node.getNodeId());
+                }
+            }
         }
 
         @Override
         public void close() throws Exception {
             LOG.warn("Closing device initializer of node {}", node.getNodeId());
-            sessionProvider.close();
-            listener.close();
-            futureManager.cancel(true);
+            try {
+                listener.close();
+            } finally {
+                try {
+                    sessionProvider.close();
+                } finally {
+                    futureManager.cancel(true);
+                }
+            }
         }
     }
 }
