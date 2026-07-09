@@ -69,8 +69,18 @@ public class DeviceConnection implements GnmiSessionProvider, SchemaContextProvi
 
     @Override
     public void close() throws Exception {
-        sessionProvider.close();
-        connectionStatusListener.close();
+        // The listener is closed before the session provider, because:
+        // - SessionManagerImpl#closeSession() throws RuntimeException when the channel does not terminate in time.
+        //   With the session closed first, that exception skipped the listener close, leaving the listener active and
+        //   the node-state of a removed node in the operational datastore.
+        // - Closing the listener deactivates it, so the SHUTDOWN transition caused by closing the channel is not
+        //   written just to be deleted, and a READY callback of a reconnect racing with this close (the callback stays
+        //   registered for the whole connection lifetime) is rejected instead of writing READY.
+        // The session provider is closed even if the listener close throws: the listener's failure is rethrown and
+        // the session provider's one is suppressed into it.
+        try (sessionProvider) {
+            connectionStatusListener.close();
+        }
     }
 
     public NodeId getIdentifier() {
