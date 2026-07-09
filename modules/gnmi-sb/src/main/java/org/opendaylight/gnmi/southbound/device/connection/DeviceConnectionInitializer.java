@@ -7,23 +7,31 @@
  */
 package org.opendaylight.gnmi.southbound.device.connection;
 
+import com.google.common.util.concurrent.FutureCallback;
+import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.MoreExecutors;
 import com.google.common.util.concurrent.SettableFuture;
 import io.grpc.ConnectivityState;
 import java.net.InetSocketAddress;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeoutException;
 import org.opendaylight.gnmi.connector.configuration.SessionConfiguration;
 import org.opendaylight.gnmi.connector.session.SessionManagerFactory;
 import org.opendaylight.gnmi.connector.session.api.SessionManager;
 import org.opendaylight.gnmi.connector.session.api.SessionProvider;
+import org.opendaylight.gnmi.southbound.device.session.listener.GnmiConnectionStatusException;
 import org.opendaylight.gnmi.southbound.device.session.listener.GnmiConnectionStatusListener;
 import org.opendaylight.gnmi.southbound.device.session.security.GnmiSecurityProvider;
 import org.opendaylight.gnmi.southbound.device.session.security.SessionSecurityException;
 import org.opendaylight.mdsal.binding.api.DataBroker;
+import org.opendaylight.mdsal.common.api.CommitInfo;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.GnmiNode;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.credentials.Credentials;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.gnmi.connection.parameters.ConnectionParameters;
@@ -148,19 +156,62 @@ public class DeviceConnectionInitializer implements AutoCloseable {
             return futureManager;
         }
 
-        // Called when session reaches status READY
-        public void onSessionReady() {
-            final DeviceConnection manager = new DeviceConnection(sessionProvider, listener, node);
-            // The initializer is intentionally kept in activeInitializers until the connection is fully
-            // handed over, see finishInitializer(NodeId).
-            futureManager.set(manager);
+        public synchronized void onSessionReady() {
+            if (!futureManager.isDone()) {
+                // When we connect to device for first time, the future is not done yet, so create the
+                // DeviceConnection and pass it to DeviceConnectionManager which will set status READY.
+                // The initializer is intentionally kept in activeInitializers until the connection is fully
+                // handed over, see finishInitializer(NodeId).
+                futureManager.set(new DeviceConnection(sessionProvider, listener, node));
+            } else {
+                // Reconnect: DeviceConnection already exists, so just refresh status READY in the datastore.
+                // Note: the callback stays registered for the whole connection lifetime, so a rapid
+                // READY -> IDLE -> READY flap right after the initial connection may write READY before
+                // DeviceConnectionManager has finished creating the mountpoint. This is transient:
+                // the manager writes READY again once the mountpoint is created, and a failed mountpoint
+                // creation overwrites the status with the failure reason (see GnmiNodeListener).
+                try {
+                    Futures.getDone(futureManager).setDeviceStatusReady().addCallback(new FutureCallback<>() {
+                        @Override
+                        public void onSuccess(final CommitInfo result) {
+                            LOG.debug("Refreshed READY status of node {} in operational datastore",
+                                    node.getNodeId());
+                        }
+
+                        @Override
+                        public void onFailure(final Throwable throwable) {
+                            LOG.warn("Failed to write READY status of node {} to operational datastore",
+                                    node.getNodeId(), throwable);
+                        }
+                    }, MoreExecutors.directExecutor());
+                } catch (GnmiConnectionStatusException e) {
+                    LOG.debug("Node {} already left READY again before its refreshed status could be written to "
+                        + "the datastore; the next READY transition will retry the write", node.getNodeId(), e);
+                } catch (CancellationException | ExecutionException e) {
+                    LOG.debug("Node {} connection is being closed, skipping READY status refresh",
+                            node.getNodeId());
+                }
+            }
         }
 
         @Override
         public void close() throws Exception {
             LOG.warn("Closing device initializer of node {}", node.getNodeId());
-            sessionProvider.close();
-            listener.close();
+            // Listener is closed before sessionProvider (see DeviceConnection#close for why).
+            try {
+                listener.close();
+            } catch (ExecutionException | TimeoutException e) {
+                LOG.warn("Failed to close connection status listener of node {}", node.getNodeId(), e);
+            } catch (InterruptedException e) {
+                LOG.warn("Interrupted while closing connection status listener of node {}", node.getNodeId(), e);
+                Thread.currentThread().interrupt();
+            }
+            try {
+                sessionProvider.close();
+            } catch (InterruptedException e) {
+                LOG.warn("Interrupted while closing session provider of node {}", node.getNodeId(), e);
+                Thread.currentThread().interrupt();
+            }
             futureManager.cancel(true);
         }
     }
