@@ -11,6 +11,7 @@ import com.google.common.util.concurrent.FluentFuture;
 import io.grpc.ConnectivityState;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import org.eclipse.jdt.annotation.NonNull;
@@ -117,9 +118,12 @@ public class GnmiConnectionStatusListener implements AutoCloseable {
         if (onStatusCallback != null && callbackDesiredState == currentState) {
             LOG.debug("Triggering registered callback on node {} connectivity status change {}", nodeId.getValue(),
                     callbackDesiredState);
-            executorService.execute(onStatusCallback);
-            onStatusCallback = null;
-            callbackDesiredState = null;
+            try {
+                executorService.execute(onStatusCallback);
+            } catch (RejectedExecutionException e) {
+                LOG.debug("Executor for node {} is no longer accepting tasks (shutting down); "
+                        + "skipping status callback", nodeId.getValue(), e);
+            }
         }
     }
 
@@ -183,7 +187,8 @@ public class GnmiConnectionStatusListener implements AutoCloseable {
     }
 
     /**
-     * Registers callback which will be called when status reaches desired state.
+     * Registers callback which will be called every time the status transitions to the desired state, not only the
+     * first time. The callback stays registered for the whole lifetime of this listener.
      *
      * @param callback runnable to call
      * @param state desired state
