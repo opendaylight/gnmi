@@ -8,6 +8,8 @@
 package org.opendaylight.gnmi.southbound.device.connection;
 
 import com.google.common.util.concurrent.FluentFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 import org.opendaylight.gnmi.connector.gnmi.session.api.GnmiSession;
 import org.opendaylight.gnmi.connector.session.api.SessionProvider;
 import org.opendaylight.gnmi.southbound.device.session.listener.GnmiConnectionStatusException;
@@ -68,9 +70,29 @@ public class DeviceConnection implements GnmiSessionProvider, SchemaContextProvi
     }
 
     @Override
+    @SuppressWarnings("checkstyle:illegalCatch")
     public void close() throws Exception {
-        sessionProvider.close();
-        connectionStatusListener.close();
+        Exception failure = null;
+        try {
+            connectionStatusListener.close();
+        } catch (ExecutionException | TimeoutException e) {
+            failure = e;
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            failure = e;
+        }
+        try {
+            sessionProvider.close();
+        } catch (Exception e) {
+            if (failure == null) {
+                failure = e;
+            } else {
+                failure.addSuppressed(e);
+            }
+        }
+        if (failure != null) {
+            throw failure;
+        }
     }
 
     public NodeId getIdentifier() {
