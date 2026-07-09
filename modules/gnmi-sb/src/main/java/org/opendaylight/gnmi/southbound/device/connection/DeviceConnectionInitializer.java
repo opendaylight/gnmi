@@ -7,7 +7,9 @@
  */
 package org.opendaylight.gnmi.southbound.device.connection;
 
+import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.MoreExecutors;
 import com.google.common.util.concurrent.SettableFuture;
 import io.grpc.ConnectivityState;
 import java.net.InetSocketAddress;
@@ -16,14 +18,17 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
+import org.eclipse.jdt.annotation.Nullable;
 import org.opendaylight.gnmi.connector.configuration.SessionConfiguration;
 import org.opendaylight.gnmi.connector.session.SessionManagerFactory;
 import org.opendaylight.gnmi.connector.session.api.SessionManager;
 import org.opendaylight.gnmi.connector.session.api.SessionProvider;
+import org.opendaylight.gnmi.southbound.device.session.listener.GnmiConnectionStatusException;
 import org.opendaylight.gnmi.southbound.device.session.listener.GnmiConnectionStatusListener;
 import org.opendaylight.gnmi.southbound.device.session.security.GnmiSecurityProvider;
 import org.opendaylight.gnmi.southbound.device.session.security.SessionSecurityException;
 import org.opendaylight.mdsal.binding.api.DataBroker;
+import org.opendaylight.mdsal.common.api.CommitInfo;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.GnmiNode;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.credentials.Credentials;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.gnmi.connection.parameters.ConnectionParameters;
@@ -94,8 +99,11 @@ public class DeviceConnectionInitializer implements AutoCloseable {
 
     public void cancelInitializer(final NodeId nodeId) throws Exception {
         if (activeInitializers.containsKey(nodeId)) {
-            activeInitializers.get(nodeId).close();
-            activeInitializers.remove(nodeId);
+            try {
+                activeInitializers.get(nodeId).close();
+            } finally {
+                activeInitializers.remove(nodeId);
+            }
         } else {
             LOG.warn("Initializer of node {} does not exists, can not cancel", nodeId);
         }
@@ -134,6 +142,7 @@ public class DeviceConnectionInitializer implements AutoCloseable {
         private final Node node;
         private final SettableFuture<DeviceConnection> futureManager;
         private final SessionProvider sessionProvider;
+        private @Nullable DeviceConnection deviceConnection;
 
         SessionInitializationHolder(final SessionProvider sessionProvider, final Node node) {
             this.node = node;
@@ -148,20 +157,66 @@ public class DeviceConnectionInitializer implements AutoCloseable {
             return futureManager;
         }
 
-        // Called when session reaches status READY
-        public void onSessionReady() {
-            final DeviceConnection manager = new DeviceConnection(sessionProvider, listener, node);
-            // The initializer is intentionally kept in activeInitializers until the connection is fully
-            // handed over, see finishInitializer(NodeId).
-            futureManager.set(manager);
+        public synchronized void onSessionReady() {
+            if (deviceConnection == null) {
+                // When we connect to device for first time, the DeviceConnection is null so create it and pass it to
+                // DeviceConnectionManager which will set status READY.
+                deviceConnection = new DeviceConnection(sessionProvider, listener, node);
+                // The initializer is intentionally kept in activeInitializers until the connection is fully
+                // handed over, see finishInitializer(NodeId).
+                futureManager.set(deviceConnection);
+            } else {
+                // Reconnect: DeviceConnection already exists, so just refresh status READY in the datastore.
+                // Note: the callback stays registered for the whole connection lifetime, so a rapid
+                // READY -> IDLE -> READY flap right after the initial connection may write READY before
+                // DeviceConnectionManager has finished creating the mountpoint. This is transient:
+                // the manager writes READY again once the mountpoint is created, and a failed mountpoint
+                // creation overwrites the status with the failure reason (see GnmiNodeListener).
+                // A flap after the mountpoint is registered is not a connection failure (see
+                // DeviceConnectionManager#prepareDeviceConnection()), so READY is written here once the channel
+                // is back.
+                try {
+                    deviceConnection.setDeviceStatusReady().addCallback(new FutureCallback<>() {
+                        @Override
+                        public void onSuccess(final CommitInfo result) {
+                            LOG.debug("Refreshed READY status of node {} in operational datastore",
+                                    node.getNodeId());
+                        }
+
+                        @Override
+                        public void onFailure(final Throwable throwable) {
+                            LOG.warn("Failed to write READY status of node {} to operational datastore",
+                                    node.getNodeId(), throwable);
+                        }
+                    }, MoreExecutors.directExecutor());
+                } catch (GnmiConnectionStatusException e) {
+                    LOG.debug("Node {} left READY again or is being closed, READY status not refreshed",
+                        node.getNodeId(), e);
+                }
+            }
         }
 
         @Override
+        @SuppressWarnings("checkstyle:illegalCatch")
         public void close() throws Exception {
             LOG.warn("Closing device initializer of node {}", node.getNodeId());
-            sessionProvider.close();
-            listener.close();
+            // Same order as DeviceConnection#close(). Every step runs even if a previous one throws, so the pending
+            // connection future is always cancelled. The first failure is rethrown, later ones are suppressed.
+            Exception failure = null;
+            try {
+                listener.close();
+            } catch (Exception e) {
+                failure = e;
+            }
+            try {
+                sessionProvider.close();
+            } catch (Exception e) {
+                failure = DeviceConnection.addFailure(failure, e);
+            }
             futureManager.cancel(true);
+            if (failure != null) {
+                throw failure;
+            }
         }
     }
 }

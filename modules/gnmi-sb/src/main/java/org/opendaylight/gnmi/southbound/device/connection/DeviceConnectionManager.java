@@ -127,16 +127,21 @@ public class DeviceConnectionManager implements AutoCloseable {
 
         return Futures.transformAsync(mountPointCreatedFuture,
             voidResult -> {
-                final var statusReadyFuture = deviceConnection.setDeviceStatusReady();
-
-                // handle GnmiConnectionStatusException in `statusReadyFuture`
-                return Futures.catchingAsync(statusReadyFuture, GnmiConnectionStatusException.class,
-                    statusException -> {
-                        LOG.error("Connection status unexpectedly changed from READY to {} while creating"
-                                + " Mountpoint", statusException.getCurrentState());
+                try {
+                    return deviceConnection.setDeviceStatusReady();
+                } catch (GnmiConnectionStatusException statusException) {
+                    // A closed node is no longer current; rethrow so the failure is reported as a cancellation.
+                    if (!isCurrentGeneration(node.getNodeId(), generation)) {
                         throw statusException;
-                    },
-                    executorService);
+                    }
+                    // The mountpoint is already registered and the node is active, so a channel which left READY
+                    // in the meantime is not a connection failure: the status listener has already written the
+                    // new status, and the READY callback writes READY once the channel reconnects. Failing here
+                    // would write FAILURE with failure-details for a mounted node, which READY never clears.
+                    LOG.warn("Connection status of node {} changed from READY to {} while creating mountpoint",
+                            node.getNodeId(), statusException.getCurrentState());
+                    return CommitInfo.emptyFluentFuture();
+                }
             },
             executorService);
     }
@@ -285,7 +290,7 @@ public class DeviceConnectionManager implements AutoCloseable {
             try {
                 connectionInitializer.cancelInitializer(nodeId);
             } catch (Exception e) {
-                LOG.warn("Failed closing initializer of connecting node {}", nodeId);
+                LOG.warn("Failed closing initializer of connecting node {}", nodeId, e);
             }
         }
         if (activeDevices.containsKey(nodeId)) {
@@ -293,7 +298,7 @@ public class DeviceConnectionManager implements AutoCloseable {
             try {
                 deviceConnection.close();
             } catch (Exception e) {
-                LOG.warn("Failed closing device manager of connected node {}", nodeId);
+                LOG.warn("Failed closing device manager of connected node {}", nodeId, e);
             }
             activeDevices.remove(nodeId);
             mountPointRegistrator.unregisterMountPoint(nodeId);

@@ -8,6 +8,7 @@
 package org.opendaylight.gnmi.southbound.device.connection;
 
 import com.google.common.util.concurrent.FluentFuture;
+import org.eclipse.jdt.annotation.Nullable;
 import org.opendaylight.gnmi.connector.gnmi.session.api.GnmiSession;
 import org.opendaylight.gnmi.connector.session.api.SessionProvider;
 import org.opendaylight.gnmi.southbound.device.session.listener.GnmiConnectionStatusException;
@@ -68,9 +69,42 @@ public class DeviceConnection implements GnmiSessionProvider, SchemaContextProvi
     }
 
     @Override
+    @SuppressWarnings("checkstyle:illegalCatch")
     public void close() throws Exception {
-        sessionProvider.close();
-        connectionStatusListener.close();
+        // The listener is closed before the session provider, because:
+        // - SessionManagerImpl#closeSession() throws RuntimeException when the channel does not terminate in time.
+        //   With the session closed first, that exception skipped the listener close, leaving the listener active and
+        //   the node-state of a removed node in the operational datastore.
+        // - Closing the listener deactivates it, so the SHUTDOWN transition caused by closing the channel is not
+        //   written just to be deleted, and a READY callback of a reconnect racing with this close (the callback stays
+        //   registered for the whole connection lifetime) is rejected instead of writing READY.
+        // Both steps run even if the first one throws: the first failure is rethrown, later ones are suppressed.
+        Exception failure = null;
+        try {
+            connectionStatusListener.close();
+        } catch (Exception e) {
+            failure = e;
+        }
+        try {
+            sessionProvider.close();
+        } catch (Exception e) {
+            failure = addFailure(failure, e);
+        }
+        if (failure != null) {
+            throw failure;
+        }
+    }
+
+    /**
+     * Collects a failure of a close step: returns {@code next} when it is the first failure, otherwise adds it as
+     * suppressed to {@code failure} and returns {@code failure}.
+     */
+    static Exception addFailure(final @Nullable Exception failure, final Exception next) {
+        if (failure == null) {
+            return next;
+        }
+        failure.addSuppressed(next);
+        return failure;
     }
 
     public NodeId getIdentifier() {
