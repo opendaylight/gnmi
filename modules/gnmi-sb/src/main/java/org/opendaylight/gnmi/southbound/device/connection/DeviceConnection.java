@@ -8,6 +8,8 @@
 package org.opendaylight.gnmi.southbound.device.connection;
 
 import com.google.common.util.concurrent.FluentFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 import org.opendaylight.gnmi.connector.gnmi.session.api.GnmiSession;
 import org.opendaylight.gnmi.connector.session.api.SessionProvider;
 import org.opendaylight.gnmi.southbound.device.session.listener.GnmiConnectionStatusException;
@@ -20,11 +22,15 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.gnm
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NodeId;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node;
 import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Holds gNMI session of one connected gNMI device.
  */
 public class DeviceConnection implements GnmiSessionProvider, SchemaContextProvider, AutoCloseable {
+
+    private static final Logger LOG = LoggerFactory.getLogger(DeviceConnection.class);
 
     private final SessionProvider sessionProvider;
     private final GnmiConnectionStatusListener connectionStatusListener;
@@ -69,8 +75,25 @@ public class DeviceConnection implements GnmiSessionProvider, SchemaContextProvi
 
     @Override
     public void close() throws Exception {
-        sessionProvider.close();
-        connectionStatusListener.close();
+        boolean interrupted = false;
+        try {
+            connectionStatusListener.close();
+        } catch (ExecutionException | TimeoutException e) {
+            LOG.warn("Failed to close connection status listener for node {}", getIdentifier(), e);
+        } catch (InterruptedException e) {
+            LOG.warn("Interrupted while closing connection status listener for node {}", getIdentifier(), e);
+            interrupted = true;
+        }
+        try {
+            sessionProvider.close();
+        } catch (InterruptedException e) {
+            LOG.warn("Interrupted while closing session provider for node {}", getIdentifier(), e);
+            interrupted = true;
+        } finally {
+            if (interrupted) {
+                Thread.currentThread().interrupt();
+            }
+        }
     }
 
     public NodeId getIdentifier() {
