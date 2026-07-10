@@ -16,6 +16,46 @@
       "message": "recheck",
       "revId": "81cd9362cd8b81568f3c080b28a6a81417f6744e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c3d9008_8e034d40",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-07-10T06:02:12Z",
+      "side": 1,
+      "message": "Tests are failing",
+      "revId": "81cd9362cd8b81568f3c080b28a6a81417f6744e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06d1dcc4_8d7e2279",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/listener/GnmiNodeListenerStaleStateTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-07-10T06:02:12Z",
+      "side": 1,
+      "message": "cannot we rather use Awaitility?",
+      "range": {
+        "startLine": 336,
+        "startChar": 8,
+        "endLine": 341,
+        "endChar": 9
+      },
+      "revId": "81cd9362cd8b81568f3c080b28a6a81417f6744e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
