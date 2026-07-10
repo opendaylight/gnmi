@@ -82,7 +82,6 @@
             <groupId>org.opendaylight.gnmi</groupId>
             <artifactId>features-gnmi</artifactId>
             <classifier>features</classifier>
-            <version>4.0.0-SNAPSHOT</version>
             <type>xml</type>
             <scope>runtime</scope>
         </dependency>
