@@ -134,7 +134,7 @@ jobs:
   call-gerrit-tox-verify:
     needs: [prepare, call-gerrit-change-info]
     # yamllint disable rule:line-length
-    uses: lfit/releng-reusable-workflows/.github/workflows/gerrit-compose-required-tox-verify.yaml@f412e6f89527da7611a5f4a5f861de86d98d3e9e # v0.7.0
+    uses: lfit/releng-reusable-workflows/.github/workflows/gerrit-compose-required-tox-verify.yaml@5fa62e396473e823e2bb0f45b744e94c4f842faa # v0.7.4
     with:
       GERRIT_BRANCH: ${{ needs.call-gerrit-change-info.outputs.GERRIT_BRANCH }}
       GERRIT_CHANGE_ID: ${{ needs.call-gerrit-change-info.outputs.GERRIT_CHANGE_ID }}
@@ -150,7 +150,7 @@ jobs:
   call-gerrit-maven-verify:
     needs: [prepare, call-gerrit-change-info]
     # yamllint disable rule:line-length
-    uses: lfit/releng-reusable-workflows/.github/workflows/compose-maven-verify.yaml@f412e6f89527da7611a5f4a5f861de86d98d3e9e # v0.7.0
+    uses: lfit/releng-reusable-workflows/.github/workflows/compose-maven-verify.yaml@5fa62e396473e823e2bb0f45b744e94c4f842faa # v0.7.4
     with:
       GERRIT_BRANCH: ${{ needs.call-gerrit-change-info.outputs.GERRIT_BRANCH }}
       GERRIT_CHANGE_ID: ${{ needs.call-gerrit-change-info.outputs.GERRIT_CHANGE_ID }}
@@ -175,7 +175,7 @@ jobs:
   call-gerrit-repo-linting:
     needs: [prepare, call-gerrit-change-info]
     # yamllint disable rule:line-length
-    uses: lfit/releng-reusable-workflows/.github/workflows/compose-repo-linting.yaml@f412e6f89527da7611a5f4a5f861de86d98d3e9e # v0.7.0
+    uses: lfit/releng-reusable-workflows/.github/workflows/compose-repo-linting.yaml@5fa62e396473e823e2bb0f45b744e94c4f842faa # v0.7.4
     with:
       GERRIT_BRANCH: ${{ needs.call-gerrit-change-info.outputs.GERRIT_BRANCH }}
       GERRIT_CHANGE_ID: ${{ needs.call-gerrit-change-info.outputs.GERRIT_CHANGE_ID }}
