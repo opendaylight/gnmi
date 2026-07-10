@@ -25,23 +25,9 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.opendaylight.infrautils</groupId>
-                <artifactId>infrautils-artifacts</artifactId>
-                <version>7.1.9</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
                 <groupId>org.opendaylight.controller</groupId>
                 <artifactId>controller-artifacts</artifactId>
                 <version>12.0.3</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.opendaylight.netconf</groupId>
-                <artifactId>netconf-artifacts</artifactId>
-                <version>10.0.2</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -82,7 +68,6 @@
             <groupId>org.opendaylight.gnmi</groupId>
             <artifactId>features-gnmi</artifactId>
             <classifier>features</classifier>
-            <version>2.0.1-SNAPSHOT</version>
             <type>xml</type>
             <scope>runtime</scope>
         </dependency>
