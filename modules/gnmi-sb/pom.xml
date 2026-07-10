@@ -56,6 +56,13 @@
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
+<<<<<<< HEAD   (94ab44 Pin runner image to ubuntu-24.04)
+=======
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+>>>>>>> CHANGE (ca4be0 Improve dependency management)
         </dependency>
         <dependency>
             <groupId>io.grpc</groupId>
@@ -94,6 +101,13 @@
             <artifactId>gnmi-proto</artifactId>
         </dependency>
         <dependency>
+<<<<<<< HEAD   (94ab44 Pin runner image to ubuntu-24.04)
+=======
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+        </dependency>
+        <dependency>
+>>>>>>> CHANGE (ca4be0 Improve dependency management)
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
             <version>4.5.0</version>
@@ -116,7 +130,11 @@
         </dependency>
         <dependency>
             <groupId>org.opendaylight.aaa</groupId>
+<<<<<<< HEAD   (94ab44 Pin runner image to ubuntu-24.04)
             <artifactId>aaa-encrypt-service-api</artifactId>
+=======
+            <artifactId>aaa-encrypt-service</artifactId>
+>>>>>>> CHANGE (ca4be0 Improve dependency management)
         </dependency>
         <dependency>
             <groupId>org.opendaylight.mdsal</groupId>

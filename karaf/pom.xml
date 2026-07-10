@@ -48,7 +48,11 @@
             <dependency>
                 <groupId>org.opendaylight.gnmi</groupId>
                 <artifactId>gnmi-artifacts</artifactId>
+<<<<<<< HEAD   (94ab44 Pin runner image to ubuntu-24.04)
                 <version>4.0.1-SNAPSHOT</version>
+=======
+                <version>4.0.0-SNAPSHOT</version>
+>>>>>>> CHANGE (ca4be0 Improve dependency management)
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

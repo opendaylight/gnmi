@@ -31,7 +31,11 @@
         </dependency>
         <dependency>
             <groupId>org.opendaylight.netconf</groupId>
+<<<<<<< HEAD   (94ab44 Pin runner image to ubuntu-24.04)
             <artifactId>odl-restconf-nb</artifactId>
+=======
+            <artifactId>odl-restconf</artifactId>
+>>>>>>> CHANGE (ca4be0 Improve dependency management)
             <type>xml</type>
             <classifier>features</classifier>
         </dependency>
