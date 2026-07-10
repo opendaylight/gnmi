@@ -35,6 +35,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c90876f_f6c9f898",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2026-07-10T08:20:43Z",
+      "side": 1,
+      "message": "marked as @Disabled until gnmi-7 is resolved",
+      "parentUuid": "5c3d9008_8e034d40",
+      "revId": "81cd9362cd8b81568f3c080b28a6a81417f6744e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06d1dcc4_8d7e2279",
