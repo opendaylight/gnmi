@@ -56,7 +56,6 @@
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
-            <version>3.25.8</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
@@ -101,7 +100,6 @@
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
-            <version>2.3.3</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -127,7 +125,6 @@
         <dependency>
             <groupId>org.opendaylight.aaa</groupId>
             <artifactId>aaa-encrypt-service</artifactId>
-            <version>0.23.2</version>
         </dependency>
         <dependency>
             <groupId>org.opendaylight.mdsal</groupId>
@@ -274,7 +271,6 @@
         <dependency>
             <groupId>org.skyscreamer</groupId>
             <artifactId>jsonassert</artifactId>
-            <version>1.5.3</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
