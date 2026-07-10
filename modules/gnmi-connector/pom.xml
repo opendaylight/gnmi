@@ -21,7 +21,6 @@
     <url>https://lf-opendaylight.atlassian.net/wiki/spaces/ODL/pages/489062430/gNMI+project</url>
 
     <properties>
-        <protobuf.version>3.25.8</protobuf.version>
         <grpc.version>1.75.0</grpc.version>
     </properties>
 
@@ -33,7 +32,6 @@
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
-            <version>${protobuf.version}</version>
         </dependency>
         <dependency>
             <groupId>io.grpc</groupId>

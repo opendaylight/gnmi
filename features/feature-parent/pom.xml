@@ -25,7 +25,7 @@
         <dependencies>
             <dependency>
                 <groupId>org.opendaylight.gnmi</groupId>
-                <artifactId>gnmi-artifacts</artifactId>
+                <artifactId>gnmi-parent</artifactId>
                 <version>1.0.2-SNAPSHOT</version>
                 <type>pom</type>
                 <scope>import</scope>
