@@ -22,6 +22,30 @@
       },
       "revId": "f7e73f84594a294427fe8d3806e5302399c1dae7",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "664557ba_d1613a61",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiITBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2026-07-10T07:44:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af181608_a5a576e0",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 5
+      },
+      "revId": "f7e73f84594a294427fe8d3806e5302399c1dae7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
