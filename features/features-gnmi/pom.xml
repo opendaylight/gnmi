@@ -38,7 +38,6 @@
         <dependency>
             <groupId>org.opendaylight.gnmi</groupId>
             <artifactId>odl-gnmi-all</artifactId>
-            <version>${project.version}</version>
             <type>xml</type>
             <classifier>features</classifier>
         </dependency>
