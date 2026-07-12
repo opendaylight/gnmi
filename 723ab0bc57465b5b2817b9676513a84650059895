@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c516363_0a3fab48",
+        "filename": "bnd-parent/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 649
+      },
+      "writtenOn": "2026-07-12T14:01:42Z",
+      "side": 0,
+      "message": "the version should be kept here, the reason being if the parent is used with an artifact with different version, that artifact\u0027s version would end up being here",
+      "range": {
+        "startLine": 36,
+        "startChar": 25,
+        "endLine": 36,
+        "endChar": 39
+      },
+      "revId": "723ab0bc57465b5b2817b9676513a84650059895",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
