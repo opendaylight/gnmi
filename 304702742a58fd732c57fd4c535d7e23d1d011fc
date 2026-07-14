@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f622879e_89b484d4",
+        "filename": "features/feature-parent/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-14T14:21:39Z",
+      "side": 1,
+      "message": "bnd-parent already imports gnmi-artifacts. This is redundant now.",
+      "revId": "304702742a58fd732c57fd4c535d7e23d1d011fc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a4688eec_dc0fb85a",
         "filename": "features/feature-parent/pom.xml",
         "patchSetId": 2
@@ -31,6 +48,40 @@
       "writtenOn": "2026-07-14T13:53:29Z",
       "side": 1,
       "message": "\u003cartifactId\u003egnmi-parent\u003c/artifactId\u003e, see NETCONF",
+      "revId": "304702742a58fd732c57fd4c535d7e23d1d011fc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a8362a8_7f4b0a89",
+        "filename": "karaf/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-14T14:21:39Z",
+      "side": 1,
+      "message": "This is redundant - pulled via gnmi-parent -\u003e bnd-parent",
+      "revId": "304702742a58fd732c57fd4c535d7e23d1d011fc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2490327_09143750",
+        "filename": "karaf/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-14T14:21:39Z",
+      "side": 1,
+      "message": "This is redundant - pulled via gnmi-parent -\u003e bnd-parent",
       "revId": "304702742a58fd732c57fd4c535d7e23d1d011fc",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
