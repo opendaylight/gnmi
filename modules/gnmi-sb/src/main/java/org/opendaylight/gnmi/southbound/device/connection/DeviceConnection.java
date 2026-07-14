@@ -32,6 +32,8 @@ public class DeviceConnection implements GnmiSessionProvider, SchemaContextProvi
     private final ConfigurableParameters configurableParameters;
     private EffectiveModelContext schemaContext;
 
+    private volatile boolean mountpointCreated;
+
     public DeviceConnection(final SessionProvider sessionProvider,
                             final GnmiConnectionStatusListener connectionStatusListener, final Node node) {
         this.sessionProvider = sessionProvider;
@@ -49,6 +51,20 @@ public class DeviceConnection implements GnmiSessionProvider, SchemaContextProvi
 
     public FluentFuture<CommitInfo> setDeviceStatusReady() throws GnmiConnectionStatusException {
         return connectionStatusListener.copyDeviceStatusReadyToDatastore();
+    }
+
+    /**
+     * Marks that the mountpoint of this device was successfully created.
+     *
+     * <p>Until this is called, READY status must not be advertised in the operational datastore,
+     * as clients use it as an indication that the device mountpoint is usable.</p>
+     */
+    public void markMountpointCreated() {
+        mountpointCreated = true;
+    }
+
+    public boolean isMountpointCreated() {
+        return mountpointCreated;
     }
 
     public ConfigurableParameters getConfigurableParameters() {

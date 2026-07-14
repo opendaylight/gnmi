@@ -151,6 +151,8 @@ class DeviceConnectionInitializerTest extends AbstractConcurrentDataBrokerTest {
     @Test
     void repeatedReadyRefreshesReadyStatusTest() throws Exception {
         final var deviceConnection = connect();
+        // Done by DeviceConnectionManager once the mountpoint is created, READY is not refreshed before that
+        deviceConnection.markMountpointCreated();
         deviceConnection.setDeviceStatusReady().get(TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
         assertEquals(NodeState.NodeStatus.READY, readNodeStatus().orElseThrow());
 
