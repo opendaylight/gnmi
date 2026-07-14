@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5125e049_86cefcf4",
+        "filename": "modules/gnmi-sb/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-07-14T07:59:38Z",
+      "side": 1,
+      "message": "This is a cherry pick his will be fixed in later commit like:\nhttps://git.opendaylight.org/gerrit/c/gnmi/+/123910?usp\u003dsearch",
+      "parentUuid": "93d706a7_14823b0b",
+      "revId": "4d290f9a70890158f110143da03f2e8d587f5927",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "247fdacf_e6142a80",
@@ -35,6 +53,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "98bcd464_7c2b46bf",
+        "filename": "modules/gnmi-sb/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-07-14T07:59:38Z",
+      "side": 1,
+      "message": "This is a cherry pick his will be fixed in later commit like:\nhttps://git.opendaylight.org/gerrit/c/gnmi/+/123910?usp\u003dsearch",
+      "parentUuid": "247fdacf_e6142a80",
+      "revId": "4d290f9a70890158f110143da03f2e8d587f5927",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "60f3ac1c_4bd72f9d",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-07-14T07:38:12Z",
       "side": 1,
       "message": "and this",
+      "revId": "4d290f9a70890158f110143da03f2e8d587f5927",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a796288_5a050738",
+        "filename": "modules/gnmi-sb/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-07-14T07:59:38Z",
+      "side": 1,
+      "message": "This is a cherry pick his will be fixed in later commit like:\nhttps://git.opendaylight.org/gerrit/c/gnmi/+/123910?usp\u003dsearch",
+      "parentUuid": "60f3ac1c_4bd72f9d",
       "revId": "4d290f9a70890158f110143da03f2e8d587f5927",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
