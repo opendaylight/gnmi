@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cc107ad_ca15f929",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionInitializer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-14T13:19:32Z",
+      "side": 1,
+      "message": "@Nullable",
+      "revId": "6a0306c878eaae3ca6127677e3cc61e78d4c5326",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c012828a_86e18199",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionInitializer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-14T13:19:32Z",
+      "side": 1,
+      "message": "There is a potential for a nasty race condition here. We can end up in this ELSE path if the connection flops during the first connect - a reconnect is triggered before the MountPoint was finished. Since we\u0027re not checking the existence of the MountPoint, we would write the READY and move on (even though the mount point is not available yet)",
+      "revId": "6a0306c878eaae3ca6127677e3cc61e78d4c5326",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "918adb8f_70ca0a07",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionInitializer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-14T13:19:32Z",
+      "side": 1,
+      "message": "Why are we silently discarding the returned Future here? The try block only catches the synchronously thrown GnmiConnectionStatusException, not the async commit failure. Either handle it via collback/log, or comment why this fire-and-forget approach is intentional and safe.",
+      "revId": "6a0306c878eaae3ca6127677e3cc61e78d4c5326",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b32eee4_a9a76be9",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionInitializer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-14T13:19:32Z",
+      "side": 1,
+      "message": "This the 3-level try-catch nesting is ugly. It could be flattened similarly to DeviceConnection.close()",
+      "revId": "6a0306c878eaae3ca6127677e3cc61e78d4c5326",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
