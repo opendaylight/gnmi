@@ -121,7 +121,7 @@ public class GnmiConnectionStatusListener implements AutoCloseable {
                 executorService.execute(onStatusCallback);
             } catch (RejectedExecutionException e) {
                 LOG.debug("Executor for node {} is no longer accepting tasks (shutting down); "
-                    + "skipping status callback", nodeId.getValue(), e);
+                        + "skipping status callback", nodeId.getValue(), e);
             }
         }
     }
