@@ -63,6 +63,24 @@
       "message": "inherited BOM version is 2.0.12, so this would be a silent downgrade, are we ok with this?",
       "revId": "723ab0bc57465b5b2817b9676513a84650059895",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17c17e8e_e148ec36",
+        "filename": "modules/gnmi-device-simulator/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-07-14T08:17:46Z",
+      "side": 0,
+      "message": "This actually unifies the versions of slf4j across the project.\nGnmi-device-simulator used newer version as it was specified here while the rest of the project used the inherited 2.0.12.",
+      "parentUuid": "85742052_6e3aa6ae",
+      "revId": "723ab0bc57465b5b2817b9676513a84650059895",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
