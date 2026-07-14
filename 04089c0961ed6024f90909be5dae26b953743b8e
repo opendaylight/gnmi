@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd027c92_4c6dbd75",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnection.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-07-14T07:47:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2155d6ed_9d795f6b",
+      "revId": "04089c0961ed6024f90909be5dae26b953743b8e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca1e4684_683c186a",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-07-13T10:22:05Z",
       "side": 1,
       "message": "probably close order should be mirrored here as well and also better to add try/finnaly logic here",
+      "revId": "04089c0961ed6024f90909be5dae26b953743b8e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "478ad9c1_145ffa47",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionInitializer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-07-14T07:47:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca1e4684_683c186a",
       "revId": "04089c0961ed6024f90909be5dae26b953743b8e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
