@@ -8,6 +8,7 @@
 package org.opendaylight.gnmi.southbound.device.connection;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
@@ -17,6 +18,7 @@ import static org.mockito.Mockito.when;
 import com.google.common.util.concurrent.FluentFuture;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.MoreExecutors;
+import com.google.common.util.concurrent.SettableFuture;
 import gnmi.Gnmi;
 import io.grpc.ConnectivityState;
 import java.util.ArrayList;
@@ -153,6 +155,41 @@ class DeviceReconnectionStatusTest {
         // Device reconnects, READY status is refreshed in the datastore
         fireChannelStateChange(ConnectivityState.READY);
         assertEquals(2, countMergedStatus(NodeState.NodeStatus.READY));
+    }
+
+    /**
+     * Reproduces the race where the channel briefly flaps {@code READY -> IDLE -> READY} while the very first
+     * mountpoint creation is still in flight (blocked on the capabilities response). The reconnect-status
+     * refresh path must not advertise READY before the mountpoint exists; once mountpoint creation
+     * completes, {@link DeviceConnectionManager} itself writes READY exactly once.
+     */
+    @Test
+    public void readyFlapBeforeMountpointCreationDoesNotWriteReadyTest() throws Exception {
+        final var node = createNode("flap-node", 9001);
+        final var capabilitiesFuture = SettableFuture.<Gnmi.CapabilityResponse>create();
+        when(gnmiSessionMock.capabilities(any()))
+                .thenAnswer(invocation -> capabilitiesFuture);
+
+        channelState = ConnectivityState.CONNECTING;
+        final var connectFuture = connectionManager.connectDevice(node);
+
+        // Channel becomes READY, but mountpoint creation is blocked on the capabilities response
+        fireChannelStateChange(ConnectivityState.READY);
+        assertFalse(connectFuture.isDone());
+
+        // Rapid READY -> IDLE -> READY flap while the mountpoint does not exist yet
+        fireChannelStateChange(ConnectivityState.IDLE);
+        fireChannelStateChange(ConnectivityState.READY);
+
+        // READY must not be advertised before the mountpoint is created
+        assertEquals(0, countMergedStatus(NodeState.NodeStatus.READY));
+
+        // Mountpoint creation finishes, the connection manager itself advertises READY exactly once
+        capabilitiesFuture.set(CAPABILITY_RESPONSE);
+        connectFuture.get(TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
+        assertTrue(connectionManager.nodeActive(node.getNodeId()));
+        Mockito.verify(mountPointRegistratorMock).registerMountPoint(any(), any(), any());
+        assertEquals(1, countMergedStatus(NodeState.NodeStatus.READY));
     }
 
     /**
