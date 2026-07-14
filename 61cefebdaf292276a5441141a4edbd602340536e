@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6cfa7bf_a47a8da2",
+        "filename": "modules/gnmi-sb/pom.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-07-14T11:15:28Z",
+      "side": 1,
+      "message": "not needed dependency",
+      "revId": "61cefebdaf292276a5441141a4edbd602340536e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4af3aa3c_674d3ed1",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/listener/GnmiNodeListenerStaleStateTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-07-14T11:15:28Z",
+      "side": 1,
+      "message": "you can use try with resources",
+      "revId": "61cefebdaf292276a5441141a4edbd602340536e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2b3b1cf_7c8bbb8d",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/listener/GnmiNodeListenerStaleStateTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-07-14T11:15:28Z",
+      "side": 1,
+      "message": "try (statusListener) {",
+      "revId": "61cefebdaf292276a5441141a4edbd602340536e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
