@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93d706a7_14823b0b",
+        "filename": "modules/gnmi-sb/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2026-07-14T07:38:12Z",
+      "side": 1,
+      "message": "and this",
+      "revId": "4d290f9a70890158f110143da03f2e8d587f5927",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "247fdacf_e6142a80",
+        "filename": "modules/gnmi-sb/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2026-07-14T07:38:12Z",
+      "side": 1,
+      "message": "can be dropped as well",
+      "revId": "4d290f9a70890158f110143da03f2e8d587f5927",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60f3ac1c_4bd72f9d",
+        "filename": "modules/gnmi-sb/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2026-07-14T07:38:12Z",
+      "side": 1,
+      "message": "and this",
+      "revId": "4d290f9a70890158f110143da03f2e8d587f5927",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
