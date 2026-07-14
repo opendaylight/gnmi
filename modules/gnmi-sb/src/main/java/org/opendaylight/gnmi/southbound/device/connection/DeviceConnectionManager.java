@@ -108,6 +108,7 @@ public class DeviceConnectionManager implements AutoCloseable {
 
         return Futures.transformAsync(mountPointCreatedFuture,
             voidResult -> {
+                deviceConnection.markMountpointCreated();
                 final FluentFuture<CommitInfo> statusReadyFuture = deviceConnection.setDeviceStatusReady();
 
                 // handle GnmiConnectionStatusException in `statusReadyFuture`
