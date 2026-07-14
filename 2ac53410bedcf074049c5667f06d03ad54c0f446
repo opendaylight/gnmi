@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a140d7b1_d6c12a47",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-14T13:31:54Z",
+      "side": 1,
+      "message": "The \"device\" here is a class-wide simulated device. Playing with it in this manner is not wise. If this test fails after stop() but before a successful start(), every subsequent test that relies on this \"device\" also fails. Use dedicated instance instead.",
+      "revId": "2ac53410bedcf074049c5667f06d03ad54c0f446",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2b815e3_c371617a",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-14T13:31:54Z",
+      "side": 1,
+      "message": "The Awaitility block here is a copy-pasta AND is used like this in several places. Extract it into a private helper method instead.",
+      "revId": "2ac53410bedcf074049c5667f06d03ad54c0f446",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
