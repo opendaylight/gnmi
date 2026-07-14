@@ -164,13 +164,15 @@ public class DeviceConnectionInitializer implements AutoCloseable {
                 // The initializer is intentionally kept in activeInitializers until the connection is fully
                 // handed over, see finishInitializer(NodeId).
                 futureManager.set(deviceConnection);
+            } else if (!deviceConnection.isMountpointCreated()) {
+                // A rapid READY -> IDLE -> READY flap right after the initial connection: the mountpoint
+                // is not created yet, so READY must not be advertised. No update is lost by skipping:
+                // DeviceConnectionManager writes READY itself once the mountpoint is created, and a failed
+                // mountpoint creation overwrites the status with the failure reason (see GnmiNodeListener).
+                LOG.debug("Mountpoint of node {} is not created yet, skipping READY status refresh",
+                        node.getNodeId());
             } else {
                 // Reconnect: DeviceConnection already exists, so just refresh status READY in the datastore.
-                // Note: the callback stays registered for the whole connection lifetime, so a rapid
-                // READY -> IDLE -> READY flap right after the initial connection may write READY before
-                // DeviceConnectionManager has finished creating the mountpoint. This is transient:
-                // the manager writes READY again once the mountpoint is created, and a failed mountpoint
-                // creation overwrites the status with the failure reason (see GnmiNodeListener).
                 try {
                     deviceConnection.setDeviceStatusReady().addCallback(new FutureCallback<>() {
                         @Override
