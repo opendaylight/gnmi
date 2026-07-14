@@ -127,6 +127,7 @@ public class DeviceConnectionManager implements AutoCloseable {
 
         return Futures.transformAsync(mountPointCreatedFuture,
             voidResult -> {
+                deviceConnection.markMountpointCreated();
                 final var statusReadyFuture = deviceConnection.setDeviceStatusReady();
 
                 // handle GnmiConnectionStatusException in `statusReadyFuture`
