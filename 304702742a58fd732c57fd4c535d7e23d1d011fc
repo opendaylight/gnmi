@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3cd0cbd_5dc52ad3",
+        "filename": "features/feature-parent/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-07-14T13:53:29Z",
+      "side": 1,
+      "message": "do we need artifacts here?, no if we add gnmi-parent 😊",
+      "revId": "304702742a58fd732c57fd4c535d7e23d1d011fc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4688eec_dc0fb85a",
+        "filename": "features/feature-parent/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-07-14T13:53:29Z",
+      "side": 1,
+      "message": "\u003cartifactId\u003egnmi-parent\u003c/artifactId\u003e, see NETCONF",
+      "revId": "304702742a58fd732c57fd4c535d7e23d1d011fc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
