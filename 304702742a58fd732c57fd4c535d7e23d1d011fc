@@ -35,6 +35,42 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5b9a36b_f160a2dd",
+        "filename": "features/feature-parent/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-07-15T07:10:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3cd0cbd_5dc52ad3",
+      "revId": "304702742a58fd732c57fd4c535d7e23d1d011fc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7bd07cba_0688aca1",
+        "filename": "features/feature-parent/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-07-15T07:10:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f622879e_89b484d4",
+      "revId": "304702742a58fd732c57fd4c535d7e23d1d011fc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4688eec_dc0fb85a",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-07-14T13:53:29Z",
       "side": 1,
       "message": "\u003cartifactId\u003egnmi-parent\u003c/artifactId\u003e, see NETCONF",
+      "revId": "304702742a58fd732c57fd4c535d7e23d1d011fc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36c83744_3e766673",
+        "filename": "features/feature-parent/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-07-15T07:10:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4688eec_dc0fb85a",
       "revId": "304702742a58fd732c57fd4c535d7e23d1d011fc",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -69,6 +123,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7bda2f8_5610d7b7",
+        "filename": "karaf/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-07-15T07:10:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a8362a8_7f4b0a89",
+      "revId": "304702742a58fd732c57fd4c535d7e23d1d011fc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d2490327_09143750",
@@ -82,6 +154,24 @@
       "writtenOn": "2026-07-14T14:21:39Z",
       "side": 1,
       "message": "This is redundant - pulled via gnmi-parent -\u003e bnd-parent",
+      "revId": "304702742a58fd732c57fd4c535d7e23d1d011fc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d032011_76793cc4",
+        "filename": "karaf/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-07-15T07:10:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2490327_09143750",
       "revId": "304702742a58fd732c57fd4c535d7e23d1d011fc",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
