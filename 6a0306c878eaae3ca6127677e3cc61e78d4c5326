@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c294ad9a_87cc2cdc",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionInitializer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-07-15T10:45:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4cc107ad_ca15f929",
+      "revId": "6a0306c878eaae3ca6127677e3cc61e78d4c5326",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c012828a_86e18199",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-07-14T13:19:32Z",
       "side": 1,
       "message": "There is a potential for a nasty race condition here. We can end up in this ELSE path if the connection flops during the first connect - a reconnect is triggered before the MountPoint was finished. Since we\u0027re not checking the existence of the MountPoint, we would write the READY and move on (even though the mount point is not available yet)",
+      "revId": "6a0306c878eaae3ca6127677e3cc61e78d4c5326",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0828e34_5d41aded",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionInitializer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-07-15T10:45:05Z",
+      "side": 1,
+      "message": "Resolved in https://git.opendaylight.org/gerrit/c/gnmi/+/123972/2?usp\u003drelated-change",
+      "parentUuid": "c012828a_86e18199",
       "revId": "6a0306c878eaae3ca6127677e3cc61e78d4c5326",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -52,6 +88,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e6779b4_c5df431f",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionInitializer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-07-15T10:45:05Z",
+      "side": 1,
+      "message": "resolved in https://git.opendaylight.org/gerrit/c/gnmi/+/123972/2?usp\u003drelated-change",
+      "parentUuid": "918adb8f_70ca0a07",
+      "revId": "6a0306c878eaae3ca6127677e3cc61e78d4c5326",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b32eee4_a9a76be9",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-07-14T13:19:32Z",
       "side": 1,
       "message": "This the 3-level try-catch nesting is ugly. It could be flattened similarly to DeviceConnection.close()",
+      "revId": "6a0306c878eaae3ca6127677e3cc61e78d4c5326",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bed7dda0_7fb14806",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionInitializer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-07-15T10:45:05Z",
+      "side": 1,
+      "message": "flattened",
+      "parentUuid": "1b32eee4_a9a76be9",
       "revId": "6a0306c878eaae3ca6127677e3cc61e78d4c5326",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
