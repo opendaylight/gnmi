@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "01cd2182_451641e5",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-07-15T10:48:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a140d7b1_d6c12a47",
+      "revId": "2ac53410bedcf074049c5667f06d03ad54c0f446",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a2b815e3_c371617a",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-07-14T13:31:54Z",
       "side": 1,
       "message": "The Awaitility block here is a copy-pasta AND is used like this in several places. Extract it into a private helper method instead.",
+      "revId": "2ac53410bedcf074049c5667f06d03ad54c0f446",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1c16f98_7af042f3",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-07-15T10:48:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2b815e3_c371617a",
       "revId": "2ac53410bedcf074049c5667f06d03ad54c0f446",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }

@@ -16,6 +16,24 @@
       "message": "not needed empty lines",
       "revId": "59b79c6cf5e9f1896dc6bb173f9d8d7d9dffdb7b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b35e2438_ba3400c1",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-07-15T10:48:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf9e6363_3be68b64",
+      "revId": "59b79c6cf5e9f1896dc6bb173f9d8d7d9dffdb7b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
