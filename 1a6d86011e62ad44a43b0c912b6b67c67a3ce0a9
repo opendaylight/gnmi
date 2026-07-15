@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad878ac0_5e91c906",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-07-15T11:42:10Z",
+      "side": 1,
+      "message": "Done, now GNMI-30",
+      "parentUuid": "d912f58c_e160b87c",
+      "revId": "1a6d86011e62ad44a43b0c912b6b67c67a3ce0a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4855e4b8_9b3a23df",
