@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a4bbf36_c58a3535",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-16T11:49:40Z",
+      "side": 1,
+      "message": "This finaly{} failsafe is redundant and can mask real exception. @AfterEach triggers GnmiITBase.cleanup() and disconnects GNMI_NODE_ID. And if sendGetRequestJSON() or disconnectDevice() throws any exception, it will replace the original assertionException from previous steps which actually got us here.",
+      "revId": "883d0b734bb66dae8de20b0447ef2a99b224f722",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b952f6f2_6a5ef068",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-16T11:49:40Z",
+      "side": 1,
+      "message": "This helper takes a raw nodeId, where the other helpers take the fully-built nodePath (like awaitNodeStatus()). Change it to accept nodePath to keep the convention.",
+      "revId": "883d0b734bb66dae8de20b0447ef2a99b224f722",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
