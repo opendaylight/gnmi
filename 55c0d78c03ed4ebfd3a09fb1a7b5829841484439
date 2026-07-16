@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d9ccf43_2bd32f1a",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnection.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-16T12:14:31Z",
+      "side": 1,
+      "message": "The try-finally guarantees both will run, but if both throw, Java discards the try exception in favour of the finally one — the listener\u0027s failure is lost, not attached as suppressed. Please add the listener\u0027s exception into the stack (see SessionInitializationHolder.close())",
+      "revId": "55c0d78c03ed4ebfd3a09fb1a7b5829841484439",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c360430d_56d9e49a",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionInitializer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-16T12:14:31Z",
+      "side": 1,
+      "message": "catching these 3 exceptions is nice, but the call can also throw unchecked exceptions - those will terminate this method immediately without finishing the following steps - leaving sessionProvider and futureManager hanging.. catch Exception instead to cover this corner-case",
+      "revId": "55c0d78c03ed4ebfd3a09fb1a7b5829841484439",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
