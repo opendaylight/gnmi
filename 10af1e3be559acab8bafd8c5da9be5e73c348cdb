@@ -33,6 +33,108 @@
       "message": "recheck",
       "revId": "10af1e3be559acab8bafd8c5da9be5e73c348cdb",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c661ee4_0c96cad9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-16T13:04:32Z",
+      "side": 1,
+      "message": "No test in the tree exercises the multi-version fallback, the highest-version selection, or the backwards-compatible KEPT/DROPPED decision. Add a unit test (parameterized over date and dotted-numeric pairs, cross-scheme, empty/garbage). Additionally make TestYangDataStoreService return all matching versions so SchemaConstructTest can drive the KEPT and DROPPED paths end to end.",
+      "revId": "10af1e3be559acab8bafd8c5da9be5e73c348cdb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49ce1cca_bae4084b",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-16T13:04:32Z",
+      "side": 1,
+      "message": "include the model name for clarity (just like the other logs do)",
+      "revId": "10af1e3be559acab8bafd8c5da9be5e73c348cdb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3a85106_f7770a51",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-16T13:04:32Z",
+      "side": 1,
+      "message": "noversion mdodel",
+      "revId": "10af1e3be559acab8bafd8c5da9be5e73c348cdb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8e888fe_9f2b9f25",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-16T13:04:32Z",
+      "side": 1,
+      "message": "Both @param and @return disagree with the actual implementation.",
+      "revId": "10af1e3be559acab8bafd8c5da9be5e73c348cdb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "718d461b_0e9a4d49",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-16T13:04:32Z",
+      "side": 1,
+      "message": "Stream.max with this comparator that returns 0 for any date-vs-semver\npair can lead to a scenario, where a genuinely compatible model gets dropped. That comparator is not a TOTAL order, so \"max\" keeps whichever element it encountered first (among non-comparable ones). Let\u0027s say \n- module \"foo\" is stored as both \"2021-01-01\" (date) and \"2.5.0\" (semver).\n- the device requests \"2.0.0\". If iteration yields the date first, \"max\" keeps \"2021-01-01\"\n- isBackwardsCompatible(\"2021-01-01\",\"2.0.0\") is mixed-scheme, returns 0\n- the model is DROPPED, even though the compatible \"2.5.0\" was present. \nThe outcome depends on datastore iteration order.",
+      "revId": "10af1e3be559acab8bafd8c5da9be5e73c348cdb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63025473_3f0c3ed0",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/schema/TestYangDataStoreService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-16T13:04:32Z",
+      "side": 1,
+      "message": "Redundant double parentheses",
+      "revId": "10af1e3be559acab8bafd8c5da9be5e73c348cdb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
