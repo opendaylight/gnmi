@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d29e1a64_def6a730",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnection.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-20T11:26:35Z",
+      "side": 1,
+      "message": "make sure to restore the interrupt flag when catching InterruptedException . Call Thread.currentThread().interrupt() just like in GnmiConnectionStatusListener.writeStateToDataStore",
+      "revId": "fafb28a170a7138df0ca9fc0104b7b7ea2db7585",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
