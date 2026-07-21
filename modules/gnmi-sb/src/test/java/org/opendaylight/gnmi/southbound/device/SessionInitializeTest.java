@@ -13,6 +13,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
+import com.google.common.util.concurrent.FluentFuture;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import gnmi.Gnmi;
@@ -21,6 +22,7 @@ import io.grpc.ConnectivityState;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -49,6 +51,7 @@ import org.opendaylight.gnmi.southbound.mountpoint.GnmiMountPointRegistrator;
 import org.opendaylight.gnmi.southbound.mountpoint.broker.GnmiDataBrokerFactory;
 import org.opendaylight.gnmi.southbound.schema.impl.SchemaContextHolderImpl;
 import org.opendaylight.gnmi.southbound.schema.impl.SchemaException;
+import org.opendaylight.mdsal.binding.api.ReadWriteTransaction;
 import org.opendaylight.mdsal.binding.api.WriteTransaction;
 import org.opendaylight.mdsal.binding.dom.adapter.BindingDOMDataBrokerAdapter;
 import org.opendaylight.mdsal.common.api.CommitInfo;
@@ -93,6 +96,7 @@ class SessionInitializeTest {
         final SchemaContextHolderImpl schemaContextHolderMock = Mockito.mock(SchemaContextHolderImpl.class);
         final GnmiDataBrokerFactory gnmiDataBrokerFactoryMock = Mockito.mock(GnmiDataBrokerFactory.class);
         final WriteTransaction txMock = Mockito.mock(WriteTransaction.class);
+        final ReadWriteTransaction rwTxMock = Mockito.mock(ReadWriteTransaction.class);
 
         MockitoAnnotations.initMocks(this);
 
@@ -114,6 +118,14 @@ class SessionInitializeTest {
                 .thenAnswer(invocation -> txMock);
         when(txMock.commit())
                 .thenAnswer(invocation -> CommitInfo.emptyFluentFuture());
+
+        // State writes skip nodes which are gone from the configuration datastore, so report the node as
+        // still configured to keep exercising the write path.
+        when(dataBrokerMock.newReadWriteTransaction())
+                .thenAnswer(invocation -> rwTxMock);
+        when(rwTxMock.read(any(), any())).thenAnswer(invocation -> FluentFuture.from(
+                        Futures.immediateFuture(Optional.of(createNode("configured-node", 9000)))));
+        when(rwTxMock.commit()).thenAnswer(invocation -> CommitInfo.emptyFluentFuture());
     }
 
     /*

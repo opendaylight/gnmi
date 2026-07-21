@@ -29,6 +29,7 @@ import org.opendaylight.mdsal.binding.api.DataObjectDeleted;
 import org.opendaylight.mdsal.binding.api.DataObjectModification.WithDataAfter;
 import org.opendaylight.mdsal.binding.api.DataTreeChangeListener;
 import org.opendaylight.mdsal.binding.api.DataTreeModification;
+import org.opendaylight.mdsal.binding.api.ReadWriteTransaction;
 import org.opendaylight.mdsal.binding.api.WriteTransaction;
 import org.opendaylight.mdsal.common.api.CommitInfo;
 import org.opendaylight.mdsal.common.api.LogicalDatastoreType;
@@ -149,7 +150,17 @@ public class GnmiNodeListener implements DataTreeChangeListener<Node> {
 
     private void writeConnectionFailureReasonToDatastore(NodeId nodeId, String message)
             throws InterruptedException, ExecutionException, TimeoutException {
-        @NonNull final WriteTransaction tx = dataBroker.newWriteOnlyTransaction();
+        @NonNull final ReadWriteTransaction tx = dataBroker.newReadWriteTransaction();
+
+        // The node may have been deleted from configuration while this connection was still in flight.
+        // Merging its state back would resurrect the node in operational, so skip the write instead.
+        if (tx.read(LogicalDatastoreType.CONFIGURATION, IdentifierUtils.gnmiNodeID(nodeId))
+                .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS).isEmpty()) {
+            LOG.info("Node {} is no longer present in configuration, not writing connection failure state",
+                    nodeId.getValue());
+            tx.cancel();
+            return;
+        }
 
         final Node operationalNode = new NodeBuilder()
                 .setNodeId(nodeId)

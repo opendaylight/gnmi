@@ -80,6 +80,19 @@ public class DeviceConnectionInitializer implements AutoCloseable {
         return activeInitializers.containsKey(node);
     }
 
+    /**
+     * Releases the initializer of a node whose connection has been fully handed over to
+     * {@link DeviceConnectionManager}. Until this is called the node keeps being reported as connecting, so that
+     * {@link DeviceConnectionManager#closeConnection(NodeId)} can still cancel it and release its session and status
+     * listener. Without this the node would be tracked by neither component for the whole capabilities and mountpoint
+     * phase, and closing it during that window would leak both resources.
+     *
+     * @param nodeId node whose initializer is no longer needed
+     */
+    public void finishInitializer(final NodeId nodeId) {
+        activeInitializers.remove(nodeId);
+    }
+
     public void cancelInitializer(final NodeId nodeId) throws Exception {
         if (activeInitializers.containsKey(nodeId)) {
             activeInitializers.get(nodeId).close();
@@ -139,7 +152,8 @@ public class DeviceConnectionInitializer implements AutoCloseable {
         // Called when session reaches status READY
         public void onSessionReady() {
             final DeviceConnection manager = new DeviceConnection(sessionProvider, listener, node);
-            activeInitializers.remove(node.getNodeId());
+            // The initializer is intentionally kept in activeInitializers until the connection is fully
+            // handed over, see finishInitializer(NodeId).
             futureManager.set(manager);
         }
 

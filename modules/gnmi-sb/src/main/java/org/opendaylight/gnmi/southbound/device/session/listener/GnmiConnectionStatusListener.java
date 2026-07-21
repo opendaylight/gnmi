@@ -18,6 +18,7 @@ import org.opendaylight.gnmi.connector.session.api.SessionProvider;
 import org.opendaylight.gnmi.southbound.identifier.IdentifierUtils;
 import org.opendaylight.gnmi.southbound.timeout.TimeoutUtils;
 import org.opendaylight.mdsal.binding.api.DataBroker;
+import org.opendaylight.mdsal.binding.api.ReadWriteTransaction;
 import org.opendaylight.mdsal.binding.api.WriteTransaction;
 import org.opendaylight.mdsal.common.api.CommitInfo;
 import org.opendaylight.mdsal.common.api.LogicalDatastoreType;
@@ -63,12 +64,19 @@ public class GnmiConnectionStatusListener implements AutoCloseable {
      * Update device connection state in md-sal datastore to READY.
      *
      * <p>As far as the state may change in time based on actual underlying connection, this method will perform the
-     * write transaction into md-sal only if last observed state of underlying connection is still READY.</p>
+     * write transaction into md-sal only if last observed state of underlying connection is still READY. The write is
+     * additionally skipped when the node is no longer present in the configuration datastore, so that a late status
+     * update can not resurrect a node which has already been deleted.</p>
      *
-     * @throws GnmiConnectionStatusException when current state of underlying connection is different from READY.
+     * @throws GnmiConnectionStatusException when this listener is closed, or when current state of underlying
+     *       connection is different from READY.
      */
     public synchronized FluentFuture<CommitInfo> copyDeviceStatusReadyToDatastore()
             throws GnmiConnectionStatusException {
+        if (!listenerActive) {
+            throw new GnmiConnectionStatusException(String.format("Listener of node %s is closed, READY state is no"
+                + " longer valid", nodeId.getValue()), currentState);
+        }
         if (ConnectivityState.READY.equals(currentState)) {
             return writeStateToDataStoreAsync(this.currentState);
         } else {
@@ -122,7 +130,14 @@ public class GnmiConnectionStatusListener implements AutoCloseable {
     }
 
     private synchronized FluentFuture<CommitInfo> writeStateToDataStoreAsync(final ConnectivityState state) {
-        final @NonNull WriteTransaction tx = dataBroker.newWriteOnlyTransaction();
+        final @NonNull ReadWriteTransaction tx = dataBroker.newReadWriteTransaction();
+
+        // The node may have been deleted from configuration while this state change was in flight.
+        // Merging its state back would resurrect the node in operational, so skip the write instead.
+        if (!nodePresentInConfig(tx)) {
+            tx.cancel();
+            return CommitInfo.emptyFluentFuture();
+        }
 
         final Node operationalNode = new NodeBuilder()
                 .setNodeId(nodeId)
@@ -133,6 +148,33 @@ public class GnmiConnectionStatusListener implements AutoCloseable {
                 .build();
         tx.merge(LogicalDatastoreType.OPERATIONAL, IdentifierUtils.gnmiNodeID(nodeId), operationalNode);
         return (FluentFuture<CommitInfo>) tx.commit();
+    }
+
+    /**
+     * Checks whether the node is still configured. A failed read is reported as not present: dropping a
+     * best-effort state update is preferable to resurrecting a node which is gone, and the next channel
+     * state change writes the state again.
+     *
+     * @param tx transaction to read the configuration through
+     * @return true if the node is still present in the configuration datastore
+     */
+    private boolean nodePresentInConfig(final ReadWriteTransaction tx) {
+        try {
+            final boolean present = tx.read(LogicalDatastoreType.CONFIGURATION, IdentifierUtils.gnmiNodeID(nodeId))
+                    .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS).isPresent();
+            if (!present) {
+                LOG.info("Node {} is no longer present in configuration, not writing connection state",
+                        nodeId.getValue());
+            }
+            return present;
+        } catch (ExecutionException | TimeoutException e) {
+            LOG.warn("Unable to read configuration of node {}, not writing connection state", nodeId.getValue(), e);
+            return false;
+        } catch (InterruptedException e) {
+            LOG.error("Interrupted while reading configuration of node {}", nodeId.getValue(), e);
+            Thread.currentThread().interrupt();
+            return false;
+        }
     }
 
     @Override
