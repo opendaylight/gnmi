@@ -8,19 +8,19 @@
 package org.opendaylight.gnmi.southbound.device.connection;
 
 import com.google.common.collect.Sets;
-import com.google.common.util.concurrent.FluentFuture;
+import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import gnmi.Gnmi;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 import org.opendaylight.gnmi.southbound.capabilities.GnmiDeviceCapability;
 import org.opendaylight.gnmi.southbound.capabilities.MissingEncodingException;
@@ -28,7 +28,6 @@ import org.opendaylight.gnmi.southbound.device.session.listener.GnmiConnectionSt
 import org.opendaylight.gnmi.southbound.device.session.security.SessionSecurityException;
 import org.opendaylight.gnmi.southbound.identifier.IdentifierUtils;
 import org.opendaylight.gnmi.southbound.mountpoint.GnmiMountPointRegistrator;
-import org.opendaylight.gnmi.southbound.mountpoint.broker.GnmiDataBroker;
 import org.opendaylight.gnmi.southbound.mountpoint.broker.GnmiDataBrokerFactory;
 import org.opendaylight.gnmi.southbound.requests.utils.GnmiRequestUtils;
 import org.opendaylight.gnmi.southbound.schema.SchemaContextHolder;
@@ -46,7 +45,6 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.gnm
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NodeId;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.NodeBuilder;
-import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,6 +62,8 @@ public class DeviceConnectionManager implements AutoCloseable {
     private final DeviceConnectionInitializer connectionInitializer;
     private final DataBroker dataBroker;
     private final ExecutorService executorService;
+    private final AtomicLong connectionGeneration;
+    private final Map<NodeId, Long> activeGenerations;
 
     public DeviceConnectionManager(final GnmiMountPointRegistrator mountPointRegistrator,
             final SchemaContextHolder schemaContextHolder, final GnmiDataBrokerFactory gnmiDataBrokerFactory,
@@ -76,21 +76,57 @@ public class DeviceConnectionManager implements AutoCloseable {
         this.dataBroker = dataBroker;
         this.executorService = executors;
         this.activeDevices = new ConcurrentHashMap<>();
+        this.connectionGeneration = new AtomicLong();
+        this.activeGenerations = new ConcurrentHashMap<>();
     }
 
     public ListenableFuture<CommitInfo> connectDevice(final Node node) {
         if (!activeDevices.containsKey(node.getNodeId())) {
+            // Stamp this attempt with a fresh generation. Starting a new attempt supersedes any older
+            // in-flight one, and closeConnection() drops the stamp, so a callback which completes after the
+            // node was removed (or replaced) finds its generation is no longer current and aborts.
+            final var generation = connectionGeneration.incrementAndGet();
+            activeGenerations.put(node.getNodeId(), generation);
             try {
                 /*
                  Establish connection with device (future will be set with GnmiDeviceManager for device when
                  state of the gRPC channel is READY
                  */
-                final ListenableFuture<DeviceConnection> deviceConnectionFuture =
-                    connectionInitializer.initConnection(node);
+                final var deviceConnectionFuture = connectionInitializer.initConnection(node);
 
-                return Futures.transformAsync(deviceConnectionFuture,
-                    deviceConnection -> prepareDeviceConnection(node, deviceConnection),
+                final var connectionFuture = Futures.transformAsync(deviceConnectionFuture,
+                    deviceConnection -> prepareDeviceConnection(node, deviceConnection, generation),
                     executorService);
+
+                // finishInitializer() releases the holder only on success; cancel it on any terminal
+                // failure so a doomed attempt does not leak its session and status listener.
+                Futures.addCallback(connectionFuture, new FutureCallback<>() {
+                    @Override
+                    public void onSuccess(final CommitInfo result) {
+                        // Handled by finishInitializer() on the success path.
+                    }
+
+                    @Override
+                    @SuppressWarnings("checkstyle:illegalCatch")
+                    public void onFailure(final Throwable throwable) {
+                        // Serialized with closeConnection(); a no-op once the holder was handed over or
+                        // already cancelled by a disconnect.
+                        synchronized (DeviceConnectionManager.this) {
+                            final var nodeId = node.getNodeId();
+                            if (!nodeConnecting(nodeId)) {
+                                return;
+                            }
+                            try {
+                                connectionInitializer.cancelInitializer(nodeId);
+                            } catch (Exception e) {
+                                LOG.warn("Failed cancelling initializer of node {} after connection failure", nodeId,
+                                    e);
+                            }
+                        }
+                    }
+                }, executorService);
+
+                return connectionFuture;
 
             } catch (SessionSecurityException e) {
                 return Futures.immediateFailedFuture(e);
@@ -103,12 +139,12 @@ public class DeviceConnectionManager implements AutoCloseable {
     }
 
     private ListenableFuture<CommitInfo> prepareDeviceConnection(final Node node,
-            final DeviceConnection deviceConnection) {
-        final ListenableFuture<Void> mountPointCreatedFuture = createMountPoint(node, deviceConnection);
+            final DeviceConnection deviceConnection, final long generation) {
+        final var mountPointCreatedFuture = createMountPoint(node, deviceConnection, generation);
 
         return Futures.transformAsync(mountPointCreatedFuture,
             voidResult -> {
-                final FluentFuture<CommitInfo> statusReadyFuture = deviceConnection.setDeviceStatusReady();
+                final var statusReadyFuture = deviceConnection.setDeviceStatusReady();
 
                 // handle GnmiConnectionStatusException in `statusReadyFuture`
                 return Futures.catchingAsync(statusReadyFuture, GnmiConnectionStatusException.class,
@@ -122,9 +158,10 @@ public class DeviceConnectionManager implements AutoCloseable {
             executorService);
     }
 
-    private ListenableFuture<Void> createMountPoint(final Node node, final DeviceConnection deviceConnection) {
+    private ListenableFuture<Void> createMountPoint(final Node node, final DeviceConnection deviceConnection,
+            final long generation) {
 
-        final ListenableFuture<Gnmi.CapabilityResponse> readCapabilitiesFuture =
+        final var readCapabilitiesFuture =
                 deviceConnection.getGnmiSession().capabilities(GnmiRequestUtils.makeDefaultCapabilityRequest());
 
         return Futures.transformAsync(readCapabilitiesFuture,
@@ -137,21 +174,36 @@ public class DeviceConnectionManager implements AutoCloseable {
                 }
 
                 final List<GnmiDeviceCapability> capabilitiesList = new ArrayList<>();
-                final Optional<List<Gnmi.ModelData>> forceCapabilities =
-                    deviceConnection.getConfigurableParameters().getModelDataList();
+                final var forceCapabilities = deviceConnection.getConfigurableParameters().getModelDataList();
                 if (forceCapabilities.isPresent()) {
-                    final Gnmi.CapabilityResponse capabilitiesResponseBuilder = Gnmi.CapabilityResponse.newBuilder()
+                    final var capabilitiesResponseBuilder = Gnmi.CapabilityResponse.newBuilder()
                         .addAllSupportedModels(forceCapabilities.orElseThrow()).build();
                     capabilitiesList.addAll(GnmiRequestUtils.fromCapabilitiesResponse(capabilitiesResponseBuilder));
                 } else {
                     capabilitiesList.addAll(GnmiRequestUtils.fromCapabilitiesResponse(capabilityResponse));
                 }
                 try {
-                    final EffectiveModelContext schemaContext = schemaContextHolder.getSchemaContext(capabilitiesList);
+                    final var schemaContext = schemaContextHolder.getSchemaContext(capabilitiesList);
                     deviceConnection.setSchemaContext(schemaContext);
-                    final GnmiDataBroker gnmiDataBroker = gnmiDataBrokerFactory.create(deviceConnection);
-                    mountPointRegistrator.registerMountPoint(node, schemaContext, gnmiDataBroker);
-                    activeDevices.put(node.getNodeId(), deviceConnection);
+                    final var gnmiDataBroker = gnmiDataBrokerFactory.create(deviceConnection);
+
+                    // The node may have been closed, or superseded by a newer attempt, while this connection
+                    // was still in flight. Claim it atomically against closeConnection(): if this attempt is no
+                    // longer the current generation, registering the mountpoint or entering activeDevices now
+                    // would resurrect a node which is already gone.
+                    synchronized (this) {
+                        if (!isCurrentGeneration(node.getNodeId(), generation)) {
+                            LOG.info("Node {} was closed while connecting, aborting mountpoint creation",
+                                    node.getNodeId());
+                            closeQuietly(deviceConnection);
+                            return Futures.immediateFuture(null);
+                        }
+                        mountPointRegistrator.registerMountPoint(node, schemaContext, gnmiDataBroker);
+                        activeDevices.put(node.getNodeId(), deviceConnection);
+                        connectionInitializer.finishInitializer(node.getNodeId());
+                    }
+                    // Committed outside the claim lock (the commit blocks). A narrow window remains where a
+                    // delete racing this merge leaves capabilities behind; see FIXME in saveCapabilitiesList.
                     saveCapabilitiesList(node.getNodeId(), capabilitiesList);
                     return Futures.immediateFuture(null);
 
@@ -185,6 +237,7 @@ public class DeviceConnectionManager implements AutoCloseable {
 
         final WriteTransaction tx = dataBroker.newWriteOnlyTransaction();
         tx.merge(LogicalDatastoreType.OPERATIONAL, IdentifierUtils.gnmiNodeID(nodeId), operationalNode);
+        // FIXME (GNMI-29): merge not ordered vs concurrent disconnect delete; serialize per-node on async path.
         tx.commit().get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
     }
 
@@ -196,8 +249,23 @@ public class DeviceConnectionManager implements AutoCloseable {
         return connectionInitializer.isNodeConnecting(nodeId);
     }
 
+    private boolean isCurrentGeneration(final NodeId nodeId, final long generation) {
+        final var current = activeGenerations.get(nodeId);
+        return current != null && current == generation;
+    }
+
     @SuppressWarnings({"checkstyle:illegalCatch"})
-    public void closeConnection(final NodeId nodeId) {
+    private void closeQuietly(final DeviceConnection deviceConnection) {
+        try {
+            deviceConnection.close();
+        } catch (Exception e) {
+            LOG.warn("Failed closing device connection of node {}", deviceConnection.getIdentifier(), e);
+        }
+    }
+
+    @SuppressWarnings({"checkstyle:illegalCatch"})
+    public synchronized void closeConnection(final NodeId nodeId) {
+        activeGenerations.remove(nodeId);
         if (!nodeActive(nodeId) && !nodeConnecting(nodeId)) {
             LOG.warn("Node {} is not registered, not deleting", nodeId);
         }
@@ -209,7 +277,7 @@ public class DeviceConnectionManager implements AutoCloseable {
             }
         }
         if (activeDevices.containsKey(nodeId)) {
-            final DeviceConnection deviceConnection = activeDevices.get(nodeId);
+            final var deviceConnection = activeDevices.get(nodeId);
             try {
                 deviceConnection.close();
             } catch (Exception e) {
@@ -226,5 +294,6 @@ public class DeviceConnectionManager implements AutoCloseable {
         for (NodeId nodeId : Sets.union(connectionInitializer.getActiveInitializers(), activeDevices.keySet())) {
             closeConnection(nodeId);
         }
+        activeGenerations.clear();
     }
 }
