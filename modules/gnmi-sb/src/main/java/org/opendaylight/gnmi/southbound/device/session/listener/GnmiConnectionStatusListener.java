@@ -17,6 +17,7 @@ import org.eclipse.jdt.annotation.NonNull;
 import org.opendaylight.gnmi.connector.session.api.SessionProvider;
 import org.opendaylight.gnmi.southbound.identifier.IdentifierUtils;
 import org.opendaylight.gnmi.southbound.timeout.TimeoutUtils;
+import org.opendaylight.gnmi.southbound.util.DatastoreUtils;
 import org.opendaylight.mdsal.binding.api.DataBroker;
 import org.opendaylight.mdsal.binding.api.WriteTransaction;
 import org.opendaylight.mdsal.common.api.CommitInfo;
@@ -25,7 +26,6 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.Gnm
 import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.gnmi.node.state.NodeState;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.gnmi.node.state.NodeStateBuilder;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NodeId;
-import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.NodeBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,13 +63,38 @@ public class GnmiConnectionStatusListener implements AutoCloseable {
      * Update device connection state in md-sal datastore to READY.
      *
      * <p>As far as the state may change in time based on actual underlying connection, this method will perform the
-     * write transaction into md-sal only if last observed state of underlying connection is still READY.</p>
+     * write transaction into md-sal only if last observed state of underlying connection is still READY. The write is
+     * additionally skipped when the node is no longer present in the configuration datastore, so that a late status
+     * update can not resurrect a node which has already been deleted.</p>
      *
-     * @throws GnmiConnectionStatusException when current state of underlying connection is different from READY.
+     * @throws GnmiConnectionStatusException when this listener is closed, or when current state of underlying
+     *     connection is different from READY.
      */
     public synchronized FluentFuture<CommitInfo> copyDeviceStatusReadyToDatastore()
             throws GnmiConnectionStatusException {
+        if (!listenerActive) {
+            throw new GnmiConnectionStatusException(String.format("Listener of node %s is closed, READY state is no"
+                + " longer valid", nodeId.getValue()), currentState);
+        }
         if (ConnectivityState.READY.equals(currentState)) {
+            // Only this hand-off write can outlive the listener, so it alone checks config presence.
+            // On a read failure proceed anyway: the device is mounted, and "could not tell" is not "deleted".
+            boolean present = true;
+            try {
+                present = DatastoreUtils.nodePresentInConfig(dataBroker, nodeId);
+            } catch (ExecutionException | TimeoutException e) {
+                LOG.warn("Unable to read configuration of node {}, proceeding with READY write",
+                        nodeId.getValue(), e);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                LOG.warn("Interrupted while reading configuration of node {}, proceeding with READY write",
+                        nodeId.getValue(), e);
+            }
+            if (!present) {
+                LOG.info("Node {} is no longer present in configuration, not writing READY state",
+                        nodeId.getValue());
+                return CommitInfo.emptyFluentFuture();
+            }
             return writeStateToDataStoreAsync(this.currentState);
         } else {
             throw new GnmiConnectionStatusException(
@@ -111,6 +136,8 @@ public class GnmiConnectionStatusListener implements AutoCloseable {
     private synchronized void writeStateToDataStore(final ConnectivityState state) {
         try {
             final FluentFuture<CommitInfo> commitFuture = writeStateToDataStoreAsync(state);
+            // FIXME (GNMI-29): this blocking commit holds the monitor on the gRPC channel thread, stalling
+            // concurrent closeConnection()/createMountPoint(); serialize per-node on the async path instead.
             commitFuture.get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
         } catch (ExecutionException | TimeoutException e) {
             LOG.warn("Unable to write connection state of gRPC channel of node {} to datastore", nodeId.getValue(), e);
@@ -122,9 +149,8 @@ public class GnmiConnectionStatusListener implements AutoCloseable {
     }
 
     private synchronized FluentFuture<CommitInfo> writeStateToDataStoreAsync(final ConnectivityState state) {
-        final @NonNull WriteTransaction tx = dataBroker.newWriteOnlyTransaction();
-
-        final Node operationalNode = new NodeBuilder()
+        final var tx = dataBroker.newWriteOnlyTransaction();
+        final var operationalNode = new NodeBuilder()
                 .setNodeId(nodeId)
                 .addAugmentation(new GnmiNodeBuilder()
                         .setNodeState(new NodeStateBuilder().setNodeStatus(convertToNodeState(state))
@@ -143,6 +169,7 @@ public class GnmiConnectionStatusListener implements AutoCloseable {
         // Delete connection state data from operational datastore
         @NonNull WriteTransaction writeTransaction = dataBroker.newWriteOnlyTransaction();
         writeTransaction.delete(LogicalDatastoreType.OPERATIONAL, IdentifierUtils.gnmiNodeID(nodeId));
+        // FIXME (GNMI-29): delete not ordered vs in-flight READY merge; serialize per-node on async path.
         writeTransaction.commit().get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
     }
 
