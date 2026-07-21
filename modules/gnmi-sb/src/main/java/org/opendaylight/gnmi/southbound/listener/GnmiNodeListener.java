@@ -29,6 +29,7 @@ import org.opendaylight.mdsal.binding.api.DataObjectDeleted;
 import org.opendaylight.mdsal.binding.api.DataObjectModification.WithDataAfter;
 import org.opendaylight.mdsal.binding.api.DataTreeChangeListener;
 import org.opendaylight.mdsal.binding.api.DataTreeModification;
+import org.opendaylight.mdsal.binding.api.ReadTransaction;
 import org.opendaylight.mdsal.binding.api.WriteTransaction;
 import org.opendaylight.mdsal.common.api.CommitInfo;
 import org.opendaylight.mdsal.common.api.LogicalDatastoreType;
@@ -149,7 +150,15 @@ public class GnmiNodeListener implements DataTreeChangeListener<Node> {
 
     private void writeConnectionFailureReasonToDatastore(NodeId nodeId, String message)
             throws InterruptedException, ExecutionException, TimeoutException {
-        @NonNull final WriteTransaction tx = dataBroker.newWriteOnlyTransaction();
+        // The node may have been deleted from configuration while this connection was still in flight.
+        // Merging its state back would resurrect the node in operational, so skip the write instead. A broker
+        // transaction may only access the datastore selected by its first operation, so the configuration read
+        // and the operational merge must use separate transactions.
+        if (!nodePresentInConfig(nodeId)) {
+            LOG.info("Node {} is no longer present in configuration, not writing connection failure state",
+                    nodeId.getValue());
+            return;
+        }
 
         final Node operationalNode = new NodeBuilder()
                 .setNodeId(nodeId)
@@ -160,8 +169,17 @@ public class GnmiNodeListener implements DataTreeChangeListener<Node> {
                         .build())
                 .build();
 
+        @NonNull final WriteTransaction tx = dataBroker.newWriteOnlyTransaction();
         tx.merge(LogicalDatastoreType.OPERATIONAL, IdentifierUtils.gnmiNodeID(nodeId), operationalNode);
         tx.commit().get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
+    }
+
+    private boolean nodePresentInConfig(final NodeId nodeId)
+            throws InterruptedException, ExecutionException, TimeoutException {
+        try (ReadTransaction tx = dataBroker.newReadOnlyTransaction()) {
+            return requireNonNull(tx.read(LogicalDatastoreType.CONFIGURATION, IdentifierUtils.gnmiNodeID(nodeId))
+                    .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)).isPresent();
+        }
     }
 
 }

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -64,6 +65,13 @@ public class DeviceConnectionManager implements AutoCloseable {
     private final DeviceConnectionInitializer connectionInitializer;
     private final DataBroker dataBroker;
     private final ExecutorService executorService;
+    /*
+     Nodes closed while their connection was still in flight. closeConnection() can not cancel such a connection once
+     it is past the initializer, so it leaves a tombstone here instead and createMountPoint() aborts when it finds one.
+     Entries are consumed on abort, dropped when the node connects again and cleared on close(), which leaves at most
+     one NodeId per node that is deleted and never re-added.
+     */
+    private final Set<NodeId> closedNodes;
 
     public DeviceConnectionManager(final GnmiMountPointRegistrator mountPointRegistrator,
             final SchemaContextHolder schemaContextHolder, final GnmiDataBrokerFactory gnmiDataBrokerFactory,
@@ -76,9 +84,11 @@ public class DeviceConnectionManager implements AutoCloseable {
         this.dataBroker = dataBroker;
         this.executorService = executors;
         this.activeDevices = new ConcurrentHashMap<>();
+        this.closedNodes = ConcurrentHashMap.newKeySet();
     }
 
     public ListenableFuture<CommitInfo> connectDevice(final Node node) {
+        closedNodes.remove(node.getNodeId());
         if (!activeDevices.containsKey(node.getNodeId())) {
             try {
                 /*
@@ -150,8 +160,19 @@ public class DeviceConnectionManager implements AutoCloseable {
                     final EffectiveModelContext schemaContext = schemaContextHolder.getSchemaContext(capabilitiesList);
                     deviceConnection.setSchemaContext(schemaContext);
                     final GnmiDataBroker gnmiDataBroker = gnmiDataBrokerFactory.create(deviceConnection);
+
+                    // The node may have been closed while this connection was still in flight. Registering the
+                    // mountpoint or saving its capabilities now would resurrect a node which is already gone.
+                    if (closedNodes.remove(node.getNodeId())) {
+                        LOG.info("Node {} was closed while connecting, aborting mountpoint creation",
+                                node.getNodeId());
+                        closeQuietly(deviceConnection);
+                        return Futures.immediateFuture(null);
+                    }
+
                     mountPointRegistrator.registerMountPoint(node, schemaContext, gnmiDataBroker);
                     activeDevices.put(node.getNodeId(), deviceConnection);
+                    connectionInitializer.finishInitializer(node.getNodeId());
                     saveCapabilitiesList(node.getNodeId(), capabilitiesList);
                     return Futures.immediateFuture(null);
 
@@ -197,7 +218,19 @@ public class DeviceConnectionManager implements AutoCloseable {
     }
 
     @SuppressWarnings({"checkstyle:illegalCatch"})
+    private void closeQuietly(final DeviceConnection deviceConnection) {
+        try {
+            deviceConnection.close();
+        } catch (Exception e) {
+            LOG.warn("Failed closing device connection of node {}", deviceConnection.getIdentifier(), e);
+        }
+    }
+
+    @SuppressWarnings({"checkstyle:illegalCatch"})
     public void closeConnection(final NodeId nodeId) {
+        // Recorded unconditionally: a connection which is neither active nor connecting can still be in flight
+        // between the initializer and this manager, and that is exactly the case which can not be cancelled here.
+        closedNodes.add(nodeId);
         if (!nodeActive(nodeId) && !nodeConnecting(nodeId)) {
             LOG.warn("Node {} is not registered, not deleting", nodeId);
         }
@@ -226,5 +259,6 @@ public class DeviceConnectionManager implements AutoCloseable {
         for (NodeId nodeId : Sets.union(connectionInitializer.getActiveInitializers(), activeDevices.keySet())) {
             closeConnection(nodeId);
         }
+        closedNodes.clear();
     }
 }
