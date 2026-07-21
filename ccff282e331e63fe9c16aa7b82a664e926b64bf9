@@ -16,6 +16,24 @@
       "message": "if assertions 3 or 5 time out, the method exits before step 6, leaving GNMI_NODE_ID in the gnmi topology - following tests that call connectDevice(GNMI_NODE_ID,...) will all fail because of it. Put the disconnect it into finally, or @AfterEach",
       "revId": "ccff282e331e63fe9c16aa7b82a664e926b64bf9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2aa78c19_27db2798",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-07-21T07:27:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8415a523_0cd4bae1",
+      "revId": "ccff282e331e63fe9c16aa7b82a664e926b64bf9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
