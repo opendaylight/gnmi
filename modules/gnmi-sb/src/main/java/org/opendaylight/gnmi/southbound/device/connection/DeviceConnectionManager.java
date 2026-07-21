@@ -21,6 +21,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 import org.opendaylight.gnmi.southbound.capabilities.GnmiDeviceCapability;
 import org.opendaylight.gnmi.southbound.capabilities.MissingEncodingException;
@@ -64,6 +65,8 @@ public class DeviceConnectionManager implements AutoCloseable {
     private final DeviceConnectionInitializer connectionInitializer;
     private final DataBroker dataBroker;
     private final ExecutorService executorService;
+    private final AtomicLong connectionGeneration;
+    private final Map<NodeId, Long> activeGenerations;
 
     public DeviceConnectionManager(final GnmiMountPointRegistrator mountPointRegistrator,
             final SchemaContextHolder schemaContextHolder, final GnmiDataBrokerFactory gnmiDataBrokerFactory,
@@ -76,10 +79,17 @@ public class DeviceConnectionManager implements AutoCloseable {
         this.dataBroker = dataBroker;
         this.executorService = executors;
         this.activeDevices = new ConcurrentHashMap<>();
+        this.connectionGeneration = new AtomicLong();
+        this.activeGenerations = new ConcurrentHashMap<>();
     }
 
     public ListenableFuture<CommitInfo> connectDevice(final Node node) {
         if (!activeDevices.containsKey(node.getNodeId())) {
+            // Stamp this attempt with a fresh generation. Starting a new attempt supersedes any older
+            // in-flight one, and closeConnection() drops the stamp, so a callback which completes after the
+            // node was removed (or replaced) finds its generation is no longer current and aborts.
+            final long generation = connectionGeneration.incrementAndGet();
+            activeGenerations.put(node.getNodeId(), generation);
             try {
                 /*
                  Establish connection with device (future will be set with GnmiDeviceManager for device when
@@ -89,7 +99,7 @@ public class DeviceConnectionManager implements AutoCloseable {
                     connectionInitializer.initConnection(node);
 
                 return Futures.transformAsync(deviceConnectionFuture,
-                    deviceConnection -> prepareDeviceConnection(node, deviceConnection),
+                    deviceConnection -> prepareDeviceConnection(node, deviceConnection, generation),
                     executorService);
 
             } catch (SessionSecurityException e) {
@@ -103,8 +113,8 @@ public class DeviceConnectionManager implements AutoCloseable {
     }
 
     private ListenableFuture<CommitInfo> prepareDeviceConnection(final Node node,
-            final DeviceConnection deviceConnection) {
-        final ListenableFuture<Void> mountPointCreatedFuture = createMountPoint(node, deviceConnection);
+            final DeviceConnection deviceConnection, final long generation) {
+        final ListenableFuture<Void> mountPointCreatedFuture = createMountPoint(node, deviceConnection, generation);
 
         return Futures.transformAsync(mountPointCreatedFuture,
             voidResult -> {
@@ -122,7 +132,8 @@ public class DeviceConnectionManager implements AutoCloseable {
             executorService);
     }
 
-    private ListenableFuture<Void> createMountPoint(final Node node, final DeviceConnection deviceConnection) {
+    private ListenableFuture<Void> createMountPoint(final Node node, final DeviceConnection deviceConnection,
+            final long generation) {
 
         final ListenableFuture<Gnmi.CapabilityResponse> readCapabilitiesFuture =
                 deviceConnection.getGnmiSession().capabilities(GnmiRequestUtils.makeDefaultCapabilityRequest());
@@ -150,8 +161,25 @@ public class DeviceConnectionManager implements AutoCloseable {
                     final EffectiveModelContext schemaContext = schemaContextHolder.getSchemaContext(capabilitiesList);
                     deviceConnection.setSchemaContext(schemaContext);
                     final GnmiDataBroker gnmiDataBroker = gnmiDataBrokerFactory.create(deviceConnection);
-                    mountPointRegistrator.registerMountPoint(node, schemaContext, gnmiDataBroker);
-                    activeDevices.put(node.getNodeId(), deviceConnection);
+
+                    // The node may have been closed, or superseded by a newer attempt, while this connection
+                    // was still in flight. Claim it atomically against closeConnection(): if this attempt is no
+                    // longer the current generation, registering the mountpoint or entering activeDevices now
+                    // would resurrect a node which is already gone.
+                    synchronized (this) {
+                        if (!isCurrentGeneration(node.getNodeId(), generation)) {
+                            LOG.info("Node {} was closed while connecting, aborting mountpoint creation",
+                                    node.getNodeId());
+                            closeQuietly(deviceConnection);
+                            return Futures.immediateFuture(null);
+                        }
+                        mountPointRegistrator.registerMountPoint(node, schemaContext, gnmiDataBroker);
+                        activeDevices.put(node.getNodeId(), deviceConnection);
+                        connectionInitializer.finishInitializer(node.getNodeId());
+                    }
+                    // Capabilities are committed outside the claim lock (the commit blocks): once the node is
+                    // in activeDevices, a concurrent closeConnection() observes it and tears it down. Only a
+                    // narrow window remains where a delete racing this merge can leave capabilities behind.
                     saveCapabilitiesList(node.getNodeId(), capabilitiesList);
                     return Futures.immediateFuture(null);
 
@@ -196,8 +224,26 @@ public class DeviceConnectionManager implements AutoCloseable {
         return connectionInitializer.isNodeConnecting(nodeId);
     }
 
+    private boolean isCurrentGeneration(final NodeId nodeId, final long generation) {
+        final Long current = activeGenerations.get(nodeId);
+        return current != null && current == generation;
+    }
+
     @SuppressWarnings({"checkstyle:illegalCatch"})
-    public void closeConnection(final NodeId nodeId) {
+    private void closeQuietly(final DeviceConnection deviceConnection) {
+        try {
+            deviceConnection.close();
+        } catch (Exception e) {
+            LOG.warn("Failed closing device connection of node {}", deviceConnection.getIdentifier(), e);
+        }
+    }
+
+    @SuppressWarnings({"checkstyle:illegalCatch"})
+    public synchronized void closeConnection(final NodeId nodeId) {
+        // Drop this node's generation stamp: a connection which is neither active nor connecting can still be
+        // in flight between the initializer and this manager, and that is exactly the case which can not be
+        // cancelled here. An in-flight callback then finds its generation is no longer current and aborts.
+        activeGenerations.remove(nodeId);
         if (!nodeActive(nodeId) && !nodeConnecting(nodeId)) {
             LOG.warn("Node {} is not registered, not deleting", nodeId);
         }
@@ -226,5 +272,6 @@ public class DeviceConnectionManager implements AutoCloseable {
         for (NodeId nodeId : Sets.union(connectionInitializer.getActiveInitializers(), activeDevices.keySet())) {
             closeConnection(nodeId);
         }
+        activeGenerations.clear();
     }
 }
