@@ -11,7 +11,6 @@ import static java.util.Objects.requireNonNull;
 
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFuture;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CancellationException;
@@ -24,12 +23,12 @@ import org.eclipse.jdt.annotation.Nullable;
 import org.opendaylight.gnmi.southbound.device.connection.DeviceConnectionManager;
 import org.opendaylight.gnmi.southbound.identifier.IdentifierUtils;
 import org.opendaylight.gnmi.southbound.timeout.TimeoutUtils;
+import org.opendaylight.gnmi.southbound.util.DatastoreUtils;
 import org.opendaylight.mdsal.binding.api.DataBroker;
 import org.opendaylight.mdsal.binding.api.DataObjectDeleted;
 import org.opendaylight.mdsal.binding.api.DataObjectModification.WithDataAfter;
 import org.opendaylight.mdsal.binding.api.DataTreeChangeListener;
 import org.opendaylight.mdsal.binding.api.DataTreeModification;
-import org.opendaylight.mdsal.binding.api.WriteTransaction;
 import org.opendaylight.mdsal.common.api.CommitInfo;
 import org.opendaylight.mdsal.common.api.LogicalDatastoreType;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.GnmiNode;
@@ -60,7 +59,7 @@ public class GnmiNodeListener implements DataTreeChangeListener<Node> {
 
 
     @Override
-    public void onDataTreeChanged(@NonNull List<DataTreeModification<Node>> changes) {
+    public void onDataTreeChanged(@NonNull final List<DataTreeModification<Node>> changes) {
         LOG.debug("Data tree change on gNMI topology triggered");
         for (final DataTreeModification<Node> change : changes) {
             final var rootNode = change.getRootNode();
@@ -82,9 +81,10 @@ public class GnmiNodeListener implements DataTreeChangeListener<Node> {
     }
 
     private void disconnectNode(final NodeId nodeId) {
+        // closeConnection() invalidates any in-flight attempt (its failure future then reports as cancelled).
         deviceConnectionManager.closeConnection(nodeId);
         // Delete operational data
-        @NonNull WriteTransaction writeTransaction = dataBroker.newWriteOnlyTransaction();
+        final var writeTransaction = dataBroker.newWriteOnlyTransaction();
         writeTransaction.delete(LogicalDatastoreType.OPERATIONAL, IdentifierUtils.gnmiNodeID(nodeId));
         try {
             writeTransaction.commit().get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
@@ -98,7 +98,7 @@ public class GnmiNodeListener implements DataTreeChangeListener<Node> {
     }
 
     private void connectNode(final Node node) {
-        final ListenableFuture<CommitInfo> connectionResult = deviceConnectionManager.connectDevice(node);
+        final var connectionResult = deviceConnectionManager.connectDevice(node);
         Futures.addCallback(connectionResult, new FutureCallback<>() {
             @Override
             public void onSuccess(@Nullable final CommitInfo result) {
@@ -106,28 +106,25 @@ public class GnmiNodeListener implements DataTreeChangeListener<Node> {
             }
 
             @Override
-            public void onFailure(Throwable throwable) {
-                // Write failure reason to datastore only if future was not cancelled
-                // (connection future is cancelled when node is deleted while connecting)
-                if (!(throwable instanceof CancellationException)) {
-                    try {
-                        LOG.error("Connection of node {} failed", node.getNodeId(), throwable);
-                        writeConnectionFailureReasonToDatastore(node.getNodeId(), throwable.toString());
-                    } catch (TimeoutException | ExecutionException e) {
-                        throw new RuntimeException(
-                                String.format("Failed writing reason of connection failure of node %s to datastore",
-                                        node.getNodeId().getValue()), e);
-
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                        throw new RuntimeException(
-                                String.format("Interrupted while writing connection failure of node %s to datastore",
-                                        node.getNodeId().getValue()), e);
-                    }
-                } else {
-                    LOG.info("Connection initialization to node {} was cancelled", node.getNodeId());
+            public void onFailure(@NonNull final Throwable throwable) {
+                // A cancelled future means the attempt was removed or superseded (DeviceConnectionManager
+                // owns that decision), so skip the write to avoid resurrecting a deleted node.
+                if (throwable instanceof CancellationException) {
+                    LOG.info("Connection attempt for node {} was cancelled or superseded, not writing failure "
+                            + "state", node.getNodeId());
+                    return;
                 }
-
+                try {
+                    LOG.error("Connection of node {} failed", node.getNodeId(), throwable);
+                    writeConnectionFailureReasonToDatastore(node.getNodeId(), throwable.toString());
+                } catch (TimeoutException | ExecutionException e) {
+                    throw new RuntimeException(String.format("Failed writing reason of connection failure of node "
+                            + "%s to datastore", node.getNodeId().getValue()), e);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    throw new RuntimeException(String.format("Interrupted while writing connection failure of node "
+                            + "%s to datastore", node.getNodeId().getValue()), e);
+                }
             }
         }, executorService);
     }
@@ -147,11 +144,15 @@ public class GnmiNodeListener implements DataTreeChangeListener<Node> {
         }
     }
 
-    private void writeConnectionFailureReasonToDatastore(NodeId nodeId, String message)
+    private void writeConnectionFailureReasonToDatastore(final NodeId nodeId, final String message)
             throws InterruptedException, ExecutionException, TimeoutException {
-        @NonNull final WriteTransaction tx = dataBroker.newWriteOnlyTransaction();
+        if (!DatastoreUtils.nodePresentInConfig(dataBroker, nodeId)) {
+            LOG.info("Node {} is no longer present in configuration, not writing connection failure state",
+                    nodeId.getValue());
+            return;
+        }
 
-        final Node operationalNode = new NodeBuilder()
+        final var operationalNode = new NodeBuilder()
                 .setNodeId(nodeId)
                 .addAugmentation(new GnmiNodeBuilder()
                         .setNodeState(new NodeStateBuilder().setNodeStatus(NodeState.NodeStatus.FAILURE)
@@ -160,7 +161,9 @@ public class GnmiNodeListener implements DataTreeChangeListener<Node> {
                         .build())
                 .build();
 
+        final var tx = dataBroker.newWriteOnlyTransaction();
         tx.merge(LogicalDatastoreType.OPERATIONAL, IdentifierUtils.gnmiNodeID(nodeId), operationalNode);
+        // FIXME (GNMI-29): merge not ordered vs concurrent disconnect delete; serialize per-node on async path.
         tx.commit().get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
     }
 
