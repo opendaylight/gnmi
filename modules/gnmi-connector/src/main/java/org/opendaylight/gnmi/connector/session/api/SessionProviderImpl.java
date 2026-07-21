@@ -75,7 +75,10 @@ public class SessionProviderImpl implements SessionProvider {
     }
 
     @Override
-    public void close() throws InterruptedException {
+    public synchronized void close() throws InterruptedException {
+        if (closed) {
+            return;
+        }
         closeDelegate.closeSession(this);
         this.closed = true;
     }
