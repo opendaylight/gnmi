@@ -10,7 +10,7 @@ package org.opendaylight.gnmi.test.gnmi.rcgnmi;
 import static org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.GNMI_NODE_ID;
 import static org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.GNMI_NODE_STATUS;
 import static org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.GNMI_NODE_STATUS_READY;
-import static org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.GNMI_TOPOLOGY_PATH;
+import static org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.GNMI_TOPO_IID;
 import static org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.OPENCONFIG_INTERFACES;
 
 import gnmi.Gnmi;
@@ -271,7 +271,7 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
         */
         try {
             if (httpClientExecutor != null && !httpClientExecutor.isShutdown()) {
-                final HttpResponse<String> getGnmiTopologyResponse = sendGetRequestJSON(GNMI_TOPOLOGY_PATH);
+                final HttpResponse<String> getGnmiTopologyResponse = sendGetRequestJSON(GNMI_TOPO_IID);
                 if (getGnmiTopologyResponse.body().contains(GNMI_NODE_ID)) {
                     if (!disconnectDevice(GNMI_NODE_ID)) {
                         LOG.info("Problem when disconnecting device {}", GNMI_NODE_ID);
@@ -350,7 +350,7 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
         throws InterruptedException, IOException {
         LOG.info("Connecting device!");
         //check there is not present device with nodeId in gnmi-topology topology
-        final HttpResponse<String> getGnmiNodeResponse = sendGetRequestJSON(GNMI_TOPOLOGY_PATH + "/node=" + nodeId);
+        final HttpResponse<String> getGnmiNodeResponse = sendGetRequestJSON(GNMI_TOPO_IID + "/node=" + nodeId);
         if (getGnmiNodeResponse.statusCode() == HttpURLConnection.HTTP_OK) {
             LOG.info("Gnmi node {} is already in the topology", nodeId);
             return false;
@@ -360,7 +360,7 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
         final String newDevicePayload = createDevicePayload(nodeId, ipAddr, port);
         LOG.info("Adding gnmi device with ID {} on IP ADDRESS:PORT {}:{}", nodeId, ipAddr, port);
         final HttpResponse<String> addGnmiDeviceResponse =
-            sendPutRequestJSON(GNMI_TOPOLOGY_PATH + "/node=" + nodeId, newDevicePayload);
+            sendPutRequestJSON(GNMI_TOPO_IID + "/node=" + nodeId, newDevicePayload);
         if (addGnmiDeviceResponse.statusCode() != HttpURLConnection.HTTP_CREATED) {
             LOG.info("Problem when adding node {} into gnmi topology: {}y", nodeId, addGnmiDeviceResponse);
             return false;
@@ -372,7 +372,7 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
                 .pollInterval(POLL_INTERVAL_DURATION)
                 .until(() -> {
                     final HttpResponse<String> getConnectionStatusResponse =
-                        sendGetRequestJSON(GNMI_TOPOLOGY_PATH + "/node=" + nodeId + GNMI_NODE_STATUS);
+                        sendGetRequestJSON(GNMI_TOPO_IID + "/node=" + nodeId + GNMI_NODE_STATUS);
                     if (getConnectionStatusResponse.statusCode() != HttpURLConnection.HTTP_OK) {
                         return false;
                     }
@@ -391,7 +391,7 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
             Awaitility.waitAtMost(WAIT_TIME_DURATION)
                 .pollInterval(POLL_INTERVAL_DURATION)
                 .until(() -> {
-                    final HttpResponse<String> getDataFromDevice = sendGetRequestJSON(GNMI_TOPOLOGY_PATH
+                    final HttpResponse<String> getDataFromDevice = sendGetRequestJSON(GNMI_TOPO_IID
                         + "/node=" + nodeId + "/yang-ext:mount" + OPENCONFIG_INTERFACES);
                     LOG.info("Check mountpoint for node {} is created response {}", nodeId, getDataFromDevice);
                     return getDataFromDevice.statusCode() == HttpURLConnection.HTTP_OK;
@@ -409,7 +409,7 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
         TimeoutException, IOException {
         LOG.info("Disconnecting device!");
         final HttpResponse<String> deleteGnmiDeviceResponse =
-            sendDeleteRequestJSON(GNMI_TOPOLOGY_PATH + "/node=" + nodeId);
+            sendDeleteRequestJSON(GNMI_TOPO_IID + "/node=" + nodeId);
         LOG.info("Delete gnmi node {} response: {}", nodeId, deleteGnmiDeviceResponse);
         if (deleteGnmiDeviceResponse.statusCode() != HttpURLConnection.HTTP_NO_CONTENT) {
             LOG.info("Failure during disconnecting the device - node {} was not deleted: {}!", nodeId,
@@ -423,7 +423,7 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
                 .pollInterval(POLL_INTERVAL_DURATION)
                 .until(() -> {
                     final HttpResponse<String> getGnmiNodeResponse = sendGetRequestJSON(
-                        GNMI_TOPOLOGY_PATH + "/node=" + nodeId);
+                        GNMI_TOPO_IID + "/node=" + nodeId);
                     LOG.info("Get node {} from topology when disconnecting: {}", nodeId, getGnmiNodeResponse);
                     return HttpURLConnection.HTTP_CONFLICT == getGnmiNodeResponse.statusCode();
                 });
@@ -547,10 +547,10 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
         public static final String RESTCONF_DATA_PATH = "http://localhost:%d/rests/data".formatted(CONTROLLER_PORT);
         public static final String GNMI_NODE_ID = "gnmi-node-test";
         public static final String GNMI_NODE_STATUS = "/gnmi-topology:node-state/node-status";
-        public static final String GNMI_TOPOLOGY_PATH =
+        public static final String GNMI_TOPO_IID =
             RESTCONF_DATA_PATH + "/network-topology:network-topology/topology=gnmi-topology";
         public static final String GNMI_DEVICE_MOUNTPOINT =
-            GNMI_TOPOLOGY_PATH + "/node=" + GNMI_NODE_ID + "/yang-ext:mount";
+            GNMI_TOPO_IID + "/node=" + GNMI_NODE_ID + "/yang-ext:mount";
         public static final String OPENCONFIG_INTERFACES = "/openconfig-interfaces:interfaces";
         public static final String OPENCONFIG_OPENFLOW = "/openconfig-openflow:openflow";
         public static final String OPENCONFIG_SYSTEM = "/openconfig-system:system";

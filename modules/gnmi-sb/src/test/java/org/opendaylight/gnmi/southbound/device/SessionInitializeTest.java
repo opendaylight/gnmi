@@ -13,6 +13,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
+import com.google.common.util.concurrent.FluentFuture;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import gnmi.Gnmi;
@@ -21,6 +22,7 @@ import io.grpc.ConnectivityState;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -49,6 +51,7 @@ import org.opendaylight.gnmi.southbound.mountpoint.GnmiMountPointRegistrator;
 import org.opendaylight.gnmi.southbound.mountpoint.broker.GnmiDataBrokerFactory;
 import org.opendaylight.gnmi.southbound.schema.impl.SchemaContextHolderImpl;
 import org.opendaylight.gnmi.southbound.schema.impl.SchemaException;
+import org.opendaylight.mdsal.binding.api.ReadTransaction;
 import org.opendaylight.mdsal.binding.api.WriteTransaction;
 import org.opendaylight.mdsal.binding.dom.adapter.BindingDOMDataBrokerAdapter;
 import org.opendaylight.mdsal.common.api.CommitInfo;
@@ -61,6 +64,7 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.gnm
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NodeId;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.NodeBuilder;
+import org.opendaylight.yangtools.yang.binding.InstanceIdentifier;
 import org.opendaylight.yangtools.yang.common.Uint16;
 
 class SessionInitializeTest {
@@ -93,6 +97,7 @@ class SessionInitializeTest {
         final SchemaContextHolderImpl schemaContextHolderMock = Mockito.mock(SchemaContextHolderImpl.class);
         final GnmiDataBrokerFactory gnmiDataBrokerFactoryMock = Mockito.mock(GnmiDataBrokerFactory.class);
         final WriteTransaction txMock = Mockito.mock(WriteTransaction.class);
+        final ReadTransaction readTxMock = Mockito.mock(ReadTransaction.class);
 
         MockitoAnnotations.initMocks(this);
 
@@ -114,6 +119,14 @@ class SessionInitializeTest {
                 .thenAnswer(invocation -> txMock);
         when(txMock.commit())
                 .thenAnswer(invocation -> CommitInfo.emptyFluentFuture());
+
+        // State writes skip nodes which are gone from the configuration datastore, so report the node as
+        // still configured to keep exercising the write path. The presence check uses a read-only
+        // transaction; the operational merge then uses the write-only transaction stubbed above.
+        when(dataBrokerMock.newReadOnlyTransaction())
+                .thenAnswer(invocation -> readTxMock);
+        when(readTxMock.read(any(), any(InstanceIdentifier.class))).thenAnswer(invocation -> FluentFuture.from(
+            Futures.immediateFuture(Optional.of(createNode("configured-node", 9000)))));
     }
 
     /*

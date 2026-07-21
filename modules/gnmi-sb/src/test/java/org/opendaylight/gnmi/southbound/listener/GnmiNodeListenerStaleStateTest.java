@@ -7,13 +7,18 @@
  */
 package org.opendaylight.gnmi.southbound.listener;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.google.common.util.concurrent.FluentFuture;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.google.common.util.concurrent.SettableFuture;
@@ -21,13 +26,14 @@ import gnmi.Gnmi;
 import io.grpc.ConnectivityState;
 import java.time.Duration;
 import java.util.Optional;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import org.awaitility.Awaitility;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.opendaylight.gnmi.connector.gnmi.session.api.GnmiSession;
@@ -43,6 +49,8 @@ import org.opendaylight.gnmi.southbound.mountpoint.broker.GnmiDataBroker;
 import org.opendaylight.gnmi.southbound.mountpoint.broker.GnmiDataBrokerFactory;
 import org.opendaylight.gnmi.southbound.schema.SchemaContextHolder;
 import org.opendaylight.mdsal.binding.api.DataBroker;
+import org.opendaylight.mdsal.binding.api.ReadTransaction;
+import org.opendaylight.mdsal.binding.api.WriteTransaction;
 import org.opendaylight.mdsal.binding.dom.adapter.test.AbstractConcurrentDataBrokerTest;
 import org.opendaylight.mdsal.common.api.CommitInfo;
 import org.opendaylight.mdsal.common.api.LogicalDatastoreType;
@@ -50,6 +58,7 @@ import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.inet.types.
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.inet.types.rev130715.IpAddress;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.inet.types.rev130715.Ipv4Address;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.inet.types.rev130715.PortNumber;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.GnmiNode;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.GnmiNodeBuilder;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.gnmi.connection.parameters.ConnectionParametersBuilder;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.gnmi.node.state.NodeState;
@@ -59,6 +68,8 @@ import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.TopologyBuilder;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.NodeBuilder;
+import org.opendaylight.yangtools.util.concurrent.FluentFutures;
+import org.opendaylight.yangtools.yang.binding.InstanceIdentifier;
 import org.opendaylight.yangtools.yang.common.Uint16;
 import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
 
@@ -72,8 +83,6 @@ import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
  * no operational state". Every writer currently violates it, so all cases FAIL until each
  * best-effort write is guarded against an already-removed node.</p>
  */
-@Disabled("Red regression tests reproducing the stale-operational-state defect; to be enabled once the "
-    + "lifecycle-ordering guard is implemented in GNMI-7")
 @ExtendWith(MockitoExtension.class)
 class GnmiNodeListenerStaleStateTest extends AbstractConcurrentDataBrokerTest {
     private static final NodeId NODE_ID = new NodeId("stale-node");
@@ -101,8 +110,6 @@ class GnmiNodeListenerStaleStateTest extends AbstractConcurrentDataBrokerTest {
     private GnmiDataBroker gnmiDataBroker;
     @Mock
     private EffectiveModelContext schemaContext;
-    @Mock
-    private CommitInfo commitInfo;
 
     GnmiNodeListenerStaleStateTest() {
         super(true);
@@ -117,17 +124,14 @@ class GnmiNodeListenerStaleStateTest extends AbstractConcurrentDataBrokerTest {
         for (final var store
                 : new LogicalDatastoreType[] {LogicalDatastoreType.CONFIGURATION, LogicalDatastoreType.OPERATIONAL}) {
             final var tx = getDataBroker().newWriteOnlyTransaction();
-            tx.merge(store, IdentifierUtils.GNMI_TOPOLOGY_PATH, topology);
+            tx.merge(store, IdentifierUtils.GNMI_TOPO_IID, topology);
             tx.commit().get(TIMEOUT_MS, TimeUnit.MILLISECONDS);
         }
     }
 
     /**
-     * The FAILURE writer. {@link GnmiNodeListener} starts an in-flight connection, the node is then
-     * deleted from config (so {@code disconnectNode()} removes its operational state), and only
-     * afterwards does the connection future fail with a non-cancellation error. The {@code onFailure}
-     * callback merges a FAILURE {@code node-state} back into operational, resurrecting the deleted
-     * node. Fails until the failure write is skipped for an already-removed node.
+     * Tests that the FAILURE writer does not resurrect a deleted node: a connection that fails after the
+     * node was deleted from config leaves no operational state.
      */
     @Test
     void failureCallbackAfterDeleteMustNotLeaveStaleOperationalState() throws Exception {
@@ -149,8 +153,7 @@ class GnmiNodeListenerStaleStateTest extends AbstractConcurrentDataBrokerTest {
         doNothing().when(deviceConnectionManager).closeConnection(any(NodeId.class));
 
         final var listener = new GnmiNodeListener(deviceConnectionManager, dataBroker, directExecutor);
-        final var registration = dataBroker.registerTreeChangeListener(LogicalDatastoreType.CONFIGURATION,
-            IdentifierUtils.GNMI_NODE_DTI, listener);
+        final var registration = dataBroker.registerTreeChangeListener(IdentifierUtils.GNMI_NODE_DTI, listener);
 
         try (registration) {
             // 1. Create the node in config -> listener starts the (in-flight) connection.
@@ -182,11 +185,8 @@ class GnmiNodeListenerStaleStateTest extends AbstractConcurrentDataBrokerTest {
     }
 
     /**
-     * The READY writer. A {@link GnmiConnectionStatusListener} observes a READY channel, the node is
-     * deleted from config (operational removed), and only afterwards does a late READY status
-     * callback run {@code copyDeviceStatusReadyToDatastore()}. That merges a READY {@code node-status}
-     * back into operational, resurrecting the deleted node. Fails until the status write is skipped
-     * for an already-removed node.
+     * Tests that the READY writer does not resurrect a deleted node: a late READY status callback after
+     * the node was deleted from config leaves no operational state.
      */
     @Test
     void statusReadyWriteAfterDeleteMustNotLeaveStaleOperationalState() throws Exception {
@@ -221,12 +221,9 @@ class GnmiNodeListenerStaleStateTest extends AbstractConcurrentDataBrokerTest {
     }
 
     /**
-     * The capabilities writer. {@link DeviceConnectionManager#connectDevice} is started with an
-     * in-flight connection, the node is deleted from config while it is neither connecting nor active
-     * (so {@code closeConnection()} is a no-op), and only afterwards does the connection complete.
-     * {@code createMountPoint()} then runs {@code saveCapabilitiesList()}, merging available
-     * capabilities back into operational and resurrecting the deleted node. Fails until the
-     * capabilities write is skipped for an already-removed node.
+     * Tests that the capabilities writer does not resurrect a deleted node: when the connection completes
+     * after the node was deleted mid-connect, the generation gate aborts the write and cancels the connect
+     * future.
      */
     @Test
     void capabilitiesWriteAfterDeleteMustNotLeaveStaleOperationalState() throws Exception {
@@ -247,9 +244,7 @@ class GnmiNodeListenerStaleStateTest extends AbstractConcurrentDataBrokerTest {
         when(deviceConnection.getGnmiSession()).thenReturn(session);
         when(configurableParameters.getModelDataList()).thenReturn(Optional.empty());
         when(deviceConnection.getConfigurableParameters()).thenReturn(configurableParameters);
-        when(deviceConnection.setDeviceStatusReady())
-            .thenReturn(FluentFuture.from(Futures.immediateFuture(commitInfo)));
-
+        // No setDeviceStatusReady() stub: the abort path must never call it on the closed connection.
         when(schemaContextHolder.getSchemaContext(any())).thenReturn(schemaContext);
         when(dataBrokerFactory.create(any())).thenReturn(gnmiDataBroker);
 
@@ -268,10 +263,11 @@ class GnmiNodeListenerStaleStateTest extends AbstractConcurrentDataBrokerTest {
             deleteOperationalNode();
             awaitOperational(dataBroker, false, "operational state not absent after delete");
 
-            // 3. Only NOW does the connection complete. createMountPoint() runs saveCapabilitiesList(),
-            // which merges available-capabilities back into operational for the deleted node.
+            // 3. Only NOW does the connection complete. createMountPoint() sees a stale generation, aborts
+            // before saveCapabilitiesList(), and cancels the connect future.
             connectFuture.set(deviceConnection);
-            connectResult.get(TIMEOUT_MS, TimeUnit.MILLISECONDS);
+            assertThrows(CancellationException.class,
+                () -> connectResult.get(TIMEOUT_MS, TimeUnit.MILLISECONDS));
 
             // 4. Invariant: a node deleted from config must have no operational state.
             final var leftover = readOperational(dataBroker);
@@ -282,9 +278,85 @@ class GnmiNodeListenerStaleStateTest extends AbstractConcurrentDataBrokerTest {
         }
     }
 
+    /**
+     * Tests that the generation gate cancels a superseded attempt: an attempt whose node was reconfigured
+     * (so still in config, where the config-presence guards can not help) that later fails surfaces as a
+     * cancellation, so its FAILURE write is skipped rather than clobbering the current attempt.
+     */
+    @Test
+    void supersededAttemptFailureIsReportedAsCancellation() throws Exception {
+        final var dataBroker = getDataBroker();
+        final var directExecutor = MoreExecutors.newDirectExecutorService();
+
+        // Two in-flight init futures: the first attempt, then a second attempt that supersedes it.
+        final SettableFuture<DeviceConnection> firstAttempt = SettableFuture.create();
+        final SettableFuture<DeviceConnection> secondAttempt = SettableFuture.create();
+        when(initializer.initConnection(any(Node.class)))
+            .thenReturn(firstAttempt)
+            .thenReturn(secondAttempt);
+
+        final var dcm = new DeviceConnectionManager(mountPointRegistrator, schemaContextHolder,
+            dataBrokerFactory, initializer, dataBroker, directExecutor);
+
+        try (dcm) {
+            // 1. Attempt 1 is in flight; attempt 2 (node never deleted, just reconfigured) supersedes it.
+            final var firstResult = dcm.connectDevice(buildNode());
+            final var secondResult = dcm.connectDevice(buildNode());
+
+            // 2. Attempt 1 now fails with a real, non-cancellation error.
+            firstAttempt.setException(new RuntimeException("UNAUTHENTICATED: No authentication header"));
+
+            // 3. The superseded attempt must report as cancelled, not failed, so no FAILURE state is
+            // written for a node a newer attempt now owns.
+            assertThrows(CancellationException.class,
+                () -> firstResult.get(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+            assertFalse(secondResult.isDone(), "the current attempt must not be affected by the superseded one");
+        } finally {
+            directExecutor.shutdownNow();
+        }
+    }
+
+    /**
+     * Tests that a failed config-presence read does not fail a live connection: "could not tell" is not
+     * "node deleted", so the READY hand-off write proceeds rather than failing an already-mounted device.
+     */
+    @Test
+    void readyWriteProceedsWhenConfigPresenceReadFails() throws Exception {
+        final var directExecutor = MoreExecutors.newDirectExecutorService();
+
+        final var brokerMock = mock(DataBroker.class);
+        // The config-presence read fails ("could not tell").
+        final var failingReadTx = mock(ReadTransaction.class);
+        when(failingReadTx.read(any(), any(InstanceIdentifier.class)))
+            .thenReturn(FluentFutures.immediateFailedFluentFuture(new RuntimeException("config read failed")));
+        when(brokerMock.newReadOnlyTransaction()).thenReturn(failingReadTx);
+        // The operational write still goes ahead.
+        final var writeTx = mock(WriteTransaction.class);
+        when(brokerMock.newWriteOnlyTransaction()).thenReturn(writeTx);
+        doReturn(CommitInfo.emptyFluentFuture()).when(writeTx).commit();
+
+        when(sessionProvider.getChannelState()).thenReturn(ConnectivityState.READY);
+        final var statusListener =
+            new GnmiConnectionStatusListener(sessionProvider, brokerMock, NODE_ID, directExecutor);
+
+        try (statusListener) {
+            statusListener.init();
+            statusListener.copyDeviceStatusReadyToDatastore().get(TIMEOUT_MS, TimeUnit.MILLISECONDS);
+
+            // The READY merge was issued despite the failed presence read.
+            final var nodeCaptor = ArgumentCaptor.forClass(Node.class);
+            verify(writeTx).merge(eq(LogicalDatastoreType.OPERATIONAL), eq(IdentifierUtils.gnmiNodeIID(NODE_ID)),
+                nodeCaptor.capture());
+            assertEquals(NodeState.NodeStatus.READY, nodeCaptor.getValue().augmentation(GnmiNode.class)
+                .getNodeState().getNodeStatus());
+        } finally {
+            directExecutor.shutdownNow();
+        }
+    }
+
     private void writeConfigNode() throws Exception {
         final var tx = getDataBroker().newWriteOnlyTransaction();
-        tx.merge(LogicalDatastoreType.CONFIGURATION, IdentifierUtils.gnmiNodeID(NODE_ID), buildNode());
+        tx.merge(LogicalDatastoreType.CONFIGURATION, IdentifierUtils.gnmiNodeIID(NODE_ID), buildNode());
         tx.commit().get(TIMEOUT_MS, TimeUnit.MILLISECONDS);
     }
 
@@ -302,13 +374,13 @@ class GnmiNodeListenerStaleStateTest extends AbstractConcurrentDataBrokerTest {
 
     private void deleteConfigNode() throws Exception {
         final var tx = getDataBroker().newWriteOnlyTransaction();
-        tx.delete(LogicalDatastoreType.CONFIGURATION, IdentifierUtils.gnmiNodeID(NODE_ID));
+        tx.delete(LogicalDatastoreType.CONFIGURATION, IdentifierUtils.gnmiNodeIID(NODE_ID));
         tx.commit().get(TIMEOUT_MS, TimeUnit.MILLISECONDS);
     }
 
     private void deleteOperationalNode() throws Exception {
         final var tx = getDataBroker().newWriteOnlyTransaction();
-        tx.delete(LogicalDatastoreType.OPERATIONAL, IdentifierUtils.gnmiNodeID(NODE_ID));
+        tx.delete(LogicalDatastoreType.OPERATIONAL, IdentifierUtils.gnmiNodeIID(NODE_ID));
         tx.commit().get(TIMEOUT_MS, TimeUnit.MILLISECONDS);
     }
 
@@ -322,13 +394,13 @@ class GnmiNodeListenerStaleStateTest extends AbstractConcurrentDataBrokerTest {
                 .build())
             .build();
         final var tx = getDataBroker().newWriteOnlyTransaction();
-        tx.merge(LogicalDatastoreType.OPERATIONAL, IdentifierUtils.gnmiNodeID(NODE_ID), node);
+        tx.merge(LogicalDatastoreType.OPERATIONAL, IdentifierUtils.gnmiNodeIID(NODE_ID), node);
         tx.commit().get(TIMEOUT_MS, TimeUnit.MILLISECONDS);
     }
 
     private static Optional<Node> readOperational(final DataBroker dataBroker) throws Exception {
         try (var tx = dataBroker.newReadOnlyTransaction()) {
-            return tx.read(LogicalDatastoreType.OPERATIONAL, IdentifierUtils.gnmiNodeID(NODE_ID))
+            return tx.read(LogicalDatastoreType.OPERATIONAL, IdentifierUtils.gnmiNodeIID(NODE_ID))
                 .get(TIMEOUT_MS, TimeUnit.MILLISECONDS);
         }
     }

@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.ERR_MSG_RELEVANT_MODEL_NOT_EXIST;
 import static org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.GNMI_DEVICE_MOUNTPOINT;
 import static org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.GNMI_NODE_ID;
-import static org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.GNMI_TOPOLOGY_PATH;
+import static org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.GNMI_TOPO_IID;
 import static org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.OPENCONFIG_INTERFACES;
 import static org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.OPENCONFIG_OPENFLOW;
 import static org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.OPENCONFIG_SYSTEM;
@@ -39,7 +39,7 @@ public class GnmiGetITTest extends GnmiITBase {
 
     private static final Logger LOG = LoggerFactory.getLogger(GnmiGetITTest.class);
     private static final String GET_CAPABILITIES_PATH
-            = GNMI_TOPOLOGY_PATH + "/node=" + GNMI_NODE_ID + "/gnmi-topology:node-state/available-capabilities";
+            = GNMI_TOPO_IID + "/node=" + GNMI_NODE_ID + "/gnmi-topology:node-state/available-capabilities";
     private static final String INTERFACES_PATH = GNMI_DEVICE_MOUNTPOINT + OPENCONFIG_INTERFACES;
     private static final String OPENFLOW_PATH = GNMI_DEVICE_MOUNTPOINT + OPENCONFIG_SYSTEM +  OPENCONFIG_OPENFLOW;
     private static final List<String> EXPECTED_CAPABILITIES = List.of(
