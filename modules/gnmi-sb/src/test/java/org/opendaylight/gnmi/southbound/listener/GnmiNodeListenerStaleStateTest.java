@@ -25,7 +25,6 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import org.awaitility.Awaitility;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -72,8 +71,6 @@ import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
  * no operational state". Every writer currently violates it, so all cases FAIL until each
  * best-effort write is guarded against an already-removed node.</p>
  */
-@Disabled("Red regression tests reproducing the stale-operational-state defect; to be enabled once the "
-    + "lifecycle-ordering guard is implemented in GNMI-7")
 @ExtendWith(MockitoExtension.class)
 class GnmiNodeListenerStaleStateTest extends AbstractConcurrentDataBrokerTest {
     private static final NodeId NODE_ID = new NodeId("stale-node");
