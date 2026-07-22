@@ -322,6 +322,68 @@
                             </execution>
                         </executions>
                     </plugin>
+                    <!--
+                        Attach a self-contained "executable" jar (all runtime dependencies bundled in)
+                        so the simulator can be run standalone, e.g. after downloading it from a release,
+                        without needing the target/lib directory produced by copy-dependencies above.
+                        The plain artifact is left untouched so it keeps working as a library dependency
+                        (see gnmi-test) and for local development via target/lib.
+                    -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <version>3.8.0</version>
+                        <executions>
+                            <execution>
+                                <id>build-executable-jar</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <inlineDescriptors>
+                                        <inlineDescriptor>
+                                            <id>executable</id>
+                                            <formats>
+                                                <format>jar</format>
+                                            </formats>
+                                            <includeBaseDirectory>false</includeBaseDirectory>
+                                            <dependencySets>
+                                                <dependencySet>
+                                                    <outputDirectory>/</outputDirectory>
+                                                    <useProjectArtifact>true</useProjectArtifact>
+                                                    <unpack>true</unpack>
+                                                    <scope>runtime</scope>
+                                                    <unpackOptions>
+                                                        <!-- Signed dependencies (e.g. bouncycastle) carry a signature that
+                                                             no longer matches once their classes are merged into another
+                                                             jar; without stripping it the executable jar fails at runtime
+                                                             with "SecurityException: Invalid signature file digest". -->
+                                                        <excludes>
+                                                            <exclude>META-INF/*.SF</exclude>
+                                                            <exclude>META-INF/*.DSA</exclude>
+                                                            <exclude>META-INF/*.RSA</exclude>
+                                                            <exclude>module-info.class</exclude>
+                                                        </excludes>
+                                                    </unpackOptions>
+                                                </dependencySet>
+                                            </dependencySets>
+                                        </inlineDescriptor>
+                                    </inlineDescriptors>
+                                    <archive>
+                                        <manifest>
+                                            <mainClass>${application.main.class}</mainClass>
+                                        </manifest>
+                                    </archive>
+                                    <containerDescriptorHandlers>
+                                        <containerDescriptorHandler>
+                                            <handlerName>metaInf-services</handlerName>
+                                        </containerDescriptorHandler>
+                                    </containerDescriptorHandlers>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
