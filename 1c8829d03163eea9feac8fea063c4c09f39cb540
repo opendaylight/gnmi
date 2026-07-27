@@ -1,0 +1,9 @@
+Verified+1: jenkins-releng ODL
+Code-Review+2: Ivan Hrasko <ivan.hrasko@pantheon.tech>
+Code-Review+1: Matej Sramcik <matej.sramcik@pantheon.tech>
+Verified+1: ODL Required.GHA <releng+odl.required.gha@linuxfoundation.org>
+Submitted-by: Ivan Hrasko <ivan.hrasko@pantheon.tech>
+Submitted-at: Mon, 27 Jul 2026 13:35:55 +0000
+Reviewed-on: https://git.opendaylight.org/gerrit/c/gnmi/+/123993
+Project: gnmi
+Branch: refs/heads/1.0.x
