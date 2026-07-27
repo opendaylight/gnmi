@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f17a6548_748c8822",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-07-27T13:59:17Z",
+      "side": 1,
+      "message": "why you have created this patch?",
+      "revId": "22ad4717af962870d092cdb9756b4629140aa8f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1848a67_8dad57f3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-07-27T13:59:17Z",
+      "side": 1,
+      "message": "small b",
+      "revId": "22ad4717af962870d092cdb9756b4629140aa8f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dea9e1ca_5700fd54",
+        "filename": "modules/gnmi-device-simulator/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-07-27T13:59:17Z",
+      "side": 1,
+      "message": "IMO odlparent has more up to date version?",
+      "revId": "22ad4717af962870d092cdb9756b4629140aa8f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
