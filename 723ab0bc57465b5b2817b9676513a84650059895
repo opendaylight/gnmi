@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9198399e_6ef4db29",
+        "filename": "bnd-parent/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-07-27T13:30:03Z",
+      "side": 0,
+      "message": "not done, see netconf/bnd-parent as an example",
+      "parentUuid": "a5004e2c_dfd7f6e6",
+      "range": {
+        "startLine": 36,
+        "startChar": 25,
+        "endLine": 36,
+        "endChar": 39
+      },
+      "revId": "723ab0bc57465b5b2817b9676513a84650059895",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "85742052_6e3aa6ae",
         "filename": "modules/gnmi-device-simulator/pom.xml",
         "patchSetId": 2
