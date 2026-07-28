@@ -16,6 +16,24 @@
       "message": "can we use \"\"\" syntax?",
       "revId": "a281e6f0ecc57bb95c5758f935a0ef88e164e581",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f6f1872_b751beab",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/listener/GnmiNodeListener.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2026-07-28T08:08:17Z",
+      "side": 1,
+      "message": "It\u0027s just a wrapped single-line log message. I have not seen the \"\"\" pattern used for log messages on this project before",
+      "parentUuid": "c0046615_87aab703",
+      "revId": "a281e6f0ecc57bb95c5758f935a0ef88e164e581",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
