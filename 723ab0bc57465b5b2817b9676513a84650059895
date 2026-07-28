@@ -96,6 +96,30 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc0f6adc_2cf8789e",
+        "filename": "bnd-parent/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-07-28T08:15:47Z",
+      "side": 0,
+      "message": "4.0.0-SNAPSHOT is there",
+      "parentUuid": "9198399e_6ef4db29",
+      "range": {
+        "startLine": 36,
+        "startChar": 25,
+        "endLine": 36,
+        "endChar": 39
+      },
+      "revId": "723ab0bc57465b5b2817b9676513a84650059895",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "140c0c78_209b9fe3",
@@ -109,6 +133,24 @@
       "writtenOn": "2026-07-27T13:35:31Z",
       "side": 0,
       "message": "this would stay here together with gnmi-artifacts",
+      "revId": "723ab0bc57465b5b2817b9676513a84650059895",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a836ffb_aea668f0",
+        "filename": "karaf/pom.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-07-28T08:15:47Z",
+      "side": 0,
+      "message": "returned back and added  gnmi-artifacts",
+      "parentUuid": "140c0c78_209b9fe3",
       "revId": "723ab0bc57465b5b2817b9676513a84650059895",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
