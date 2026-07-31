@@ -1,0 +1,225 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd12b125_c32b8665",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-31T13:07:33Z",
+      "side": 1,
+      "message": "What is this \"closedNodes\" tombstone\" mentioned in commit-message? The activeGenerations map? Please clarify/rewrite so it matches the actual implementation. Also that entire sentence is quite weird, so please revisit the entire commit-message.",
+      "revId": "b471a67ec693a5734b2e0f53f0d35da95ffa1323",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed662531_e16d2c03",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-31T13:07:33Z",
+      "side": 1,
+      "message": "We stamped activeGenerations, then the initConnection() failed. We\u0027re returning a failedFuture, but we\u0027re not clearing the stamp. And since the node is in neither activeInitializers nor activeDevices, the close() loop will not reach it. Yes - a later connectDevice() overwrites the stale stamp — but during that window isCurrentGeneration() reports \"true\" for a dead attempt.",
+      "revId": "b471a67ec693a5734b2e0f53f0d35da95ffa1323",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fa46837_cb1342a9",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-31T13:07:33Z",
+      "side": 1,
+      "message": "We\u0027re returning Futures.immediateFuture(null) here in the failed case, as well as below in the successful case? Why? This means that prepareDeviceConnection() has no idea which one it\u0027s getting. And even if it receives this failed one it proceeds to call deviceConnection.setDeviceStatusReady() on this closed connection. Return failed/cancelled future instead and check it in the caller.",
+      "revId": "b471a67ec693a5734b2e0f53f0d35da95ffa1323",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecc2a745_cf2c7637",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-31T13:07:33Z",
+      "side": 1,
+      "message": "The fact that this call is outside the synchronized block introduces the same problem this entire patch tries to fix. If Thread-1 enters createMountPoint(), takes the lock, finished the synchronized block and starts executing logic in  saveCapabilitiesList(). During this the DTCL receives the config-delete (GnmiNodeListener.disconnectNode()) on Thread-2. Since the lock is free at this point, the Thread-2 takes it and simply deletes the node. If this deletion happens before Thread-1 reaches WriteTransaction tx \u003d dataBroker.newWriteOnlyTransaction(), Thread-1 will recreate the node again. Consider adding the config-presence check to saveCapabilitiesList() - this should shrink the race-window.",
+      "revId": "b471a67ec693a5734b2e0f53f0d35da95ffa1323",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7540a789_dbd5125b",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-31T13:07:33Z",
+      "side": 1,
+      "message": "can be var",
+      "revId": "b471a67ec693a5734b2e0f53f0d35da95ffa1323",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf6606e8_d01e4039",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/session/listener/GnmiConnectionStatusListener.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-31T13:07:33Z",
+      "side": 1,
+      "message": "This is quite a problem... here we\u0027re executing a blocking read for up-to 30s for every channel transition (CONNECTING/IDLE/TRANSIENT_FAILURE - flaps included) on the gRPC channel-executor thread. And this is synchronized on the same monitor as the DeviceConnectionManager.closeConnection(). So for 30s the gRPC thread holds this monitor. This will stall every concurrent closeConnection() and every in-flight createMountPoint() rendering the entire southbound connect/disconnect path effectively dead.",
+      "revId": "b471a67ec693a5734b2e0f53f0d35da95ffa1323",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6b8fbd3_c08b3d09",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/session/listener/GnmiConnectionStatusListener.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-31T13:07:33Z",
+      "side": 1,
+      "message": "Here we\u0027re potentially throwing away fully functional and properly mounted connections as FAILED. Let\u0027s say the mountpoint was registered, activeDevices populated, capabilities written and then presence-read throws Execution/TimeoutException. We return the FailedFluentFuture(TimeoutException) to copyDeviceStatusReadyToDatastore() and prepareDeviceConnection() where it reaches Futures.catchingAsync(..., GnmiConnectionStatusException.class, ...). Since TimeoutException does not match that class, it is further propagated to GnmiNodeListener.onFailure. We\u0027re identifying a \"could not tell\" as \"connection broken\" if we do it like this..",
+      "revId": "b471a67ec693a5734b2e0f53f0d35da95ffa1323",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a624fb1_afc3097b",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/session/listener/GnmiConnectionStatusListener.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-31T13:07:33Z",
+      "side": 1,
+      "message": "This will lead to writeStateToDataStore() calling .get() on the failed future - resulting in ExecutedException(InterruptedException). It will get caught by the catch (ExecutionException | TimeoutException) branch and will log \"Unable to write connection state …\" instead of the InterruptedException branch\u0027s \"Interrupted while writing …\".",
+      "revId": "b471a67ec693a5734b2e0f53f0d35da95ffa1323",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cff3cf5_caf1a887",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/session/listener/GnmiConnectionStatusListener.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-31T13:07:33Z",
+      "side": 1,
+      "message": "can be var",
+      "revId": "b471a67ec693a5734b2e0f53f0d35da95ffa1323",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ea72fa6_91ca61df",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/listener/GnmiNodeListener.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-31T13:07:33Z",
+      "side": 1,
+      "message": "This counter and map is repeated in DeviceConnectionManager. They mark the same information, but they are not kept in-sync. There is a window for divergence which will cause issues. This should be collapsed into a single mechanism owned by DeviceConnectionManager and exposed from there.",
+      "revId": "b471a67ec693a5734b2e0f53f0d35da95ffa1323",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7835eb2c_5a4a525d",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/listener/GnmiNodeListener.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-31T13:07:33Z",
+      "side": 1,
+      "message": "missing final and nullability",
+      "revId": "b471a67ec693a5734b2e0f53f0d35da95ffa1323",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04e3bcfb_c3ce52f0",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/listener/GnmiNodeListener.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-31T13:07:33Z",
+      "side": 1,
+      "message": "Why are we copying code? We already have this method. Move it into a shared helper (or package-private utility) and make sure to mention \"a read failure is not proof of absence\" in there as well.",
+      "revId": "b471a67ec693a5734b2e0f53f0d35da95ffa1323",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9785684d_c9073085",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/listener/GnmiNodeListenerStaleStateTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-07-31T13:07:33Z",
+      "side": 1,
+      "message": "Please properly cover the edge-cases and the race-condition mentioned in the other comments. None of these tests do that.",
+      "revId": "b471a67ec693a5734b2e0f53f0d35da95ffa1323",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
