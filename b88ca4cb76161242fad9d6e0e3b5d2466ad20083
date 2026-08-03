@@ -16,6 +16,24 @@
       "message": "This should be abandoned imo, 2.0.x uses odlparent 14.1.6, but odl-errorprone feature was added in 14.1.7",
       "revId": "b88ca4cb76161242fad9d6e0e3b5d2466ad20083",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c20a796d_7dcbd22a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-08-03T13:50:18Z",
+      "side": 1,
+      "message": "ack, feel free to bump: https://docs.opendaylight.org/projects/integration-distribution/en/stable-vanadium/platform-versions.html",
+      "parentUuid": "0cb53273_b7c49aa8",
+      "revId": "b88ca4cb76161242fad9d6e0e3b5d2466ad20083",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
