@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cb53273_b7c49aa8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-08-03T13:13:19Z",
+      "side": 1,
+      "message": "This should be abandoned imo, 2.0.x uses odlparent 14.1.6, but odl-errorprone feature was added in 14.1.7",
+      "revId": "b88ca4cb76161242fad9d6e0e3b5d2466ad20083",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
