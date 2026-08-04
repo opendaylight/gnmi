@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ec7f98c_cff48bf2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-08-04T06:54:22Z",
+      "side": 1,
+      "message": "Dowloading the jar file from :\nhttps://nexus.opendaylight.org/content/repositories/public/org/opendaylight/gnmi/gnmi-device-simulator/1.0.0/gnmi-device-simulator-1.0.0.jar\n\nThe jar file does not work because:\nVirtualBox:~/Downloads$ java -jar gnmi-device-simulator-1.0.0.jar\nException in thread \"main\" java.lang.NoClassDefFoundError: org/slf4j/LoggerFactory\n\tat org.opendaylight.gnmi.simulatordevice.main.GnmiSimulatorApp.\u003cclinit\u003e(GnmiSimulatorApp.java:23)\nCaused by: java.lang.ClassNotFoundException: org.slf4j.LoggerFactory\n\tat java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)\n\tat java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)\n\tat java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)\n\nThis fixes the issue",
+      "parentUuid": "f17a6548_748c8822",
+      "revId": "22ad4717af962870d092cdb9756b4629140aa8f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1848a67_8dad57f3",
@@ -35,6 +53,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "533283a7_574cbb91",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-08-04T06:54:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1848a67_8dad57f3",
+      "revId": "22ad4717af962870d092cdb9756b4629140aa8f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dea9e1ca_5700fd54",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-07-27T13:59:17Z",
       "side": 1,
       "message": "IMO odlparent has more up to date version?",
+      "revId": "22ad4717af962870d092cdb9756b4629140aa8f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21cdf616_d80c3bd4",
+        "filename": "modules/gnmi-device-simulator/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-08-04T06:54:22Z",
+      "side": 1,
+      "message": "done, see latest patch",
+      "parentUuid": "dea9e1ca_5700fd54",
       "revId": "22ad4717af962870d092cdb9756b4629140aa8f4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
