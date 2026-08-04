@@ -91,8 +91,8 @@ import org.opendaylight.yang.gen.v1.config.aaa.authn.encrypt.service.config.rev2
 import org.opendaylight.yang.gen.v1.config.aaa.authn.encrypt.service.config.rev240202.AaaEncryptServiceConfigBuilder;
 import org.opendaylight.yang.gen.v1.config.aaa.authn.encrypt.service.config.rev240202.EncryptServiceConfig;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.http.client.rev240208.HttpClientStackGrouping;
-import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.http.server.rev240208.HttpServerStackGrouping;
-import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.http.server.rev240208.http.server.stack.grouping.Transport;
+import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.http.server.rev251111.HttpServerListenStackGrouping;
+import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.http.server.rev251111.http.server.listen.stack.grouping.Transport;
 import org.opendaylight.yangtools.binding.DataContainer;
 import org.opendaylight.yangtools.binding.data.codec.impl.di.DefaultBindingDOMCodecServices;
 import org.opendaylight.yangtools.yang.common.Uint16;
@@ -164,10 +164,10 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
         LOG.info("RESTCONF Server starting on: {}", host);
 
         final var serverTransport = ConfigUtils.serverTransportTcp(localAddress, CONTROLLER_PORT);
-        final var serverStackGrouping = new HttpServerStackGrouping() {
+        final var serverStackGrouping = new HttpServerListenStackGrouping() {
             @Override
-            public Class<? extends HttpServerStackGrouping> implementedInterface() {
-                return HttpServerStackGrouping.class;
+            public Class<HttpServerListenStackGrouping> implementedInterface() {
+                return HttpServerListenStackGrouping.class;
             }
 
             @Override
