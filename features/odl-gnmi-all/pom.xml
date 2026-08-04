@@ -44,6 +44,12 @@
             <type>xml</type>
             <classifier>features</classifier>
         </dependency>
+        <dependency>
+            <groupId>org.opendaylight.odlparent</groupId>
+            <artifactId>odl-errorprone</artifactId>
+            <type>xml</type>
+            <classifier>features</classifier>
+        </dependency>
 
         <dependency>
             <groupId>com.guicedee.services</groupId>
