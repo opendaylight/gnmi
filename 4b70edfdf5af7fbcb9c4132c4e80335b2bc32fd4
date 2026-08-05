@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08da348d_ef26460b",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 8449
+      },
+      "writtenOn": "2026-08-05T14:53:32Z",
+      "side": 1,
+      "message": "The test does not wait for READY before stopping the device. connectDevice() only sends the config and returns on 201, it does not wait for the node to become READY. So step 2 can stop the device before the node ever\n  reaches READY. In that case deviceConnection stays null and, after the restart, step 5 goes through the first-connection branch instead of the reconnect branch. That branch works even without this fix, so the test can pass\n  on unfixed code and does not actually cover the reconnect path.\n\n  Please wait for READY right after step 1, before stopping the device:\n  assertTrue(connectDevice(GNMI_NODE_ID, DEVICE_IP, reconnectDevicePort));\n  awaitNodeStatus(GNMI_NODE_PATH, GNMI_NODE_STATUS_READY);\n  reconnectDevice.stop();",
+      "revId": "4b70edfdf5af7fbcb9c4132c4e80335b2bc32fd4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cb59753_62a4b24c",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 8449
+      },
+      "writtenOn": "2026-08-05T14:53:32Z",
+      "side": 1,
+      "message": "Please verify the state that should be there instead of asserting what is not there. After the device is stopped the node goes to TRANSIENT_FAILURE (flapping with CONNECTING as gRPC retries), so check for that directly.\n  There is already a helper the other tests use, awaitConnectingOrTransientFailure(). Use it here and drop awaitNodeStatusNotEquals, since this is its only caller.\n\n  awaitConnectingOrTransientFailure(GNMI_NODE_PATH);",
+      "revId": "4b70edfdf5af7fbcb9c4132c4e80335b2bc32fd4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6f6646a_7a714e28",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 8449
+      },
+      "writtenOn": "2026-08-05T14:53:32Z",
+      "side": 1,
+      "message": "Do we need that third try-finnaly block?\n\n          awaitNodeStatusNotEquals(GNMI_NODE_PATH, GNMI_NODE_STATUS_READY);\n          reconnectDevice.start();\n          awaitNodeStatus(GNMI_NODE_PATH, GNMI_NODE_STATUS_READY);\n          assertTrue(disconnectDevice(GNMI_NODE_I",
+      "range": {
+        "startLine": 467,
+        "startChar": 16,
+        "endLine": 485,
+        "endChar": 59
+      },
+      "revId": "4b70edfdf5af7fbcb9c4132c4e80335b2bc32fd4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
