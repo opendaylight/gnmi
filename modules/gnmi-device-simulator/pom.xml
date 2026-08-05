@@ -265,41 +265,6 @@
             </activation>
             <build>
                 <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-jar-plugin</artifactId>
-                        <configuration>
-                            <archive>
-                                <manifest>
-                                    <mainClass>${application.main.class}</mainClass>
-                                    <useUniqueVersions>false</useUniqueVersions>
-                                    <classpathPrefix>lib/</classpathPrefix>
-                                    <addClasspath>true</addClasspath>
-                                </manifest>
-                            </archive>
-                            <excludes>
-                                <exclude>/assembly/**</exclude>
-                            </excludes>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>copy-dependencies</id>
-                                <phase>compile</phase>
-                                <goals>
-                                    <goal>copy-dependencies</goal>
-                                </goals>
-                                <configuration>
-                                    <includeScope>runtime</includeScope>
-                                    <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                                    <silent>true</silent>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
                     <!-- Copy additional project-specific resources, typically json config files. -->
                     <plugin>
                         <artifactId>maven-resources-plugin</artifactId>
@@ -318,6 +283,51 @@
                                         </resource>
                                     </resources>
                                     <outputDirectory>${project.build.directory}/assembly/resources</outputDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!--
+                        Shade the main artifact itself into a self-contained jar (all runtime
+                        dependencies bundled in), so it runs standalone with just `java -jar`
+                        after being downloaded on its own, e.g. from a Nexus release, with no
+                        separate lib/ directory required next to it.
+                    -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-shade-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>build-executable-jar</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>shade</goal>
+                                </goals>
+                                <configuration>
+                                    <filters>
+                                        <filter>
+                                            <artifact>*:*</artifact>
+                                            <excludes>
+                                                <!-- Signed dependencies (e.g. bouncycastle) carry a signature that
+                                                     no longer matches once their classes are merged into another
+                                                     jar; without stripping it the shaded jar fails at runtime
+                                                     with "SecurityException: Invalid signature file digest". -->
+                                                <exclude>META-INF/*.SF</exclude>
+                                                <exclude>META-INF/*.DSA</exclude>
+                                                <exclude>META-INF/*.RSA</exclude>
+                                                <exclude>module-info.class</exclude>
+                                            </excludes>
+                                        </filter>
+                                    </filters>
+                                    <transformers>
+                                        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                            <mainClass>${application.main.class}</mainClass>
+                                        </transformer>
+                                        <!-- Many separate YANG-model dependencies each register a provider under
+                                             the same META-INF/services path; without merging, shading would keep
+                                             only one jar's registrations and silently drop the rest. -->
+                                        <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                                    </transformers>
                                 </configuration>
                             </execution>
                         </executions>
