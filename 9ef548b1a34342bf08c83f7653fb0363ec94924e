@@ -50,6 +50,40 @@
       "message": "recheck",
       "revId": "9ef548b1a34342bf08c83f7653fb0363ec94924e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a07d98a_4ce342ca",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnection.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 8449
+      },
+      "writtenOn": "2026-08-05T14:17:38Z",
+      "side": 1,
+      "message": "The fix that stops one exception being hidden when both close steps fail was present in an earlier patchset, but was removed. I would rather not go back to the previous approach. Please do it this way instead, if possible:\n\n```\n  @Override\n  public void close() throws Exception {\n      boolean interrupted \u003d false;\n      try {\n          connectionStatusListener.close();\n      } catch (ExecutionException | TimeoutException e) {\n          LOG.warn(\"Failed to close connection status listener for node {}\", getIdentifier(), e);\n      } catch (InterruptedException e) {\n          LOG.warn(\"Interrupted while closing connection status listener for node {}\", getIdentifier(), e);\n          interrupted \u003d true;\n      }\n      try {\n          sessionProvider.close();\n      } catch (InterruptedException e) {\n          LOG.warn(\"Interrupted while closing session provider for node {}\", getIdentifier(), e);\n          interrupted \u003d true;\n      } finally {\n          if (interrupted) {\n              Thread.currentThread().interrupt();\n          }\n      }\n  }\n\n```\n\nLogging is enough here, the caller only logs the error anyway:\nhttps://github.com/opendaylight/gnmi/blob/v3.0.0/modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionManager.java#L216\n\nsessionProvider.close() throws InterruptedException in its implementation. Setting the interrupt flag in the first catch would mark the thread as interrupted again before sessionProvider.close() runs, and its awaitTermination is interruptible, so it would throw right away and skip the channel-shutdown wait. Deferring the flag to a single finally lets both close steps finish, then sets it once for the caller.",
+      "revId": "9ef548b1a34342bf08c83f7653fb0363ec94924e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dad68e0a_492a5665",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionInitializer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 8449
+      },
+      "writtenOn": "2026-08-05T14:17:38Z",
+      "side": 1,
+      "message": "Same here we can log instead of collecting the exceptions. InterruptedException should also be handled the same way as advised in DeviceConnection. Don\u0027t forget to also catch InterruptedException from sessionProvider.close().",
+      "revId": "9ef548b1a34342bf08c83f7653fb0363ec94924e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
