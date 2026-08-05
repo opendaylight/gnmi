@@ -16,6 +16,24 @@
       "message": "Extra line",
       "revId": "30e747530b0dc4e7aea398edc584bcf0348e458f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13a7313d_2edfcd93",
+        "filename": "features/odl-gnmi-all/pom.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-08-05T12:32:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3a32117_52f20ecb",
+      "revId": "30e747530b0dc4e7aea398edc584bcf0348e458f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
