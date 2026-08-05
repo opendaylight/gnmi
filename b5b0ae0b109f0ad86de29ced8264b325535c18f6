@@ -67,6 +67,24 @@
       "message": "Can you use maven-assembly-plugin instead?\nhttps://git.opendaylight.org/gerrit/c/netconf/+/122376/comment/bc9ebf9b_d86e526d/",
       "revId": "b5b0ae0b109f0ad86de29ced8264b325535c18f6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ff2352d_690ee85d",
+        "filename": "modules/gnmi-device-simulator/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-08-05T08:48:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "599585d1_ee08b0a5",
+      "revId": "b5b0ae0b109f0ad86de29ced8264b325535c18f6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
