@@ -16,6 +16,24 @@
       "message": "If a device is deleted while its connection attempt is still in the mountpoint phase, session already READY, finishInitializer() not yet called, GnmiNodeListener.disconnectNode() was already calling closeConnection(). closeConnection() calls connectionInitializer.cancelInitializer(nodeId), which calls **SessionManagerImpl#closeSession**.\n\nNow here, this abort branch also calls closeQuietly(deviceConnection) -\u003e deviceConnection.close() -\u003e **SessionManagerImpl#closeSession** on the same sessionProvider.\n\nThis results in multiple calls of SessionManagerImpl#closeSession for one session, which it wasn\u0027t designed for. The second call reads [openSessionsCounter.get(config) as null](https://github.com/opendaylight/gnmi/blob/v3.0.0/modules/gnmi-connector/src/main/java/org/opendaylight/gnmi/connector/session/SessionManagerImpl.java#L82) and create NPEs.\n\ncloseConnection() calls both cancelInitializer() and deviceConnection.close() too, but never in the same invocation. nodeConnecting(nodeId) and activeDevices.containsKey(nodeId) are never both true, so it\u0027s safe on its own.\n\nThis could be fixed in SessionProviderImpl class with:\n```\n  public synchronized void close() throws InterruptedException {\n      if (closed) {\n          return;\n      }\n```",
       "revId": "be2409a682777bdfed67e3dcf0c1c39bd706dfd3",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bcc23db_4eee7928",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2026-08-05T15:52:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f52f80be_6e364e67",
+      "revId": "be2409a682777bdfed67e3dcf0c1c39bd706dfd3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
