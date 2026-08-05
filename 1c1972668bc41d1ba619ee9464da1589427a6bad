@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da109ee5_1272b9af",
+        "filename": "modules/gnmi-device-simulator/pom.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 8449
+      },
+      "writtenOn": "2026-08-05T12:34:56Z",
+      "side": 1,
+      "message": "Not needed, remove this.",
+      "revId": "1c1972668bc41d1ba619ee9464da1589427a6bad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}

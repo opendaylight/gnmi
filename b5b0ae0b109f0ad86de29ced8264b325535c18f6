@@ -85,6 +85,24 @@
       "parentUuid": "599585d1_ee08b0a5",
       "revId": "b5b0ae0b109f0ad86de29ced8264b325535c18f6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37cf2882_b33e055a",
+        "filename": "modules/gnmi-device-simulator/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 8449
+      },
+      "writtenOn": "2026-08-05T12:34:56Z",
+      "side": 1,
+      "message": "Please use an external descriptor instead, the same way as in the provided patch.\n```\n\u003cdescriptors\u003e\n    \u003cdescriptor\u003esrc/assembly/executable.xml\u003c/descriptor\u003e\n\u003c/descriptors\u003e\n```",
+      "parentUuid": "2ff2352d_690ee85d",
+      "revId": "b5b0ae0b109f0ad86de29ced8264b325535c18f6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
