@@ -16,6 +16,24 @@
       "message": "Not needed, remove this.",
       "revId": "1c1972668bc41d1ba619ee9464da1589427a6bad",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc7700c8_1dd67d69",
+        "filename": "modules/gnmi-device-simulator/pom.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-08-06T08:28:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da109ee5_1272b9af",
+      "revId": "1c1972668bc41d1ba619ee9464da1589427a6bad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }

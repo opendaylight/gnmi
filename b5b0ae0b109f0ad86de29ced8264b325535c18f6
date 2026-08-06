@@ -103,6 +103,24 @@
       "parentUuid": "2ff2352d_690ee85d",
       "revId": "b5b0ae0b109f0ad86de29ced8264b325535c18f6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a01f7e7_b72a8e4b",
+        "filename": "modules/gnmi-device-simulator/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-08-06T08:28:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37cf2882_b33e055a",
+      "revId": "b5b0ae0b109f0ad86de29ced8264b325535c18f6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
