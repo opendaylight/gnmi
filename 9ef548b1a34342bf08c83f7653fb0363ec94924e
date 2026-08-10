@@ -69,6 +69,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a69547b_955720fc",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnection.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-08-10T09:17:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a07d98a_4ce342ca",
+      "revId": "9ef548b1a34342bf08c83f7653fb0363ec94924e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dad68e0a_492a5665",
@@ -82,6 +100,24 @@
       "writtenOn": "2026-08-05T14:17:38Z",
       "side": 1,
       "message": "Same here we can log instead of collecting the exceptions. InterruptedException should also be handled the same way as advised in DeviceConnection. Don\u0027t forget to also catch InterruptedException from sessionProvider.close().",
+      "revId": "9ef548b1a34342bf08c83f7653fb0363ec94924e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "574ef351_0cb7bc90",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionInitializer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-08-10T09:17:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dad68e0a_492a5665",
       "revId": "9ef548b1a34342bf08c83f7653fb0363ec94924e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
