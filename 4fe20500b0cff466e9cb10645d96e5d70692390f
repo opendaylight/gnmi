@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10e80d79_8af31241",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionManager.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2026-08-11T09:08:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec03d264_447f5f39",
+      "revId": "4fe20500b0cff466e9cb10645d96e5d70692390f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb063550_07d973ed",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-08-10T10:33:16Z",
       "side": 1,
       "message": "GnmiConnectionStatusListener.close() not idempotent. The commit added a closed guard to SessionProviderImpl.close() but not to its sibling, which DeviceConnection.close() always calls alongside it. In the primary scenario this commit fixes (delete racing an in-flight capabilities()   \n  call), the same listener can be closed twice, issuing a redundant OPERATIONAL delete transaction each time.\n\nWill this be a part of GNMI-29? if yes just mark this comment as resolved.",
+      "revId": "4fe20500b0cff466e9cb10645d96e5d70692390f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc76c960_d9e345e7",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/session/listener/GnmiConnectionStatusListener.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2026-08-11T09:08:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb063550_07d973ed",
       "revId": "4fe20500b0cff466e9cb10645d96e5d70692390f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
