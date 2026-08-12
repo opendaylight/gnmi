@@ -16,6 +16,24 @@
       "message": "this should be removed..",
       "revId": "a3dbd1719419f30ef383af3e68bdc09a0d27d192",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9717097_c2bf92a6",
+        "filename": "features/odl-gnmi-all/pom.xml",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-08-12T08:13:19Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "497347df_ede43ad7",
+      "revId": "a3dbd1719419f30ef383af3e68bdc09a0d27d192",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
