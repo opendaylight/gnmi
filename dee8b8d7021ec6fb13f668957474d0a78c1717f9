@@ -16,6 +16,24 @@
       "message": "\u003cartifactId\u003egnmi-artifacts\u003c/artifactId\u003e\n\u003cversion\u003e2.0.1-SNAPSHOT\u003c/version\u003e",
       "revId": "dee8b8d7021ec6fb13f668957474d0a78c1717f9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9628c783_9dcc18b1",
+        "filename": "karaf/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-08-12T10:33:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e874b35_11dc26f0",
+      "revId": "dee8b8d7021ec6fb13f668957474d0a78c1717f9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
