@@ -16,6 +16,24 @@
       "message": "As I understand this only runs when mountPointFuture fails, but by the time saveCapabilitiesList() can throw, registerMountPoint() and activeDevices.put() can already have committed inside lock. On that failure path, we close the connection and call finishInitializer(), but never mountPointRegistrator.unregisterMountPoint() or activeDevices.remove()",
       "revId": "4509f85d6af5e09cb91372c4fe60592a7abf5cb8",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e037ae5_b2d81b83",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2026-08-12T07:12:42Z",
+      "side": 1,
+      "message": "aveCapabilitiesList() is now best-effort, it catches its own commit exceptions, logs, and keeps the device instead of failing the connection (matching netconf, where operational writes are fire-and-forget and \"device failed\" is session-driven, not write-driven). So the only failures reaching the handler are pre-registration, where the node was never in activeDevices.",
+      "parentUuid": "2ca49c52_10bdfc3a",
+      "revId": "4509f85d6af5e09cb91372c4fe60592a7abf5cb8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
