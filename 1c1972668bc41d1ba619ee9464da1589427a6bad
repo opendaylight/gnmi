@@ -34,6 +34,24 @@
       "parentUuid": "da109ee5_1272b9af",
       "revId": "1c1972668bc41d1ba619ee9464da1589427a6bad",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e45e85a_eed8ecd0",
+        "filename": "modules/gnmi-device-simulator/pom.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-08-12T11:52:21Z",
+      "side": 1,
+      "message": "This actually had to be reverted back to maven shade plugin.\n\nThe metaInf-services handler in maven-assembly-plugin does not correctly merge META-INF/services files across many separate dependency jars. For org.opendaylight.yangtools.binding.meta.YangModelBindingProvider — which is registered separately by dozens of YANG-model jars (each generated YANG module gets its own registration) — the assembly-plugin build kept only 1 line (ietf-yang-types), silently dropping   \n  every other registration, including iana-if-type. That\u0027s why ServiceLoader.load(YangModelBindingProvider.class) found nothing matching iana-if-type in schemaServiceConfig, producing the empty Set\u003cYangModuleInfo\u003e and the \"Provided list of YangModuleInfo is empty\" exception.\n\norg.opendaylight.gnmi.simulatordevice.utils.EffectiveModelContextBuilder$EffectiveModelContextBuilderException: Provided list of YangModuleInfo  is empty                                                                                                                                                                                                                                                                  \n          at org.opendaylight.gnmi.simulatordevice.utils.EffectiveModelContextBuilder.addYangModulesInfo(EffectiveModelContextBuilder.java:67)                                                                                                                                                                                                                                                                               \n          at org.opendaylight.gnmi.simulatordevice.impl.SimulatedGnmiDevice.start(SimulatedGnmiDevice.java:128)                                                                                                                                                                                                                                                                                                              \n          at org.opendaylight.gnmi.simulatordevice.main.GnmiSimulatorApp.start(GnmiSimulatorApp.java:50)                                                                                                                                                                                                                                                                                                                     \n          at org.opendaylight.gnmi.simulatordevice.main.GnmiSimulatorApp.main(GnmiSimulatorApp.java:29)",
+      "parentUuid": "cc7700c8_1dd67d69",
+      "revId": "1c1972668bc41d1ba619ee9464da1589427a6bad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
