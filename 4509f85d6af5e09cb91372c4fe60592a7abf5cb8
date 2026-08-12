@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ca49c52_10bdfc3a",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-08-12T05:42:17Z",
+      "side": 1,
+      "message": "As I understand this only runs when mountPointFuture fails, but by the time saveCapabilitiesList() can throw, registerMountPoint() and activeDevices.put() can already have committed inside lock. On that failure path, we close the connection and call finishInitializer(), but never mountPointRegistrator.unregisterMountPoint() or activeDevices.remove()",
+      "revId": "4509f85d6af5e09cb91372c4fe60592a7abf5cb8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
