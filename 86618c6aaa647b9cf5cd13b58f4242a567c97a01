@@ -16,6 +16,24 @@
       "message": "13.0.4",
       "revId": "86618c6aaa647b9cf5cd13b58f4242a567c97a01",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10e300f7_33c36ae8",
+        "filename": "karaf/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-08-24T14:03:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2036cd16_b8607344",
+      "revId": "86618c6aaa647b9cf5cd13b58f4242a567c97a01",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
