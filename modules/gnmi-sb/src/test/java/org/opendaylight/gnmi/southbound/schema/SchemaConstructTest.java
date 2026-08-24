@@ -21,7 +21,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.core.config.ConfigurationException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -212,7 +211,7 @@ public class SchemaConstructTest {
                 .collect(Collectors.toList());
         // Change body of model to syntax error one
         for (File file : filesInFolder) {
-            final String body = IOUtils.toString(Files.newInputStream(file.toPath()), StandardCharsets.UTF_8);
+            final String body = new String(Files.newInputStream(file.toPath()).readAllBytes(), StandardCharsets.UTF_8);
             final GnmiYangModel model = dataStoreService.readYangModel(
                     FilenameUtils.removeExtension(file.getName()))
                     .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
@@ -246,7 +245,7 @@ public class SchemaConstructTest {
                 .collect(Collectors.toList());
         // Change body of model to syntax error one
         for (File file : filesInFolder) {
-            final String body = IOUtils.toString(Files.newInputStream(file.toPath()), StandardCharsets.UTF_8);
+            final String body = new String(Files.newInputStream(file.toPath()).readAllBytes(), StandardCharsets.UTF_8);
             final GnmiYangModel model = dataStoreService.readYangModel(
                     FilenameUtils.removeExtension(file.getName()))
                     .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
