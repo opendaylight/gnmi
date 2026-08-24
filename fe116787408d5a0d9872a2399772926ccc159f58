@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93ca1069_573cf780",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-08-24T12:14:05Z",
+      "side": 1,
+      "message": "is this your goal or reason?",
+      "revId": "fe116787408d5a0d9872a2399772926ccc159f58",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20bf3cc6_7d005750",
+        "filename": "modules/gnmi-device-simulator/pom.xml",
+        "patchSetId": 8
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-08-24T12:14:05Z",
+      "side": 1,
+      "message": "shaded classifier executable? please follow netconf-testtool to get result as in https://repo1.maven.org/maven2/org/opendaylight/netconf/netconf-testtool/11.0.0/",
+      "revId": "fe116787408d5a0d9872a2399772926ccc159f58",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
