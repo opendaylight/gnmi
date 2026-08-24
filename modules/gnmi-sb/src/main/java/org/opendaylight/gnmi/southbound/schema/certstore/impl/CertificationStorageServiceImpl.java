@@ -10,8 +10,8 @@ package org.opendaylight.gnmi.southbound.schema.certstore.impl;
 import com.google.common.util.concurrent.ListenableFuture;
 import java.nio.charset.Charset;
 import java.security.GeneralSecurityException;
+import java.util.Base64;
 import java.util.Optional;
-import javax.xml.bind.DatatypeConverter;
 import org.eclipse.jdt.annotation.NonNull;
 import org.opendaylight.aaa.encrypt.AAAEncryptionService;
 import org.opendaylight.gnmi.southbound.schema.certstore.service.CertificationStorageService;
@@ -44,10 +44,10 @@ public class CertificationStorageServiceImpl implements CertificationStorageServ
                 input.getPassphrase() != null ? input.getPassphrase().getBytes(Charset.defaultCharset()) : null);
         final Keystore keystore = new KeystoreBuilder()
                 .setKeystoreId(input.getKeystoreId())
-                .setClientKey(DatatypeConverter.printBase64Binary(
+                .setClientKey(Base64.getEncoder().encodeToString(
                         this.encryptionService.encrypt(input.getClientKey().getBytes(Charset.defaultCharset()))))
                 .setPassphrase(
-                        encryptedParaphrase != null ? DatatypeConverter.printBase64Binary(encryptedParaphrase) : null)
+                        encryptedParaphrase != null ? Base64.getEncoder().encodeToString(encryptedParaphrase) : null)
                 .setClientCert(input.getClientCert())
                 .setCaCertificate(input.getCaCertificate())
                 .build();
@@ -74,8 +74,7 @@ public class CertificationStorageServiceImpl implements CertificationStorageServ
 
     @Override
     public String decrypt(final String data) throws GeneralSecurityException {
-        return new String(this.encryptionService.decrypt(DatatypeConverter.parseBase64Binary(data)),
-                Charset.defaultCharset());
+        return new String(this.encryptionService.decrypt(Base64.getDecoder().decode(data)), Charset.defaultCharset());
     }
 
     private DataObjectIdentifier.WithKey<Keystore, KeystoreKey> getKeystoreII(final String keystoreId) {
