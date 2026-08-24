@@ -14,7 +14,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.Optional;
-import org.apache.commons.io.IOUtils;
 import org.opendaylight.yangtools.concepts.SemVer;
 import org.opendaylight.yangtools.openconfig.model.api.OpenConfigStatements;
 import org.opendaylight.yangtools.yang.common.Revision;
@@ -47,7 +46,7 @@ public class YangLoadModelUtil {
                         DateTimeFormatter.ofPattern("yyyy-MM-dd"))))
                 .orElse(null);
         this.modelSemVer = semanticVersion.orElse(null);
-        this.modelBody = IOUtils.toString(yangTextStream, StandardCharsets.UTF_8);
+        this.modelBody = new String(yangTextStream.readAllBytes(), StandardCharsets.UTF_8);
         this.modelName = yangModelDependencyInfo.sourceId().name().getLocalName();
     }
 
