@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c10aeac_4cccb543",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionManager.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2026-08-26T11:29:45Z",
+      "side": 1,
+      "message": "https://lf-opendaylight.atlassian.net/browse/GNMI-32",
+      "parentUuid": "6b7eaa43_9826f8e4",
+      "revId": "2529e460be589534730fbf0eddb607ec2ef1f22a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f436047e_36a0cd57",
@@ -35,6 +53,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f59d58ff_dd858483",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionManager.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2026-08-26T11:29:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f436047e_36a0cd57",
+      "revId": "2529e460be589534730fbf0eddb607ec2ef1f22a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "017cd4a9_6082274b",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-08-25T15:04:40Z",
       "side": 1,
       "message": "FIXME (GNMI-29)?",
+      "revId": "2529e460be589534730fbf0eddb607ec2ef1f22a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27a9f8d3_d8045f7e",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/session/listener/GnmiConnectionStatusListener.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2026-08-26T11:29:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "017cd4a9_6082274b",
       "revId": "2529e460be589534730fbf0eddb607ec2ef1f22a",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
