@@ -1,0 +1,8 @@
+Code-Review+2: Ivan Hrasko <ivan.hrasko@pantheon.tech>
+Verified+1: ODL Required.GHA <releng+odl.required.gha@linuxfoundation.org>
+Verified+1: Ivan Hrasko <ivan.hrasko@pantheon.tech>
+Submitted-by: Ivan Hrasko <ivan.hrasko@pantheon.tech>
+Submitted-at: Thu, 27 Aug 2026 07:02:04 +0000
+Reviewed-on: https://git.opendaylight.org/gerrit/c/gnmi/+/125229
+Project: gnmi
+Branch: refs/heads/3.0.x
