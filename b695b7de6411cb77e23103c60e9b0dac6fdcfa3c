@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c0fc8e4_6b506baa",
+        "filename": ".git_commit_template.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-08-28T07:33:38Z",
+      "side": 1,
+      "message": "We would need to follow https://docs.opendaylight.org/en/latest/contributor-guides/coding-guidelines/coding-guidelines-java.html",
+      "revId": "b695b7de6411cb77e23103c60e9b0dac6fdcfa3c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
