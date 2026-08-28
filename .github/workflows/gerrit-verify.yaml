@@ -122,7 +122,7 @@ jobs:
       - name: Gerrit change information
         if: ${{ env.ACT != 'true' }}
         id: gerrit-change-info
-        uses: lfreleng-actions/gerrit-change-info@862f1ea086fcfccb53cd587db1c3fd43cf78959f # v0.1.4
+        uses: lfreleng-actions/gerrit-change-info@aeecad0c202c97e626b036d40c0538f9d97b0b80 # v0.1.5
         with:
           gerrit_change_url: ${{ inputs.GERRIT_CHANGE_URL }}
           gerrit_patchset_number: ${{ inputs.GERRIT_PATCHSET_NUMBER }}
