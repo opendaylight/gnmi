@@ -16,6 +16,52 @@
       "message": "We would need to follow https://docs.opendaylight.org/en/latest/contributor-guides/coding-guidelines/coding-guidelines-java.html",
       "revId": "b695b7de6411cb77e23103c60e9b0dac6fdcfa3c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6aecef3e_18b5c5bb",
+        "filename": ".git_commit_template.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 649
+      },
+      "writtenOn": "2026-08-28T07:44:12Z",
+      "side": 1,
+      "message": "can you give examples?",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 27,
+        "endChar": 50
+      },
+      "revId": "b695b7de6411cb77e23103c60e9b0dac6fdcfa3c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbfdde6f_2ad8a1ca",
+        "filename": ".git_commit_template.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 649
+      },
+      "writtenOn": "2026-08-28T07:44:12Z",
+      "side": 1,
+      "message": "this does not provide enough guidance and, strictly speaking, guides towards unnecessarily-granular commits\n\nExample 1:\nI am changing an API: do I need to change it compatibly, then change implementation, then change users, then remove the old thing?\n\nExample 2:\nI am migrating String.format() to String.formatted(). Should I be splitting it?",
+      "range": {
+        "startLine": 28,
+        "startChar": 16,
+        "endLine": 28,
+        "endChar": 66
+      },
+      "revId": "b695b7de6411cb77e23103c60e9b0dac6fdcfa3c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
