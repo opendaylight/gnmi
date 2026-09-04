@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a8875ff_9c47d973",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-09-04T14:10:13Z",
+      "side": 1,
+      "message": "add test then make refactor:\n- methods\n- methods and class does not need to be public since we have JUnit 5",
+      "revId": "94d1956100ac4e6b6221ab620b65bf2e23780b43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9d57bd4_ba28ead9",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-09-04T14:10:13Z",
+      "side": 1,
+      "message": "add method\u0027s javadoc",
+      "revId": "94d1956100ac4e6b6221ab620b65bf2e23780b43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bb9537e_f4ff1029",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-09-04T14:10:13Z",
+      "side": 1,
+      "message": "final var?",
+      "revId": "94d1956100ac4e6b6221ab620b65bf2e23780b43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ec9df5a_df54c053",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-09-04T14:10:13Z",
+      "side": 1,
+      "message": "IMO we do not need such logging in test - do we have sufficient logging in production code?",
+      "revId": "94d1956100ac4e6b6221ab620b65bf2e23780b43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47698133_15040b31",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-09-04T14:10:13Z",
+      "side": 1,
+      "message": "static?",
+      "revId": "94d1956100ac4e6b6221ab620b65bf2e23780b43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f60de79_0b5d8ac9",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-09-04T14:10:13Z",
+      "side": 1,
+      "message": "var?",
+      "revId": "94d1956100ac4e6b6221ab620b65bf2e23780b43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83b90186_88722c05",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-09-04T14:10:13Z",
+      "side": 1,
+      "message": "final var and static?",
+      "revId": "94d1956100ac4e6b6221ab620b65bf2e23780b43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
