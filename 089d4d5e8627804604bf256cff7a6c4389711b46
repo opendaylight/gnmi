@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93a09364_9e53bab1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-09-04T14:43:28Z",
+      "side": 1,
+      "message": "verify this theory, if correct we have to patch all branches regardless of proto version",
+      "revId": "089d4d5e8627804604bf256cff7a6c4389711b46",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26f6c7ba_4233f013",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-09-04T14:43:28Z",
+      "side": 1,
+      "message": "move it down..",
+      "revId": "089d4d5e8627804604bf256cff7a6c4389711b46",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
