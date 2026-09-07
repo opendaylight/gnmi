@@ -559,4 +559,84 @@ public class GnmiConnectionITTest extends GnmiITBase {
                 });
     }
 
+
+    /**
+     * Verifies that after a connected device is stopped and restarted, the node status transitions
+     * away from READY and then back to READY again, instead of getting stuck in TRANSIENT_FAILURE.
+     */
+    @Test
+    public void deviceReconnectionUpdatesStatusToReadyTest() throws Exception {
+        // Use a dedicated device/port instead of the shared class-wide "device": if start() below throws
+        // after stop() succeeded, only this test is affected, not every other test in this class that
+        // relies on "device" being up.
+        final int reconnectDevicePort = randomBindablePort();
+        final SimulatedGnmiDevice reconnectDevice = getUnsecureGnmiDevice(DEVICE_IP, reconnectDevicePort);
+        reconnectDevice.start();
+
+        try {
+            // 1. Connect to the device
+            assertTrue(connectDevice(GNMI_NODE_ID, DEVICE_IP, reconnectDevicePort));
+            Awaitility.waitAtMost(WAIT_TIME_DURATION)
+                .pollInterval(POLL_INTERVAL_DURATION)
+                .untilAsserted(() -> {
+                    final HttpResponse<String> getConnectionStatusResponse =
+                        sendGetRequestJSON(GNMI_NODE_PATH  + GNMI_NODE_STATUS);
+                    assertEquals(HttpURLConnection.HTTP_OK, getConnectionStatusResponse.statusCode());
+                    final String gnmiDeviceConnectStatus =
+                        new JSONObject(getConnectionStatusResponse.body()).getString("gnmi-topology:node-status");
+                    LOG.info("Response: {}", gnmiDeviceConnectStatus);
+                    assertEquals(GNMI_NODE_STATUS_READY, gnmiDeviceConnectStatus);
+                });
+            try {
+                // 2. Stop the simulated device
+                reconnectDevice.stop();
+
+                // 3. Wait and assert that the node status in the datastore changes
+                final AtomicInteger attempt = new AtomicInteger();
+                Awaitility.waitAtMost(CONNECT_ATTEMPT_WAIT_DURATION)
+                    .pollInterval(POLL_INTERVAL_DURATION)
+                    .untilAsserted(() -> {
+                        attempt.getAndIncrement();
+                        final HttpResponse<String> getDeviceConnectStatusResponse =
+                            sendGetRequestJSON(GNMI_NODE_PATH + GNMI_NODE_STATUS);
+                        final String deviceConnectStatus =
+                            new JSONObject(getDeviceConnectStatusResponse.body())
+                                .getString("gnmi-topology:node-status");
+                        LOG.info("Attempt {}, response: {}", attempt, deviceConnectStatus);
+                        assertTrue(deviceConnectStatus.equals(GNMI_NODE_STATUS_CONNECTING)
+                            || deviceConnectStatus.equals(GNMI_NODE_STATUS_TRANSIENT_FAIL));
+                        assertTrue(attempt.get() <= MAX_DEVICE_CONNECTION_ATTEMPTS);
+                    });
+
+                // 4. Start the simulated device back up to trigger reconnection
+                reconnectDevice.start();
+
+                // 5. Wait and assert that the node status changes back to READY
+                Awaitility.waitAtMost(WAIT_TIME_DURATION)
+                    .pollInterval(POLL_INTERVAL_DURATION)
+                    .untilAsserted(() -> {
+                        final HttpResponse<String> getConnectionStatusResponse =
+                            sendGetRequestJSON(GNMI_NODE_PATH + GNMI_NODE_STATUS);
+                        final String gnmiDeviceConnectStatus =
+                            new JSONObject(getConnectionStatusResponse.body())
+                                .getString("gnmi-topology:node-status");
+                        LOG.info("Response: {}", gnmiDeviceConnectStatus);
+                        assertEquals(HttpURLConnection.HTTP_OK, getConnectionStatusResponse.statusCode());
+                        assertEquals(GNMI_NODE_STATUS_READY, gnmiDeviceConnectStatus);
+                    });
+
+                // 6. Disconnect and clean up
+                assertTrue(disconnectDevice(GNMI_NODE_ID));
+            } finally {
+                // Failsafe: ensure the node does not stay connected for subsequent tests when an assertion fails
+                if (sendGetRequestJSON(GNMI_TOPOLOGY_PATH).body().contains(GNMI_NODE_ID)) {
+                    if (!disconnectDevice(GNMI_NODE_ID)) {
+                        LOG.info("Problem when disconnecting device {}", GNMI_NODE_ID);
+                    }
+                }
+            }
+        } finally {
+            reconnectDevice.stop();
+        }
+    }
 }
