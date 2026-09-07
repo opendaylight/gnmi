@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5d65abf_fb639648",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-09-07T12:29:29Z",
+      "side": 1,
+      "message": "https://cbea.ms/git-commit/",
+      "revId": "1ca8c0c295aa9d35c3ec5b390eb88bd846cf87f6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
