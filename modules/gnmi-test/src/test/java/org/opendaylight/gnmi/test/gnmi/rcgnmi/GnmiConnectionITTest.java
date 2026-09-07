@@ -39,7 +39,7 @@ import org.opendaylight.gnmi.simulatordevice.utils.EffectiveModelContextBuilder.
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class GnmiConnectionITTest extends GnmiITBase {
+class GnmiConnectionITTest extends GnmiITBase {
     private static final Logger LOG = LoggerFactory.getLogger(GnmiConnectionITTest.class);
 
     private static final String GET_CAPABILITIES_PATH
@@ -81,7 +81,7 @@ public class GnmiConnectionITTest extends GnmiITBase {
     private static SimulatedGnmiDevice deviceWithMissingEncoding;
 
     @BeforeAll
-    public static void setupDevice() {
+    static void setupDevice() {
         device = getUnsecureGnmiDevice(DEVICE_IP, DEVICE_PORT);
         deviceWithCredentials = getUnsecureGnmiDevice(DEVICE_IP, DEVICE_WITH_CREDENTIALS_PORT,
                                                       DEVICE_USERNAME, DEVICE_PASSWORD);
@@ -96,14 +96,14 @@ public class GnmiConnectionITTest extends GnmiITBase {
     }
 
     @AfterAll
-    public static void teardownDevice() {
+    static void teardownDevice() {
         device.stop();
         deviceWithCredentials.stop();
         deviceWithMissingEncoding.stop();
     }
 
     @AfterEach
-    public void performSpecificCleanupAfterEach() {
+    void performSpecificCleanupAfterEach() {
         /*
         disconnect devices ANOTHER_GNMI_NODE_ID and GNMI_NODE_WITH_WRONG_PASSWD_ID - this cleanup is there
         as a failsafe to ensure that devices will be disconnected when some test fails and assert with disconnection
@@ -133,7 +133,7 @@ public class GnmiConnectionITTest extends GnmiITBase {
     }
 
     @Test
-    public void connectDeviceCorrectlyTest()
+    void connectDeviceCorrectlyTest()
             throws InterruptedException, IOException, ExecutionException, TimeoutException, JSONException {
         //assert existing and empty gnmi topology
         final HttpResponse<String> getGnmiTopologyResponse = sendGetRequestJSON(GNMI_TOPOLOGY_PATH);
@@ -171,7 +171,7 @@ public class GnmiConnectionITTest extends GnmiITBase {
     }
 
     @Test
-    public void connectDeviceWithForceCapabilityAndModelTest()
+    void connectDeviceWithForceCapabilityAndModelTest()
             throws InterruptedException, IOException, ExecutionException, TimeoutException, JSONException {
         final HttpResponse<String> getGnmiTopologyResponse = sendGetRequestJSON(GNMI_TOPOLOGY_PATH);
         assertEquals(HttpURLConnection.HTTP_OK, getGnmiTopologyResponse.statusCode());
@@ -208,7 +208,7 @@ public class GnmiConnectionITTest extends GnmiITBase {
     }
 
     @Test
-    public void connectDeviceWithForceCapabilityWithNotImportedYangModelTest()
+    void connectDeviceWithForceCapabilityWithNotImportedYangModelTest()
             throws InterruptedException, IOException, ExecutionException, TimeoutException, JSONException {
         final HttpResponse<String> getGnmiTopologyResponse = sendGetRequestJSON(GNMI_TOPOLOGY_PATH);
         assertEquals(HttpURLConnection.HTTP_OK, getGnmiTopologyResponse.statusCode());
@@ -252,7 +252,7 @@ public class GnmiConnectionITTest extends GnmiITBase {
     }
 
     @Test
-    public void connectDeviceIncorrectlyTest()
+    void connectDeviceIncorrectlyTest()
             throws InterruptedException, IOException, ExecutionException, TimeoutException, JSONException {
         //assert existing and empty gnmi topology
         final HttpResponse<String> getGnmiTopologyResponse = sendGetRequestJSON(GNMI_TOPOLOGY_PATH);
@@ -289,7 +289,7 @@ public class GnmiConnectionITTest extends GnmiITBase {
     }
 
     @Test
-    public void disconnectDeviceTest() throws InterruptedException, IOException {
+    void disconnectDeviceTest() throws InterruptedException, IOException {
         assertTrue(connectDevice(GNMI_NODE_ID, DEVICE_IP, DEVICE_PORT));
 
         final HttpResponse<String> deleteGnmiDeviceResponse = sendDeleteRequestJSON(GNMI_NODE_PATH);
@@ -309,7 +309,7 @@ public class GnmiConnectionITTest extends GnmiITBase {
     }
 
     @Test
-    public void reconnectDeviceWithRequestsMultipleTimesTest()
+    void reconnectDeviceWithRequestsMultipleTimesTest()
         throws IOException, InterruptedException, ExecutionException, TimeoutException {
         final int maxReconnections = 5;
         for (int i = 0; i < maxReconnections; i++) {
@@ -338,7 +338,7 @@ public class GnmiConnectionITTest extends GnmiITBase {
     }
 
     @Test
-    public void reconnectIncorrectlyConnectedDeviceTest()
+    void reconnectIncorrectlyConnectedDeviceTest()
             throws IOException, InterruptedException, ExecutionException, TimeoutException, JSONException {
         //assert existing and empty gnmi topology
         final HttpResponse<String> getGnmiTopologyResponse = sendGetRequestJSON(GNMI_TOPOLOGY_PATH);
@@ -387,7 +387,7 @@ public class GnmiConnectionITTest extends GnmiITBase {
     }
 
     @Test
-    public void connectDeviceWithIncorrectCredentialsTest()
+    void connectDeviceWithIncorrectCredentialsTest()
             throws IOException, InterruptedException, ExecutionException, TimeoutException, JSONException {
         //assert existing and empty gnmi topology
         final HttpResponse<String> getGnmiTopologyResponse = sendGetRequestJSON(GNMI_TOPOLOGY_PATH);
@@ -418,7 +418,7 @@ public class GnmiConnectionITTest extends GnmiITBase {
     }
 
     @Test
-    public void connectDeviceWithMissingEncodingTest()
+    void connectDeviceWithMissingEncodingTest()
             throws IOException, InterruptedException, ExecutionException, TimeoutException, JSONException {
         //assert existing and empty gnmi topology
         final HttpResponse<String> getGnmiTopologyResponse = sendGetRequestJSON(GNMI_TOPOLOGY_PATH);
@@ -450,8 +450,12 @@ public class GnmiConnectionITTest extends GnmiITBase {
         awaitNodeStateDeleted(GNMI_NODE_MISSING_ENCODING_ID);
     }
 
+    /**
+     * Verifies that after a connected device is stopped and restarted, the node status transitions
+     * away from READY and then back to READY again, instead of getting stuck in TRANSIENT_FAILURE.
+     */
     @Test
-    public void deviceReconnectionUpdatesStatusToReadyTest() throws Exception {
+    void deviceReconnectionUpdatesStatusToReadyTest() throws Exception {
         // Use a dedicated device/port instead of the shared class-wide "device": if start() below throws
         // after stop() succeeded, only this test is affected, not every other test in this class that
         // relies on "device" being up.
