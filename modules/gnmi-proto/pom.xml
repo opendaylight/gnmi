@@ -44,6 +44,15 @@
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-protobuf-lite</artifactId>
+            <exclusions>
+                <!-- protobuf-javalite is a strict subset of protobuf-java and must not be mixed
+                     with it: both jars provide the "com.google.protobuf" package, which turns
+                     the gnmi-proto OSGi bundle into a broken split-package. -->
+                <exclusion>
+                    <groupId>com.google.protobuf</groupId>
+                    <artifactId>protobuf-javalite</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>io.grpc</groupId>
