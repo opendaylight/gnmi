@@ -43,6 +43,17 @@
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-protobuf-lite</artifactId>
+            <exclusions>
+                <!-- protobuf-javalite is a strict subset of protobuf-java and must not be mixed
+                     with it: both jars provide the "com.google.protobuf" package, which turns
+                     the gnmi-proto OSGi bundle into a broken split-package (and, together with
+                     the com.google.protobuf.GoGoProtos class generated below, makes the bundle
+                     both export and import "com.google.protobuf", which OSGi cannot wire). -->
+                <exclusion>
+                    <groupId>com.google.protobuf</groupId>
+                    <artifactId>protobuf-javalite</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>io.grpc</groupId>
@@ -85,6 +96,25 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <configuration>
+                    <instructions>
+                        <!-- gnmi-proto generates com.google.protobuf.GoGoProtos (gogoproto extensions
+                             are registered under the same java_package as protobuf-java itself, and
+                             gnoi.sonic.SonicGnoi genuinely calls into it), so this bundle unavoidably
+                             contributes to the "com.google.protobuf" package. Do not also
+                             auto-generate an Import-Package for it: a bundle cannot both export and
+                             import the same package, and doing so left "com.google.protobuf"
+                             unresolvable at runtime (NoClassDefFoundError: com/google/protobuf/Message).
+                             Merge our one extra class into the real protobuf-java content instead of
+                             letting OSGi try to wire it externally. -->
+                        <Import-Package>!com.google.protobuf,*</Import-Package>
+                        <_split-package>merge-first</_split-package>
+                    </instructions>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
