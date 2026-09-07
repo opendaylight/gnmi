@@ -12,7 +12,6 @@
         <feature version="[1,2)">odl-ietf-model-rfc7224</feature>
         <feature version="[10,11)">odl-netconf-topology</feature>
         <feature version="[10,11)">odl-restconf</feature>
-        <bundle>mvn:com.google.protobuf/protobuf-java/3.25.9</bundle>
         <bundle>wrap:mvn:com.google.protobuf/protobuf-java-util/3.25.9$overwrite=merge&amp;Import-Package=com.google.common.*;version="[32.0,34.0)",*</bundle>
         <bundle>wrap:mvn:io.grpc/grpc-stub/1.83.1$overwrite=merge&amp;Bundle-SymbolicName=io.grpc.grpc-stub</bundle>
         <bundle>wrap:mvn:io.grpc/grpc-protobuf/1.83.1$overwrite=merge&amp;Bundle-SymbolicName=io.grpc.grpc-protobuf</bundle>

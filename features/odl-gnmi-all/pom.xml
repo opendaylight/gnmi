@@ -77,6 +77,16 @@
                     <artifactId>protobuf-java-util</artifactId>
                 </exclusion>
                 <exclusion>
+                    <!-- gnmi-proto already merges/exports the full com.google.protobuf package
+                         itself (see modules/gnmi-proto/pom.xml); a second, separately-declared
+                         protobuf-java bundle here makes OSGi unable to consistently wire that
+                         package everywhere it's used. Without this exclusion, the karaf-maven-plugin
+                         re-adds protobuf-java as its own bundle from this module's transitive
+                         dependency tree even if it's removed from feature.xml directly. -->
+                    <groupId>com.google.protobuf</groupId>
+                    <artifactId>protobuf-java</artifactId>
+                </exclusion>
+                <exclusion>
                     <groupId>io.grpc</groupId>
                     <artifactId>grpc-core</artifactId>
                 </exclusion>
