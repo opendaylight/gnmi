@@ -33,6 +33,23 @@
       "message": "move it down..",
       "revId": "089d4d5e8627804604bf256cff7a6c4389711b46",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78f87145_3b988ec6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-09-07T08:54:26Z",
+      "side": 1,
+      "message": "Does not work, connecting to device fails with:\n\nopendaylight-user@root\u003eUncaught error from thread [opendaylight-cluster-data-notification-dispatcher-37]: com/google/protobuf/Message, shutting down JVM since \u0027pekko.jvm-exit-on-fatal-error\u0027 is enabled for ActorSystem[opendaylight-cluster-data]\njava.lang.NoClassDefFoundError: com/google/protobuf/Message\n        at org.opendaylight.gnmi.connector.gnmi.session.impl.GnmiSessionImpl.\u003cinit\u003e(GnmiSessionImpl.java:42)\n        at org.opendaylight.gnmi.connector.gnmi.session.impl.GnmiSessionFactoryImpl.createGnmiSession(GnmiSessionFactoryImpl.java:48)\n        at org.opendaylight.gnmi.connector.gnmi.session.impl.GnmiSessionFactoryImpl.createGnmiSession(GnmiSessionFactoryImpl.java:34)\n        at org.opendaylight.gnmi.connector.session.SessionManagerImpl.createSession(SessionManagerImpl.java:74)\n        at org.opendaylight.gnmi.southbound.device.connection.DeviceConnectionInitializer.initConnection(DeviceConnectionInitializer.java:72)\n        at org.opendaylight.gnmi.southbound.device.connection.DeviceConnectionManager.connectDevice(DeviceConnectionManager.java:97)\n        at org.opendaylight.gnmi.southbound.listener.GnmiNodeListener.connectNode(GnmiNodeListener.java:101)\n        at org.opendaylight.gnmi.southbound.listener.GnmiNodeListener.onDataTreeChanged(GnmiNodeListener.java:72)\n        at org.opendaylight.mdsal.binding.dom.adapter.BindingDOMDataTreeChangeListenerAdapter.onDataTreeChanged(BindingDOMDataTreeChangeListenerAdapter.java:56)\n        at org.opendaylight.controller.cluster.datastore.DataTreeChangeListenerActor.dataTreeChanged(DataTreeChangeListenerActor.java:97)\n        at org.opendaylight.controller.cluster.datastore.DataTreeChangeListenerActor.handleReceive(DataTreeChangeListenerActor.java:55)\n        at org.apache.pekko.japi.pf.UnitCaseStatement.apply(CaseStatements.scala:37)\n        at org.apache.pekko.japi.pf.UnitCaseStatement.apply(CaseStatements.scala:37)\n        at scala.PartialFunction.applyOrElse(PartialFunction.scala:225)\n        at scala.PartialFunction.applyOrElse$(PartialFunction.scala:224)\n        at org.apache.pekko.japi.pf.UnitCaseStatement.applyOrElse(CaseStatements.scala:33)\n        at scala.PartialFunction$OrElse.applyOrElse(PartialFunction.scala:280)\n        at scala.PartialFunction$OrElse.applyOrElse(PartialFunction.scala:281)\n        at org.apache.pekko.actor.Actor.aroundReceive(Actor.scala:547)\n        at org.apache.pekko.actor.Actor.aroundReceive$(Actor.scala:481)\n        at org.apache.pekko.actor.AbstractActor.aroundReceive(AbstractActor.scala:229)\n        at org.apache.pekko.actor.ActorCell.receiveMessage(ActorCell.scala:590)\n        at org.apache.pekko.actor.ActorCell.invoke(ActorCell.scala:557)\n        at org.apache.pekko.dispatch.Mailbox.processMailbox(Mailbox.scala:273)\n        at org.apache.pekko.dispatch.Mailbox.run(Mailbox.scala:234)\n        at org.apache.pekko.dispatch.Mailbox.exec(Mailbox.scala:246)\n        at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:387)\n        at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1312)\n        at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1843)\n        at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1808)\n        at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:188)\nCaused by: java.lang.ClassNotFoundException: com.google.protobuf.Message cannot be found by org.opendaylight.gnmi.proto_4.0.0.SNAPSHOT\n        at org.eclipse.osgi.internal.loader.BundleLoader.generateException(BundleLoader.java:541)\n        at org.eclipse.osgi.internal.loader.BundleLoader.findClass0(BundleLoader.java:487)\n        at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:416)\n        at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:168)\n        at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)\n        ... 31 more",
+      "revId": "089d4d5e8627804604bf256cff7a6c4389711b46",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
