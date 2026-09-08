@@ -86,6 +86,24 @@
       "parentUuid": "5a491d38_758f9f9c",
       "revId": "e186ca2fa47f9869b6c160a6b82aef1f4872579f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "505d2631_913f97f6",
+        "filename": "features/odl-gnmi-all/src/main/feature/feature.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-09-08T11:01:20Z",
+      "side": 1,
+      "message": "Removed as well as other redundant bundles",
+      "parentUuid": "dcb8807a_571796eb",
+      "revId": "e186ca2fa47f9869b6c160a6b82aef1f4872579f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
