@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9c539166_ffb4d361",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-09-08T10:40:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eba07671_061d82c5",
+      "revId": "e186ca2fa47f9869b6c160a6b82aef1f4872579f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "2828077e_7631af47",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -48,6 +66,24 @@
       "writtenOn": "2026-09-08T08:40:21Z",
       "side": 1,
       "message": "caw we remove this as well?",
+      "revId": "e186ca2fa47f9869b6c160a6b82aef1f4872579f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcb8807a_571796eb",
+        "filename": "features/odl-gnmi-all/src/main/feature/feature.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-09-08T10:40:25Z",
+      "side": 1,
+      "message": "The underlying bug is old, not new. I checked out the commit immediately before a5877c31 (protobuf 3.25.8, grpc 1.75.0) and built gnmi-proto there. The exact same problem exists in that manifest:                                                                                                          \n                                                                                                                                                                                                                                                                                                               \n  [WARNING] Split package, multiple jars provide the same package: com/google/protobuf                                                                                                                                                                                                                         \n  Package found in [Jar:., Jar:protobuf-java, Jar:protobuf-javalite]  \n\nit was already broken by design. The fix removes the ambiguity outright (single unambiguous provider of com.google.protobuf) instead of relying on the resolver to keep guessing right.\n\nDone.",
+      "parentUuid": "5a491d38_758f9f9c",
       "revId": "e186ca2fa47f9869b6c160a6b82aef1f4872579f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
