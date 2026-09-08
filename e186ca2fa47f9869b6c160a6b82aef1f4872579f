@@ -33,6 +33,23 @@
       "message": "Is this based on https://git.opendaylight.org/gerrit/c/gnmi/+/125785?",
       "revId": "e186ca2fa47f9869b6c160a6b82aef1f4872579f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a491d38_758f9f9c",
+        "filename": "features/odl-gnmi-all/src/main/feature/feature.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-09-08T08:40:21Z",
+      "side": 1,
+      "message": "caw we remove this as well?",
+      "revId": "e186ca2fa47f9869b6c160a6b82aef1f4872579f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
