@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b2520f4_eac6c55a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-09-08T11:44:53Z",
+      "side": 1,
+      "message": "Done in new patch",
+      "parentUuid": "7a8875ff_9c47d973",
+      "revId": "94d1956100ac4e6b6221ab620b65bf2e23780b43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9d57bd4_ba28ead9",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-09-04T14:10:13Z",
       "side": 1,
       "message": "add method\u0027s javadoc",
+      "revId": "94d1956100ac4e6b6221ab620b65bf2e23780b43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e47debc_61ec88eb",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-09-08T11:44:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9d57bd4_ba28ead9",
       "revId": "94d1956100ac4e6b6221ab620b65bf2e23780b43",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -52,6 +88,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "47560c99_df07ede9",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-09-08T11:44:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4bb9537e_f4ff1029",
+      "revId": "94d1956100ac4e6b6221ab620b65bf2e23780b43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ec9df5a_df54c053",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-09-04T14:10:13Z",
       "side": 1,
       "message": "IMO we do not need such logging in test - do we have sufficient logging in production code?",
+      "revId": "94d1956100ac4e6b6221ab620b65bf2e23780b43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "075cce98_8b25f782",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-09-08T11:44:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ec9df5a_df54c053",
       "revId": "94d1956100ac4e6b6221ab620b65bf2e23780b43",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -86,6 +158,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "517150b6_252bf127",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-09-08T11:44:53Z",
+      "side": 1,
+      "message": "these five helper methods (awaitNodeStatus, awaitMountpointCreated, etc.) all call sendGetRequestJSON, which is an instance method on GnmiITBase (its httpClient is built per-test in an instance @BeforeEach). Making the helpers static won\u0027t compile without also making GnmiITBase\u0027s HTTP-request methods static — a change to a shared base class used by other IT tests, which is outside this file/comment\u0027s scope. Flag if you\u0027d want that broader change done separately.",
+      "parentUuid": "47698133_15040b31",
+      "revId": "94d1956100ac4e6b6221ab620b65bf2e23780b43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f60de79_0b5d8ac9",
@@ -103,6 +193,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b52f398d_1df7e8e1",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-09-08T11:44:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f60de79_0b5d8ac9",
+      "revId": "94d1956100ac4e6b6221ab620b65bf2e23780b43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83b90186_88722c05",
@@ -116,6 +224,24 @@
       "writtenOn": "2026-09-04T14:10:13Z",
       "side": 1,
       "message": "final var and static?",
+      "revId": "94d1956100ac4e6b6221ab620b65bf2e23780b43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e6375e5_029a0160",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-09-08T11:44:53Z",
+      "side": 1,
+      "message": "these five helper methods (awaitNodeStatus, awaitMountpointCreated, etc.) all call sendGetRequestJSON, which is an instance method on GnmiITBase (its httpClient is built per-test in an instance @BeforeEach). Making the helpers static won\u0027t compile without also making GnmiITBase\u0027s HTTP-request methods static — a change to a shared base class used by other IT tests, which is outside this file/comment\u0027s scope. Flag if you\u0027d want that broader change done separately.",
+      "parentUuid": "83b90186_88722c05",
       "revId": "94d1956100ac4e6b6221ab620b65bf2e23780b43",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
