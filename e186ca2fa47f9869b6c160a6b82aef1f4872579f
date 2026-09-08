@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "eba07671_061d82c5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-09-08T08:38:13Z",
+      "side": 1,
+      "message": "Signed-off-by: Ivan Hrasko \u003civan.hrasko@pantheon.tech\u003e",
+      "revId": "e186ca2fa47f9869b6c160a6b82aef1f4872579f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2828077e_7631af47",
