@@ -33,6 +33,24 @@
       "message": "that\u0027s for separate patch",
       "revId": "5db6fa8e3ed0642c29270b87c2396df8ec4d1dae",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffc1217c_d25c10d0",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-09-08T12:43:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "76535fe9_0882762f",
+      "revId": "5db6fa8e3ed0642c29270b87c2396df8ec4d1dae",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
