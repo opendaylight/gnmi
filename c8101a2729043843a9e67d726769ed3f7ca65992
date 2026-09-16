@@ -24,6 +24,30 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fab6c76_4449fbf3",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/ConnectionResourcesCloser.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-09-16T09:48:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "152e6b81_b504cd43",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "c8101a2729043843a9e67d726769ed3f7ca65992",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "17637425_33d3bbe0",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-09-16T09:45:19Z",
       "side": 1,
       "message": "var",
+      "range": {
+        "startLine": 34,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 16
+      },
+      "revId": "c8101a2729043843a9e67d726769ed3f7ca65992",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35270178_5088ed1b",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/ConnectionResourcesCloser.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-09-16T09:48:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17637425_33d3bbe0",
       "range": {
         "startLine": 34,
         "startChar": 8,
