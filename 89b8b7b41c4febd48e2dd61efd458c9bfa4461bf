@@ -22,6 +22,30 @@
       },
       "revId": "89b8b7b41c4febd48e2dd61efd458c9bfa4461bf",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a82d0e8f_8847a0e9",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnection.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-09-16T09:40:48Z",
+      "side": 1,
+      "message": "should be all closed now",
+      "parentUuid": "b07e2346_99a91ff6",
+      "range": {
+        "startLine": 84,
+        "startChar": 12,
+        "endLine": 84,
+        "endChar": 47
+      },
+      "revId": "89b8b7b41c4febd48e2dd61efd458c9bfa4461bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
