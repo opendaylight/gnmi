@@ -20,11 +20,15 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.gnm
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NodeId;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node;
 import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Holds gNMI session of one connected gNMI device.
  */
 public class DeviceConnection implements GnmiSessionProvider, SchemaContextProvider, AutoCloseable {
+
+    private static final Logger LOG = LoggerFactory.getLogger(DeviceConnection.class);
 
     private final SessionProvider sessionProvider;
     private final GnmiConnectionStatusListener connectionStatusListener;
@@ -69,8 +73,7 @@ public class DeviceConnection implements GnmiSessionProvider, SchemaContextProvi
 
     @Override
     public void close() throws Exception {
-        sessionProvider.close();
-        connectionStatusListener.close();
+        ConnectionResourcesCloser.close(LOG, getIdentifier(), connectionStatusListener, sessionProvider);
     }
 
     public NodeId getIdentifier() {
