@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef90641b_445792d8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-09-18T10:19:57Z",
+      "side": 1,
+      "message": "can we avoid too much horizontal scrolling?\n\nwhat about:\n\n```\nBumps the actions-deps group with 2 updates:\n- [actions/setup-java](https://github.com/actions/setup-java)\n- [lfreleng-actions/security-workflows/.github/workflows/sonarqube-cloud.yaml](https://github.com/lfreleng-actions/security-workflows).\n```",
+      "revId": "97d16dc8d1163710d4ccf7db6d5f65bd2145620a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b11b445_60206693",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-09-18T10:19:57Z",
+      "side": 1,
+      "message": "can we group it to the bottom?",
+      "revId": "97d16dc8d1163710d4ccf7db6d5f65bd2145620a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
