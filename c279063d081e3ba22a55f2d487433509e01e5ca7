@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee6e18c6_c9b09745",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-09-18T11:12:41Z",
+      "side": 1,
+      "message": "var?",
+      "range": {
+        "startLine": 509,
+        "startChar": 22,
+        "endLine": 509,
+        "endChar": 29
+      },
+      "revId": "c279063d081e3ba22a55f2d487433509e01e5ca7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
