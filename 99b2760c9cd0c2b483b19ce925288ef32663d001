@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c832d55e_73d7b252",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2026-09-23T10:01:00Z",
+      "side": 1,
+      "message": "is this true?",
+      "range": {
+        "startLine": 40,
+        "startChar": 31,
+        "endLine": 41,
+        "endChar": 8
+      },
+      "revId": "99b2760c9cd0c2b483b19ce925288ef32663d001",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "d9f36265_5ebda559",
@@ -14,6 +37,23 @@
       "writtenOn": "2026-09-17T10:11:24Z",
       "side": 1,
       "message": "recheck",
+      "revId": "99b2760c9cd0c2b483b19ce925288ef32663d001",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0b44816_c5322d07",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionInitializer.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2026-09-23T10:01:00Z",
+      "side": 1,
+      "message": "don\u0027t see any explanation there",
       "revId": "99b2760c9cd0c2b483b19ce925288ef32663d001",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
