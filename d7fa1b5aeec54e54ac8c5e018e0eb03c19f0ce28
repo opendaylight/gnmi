@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53a521fc_74c0e6d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2026-09-23T09:34:12Z",
+      "side": 1,
+      "message": "pls double check indents in all commits",
+      "revId": "d7fa1b5aeec54e54ac8c5e018e0eb03c19f0ce28",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b13a44d1_37ea9b36",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/device/connection/DeviceReconnectionStatusTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2026-09-23T09:34:12Z",
+      "side": 1,
+      "message": "why volatile?",
+      "range": {
+        "startLine": 77,
+        "startChar": 12,
+        "endLine": 77,
+        "endChar": 21
+      },
+      "revId": "d7fa1b5aeec54e54ac8c5e018e0eb03c19f0ce28",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d3f771d_e7e63eb1",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/device/connection/DeviceReconnectionStatusTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2026-09-23T09:34:12Z",
+      "side": 1,
+      "message": "var",
+      "revId": "d7fa1b5aeec54e54ac8c5e018e0eb03c19f0ce28",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
