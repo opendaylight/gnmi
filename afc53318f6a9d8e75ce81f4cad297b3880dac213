@@ -16,6 +16,40 @@
       "message": "recheck",
       "revId": "afc53318f6a9d8e75ce81f4cad297b3880dac213",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4fca3fa_7919def3",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2026-09-23T09:46:41Z",
+      "side": 1,
+      "message": "isn\u0027t this true for other tests?\nmaybe use afterEach?",
+      "revId": "afc53318f6a9d8e75ce81f4cad297b3880dac213",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12119419_78321755",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2026-09-23T09:46:41Z",
+      "side": 1,
+      "message": "Imo redundant logging disconnectDevice()\nlogs should be enough",
+      "revId": "afc53318f6a9d8e75ce81f4cad297b3880dac213",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
