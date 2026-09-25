@@ -11,7 +11,7 @@
       "tags": [],
       "examples": [],
       "request": {
-        "url": "http://localhost:8181/rests/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-device-1/yang-ext:mount/openconfig-system:system/aaa/authentication",
+        "url": "http://localhost:8182/restconf/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-device-1/yang-ext:mount/openconfig-system:system/aaa/authentication",
         "method": "PUT",
         "headers": [],
         "params": [],
@@ -44,7 +44,7 @@
       "tags": [],
       "examples": [],
       "request": {
-        "url": "http://localhost:8181/rests/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-device-1",
+        "url": "http://localhost:8182/restconf/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-device-1",
         "method": "PUT",
         "headers": [],
         "params": [],
@@ -81,7 +81,7 @@
       "tags": [],
       "examples": [],
       "request": {
-        "url": "http://127.0.0.1:8181/rests/operations/gnmi-certificate-storage:add-keystore-certificate",
+        "url": "http://127.0.0.1:8182/restconf/operations/gnmi-certificate-storage:add-keystore-certificate",
         "method": "POST",
         "headers": [],
         "params": [],
@@ -115,7 +115,7 @@
       "tags": [],
       "examples": [],
       "request": {
-        "url": "http://localhost:8181/rests/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-device-1/yang-ext:mount/openconfig-system:system/aaa/authentication/config",
+        "url": "http://localhost:8182/restconf/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-device-1/yang-ext:mount/openconfig-system:system/aaa/authentication/config",
         "method": "PATCH",
         "headers": [],
         "params": [],
@@ -149,7 +149,7 @@
       "tags": [],
       "examples": [],
       "request": {
-        "url": "http://localhost:8181/rests/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-device-1/yang-ext:mount/openconfig-system:system/aaa/authentication/config",
+        "url": "http://localhost:8182/restconf/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-device-1/yang-ext:mount/openconfig-system:system/aaa/authentication/config",
         "method": "DELETE",
         "headers": [],
         "params": [],
