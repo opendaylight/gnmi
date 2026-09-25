@@ -16,6 +16,24 @@
       "message": "Better is: Assisted-by when using AI tools.",
       "revId": "444ce7d2d02903e315e21aacf9b9c60988a8250f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a57c4342_fe284ea0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-09-25T13:24:51Z",
+      "side": 1,
+      "message": "also, would be better if added just before Signed-off-by, tx 😊",
+      "parentUuid": "8a1ffb29_d00adbbc",
+      "revId": "444ce7d2d02903e315e21aacf9b9c60988a8250f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
