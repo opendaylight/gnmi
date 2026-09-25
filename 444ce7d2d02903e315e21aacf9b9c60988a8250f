@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a1ffb29_d00adbbc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-09-25T13:24:13Z",
+      "side": 1,
+      "message": "Better is: Assisted-by when using AI tools.",
+      "revId": "444ce7d2d02903e315e21aacf9b9c60988a8250f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
