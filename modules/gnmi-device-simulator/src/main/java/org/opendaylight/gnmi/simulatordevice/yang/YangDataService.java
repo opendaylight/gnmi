@@ -17,18 +17,22 @@ import java.nio.file.Path;
 import java.util.EnumMap;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
 import org.apache.commons.lang3.StringUtils;
 import org.opendaylight.gnmi.commons.util.DataConverter;
-import org.opendaylight.mdsal.common.api.LogicalDatastoreType;
 import org.opendaylight.mdsal.dom.api.DOMDataTreeChangeListener;
+import org.opendaylight.mdsal.dom.api.DOMSchemaService;
+import org.opendaylight.mdsal.dom.spi.FixedDOMSchemaService;
 import org.opendaylight.mdsal.dom.spi.store.DOMStoreReadTransaction;
 import org.opendaylight.mdsal.dom.spi.store.DOMStoreReadWriteTransaction;
 import org.opendaylight.mdsal.dom.spi.store.DOMStoreThreePhaseCommitCohort;
-import org.opendaylight.mdsal.dom.store.inmemory.InMemoryDOMDataStore;
-import org.opendaylight.yangtools.util.concurrent.SpecialExecutors;
+import org.opendaylight.mdsal.dom.store.inmemory.InMemoryDOMStore;
+import org.opendaylight.mdsal.dom.store.inmemory.InMemoryDOMStoreConfigProperties;
+import org.opendaylight.mdsal.dom.store.inmemory.InMemoryDOMStoreFactory;
+import org.opendaylight.mdsal.dom.store.inmemory.dagger.InMemoryDOMStoreFactoryModule;
 import org.opendaylight.yangtools.yang.data.api.YangInstanceIdentifier;
 import org.opendaylight.yangtools.yang.data.api.schema.NormalizedNode;
+import org.opendaylight.yangtools.yang.data.tree.api.DataTreeConfiguration;
+import org.opendaylight.yangtools.yang.data.tree.dagger.ReferenceDataTreeFactoryModule;
 import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
 import org.opendaylight.yangtools.yang.model.api.SchemaContext;
 import org.slf4j.Logger;
@@ -38,7 +42,7 @@ import org.slf4j.LoggerFactory;
 public class YangDataService {
     private static final Logger LOG = LoggerFactory.getLogger(YangDataService.class);
 
-    private final EnumMap<DatastoreType, InMemoryDOMDataStore> datastoreMap;
+    private final EnumMap<DatastoreType, InMemoryDOMStore> datastoreMap;
 
     public YangDataService(final EffectiveModelContext schemaContext, final String initialConfigDataPath,
                            final String initialStateDataPath) throws IOException {
@@ -143,31 +147,25 @@ public class YangDataService {
         datastoreMap.get(datastoreType).registerTreeChangeListener(identifier, listener);
     }
 
-    private EnumMap<DatastoreType, InMemoryDOMDataStore> createDatastoreMap(EffectiveModelContext schemaContext) {
-        final InMemoryDOMDataStore configStore = new InMemoryDOMDataStore(DatastoreType.CONFIGURATION.getName(),
-                LogicalDatastoreType.CONFIGURATION, createExecutorService(DatastoreType.CONFIGURATION.getName()),
-                20, false);
-        configStore.onModelContextUpdated(schemaContext);
+    private EnumMap<DatastoreType, InMemoryDOMStore> createDatastoreMap(EffectiveModelContext schemaContext) {
+        final InMemoryDOMStoreFactory storeFactory = InMemoryDOMStoreFactoryModule.provideInMemoryDOMStoreFactory(
+                ReferenceDataTreeFactoryModule.provideDataTreeFactory());
+        final DOMSchemaService schemaService = new FixedDOMSchemaService(schemaContext);
+        final InMemoryDOMStoreConfigProperties properties = InMemoryDOMStoreConfigProperties.builder()
+                .maxDataChangeExecutorPoolSize(20)
+                .maxDataChangeExecutorQueueSize(20)
+                .maxDataChangeListenerQueueSize(20)
+                .debugTransactions(false)
+                .build();
 
-        final InMemoryDOMDataStore operStore = new InMemoryDOMDataStore(DatastoreType.OPERATIONAL.getName(),
-                LogicalDatastoreType.OPERATIONAL, createExecutorService(DatastoreType.OPERATIONAL.getName()),
-                20, false);
-        operStore.onModelContextUpdated(schemaContext);
-
-        final InMemoryDOMDataStore stateStore = new InMemoryDOMDataStore(DatastoreType.STATE.getName(),
-                LogicalDatastoreType.OPERATIONAL, createExecutorService(DatastoreType.STATE.getName()),
-                20, false);
-        stateStore.onModelContextUpdated(schemaContext);
-
-        final EnumMap<DatastoreType, InMemoryDOMDataStore> dataStoreTypeMap = new EnumMap<>(DatastoreType.class);
-        dataStoreTypeMap.put(DatastoreType.CONFIGURATION, configStore);
-        dataStoreTypeMap.put(DatastoreType.OPERATIONAL, operStore);
-        dataStoreTypeMap.put(DatastoreType.STATE, stateStore);
+        final EnumMap<DatastoreType, InMemoryDOMStore> dataStoreTypeMap = new EnumMap<>(DatastoreType.class);
+        dataStoreTypeMap.put(DatastoreType.CONFIGURATION, storeFactory.create(DatastoreType.CONFIGURATION.getName(),
+                DataTreeConfiguration.DEFAULT_CONFIGURATION, properties, schemaService));
+        dataStoreTypeMap.put(DatastoreType.OPERATIONAL, storeFactory.create(DatastoreType.OPERATIONAL.getName(),
+                DataTreeConfiguration.DEFAULT_OPERATIONAL, properties, schemaService));
+        dataStoreTypeMap.put(DatastoreType.STATE, storeFactory.create(DatastoreType.STATE.getName(),
+                DataTreeConfiguration.DEFAULT_OPERATIONAL, properties, schemaService));
         return dataStoreTypeMap;
-    }
-
-    private ExecutorService createExecutorService(final String name) {
-        return SpecialExecutors.newBlockingBoundedFastThreadPool(20, 20, name + "-DCL", InMemoryDOMDataStore.class);
     }
 
     private enum ModificationType {
