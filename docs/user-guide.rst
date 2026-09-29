@@ -97,7 +97,7 @@ request ``'Add Keystore'``.
 
 .. code-block:: bash
 
-   curl --request POST 'http://127.0.0.1:8181/rests/operations/gnmi-certificate-storage:add-keystore-certificate' \
+   curl --request POST 'http://127.0.0.1:8182/restconf/operations/gnmi-certificate-storage:add-keystore-certificate' \
    -u admin:admin \
    --header 'Content-Type: application/json' \
    --data-raw "{
@@ -117,7 +117,7 @@ Simulated gNMI device can be connected with ``'Connect device'`` request.
 
 .. code-block:: bash
 
-   curl --request PUT 'http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-simulator' \
+   curl --request PUT 'http://127.0.0.1:8182/restconf/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-simulator' \
    -u admin:admin \
    --header 'Content-Type: application/json' \
    --data-raw '{
@@ -149,7 +149,7 @@ in the response.
 
 .. code-block:: bash
 
-   curl --request GET 'http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-simulator?content=nonconfig' \
+   curl --request GET 'http://127.0.0.1:8182/restconf/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-simulator?content=nonconfig' \
    -u admin:admin
 
 Read configuration from device
@@ -160,7 +160,7 @@ information:
 
 .. code-block:: bash
 
-   curl --request GET 'http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-simulator/yang-ext:mount/openconfig-system:system/aaa/authentication' \
+   curl --request GET 'http://127.0.0.1:8182/restconf/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-simulator/yang-ext:mount/openconfig-system:system/aaa/authentication' \
    -u admin:admin
 
 Write configuration to device
@@ -170,7 +170,7 @@ To write authentication information the PUT request ``'Put Authentication config
 
 .. code-block:: bash
 
-   curl --request PUT 'http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-simulator/yang-ext:mount/openconfig-system:system/aaa/authentication' \
+   curl --request PUT 'http://127.0.0.1:8182/restconf/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-simulator/yang-ext:mount/openconfig-system:system/aaa/authentication' \
    -u admin:admin \
    --header 'Content-Type: application/json' \
    --data-raw '{
@@ -190,7 +190,7 @@ CONFIG'`` request is located in postman collection.
 
 .. code-block:: bash
 
-   curl --request GET 'http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-simulator/yang-ext:mount/openconfig-system:system/aaa/authentication?content=config' \
+   curl --request GET 'http://127.0.0.1:8182/restconf/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-simulator/yang-ext:mount/openconfig-system:system/aaa/authentication?content=config' \
    -u admin:admin
 
 To view actual running configuration of device, it is required to sent request with ``?content=nonconfig``
@@ -199,7 +199,7 @@ parameter at the end of the URL or execute request from postman collection
 
 .. code-block:: bash
 
-   curl --request GET 'http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-simulator/yang-ext:mount/openconfig-system:system/aaa/authentication?content=nonconfig' \
+   curl --request GET 'http://127.0.0.1:8182/restconf/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-simulator/yang-ext:mount/openconfig-system:system/aaa/authentication?content=nonconfig' \
    -u admin:admin
 
 Update configuration on device
@@ -210,7 +210,7 @@ config authentication-method.
 
 .. code-block:: bash
 
-   curl --request PATCH 'http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-simulator/yang-ext:mount/openconfig-system:system/aaa/authentication/config' \
+   curl --request PATCH 'http://127.0.0.1:8182/restconf/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-simulator/yang-ext:mount/openconfig-system:system/aaa/authentication/config' \
    -u admin:admin \
    --header 'Content-Type: application/json' \
    --data-raw '{
@@ -225,7 +225,7 @@ To validate request send GET request ``'Get Authentication from CONFIG'``.
 
 .. code-block:: bash
 
-   curl --request GET 'http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-simulator/yang-ext:mount/openconfig-system:system/aaa/authentication?content=config' \
+   curl --request GET 'http://127.0.0.1:8182/restconf/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-simulator/yang-ext:mount/openconfig-system:system/aaa/authentication?content=config' \
    -u admin:admin
 
 Delete configuration from device
@@ -235,14 +235,14 @@ For deleting ``config`` container send request ``'Delete authentication config'`
 
 .. code-block:: bash
 
-   curl --location --request DELETE 'http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-simulator/yang-ext:mount/openconfig-system:system/aaa/authentication/config' \
+   curl --location --request DELETE 'http://127.0.0.1:8182/restconf/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-simulator/yang-ext:mount/openconfig-system:system/aaa/authentication/config' \
    -u admin:admin
 
 To validate request send GET request ``'Get Authentication from CONFIG'``.
 
 .. code-block:: bash
 
-   curl --request GET 'http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-simulator/yang-ext:mount/openconfig-system:system/aaa/authentication?content=config' \
+   curl --request GET 'http://127.0.0.1:8182/restconf/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-simulator/yang-ext:mount/openconfig-system:system/aaa/authentication?content=config' \
    -u admin:admin
 
 Disconnect the device from controller
@@ -252,7 +252,7 @@ When is required restart of connection or removal of device, just send request `
 
 .. code-block:: bash
 
-   curl --request DELETE 'http://127.0.0.1:8181/rests/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-simulator' \
+   curl --request DELETE 'http://127.0.0.1:8182/restconf/data/network-topology:network-topology/topology=gnmi-topology/node=gnmi-simulator' \
    -u admin:admin
 
 For restarting connection it is required to send request ``'Connect device'``.
