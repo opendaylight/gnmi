@@ -379,7 +379,7 @@ public class GnmiCrudService {
         final var dataSchemaNode = nodeAndStack.node().dataSchemaNode();
         var resultDataSchemaType = ((TypedDataSchemaNode) dataSchemaNode).typeDefinition();
         if (resultDataSchemaType instanceof LeafrefTypeDefinition leafRefType) {
-            final var leafRefPathOrig = leafRefType.getPathStatement().getOriginalString();
+            final var leafRefPathOrig = leafRefType.getPathStatement().originalString();
             final var leafRefPathList = Arrays.stream(leafRefPathOrig.split("/")).filter(s -> !s.isEmpty()).toList();
             final var stack = nodeAndStack.stack();
             for (final var path : leafRefPathList) {
