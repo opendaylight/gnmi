@@ -63,7 +63,7 @@ public class GnmiCapabilitiesService {
     }
 
     private static Optional<SemVer> getSemVer(final Module module) {
-        final var declared = module.asEffectiveStatement().getDeclared();
+        final var declared = module.asEffectiveStatement().declared();
         if (declared == null) {
             return Optional.empty();
         }
