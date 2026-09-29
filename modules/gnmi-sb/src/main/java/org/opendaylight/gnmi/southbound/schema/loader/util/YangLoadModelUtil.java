@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
 public class YangLoadModelUtil {
 
     private static final Logger LOG = LoggerFactory.getLogger(YangLoadModelUtil.class);
-    private static final String OPENCONFIG_VERSION = OpenConfigVersionStatement.DEF.getStatementName().getLocalName();
+    private static final String OPENCONFIG_VERSION = OpenConfigVersionStatement.DEF.statementName().getLocalName();
     private final Revision modelRevision;
     private final SemVer modelSemVer;
     private final String modelBody;
