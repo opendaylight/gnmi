@@ -69,8 +69,8 @@ public class GnmiCapabilitiesService {
         }
 
         return declared.declaredSubstatements(UnrecognizedStatementImpl.class).stream()
-                .filter(t -> OpenConfigVersionStatement.DEF.getStatementName()
-                        .equals(t.statementDefinition().getStatementName().withoutRevision()))
+                .filter(t -> OpenConfigVersionStatement.DEF.statementName()
+                        .equals(t.statementDefinition().statementName().withoutRevision()))
                 .findFirst()
                 .map(stmt -> SemVer.valueOf(stmt.argument().toString()));
     }
