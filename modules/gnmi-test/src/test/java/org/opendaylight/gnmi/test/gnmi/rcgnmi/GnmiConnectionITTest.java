@@ -197,7 +197,7 @@ public class GnmiConnectionITTest extends GnmiITBase {
         final JSONObject gnmiTopologyJSON = topologies.getJSONObject(0);
         assertEquals("gnmi-topology", gnmiTopologyJSON.getString("topology-id"));
         assertThrows(JSONException.class, () -> gnmiTopologyJSON.getJSONArray("node"),
-            String.format("Gnmi-topology is not empty: {}", gnmiTopologyJSON));
+            "Gnmi-topology is not empty: %s".formatted(gnmiTopologyJSON));
 
         // add gNMI node to topology
         final String newDevicePayload =
@@ -234,7 +234,7 @@ public class GnmiConnectionITTest extends GnmiITBase {
         final JSONObject gnmiTopologyJSON = topologies.getJSONObject(0);
         assertEquals("gnmi-topology", gnmiTopologyJSON.getString("topology-id"));
         assertThrows(JSONException.class, () -> gnmiTopologyJSON.getJSONArray("node"),
-            String.format("Gnmi-topology is not empty: {}", gnmiTopologyJSON));
+            "Gnmi-topology is not empty: %s".formatted(gnmiTopologyJSON));
 
         final String modelName = "not-imported-model-name";
         final String nodeState = "gnmi-topology:node-state";
