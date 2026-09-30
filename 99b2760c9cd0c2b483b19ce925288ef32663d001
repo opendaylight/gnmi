@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "88d4e762_bae1c4bb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-09-30T10:49:19Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "c832d55e_73d7b252",
+      "range": {
+        "startLine": 40,
+        "startChar": 31,
+        "endLine": 41,
+        "endChar": 8
+      },
+      "revId": "99b2760c9cd0c2b483b19ce925288ef32663d001",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d9f36265_5ebda559",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 20
@@ -54,6 +78,24 @@
       "writtenOn": "2026-09-23T10:01:00Z",
       "side": 1,
       "message": "don\u0027t see any explanation there",
+      "revId": "99b2760c9cd0c2b483b19ce925288ef32663d001",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdc2ddda_e12965f5",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionInitializer.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-09-30T10:49:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0b44816_c5322d07",
       "revId": "99b2760c9cd0c2b483b19ce925288ef32663d001",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
