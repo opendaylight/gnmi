@@ -16,6 +16,24 @@
       "message": "this seem to be done in previous patch not here",
       "revId": "993c919575a7f4f53a73c5fb01368e238f10385d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb316f6d_3e84729e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-09-30T10:51:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08fb2155_2809946d",
+      "revId": "993c919575a7f4f53a73c5fb01368e238f10385d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
