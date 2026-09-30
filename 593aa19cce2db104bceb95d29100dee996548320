@@ -24,6 +24,30 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d93147dd_28308a36",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-09-30T12:36:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "512bea10_ffc07266",
+      "range": {
+        "startLine": 200,
+        "startChar": 45,
+        "endLine": 200,
+        "endChar": 54
+      },
+      "revId": "593aa19cce2db104bceb95d29100dee996548320",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7faac1b9_dec619aa",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-09-30T12:29:08Z",
       "side": 1,
       "message": "same here %s",
+      "range": {
+        "startLine": 237,
+        "startChar": 45,
+        "endLine": 237,
+        "endChar": 54
+      },
+      "revId": "593aa19cce2db104bceb95d29100dee996548320",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1005e31b_3fd9808b",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-09-30T12:36:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7faac1b9_dec619aa",
       "range": {
         "startLine": 237,
         "startChar": 45,
