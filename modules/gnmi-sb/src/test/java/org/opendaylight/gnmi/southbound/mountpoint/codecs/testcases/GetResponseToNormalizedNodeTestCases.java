@@ -7,7 +7,6 @@
  */
 package org.opendaylight.gnmi.southbound.mountpoint.codecs.testcases;
 
-import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -42,6 +41,7 @@ public class GetResponseToNormalizedNodeTestCases extends CodecTestCasesBase {
 
     /**
      * Returns test case for root schema element.
+     *
      * @return test case ((inputs to codec), expected output).
      */
     public Map.Entry<ImmutablePair<YangInstanceIdentifier, Gnmi.GetResponse>,
@@ -59,11 +59,12 @@ public class GetResponseToNormalizedNodeTestCases extends CodecTestCasesBase {
                 .build();
 
         final ImmutablePair<YangInstanceIdentifier,NormalizedNode> testCase = super.rootElementTestCase();
-        return Maps.immutableEntry(ImmutablePair.of(testCase.left, getResponse), testCase.right);
+        return Map.entry(ImmutablePair.of(testCase.left, getResponse), testCase.right);
     }
 
     /**
      * Returns test case for top schema element (openconfig-interfaces:interfaces).
+     *
      * @param oneLevelDeeperThanRequest should the gnmi.GetResponse json value which the tested codec parses be rooted
      *                                  one level deeper than YangInstanceIdentifier/Gnmi.Path points to?
      *                                  (codec should be able to deal with that case also, since it is the case with
@@ -97,11 +98,12 @@ public class GetResponseToNormalizedNodeTestCases extends CodecTestCasesBase {
                 .build();
 
         final ImmutablePair<YangInstanceIdentifier,NormalizedNode> testCase = super.topElementCase();
-        return Maps.immutableEntry(ImmutablePair.of(testCase.left, getResponse), testCase.right);
+        return Map.entry(ImmutablePair.of(testCase.left, getResponse), testCase.right);
     }
 
     /**
      * Returns test case for list entry (openconfig-interfaces:interfaces/interface=eth3).
+     *
      * @param oneLevelDeeperThanRequest should the gnmi.GetResponse json value which the tested codec parses be rooted
      *                                    one level deeper than YangInstanceIdentifier/Gnmi.Path points to?
      *                                    (codec should be able to deal with that case also, since it is the case with
@@ -129,7 +131,7 @@ public class GetResponseToNormalizedNodeTestCases extends CodecTestCasesBase {
             final JsonObject wrapped = new JsonObject();
             final JsonArray array = new JsonArray();
             array.add(jsonInterfaceEth3);
-            wrapped.add(String.format("%s:%s", OC_INTERFACES_ID, "interface"), array);
+            wrapped.add("%s:%s".formatted(OC_INTERFACES_ID, "interface"), array);
             jsonInterfaceEth3 = wrapped;
         }
 
@@ -143,11 +145,12 @@ public class GetResponseToNormalizedNodeTestCases extends CodecTestCasesBase {
                 .build();
 
         final ImmutablePair<YangInstanceIdentifier,NormalizedNode> testCase = super.listEntryCase(true);
-        return Maps.immutableEntry(ImmutablePair.of(testCase.left, getResponse), testCase.right);
+        return Map.entry(ImmutablePair.of(testCase.left, getResponse), testCase.right);
     }
 
     /**
      * Returns test case for simple container (openconfig-interfaces:interfaces/interface=eth3/config).
+     *
      * @param oneLevelDeeperThanRequest should the gnmi.GetResponse json value which the tested codec parses be rooted
      *                                    one level deeper than YangInstanceIdentifier/Gnmi.Path points to?
      *                                    (codec should be able to deal with that case also, since it is the case with
@@ -190,11 +193,12 @@ public class GetResponseToNormalizedNodeTestCases extends CodecTestCasesBase {
                 .build();
 
         final ImmutablePair<YangInstanceIdentifier,NormalizedNode> testCase = super.containerCase();
-        return Maps.immutableEntry(ImmutablePair.of(testCase.left, getResponse), testCase.right);
+        return Map.entry(ImmutablePair.of(testCase.left, getResponse), testCase.right);
     }
 
     /**
      * Returns test case for augmented container (openconfig-interfaces:interfaces/interface=br0/ethernet/config).
+     *
      * @param oneLevelDeeperThanRequest should the gnmi.GetResponse json value which the tested codec parses be rooted
      *                                    one level deeper than YangInstanceIdentifier/Gnmi.Path points to?
      *                                    (codec should be able to deal with that case also, since it is the case with
@@ -240,11 +244,12 @@ public class GetResponseToNormalizedNodeTestCases extends CodecTestCasesBase {
                 .build();
 
         final ImmutablePair<YangInstanceIdentifier,NormalizedNode> testCase = super.containerAugmentedCase();
-        return Maps.immutableEntry(ImmutablePair.of(testCase.left, getResponse), testCase.right);
+        return Map.entry(ImmutablePair.of(testCase.left, getResponse), testCase.right);
     }
 
     /**
      * Returns test case for number leaf (openconfig-interfaces:interfaces/interface=eth3/config/mtu).
+     *
      * @param deeperThanRequested if the GetResponse value should be simple type (UintVal) or formatted as json
      *                            "{mtu:1500}".
      *                            (codec should handle both cases).
@@ -290,11 +295,12 @@ public class GetResponseToNormalizedNodeTestCases extends CodecTestCasesBase {
                 .build();
 
         final ImmutablePair<YangInstanceIdentifier,NormalizedNode> testCase = super.leafNumberCase();
-        return Maps.immutableEntry(ImmutablePair.of(testCase.left, getResponse), testCase.right);
+        return Map.entry(ImmutablePair.of(testCase.left, getResponse), testCase.right);
     }
 
     /**
      * Returns test case for string leaf (openconfig-interfaces:interfaces/interface=eth3/config/name).
+     *
      * @param deeperThanRequested if the GetResponse value should be simple type (StringVal) or formatted as json
      *                            "{name:"admin"}".
      *                            (codec should handle both cases).
@@ -340,11 +346,12 @@ public class GetResponseToNormalizedNodeTestCases extends CodecTestCasesBase {
                 .build();
 
         final ImmutablePair<YangInstanceIdentifier,NormalizedNode> testCase = super.leafStringCase();
-        return Maps.immutableEntry(ImmutablePair.of(testCase.left, getResponse), testCase.right);
+        return Map.entry(ImmutablePair.of(testCase.left, getResponse), testCase.right);
     }
 
     /**
      * Returns test case for boolean leaf (openconfig-interfaces:interfaces/interface=eth3/config/loopback-mode).
+     *
      * @param deeperThanRequested if the GetResponse value should be simple type (BoolVal) or formatted as json
      *                            "{loopback-mode:false}".
      *                            (codec should handle both cases).
@@ -390,13 +397,14 @@ public class GetResponseToNormalizedNodeTestCases extends CodecTestCasesBase {
                 .build();
 
         final ImmutablePair<YangInstanceIdentifier,NormalizedNode> testCase = super.leafBooleanCase();
-        return Maps.immutableEntry(ImmutablePair.of(testCase.left, getResponse), testCase.right);
+        return Map.entry(ImmutablePair.of(testCase.left, getResponse), testCase.right);
 
     }
 
     /**
      * Returns test case for augmented leaf (openconfig-interfaces:interfaces/interface=br0/
      *  openconfig-ethernet:ethernet/config/openconfig-if-aggregate:aggregate-id).
+     *
      * @param deeperThanRequested if the GetResponse value should be simple type (StringVal) or formatted as json
      *                            "{aggregate-id:"admin"}".
      *                            (codec should handle both cases).
@@ -446,7 +454,7 @@ public class GetResponseToNormalizedNodeTestCases extends CodecTestCasesBase {
                 .build();
 
         final ImmutablePair<YangInstanceIdentifier,NormalizedNode> testCase = super.leafAgumentedCase();
-        return Maps.immutableEntry(ImmutablePair.of(testCase.left, getResponse), testCase.right);
+        return Map.entry(ImmutablePair.of(testCase.left, getResponse), testCase.right);
 
     }
 

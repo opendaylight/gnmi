@@ -75,12 +75,12 @@ public class KeystoreGnmiSecurityProvider implements GnmiSecurityProvider {
                     .get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
         } catch (ExecutionException | TimeoutException e) {
             throw new SessionSecurityException(
-                    String.format("Unable to read keystore [%s] certificates from operational datastore",
+                    "Unable to read keystore [%s] certificates from operational datastore".formatted(
                             keystoreId), e);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new SessionSecurityException(
-                    String.format("Interrupted while reading keystore [%s] certificates from operational datastore",
+                    "Interrupted while reading keystore [%s] certificates from operational datastore".formatted(
                             keystoreId), e);
         }
         if (optionalKeystore.isPresent()) {
@@ -88,7 +88,7 @@ public class KeystoreGnmiSecurityProvider implements GnmiSecurityProvider {
             return getSecurityWithCertificates(optionalKeystore.orElseThrow());
         }
         throw new SessionSecurityException(
-                String.format("Certificate with id [%s] is not found in datastore ", keystoreId));
+                "Certificate with id [%s] is not found in datastore ".formatted(keystoreId));
     }
 
     private Security getSecurityWithCertificates(final Keystore keystore) throws SessionSecurityException {

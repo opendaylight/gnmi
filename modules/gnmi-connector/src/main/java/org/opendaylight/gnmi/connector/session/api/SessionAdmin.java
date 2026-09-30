@@ -18,12 +18,14 @@ public interface SessionAdmin {
 
     /**
      *  Creates unmodifiable copy from channelCache.
+     *
      *  @return channelCache Map
      */
     Map<SessionConfiguration, ManagedChannel> getChannelCache();
 
     /**
      *  Creates unmodifiable copy from openSessionsCounter.
+     *
      *  @return openSessionsCounter Map
      */
     Map<SessionConfiguration, Integer> getOpenSessionsCounter();

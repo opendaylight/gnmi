@@ -7,7 +7,6 @@
  */
 package org.opendaylight.gnmi.southbound.mountpoint.codecs.testcases;
 
-import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -40,6 +39,7 @@ public class YangInstanceNormToGnmiUpdateTestCases extends CodecTestCasesBase {
 
     /**
      * Returns test case for top schema element (openconfig-interfaces:interfaces).
+     *
      * @return test case ((inputs to codec), expected output).
      */
     public Map.Entry<ImmutablePair<YangInstanceIdentifier, NormalizedNode>, Gnmi.Update> topElementTestCase() {
@@ -56,11 +56,12 @@ public class YangInstanceNormToGnmiUpdateTestCases extends CodecTestCasesBase {
                 .setVal(Gnmi.TypedValue.newBuilder()
                 .setJsonIetfVal(ByteString.copyFromUtf8(GSON.toJson(jsonInterfaces)))).build();
 
-        return Maps.immutableEntry(super.topElementCase(),expectedUpdate);
+        return Map.entry(super.topElementCase(),expectedUpdate);
     }
 
     /**
      * Returns test case for list entry (openconfig-interfaces:interfaces/interface=eth3).
+     *
      * @return test case ((inputs to codec), expected output).
      */
     public Map.Entry<ImmutablePair<YangInstanceIdentifier, NormalizedNode>, Gnmi.Update> listEntryTestCase() {
@@ -82,11 +83,12 @@ public class YangInstanceNormToGnmiUpdateTestCases extends CodecTestCasesBase {
                 .setVal(Gnmi.TypedValue.newBuilder()
                         .setJsonIetfVal(ByteString.copyFromUtf8(GSON.toJson(jsonInterfaceEth3)))).build();
 
-        return Maps.immutableEntry(super.listEntryCase(false),expectedUpdate);
+        return Map.entry(super.listEntryCase(false),expectedUpdate);
     }
 
     /**
      * Returns test case for simple container (openconfig-interfaces:interfaces/interface=eth3/config).
+     *
      * @return test case ((inputs to codec), expected output).
      */
     public Map.Entry<ImmutablePair<YangInstanceIdentifier, NormalizedNode>, Gnmi.Update> containerTestCase() {
@@ -112,11 +114,12 @@ public class YangInstanceNormToGnmiUpdateTestCases extends CodecTestCasesBase {
                         .setJsonIetfVal(ByteString.copyFromUtf8(GSON.toJson(jsonInterfaceEthConfig))))
                 .build();
 
-        return Maps.immutableEntry(super.containerCase(),expectedUpdate);
+        return Map.entry(super.containerCase(),expectedUpdate);
     }
 
     /**
      * Returns test case for augmented container (openconfig-interfaces:interfaces/interface=br0/ethernet/config).
+     *
      * @return test case ((inputs to codec), expected output).
      */
     public Map.Entry<ImmutablePair<YangInstanceIdentifier, NormalizedNode>, Gnmi.Update> augmentedContainerCase() {
@@ -146,11 +149,12 @@ public class YangInstanceNormToGnmiUpdateTestCases extends CodecTestCasesBase {
                         .setJsonIetfVal(ByteString.copyFromUtf8(GSON.toJson(jsonInterfaceEthConfig))))
                 .build();
 
-        return Maps.immutableEntry(super.containerAugmentedCase(),expectedUpdate);
+        return Map.entry(super.containerAugmentedCase(),expectedUpdate);
     }
 
     /**
      * Returns test case for number leaf (openconfig-interfaces:interfaces/interface=eth3/config/mtu).
+     *
      * @return test case ((inputs to codec), expected output).
      */
     public Map.Entry<ImmutablePair<YangInstanceIdentifier, NormalizedNode>, Gnmi.Update> leafNumberTestCase() {
@@ -178,11 +182,12 @@ public class YangInstanceNormToGnmiUpdateTestCases extends CodecTestCasesBase {
                         .setIntVal(jsonMtu.getAsInt()))
                 .build();
 
-        return Maps.immutableEntry(super.leafNumberCase(), expectedUpdate);
+        return Map.entry(super.leafNumberCase(), expectedUpdate);
     }
 
     /**
      * Returns test case for string leaf (openconfig-interfaces:interfaces/interface=eth3/config/name).
+     *
      * @return test case ((inputs to codec), expected output).
      */
     public Map.Entry<ImmutablePair<YangInstanceIdentifier, NormalizedNode>, Gnmi.Update> leafStringTestCase() {
@@ -210,11 +215,12 @@ public class YangInstanceNormToGnmiUpdateTestCases extends CodecTestCasesBase {
                         .setStringVal(jsonConfigName.getAsString()))
                 .build();
 
-        return Maps.immutableEntry(super.leafStringCase(), expectedUpdate);
+        return Map.entry(super.leafStringCase(), expectedUpdate);
     }
 
     /**
      * Returns test case for boolean leaf (openconfig-interfaces:interfaces/interface=eth3/config/loopback-mode).
+     *
      * @return test case ((inputs to codec), expected output).
      */
     public Map.Entry<ImmutablePair<YangInstanceIdentifier, NormalizedNode>, Gnmi.Update> leafBooleanTestCase() {
@@ -242,13 +248,14 @@ public class YangInstanceNormToGnmiUpdateTestCases extends CodecTestCasesBase {
                         .setBoolVal(jsonLoopbackMode.getAsBoolean()))
                 .build();
 
-        return Maps.immutableEntry(super.leafBooleanCase(), expectedUpdate);
+        return Map.entry(super.leafBooleanCase(), expectedUpdate);
 
     }
 
     /**
      * Returns test case for augmented leaf (openconfig-interfaces:interfaces/interface=br0/ethernet/config/
      *  aggregate-id).
+     *
      * @return test case ((inputs to codec), expected output).
      */
     public Map.Entry<ImmutablePair<YangInstanceIdentifier, NormalizedNode>, Gnmi.Update> leafAugmentedTestCase() {
@@ -279,7 +286,7 @@ public class YangInstanceNormToGnmiUpdateTestCases extends CodecTestCasesBase {
                         .setStringVal(jsonAggregateId.getAsString()))
                 .build();
 
-        return Maps.immutableEntry(super.leafAgumentedCase(), expectedUpdate);
+        return Map.entry(super.leafAgumentedCase(), expectedUpdate);
 
     }
 }

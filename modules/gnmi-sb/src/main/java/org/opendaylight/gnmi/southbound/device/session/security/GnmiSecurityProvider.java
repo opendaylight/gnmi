@@ -18,6 +18,7 @@ public interface GnmiSecurityProvider {
      * For example if gnmiNode contains path to certificates, load them from that path
      * <br>
      * If user specified ID of certificates which he uploaded via RPC before, load them.
+     *
      * @param gnmiNode node for which we are creating Security
      * @return security instance
      * @throws SessionSecurityException if something went wrong while creating Security (e.g no certificates found..)

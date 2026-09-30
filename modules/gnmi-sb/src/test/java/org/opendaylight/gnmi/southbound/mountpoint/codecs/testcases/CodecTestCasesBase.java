@@ -353,6 +353,6 @@ public class CodecTestCasesBase {
     }
 
     protected static String makePrefixString(String moduleIdentifier, String element) {
-        return String.format("%s:%s", moduleIdentifier, element);
+        return "%s:%s".formatted(moduleIdentifier, element);
     }
 }

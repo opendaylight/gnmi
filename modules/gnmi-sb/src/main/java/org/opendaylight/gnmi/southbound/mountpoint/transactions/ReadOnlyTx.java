@@ -44,9 +44,9 @@ public class ReadOnlyTx implements DOMDataTreeReadTransaction {
                 return FluentFuture.from(getProvider.readConfigurationData(path));
             default:
                 LOG.warn("[{}] Read {} on unknown datastore type {}", nodeId, path, store);
-                throw new UnsupportedOperationException(String.format(
-                        "[%s] Can't read data on path %s from datastore %s, datastore type is unknown!", nodeId, path,
-                        store));
+                throw new UnsupportedOperationException(
+                        "[%s] Can't read data on path %s from datastore %s, datastore type is unknown!".formatted(
+                            nodeId, path, store));
         }
     }
 
