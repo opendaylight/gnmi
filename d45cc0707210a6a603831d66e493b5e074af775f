@@ -22,6 +22,30 @@
       },
       "revId": "d45cc0707210a6a603831d66e493b5e074af775f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84832d68_159de036",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/session/listener/GnmiConnectionStatusListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-09-30T10:16:00Z",
+      "side": 1,
+      "message": "Resolved, also in:\n  - GnmiNodeListener.java:121 and :125                                                                                                                                                                                                                                                                                                                                                                                           \n  - GnmiSetRequestFactoryImpl.java:69                                                                                                                                                                                                                                                                                                                                                                                            \n  - YangInstanceNormToGnmiUpdateCodec.java:134                                                                                                                                                                                                                                                                                                                                                                                   \n  - EffectiveModelContextBuilder.java:139",
+      "parentUuid": "aa054440_f2d20209",
+      "range": {
+        "startLine": 78,
+        "startChar": 33,
+        "endLine": 78,
+        "endChar": 34
+      },
+      "revId": "d45cc0707210a6a603831d66e493b5e074af775f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
