@@ -95,7 +95,7 @@ public class SchemaConstructTest {
             Assertions.assertTrue(model.getVersion().getValue().isEmpty()
                     || model.getVersion().getValue().matches(SchemaConstants.REVISION_REGEX)
                     || model.getVersion().getValue().matches(SchemaConstants.SEMVER_REGEX),
-                    String.format("Model [%s] version value have wrong format [%s]", model.getName(),
+                    "Model [%s] version value have wrong format [%s]".formatted(model.getName(),
                             model.getVersion().getValue()));
         }
     }

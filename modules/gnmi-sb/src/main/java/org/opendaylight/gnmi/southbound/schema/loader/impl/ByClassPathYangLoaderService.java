@@ -74,10 +74,10 @@ public class ByClassPathYangLoaderService implements YangLoaderService {
             } catch (YangSyntaxErrorException | ExecutionException | TimeoutException | IOException
                     | SourceSyntaxException e) {
                 throw new YangLoadException(
-                    String.format("Loading YangModuleInfo [%s] failed!", yangModuleInfo.getName()), e);
+                    "Loading YangModuleInfo [%s] failed!".formatted(yangModuleInfo.getName()), e);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                throw new YangLoadException(String.format("Interrupted while loading YangModuleInfo [%s] failed!",
+                throw new YangLoadException("Interrupted while loading YangModuleInfo [%s] failed!".formatted(
                     yangModuleInfo.getName()), e);
             }
         }

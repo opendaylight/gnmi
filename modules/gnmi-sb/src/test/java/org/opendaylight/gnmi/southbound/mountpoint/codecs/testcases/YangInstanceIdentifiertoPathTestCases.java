@@ -7,7 +7,6 @@
  */
 package org.opendaylight.gnmi.southbound.mountpoint.codecs.testcases;
 
-import com.google.common.collect.Maps;
 import gnmi.Gnmi;
 import java.util.Map;
 import org.apache.logging.log4j.core.config.ConfigurationException;
@@ -36,13 +35,13 @@ public class YangInstanceIdentifiertoPathTestCases extends CodecTestCasesBase {
                 .addElem(Gnmi.PathElem.newBuilder()
                         .setName("mtu"))
                 .build();
-        return Maps.immutableEntry(super.leafNumberCase().left, path);
+        return Map.entry(super.leafNumberCase().left, path);
     }
 
     public Map.Entry<YangInstanceIdentifier, Gnmi.Path> rootElementCase() {
         final Gnmi.Path path = Gnmi.Path.newBuilder()
                 .build();
-        return Maps.immutableEntry(super.rootElementTestCase().left, path);
+        return Map.entry(super.rootElementTestCase().left, path);
     }
 
     public Map.Entry<YangInstanceIdentifier, Gnmi.Path> topElementTestCase(
@@ -55,7 +54,7 @@ public class YangInstanceIdentifiertoPathTestCases extends CodecTestCasesBase {
                                 : "interfaces")
                         .build())
                 .build();
-        return Maps.immutableEntry(super.topElementCase().left, path);
+        return Map.entry(super.topElementCase().left, path);
     }
 
     public Map.Entry<YangInstanceIdentifier, Gnmi.Path> listEntryTestCase(
@@ -69,7 +68,7 @@ public class YangInstanceIdentifiertoPathTestCases extends CodecTestCasesBase {
                         .setName("interface")
                         .putKey("name", "eth3"))
                 .build();
-        return Maps.immutableEntry(super.listEntryCase(false).left, path);
+        return Map.entry(super.listEntryCase(false).left, path);
     }
 
     public Map.Entry<YangInstanceIdentifier, Gnmi.Path> augmentedTestCase(
@@ -90,6 +89,6 @@ public class YangInstanceIdentifiertoPathTestCases extends CodecTestCasesBase {
                 .addElem(Gnmi.PathElem.newBuilder()
                         .setName("aggregate-id"))
                 .build();
-        return Maps.immutableEntry(super.leafAgumentedCase().left, path);
+        return Map.entry(super.leafAgumentedCase().left, path);
     }
 }

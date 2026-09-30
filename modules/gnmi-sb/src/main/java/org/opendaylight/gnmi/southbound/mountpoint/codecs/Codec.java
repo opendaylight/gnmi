@@ -9,6 +9,7 @@ package org.opendaylight.gnmi.southbound.mountpoint.codecs;
 
 /**
  * Codec which transform input to output.
+ *
  * @param <I> type of input
  * @param <O> output type
  */
