@@ -64,7 +64,7 @@ public final class GnmiSimulatorConfUtils {
             }
 
         } catch (final JsonProcessingException e) {
-            throw new RuntimeException(String.format("Cannot bind Json tree to type: %s",
+            throw new RuntimeException("Cannot bind Json tree to type: %s".formatted(
                 GnmiSimulatorConfiguration.class), e);
         }
         return gnmiSimulatorConfiguration;

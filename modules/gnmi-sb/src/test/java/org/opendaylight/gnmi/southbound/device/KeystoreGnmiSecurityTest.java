@@ -437,7 +437,7 @@ public class KeystoreGnmiSecurityTest {
             byte[] bytes = Files.readAllBytes(Path.of(SessionInitializeTest.class.getResource(path).toURI()));
             return new String(bytes);
         } catch (IOException | URISyntaxException e) {
-            throw new RuntimeException(String.format("Failed to read resources at path [%s]", path), e);
+            throw new RuntimeException("Failed to read resources at path [%s]".formatted(path), e);
         }
     }
 }

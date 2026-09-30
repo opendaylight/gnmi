@@ -118,12 +118,12 @@ public class GnmiNodeListener implements DataTreeChangeListener<Node> {
                     LOG.error("Connection of node {} failed", node.getNodeId(), throwable);
                     writeConnectionFailureReasonToDatastore(node.getNodeId(), throwable.toString());
                 } catch (TimeoutException | ExecutionException e) {
-                    throw new RuntimeException(String.format("Failed writing reason of connection failure of node "
-                            + "%s to datastore", node.getNodeId().getValue()), e);
+                    throw new RuntimeException("Failed writing reason of connection failure of node %s to datastore"
+                        .formatted(node.getNodeId().getValue()), e);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
-                    throw new RuntimeException(String.format("Interrupted while writing connection failure of node "
-                            + "%s to datastore", node.getNodeId().getValue()), e);
+                    throw new RuntimeException("Interrupted while writing connection failure of node %s to datastore"
+                        .formatted(node.getNodeId().getValue()), e);
                 }
             }
         }, executorService);

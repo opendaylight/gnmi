@@ -68,7 +68,7 @@ public class YangInstanceIdentifierToPathCodec implements Codec<YangInstanceIden
             final Optional<Module> firstElemModule = schemaContextProvider
                     .getSchemaContext().findModule(nodeType.getNamespace(), nodeType.getRevision());
             firstElemModule.ifPresent(module -> pathBuilder.setElem(0, firstElement.toBuilder()
-                    .setName(String.format("%s:%s", module.getName(), firstElement.getName()))));
+                    .setName("%s:%s".formatted(module.getName(), firstElement.getName()))));
         }
         final Gnmi.Path resultingPath = pathBuilder.build();
         LOG.debug("Resulting gNMI Path of identifier {} is {}", path, resultingPath);

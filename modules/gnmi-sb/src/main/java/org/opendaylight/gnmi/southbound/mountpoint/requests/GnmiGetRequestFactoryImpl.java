@@ -62,7 +62,7 @@ public class GnmiGetRequestFactoryImpl implements GnmiGetRequestFactory {
                     .setEncoding(Encoding.JSON_IETF)
                     .addPath(gnmiPath).build();
         } catch (GnmiCodecException e) {
-            throw new GnmiRequestException(String.format("Cannot convert YangInstanceIdentifier %s to gNMI.Path", path),
+            throw new GnmiRequestException("Cannot convert YangInstanceIdentifier %s to gNMI.Path".formatted(path),
                     e);
         }
     }

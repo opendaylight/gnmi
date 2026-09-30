@@ -21,6 +21,7 @@ public interface YangDataStoreService {
     /**
      * Adds a yang model so later it can be read and used for building schema context for device
      *  based on gNMI Capabilities.
+     *
      * @param modelName name of the module
      * @param modelVersion version of module (revision date format/semantic version/empty string if model is
      *                    not versioned)
@@ -32,6 +33,7 @@ public interface YangDataStoreService {
 
     /**
      * Tries to read yang model with specified version from datastore.
+     *
      * @param modelName name of the module
      * @param modelVersion version of module (revision date format/semantic format)
      * @return future optional yang model
@@ -41,6 +43,7 @@ public interface YangDataStoreService {
     /**
      * Tries to read yang model from datastore without independent of it's version.
      * Model is returned only if one version is present in the datastore.
+     *
      * @param modelName name of the module
      * @return future optional yang model
      */
