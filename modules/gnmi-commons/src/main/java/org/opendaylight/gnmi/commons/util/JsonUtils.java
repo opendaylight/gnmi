@@ -36,7 +36,7 @@ public final class JsonUtils {
             // InstanceIdentifier for identityref is stored as a QName, value should be in format MODULE:IDENTITY_NAME.
             if (keyValue instanceof QName qnameValue) {
                 final var module = context.findModule(qnameValue.getModule()).orElseThrow();
-                final var value = String.format("%s:%s", module.getName(), qnameValue.getLocalName());
+                final var value = "%s:%s".formatted(module.getName(), qnameValue.getLocalName());
                 innerJson.add(key.getKey().getLocalName(), gson.toJsonTree(value));
             // Custom ODL Number types are not correctly parsed by Gson.
             } else if (keyValue instanceof Number numberValue) {
@@ -81,7 +81,7 @@ public final class JsonUtils {
                 String topLevelModuleName = elem.getKey();
                 // Apply moduleName, if it is not already applied
                 if (!elem.getKey().contains(":")) {
-                    topLevelModuleName = String.format("%s:%s", moduleName, elem.getKey());
+                    topLevelModuleName = "%s:%s".formatted(moduleName, elem.getKey());
                 }
                 resultMapWithPrefix.put(topLevelModuleName, elem.getValue());
             } else {

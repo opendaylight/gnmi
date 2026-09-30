@@ -87,7 +87,7 @@ public class GnmiCertificatesTest extends GnmiITBase {
 
         //Get keystore data and validate output
         final HttpResponse<String> getResponse = sendGetRequestJSON(
-            String.format(GET_CERTIFICATE_PATH, CONTROLLER_PORT, id));
+            GET_CERTIFICATE_PATH.formatted(CONTROLLER_PORT, id));
         assertEquals(HttpURLConnection.HTTP_OK, getResponse.statusCode());
         final String body = getResponse.body();
         JSONObject jsonObject = new JSONObject(body)
@@ -105,7 +105,7 @@ public class GnmiCertificatesTest extends GnmiITBase {
         assertEquals(HttpURLConnection.HTTP_NO_CONTENT, removeResponse.statusCode());
 
         final HttpResponse<String> getRemovedCertResponse = sendGetRequestJSON(
-            String.format(GET_CERTIFICATE_PATH, CONTROLLER_PORT, id));
+            GET_CERTIFICATE_PATH.formatted(CONTROLLER_PORT, id));
         assertEquals(HttpURLConnection.HTTP_CONFLICT, getRemovedCertResponse.statusCode());
     }
 
@@ -119,7 +119,7 @@ public class GnmiCertificatesTest extends GnmiITBase {
 
         //Get keystore data and validate output
         final HttpResponse<String> getResponse = sendGetRequestJSON(
-            String.format(GET_CERTIFICATE_PATH, CONTROLLER_PORT, id));
+            GET_CERTIFICATE_PATH.formatted(CONTROLLER_PORT, id));
         assertEquals(HttpURLConnection.HTTP_CONFLICT, getResponse.statusCode());
     }
 
@@ -135,7 +135,7 @@ public class GnmiCertificatesTest extends GnmiITBase {
         //Register device
         final String mRegBody = getMountpointRegistrationBody(GNMI_NODE_ID, keystoreId);
         final HttpResponse<String> mRegResponse
-                = sendPutRequestJSON(String.format(CREATE_MOUNTPOINT_PATH, CONTROLLER_PORT, GNMI_NODE_ID), mRegBody);
+                = sendPutRequestJSON(CREATE_MOUNTPOINT_PATH.formatted(CONTROLLER_PORT, GNMI_NODE_ID), mRegBody);
         assertEquals(HttpURLConnection.HTTP_CREATED, mRegResponse.statusCode());
 
         //Verify that mountpoint is created
@@ -143,7 +143,7 @@ public class GnmiCertificatesTest extends GnmiITBase {
                 .pollInterval(POLL_INTERVAL_DURATION)
                 .untilAsserted(() -> {
                     HttpResponse<String> statusResponse
-                            = sendGetRequestJSON(String.format(MOUNTPOINT_STATUS_PATH, CONTROLLER_PORT, GNMI_NODE_ID));
+                            = sendGetRequestJSON(MOUNTPOINT_STATUS_PATH.formatted(CONTROLLER_PORT, GNMI_NODE_ID));
                     Assertions.assertEquals(HttpURLConnection.HTTP_OK, statusResponse.statusCode());
                     Assertions.assertEquals(NODE_STATUS_RESPONSE_READY, statusResponse.body());
                 });
@@ -153,7 +153,7 @@ public class GnmiCertificatesTest extends GnmiITBase {
                 .pollInterval(POLL_INTERVAL_DURATION)
                 .untilAsserted(() -> {
                     HttpResponse<String> tdGetResponse
-                            = sendGetRequestJSON(String.format(TEST_DATA_PATH, CONTROLLER_PORT, GNMI_NODE_ID));
+                            = sendGetRequestJSON(TEST_DATA_PATH.formatted(CONTROLLER_PORT, GNMI_NODE_ID));
                     Assertions.assertEquals(HttpURLConnection.HTTP_OK, tdGetResponse.statusCode());
                 });
     }
@@ -171,7 +171,7 @@ public class GnmiCertificatesTest extends GnmiITBase {
         //Register device
         final String mRegBody = getMountpointRegistrationBody(GNMI_NODE_ID, keystoreId);
         final HttpResponse<String> mRegResponse
-                = sendPutRequestJSON(String.format(CREATE_MOUNTPOINT_PATH, CONTROLLER_PORT, GNMI_NODE_ID), mRegBody);
+                = sendPutRequestJSON(CREATE_MOUNTPOINT_PATH.formatted(CONTROLLER_PORT, GNMI_NODE_ID), mRegBody);
         assertEquals(HttpURLConnection.HTTP_CREATED, mRegResponse.statusCode());
 
         //Verify that mountpoint is created
@@ -179,7 +179,7 @@ public class GnmiCertificatesTest extends GnmiITBase {
                 .pollInterval(POLL_INTERVAL_DURATION)
                 .untilAsserted(() -> {
                     HttpResponse<String> statusResponse
-                            = sendGetRequestJSON(String.format(MOUNTPOINT_STATUS_PATH, CONTROLLER_PORT, GNMI_NODE_ID));
+                            = sendGetRequestJSON(MOUNTPOINT_STATUS_PATH.formatted(CONTROLLER_PORT, GNMI_NODE_ID));
                     Assertions.assertEquals(HttpURLConnection.HTTP_OK, statusResponse.statusCode());
                     Assertions.assertEquals(NODE_STATUS_RESPONSE_READY, statusResponse.body());
                 });
@@ -189,7 +189,7 @@ public class GnmiCertificatesTest extends GnmiITBase {
                 .pollInterval(POLL_INTERVAL_DURATION)
                 .untilAsserted(() -> {
                     HttpResponse<String> tdGetResponse
-                            = sendGetRequestJSON(String.format(TEST_DATA_PATH, CONTROLLER_PORT, GNMI_NODE_ID));
+                            = sendGetRequestJSON(TEST_DATA_PATH.formatted(CONTROLLER_PORT, GNMI_NODE_ID));
                     Assertions.assertEquals(HttpURLConnection.HTTP_OK, tdGetResponse.statusCode());
                 });
     }
@@ -208,7 +208,7 @@ public class GnmiCertificatesTest extends GnmiITBase {
         //Register device
         final String mRegBody = getMountpointRegistrationBody(GNMI_NODE_ID, keystoreId);
         final HttpResponse<String> mRegResponse
-                = sendPutRequestJSON(String.format(CREATE_MOUNTPOINT_PATH, CONTROLLER_PORT, GNMI_NODE_ID), mRegBody);
+                = sendPutRequestJSON(CREATE_MOUNTPOINT_PATH.formatted(CONTROLLER_PORT, GNMI_NODE_ID), mRegBody);
         assertEquals(HttpURLConnection.HTTP_CREATED, mRegResponse.statusCode());
 
         //Verify that mountpoint can't reach device
@@ -216,7 +216,7 @@ public class GnmiCertificatesTest extends GnmiITBase {
                 .pollInterval(POLL_INTERVAL_DURATION)
                 .untilAsserted(() -> {
                     HttpResponse<String> statusResponse
-                            = sendGetRequestJSON(String.format(MOUNTPOINT_STATUS_PATH, CONTROLLER_PORT, GNMI_NODE_ID));
+                            = sendGetRequestJSON(MOUNTPOINT_STATUS_PATH.formatted(CONTROLLER_PORT, GNMI_NODE_ID));
                     Assertions.assertEquals(HttpURLConnection.HTTP_OK, statusResponse.statusCode());
                     Assertions.assertEquals(NODE_STATUS_TRANSIENT_FAIL, statusResponse.body());
                 });
@@ -226,7 +226,7 @@ public class GnmiCertificatesTest extends GnmiITBase {
                 .pollInterval(POLL_INTERVAL_DURATION)
                 .untilAsserted(() -> {
                     HttpResponse<String> tdGetResponse
-                            = sendGetRequestJSON(String.format(TEST_DATA_PATH, CONTROLLER_PORT, GNMI_NODE_ID));
+                            = sendGetRequestJSON(TEST_DATA_PATH.formatted(CONTROLLER_PORT, GNMI_NODE_ID));
                     Assertions.assertEquals(HttpURLConnection.HTTP_UNAVAILABLE, tdGetResponse.statusCode());
                     assertTrue(tdGetResponse.body().contains("Mount point") && tdGetResponse.body()
                             .contains("does not exist"));
@@ -242,8 +242,8 @@ public class GnmiCertificatesTest extends GnmiITBase {
 
         //Reload device with correct information
         final String mCorrectRegBody = getMountpointRegistrationBody(GNMI_NODE_ID, correctKeystoreId);
-        final HttpResponse<String> mCorrectResponse = sendPutRequestJSON(String.format(
-            CREATE_MOUNTPOINT_PATH, CONTROLLER_PORT, GNMI_NODE_ID), mCorrectRegBody);
+        final HttpResponse<String> mCorrectResponse = sendPutRequestJSON(
+            CREATE_MOUNTPOINT_PATH.formatted(CONTROLLER_PORT, GNMI_NODE_ID), mCorrectRegBody);
         assertEquals(HttpURLConnection.HTTP_NO_CONTENT, mCorrectResponse.statusCode());
 
         //Verify that mountpoint is created
@@ -251,7 +251,7 @@ public class GnmiCertificatesTest extends GnmiITBase {
                 .pollInterval(POLL_INTERVAL_DURATION)
                 .untilAsserted(() -> {
                     HttpResponse<String> statusResponse
-                            = sendGetRequestJSON(String.format(MOUNTPOINT_STATUS_PATH, CONTROLLER_PORT, GNMI_NODE_ID));
+                            = sendGetRequestJSON(MOUNTPOINT_STATUS_PATH.formatted(CONTROLLER_PORT, GNMI_NODE_ID));
                     Assertions.assertEquals(HttpURLConnection.HTTP_OK, statusResponse.statusCode());
                     Assertions.assertEquals(NODE_STATUS_RESPONSE_READY, statusResponse.body());
                 });
@@ -261,7 +261,7 @@ public class GnmiCertificatesTest extends GnmiITBase {
                 .pollInterval(POLL_INTERVAL_DURATION)
                 .untilAsserted(() -> {
                     HttpResponse<String> tdGetResponse
-                            = sendGetRequestJSON(String.format(TEST_DATA_PATH, CONTROLLER_PORT, GNMI_NODE_ID));
+                            = sendGetRequestJSON(TEST_DATA_PATH.formatted(CONTROLLER_PORT, GNMI_NODE_ID));
                     Assertions.assertEquals(HttpURLConnection.HTTP_OK, tdGetResponse.statusCode());
                 });
     }
@@ -279,7 +279,7 @@ public class GnmiCertificatesTest extends GnmiITBase {
         //Register device
         final String mRegBody = getMountpointRegistrationBody(GNMI_NODE_ID, keystoreId);
         final HttpResponse<String> mRegResponse
-                = sendPutRequestJSON(String.format(CREATE_MOUNTPOINT_PATH, CONTROLLER_PORT, GNMI_NODE_ID), mRegBody);
+                = sendPutRequestJSON(CREATE_MOUNTPOINT_PATH.formatted(CONTROLLER_PORT, GNMI_NODE_ID), mRegBody);
         assertEquals(HttpURLConnection.HTTP_CREATED, mRegResponse.statusCode());
 
         //Verify that mountpoint can't be created
@@ -287,7 +287,7 @@ public class GnmiCertificatesTest extends GnmiITBase {
                 .pollInterval(POLL_INTERVAL_DURATION)
                 .untilAsserted(() -> {
                     HttpResponse<String> statusResponse
-                            = sendGetRequestJSON(String.format(MOUNTPOINT_STATUS_PATH, CONTROLLER_PORT, GNMI_NODE_ID));
+                            = sendGetRequestJSON(MOUNTPOINT_STATUS_PATH.formatted(CONTROLLER_PORT, GNMI_NODE_ID));
                     assertEquals(HttpURLConnection.HTTP_OK, statusResponse.statusCode());
                     assertEquals(NODE_STATUS_FAIL, statusResponse.body());
                 });
@@ -297,7 +297,7 @@ public class GnmiCertificatesTest extends GnmiITBase {
                 .pollInterval(POLL_INTERVAL_DURATION)
                 .untilAsserted(() -> {
                     HttpResponse<String> tdGetResponse
-                            = sendGetRequestJSON(String.format(TEST_DATA_PATH, CONTROLLER_PORT, GNMI_NODE_ID));
+                            = sendGetRequestJSON(TEST_DATA_PATH.formatted(CONTROLLER_PORT, GNMI_NODE_ID));
                     assertEquals(HttpURLConnection.HTTP_UNAVAILABLE, tdGetResponse.statusCode());
                     assertTrue(tdGetResponse.body().contains("Mount point") && tdGetResponse.body()
                             .contains("does not exist"));
@@ -305,7 +305,7 @@ public class GnmiCertificatesTest extends GnmiITBase {
     }
 
     private String getMountpointRegistrationBody(final String nodeId, final String keystoreId) {
-        return String.format("{\n"
+        return ("{\n"
               + "    \"node\": [\n"
               + "        {\n"
               + "            \"node-id\": \"%s\",\n"
@@ -325,12 +325,12 @@ public class GnmiCertificatesTest extends GnmiITBase {
               + "            }"
               + "        }\n"
               + "    ]\n"
-              + "}", nodeId, DEVICE_IP, DEVICE_PORT, keystoreId, USERNAME, PASSWORD);
+              + "}").formatted(nodeId, DEVICE_IP, DEVICE_PORT, keystoreId, USERNAME, PASSWORD);
     }
 
     private String getCertificatesRequestBody(final String id, final String ca, final String key,
                                               final String passphrase, final String clientCert) {
-        return String.format("{\n"
+        return ("{\n"
                 + "    \"input\": {\n"
                 + "        \"keystore-id\": \"%s\",\n"
                 + "        \"ca-certificate\": \"%s\",\n"
@@ -338,15 +338,15 @@ public class GnmiCertificatesTest extends GnmiITBase {
                 + "        \"passphrase\": \"%s\",\n"
                 + "        \"client-cert\": \"%s\"\n"
                 + "    }\n"
-                + "}", id, ca, key, passphrase, clientCert);
+                + "}").formatted(id, ca, key, passphrase, clientCert);
     }
 
     private String getRemoveCertificateBody(final String keystoreId) {
-        return String.format("{\n"
+        return ("{\n"
                 + "    \"input\": {\n"
                 + "        \"keystore-id\": \"%s\"\n"
                 + "    }\n"
-                + "}", keystoreId);
+                + "}").formatted(keystoreId);
     }
 
     private static String getResource(final String path) {
@@ -354,7 +354,7 @@ public class GnmiCertificatesTest extends GnmiITBase {
             final byte[] bytes = Files.readAllBytes(Path.of(GnmiCertificatesTest.class.getResource(path).toURI()));
             return new String(bytes);
         } catch (IOException | URISyntaxException e) {
-            throw new RuntimeException(String.format("Failed to read resources at path [%s]", path), e);
+            throw new RuntimeException("Failed to read resources at path [%s]".formatted(path), e);
         }
     }
 

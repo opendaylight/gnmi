@@ -203,7 +203,7 @@ public class GnmiCrudService {
 
         if (!(identifier.getLastPathArgument() instanceof YangInstanceIdentifier.NodeIdentifierWithPredicates)) {
             json = JsonUtils.wrapJsonWithObject(update.getVal().getJsonIetfVal().toStringUtf8(),
-                    String.format("%s:%s",
+                    "%s:%s".formatted(
                             module.getName(),
                             Iterables.getLast(identifier.getPathArguments()).getNodeType().getLocalName()), gson);
             node = DataConverter.nodeFromJsonString(identifier, json, context);
@@ -211,7 +211,7 @@ public class GnmiCrudService {
             final NodeIdentifierWithPredicates lastPathArgument
                     = (NodeIdentifierWithPredicates) identifier.getLastPathArgument();
             json = JsonUtils.wrapJsonWithArray(update.getVal().getJsonIetfVal().toStringUtf8(),
-                    String.format("%s:%s",
+                    "%s:%s".formatted(
                             module.getName(),
                             Iterables.getLast(identifier.getPathArguments()).getNodeType().getLocalName()), gson,
                     lastPathArgument, context);
