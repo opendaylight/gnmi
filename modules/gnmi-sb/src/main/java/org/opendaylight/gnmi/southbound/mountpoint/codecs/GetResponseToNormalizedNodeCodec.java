@@ -88,9 +88,9 @@ public class GetResponseToNormalizedNodeCodec implements BiCodec<Gnmi.GetRespons
                     final Module moduleByQName =
                             DataConverter.findModuleByQName(lastName, schemaContextProvider.getSchemaContext())
                                     .orElseThrow(() -> new GnmiCodecException(
-                                            String.format("Unable to find module of node %s", lastName)));
+                                            "Unable to find module of node %s".formatted(lastName)));
 
-                    final String wrapWith = String.format("%s:%s", moduleByQName.getName(),
+                    final String wrapWith = "%s:%s".formatted(moduleByQName.getName(),
                             lastName.getLocalName());
                     if (identifier.getLastPathArgument() instanceof NodeIdentifierWithPredicates) {
                         final NodeIdentifierWithPredicates lastPathArgument
@@ -127,7 +127,7 @@ public class GetResponseToNormalizedNodeCodec implements BiCodec<Gnmi.GetRespons
                     identifier.getLastPathArgument().getNodeType().getLocalName(),
                     update.getVal().getBoolVal(), gson));
             default:
-                throw new GnmiCodecException(String.format("Unsupported response type %s of response %s",
+                throw new GnmiCodecException("Unsupported response type %s of response %s".formatted(
                     update.getVal().getValueCase(), update));
         }
     }
@@ -160,7 +160,7 @@ public class GetResponseToNormalizedNodeCodec implements BiCodec<Gnmi.GetRespons
             return DataConverter.nodeFromJsonString(identifier,inputJson,
                     schemaContextProvider.getSchemaContext());
         } catch (Exception e) {
-            throw new GnmiCodecException(String.format("Failed to deserialize json response %s",
+            throw new GnmiCodecException("Failed to deserialize json response %s".formatted(
                     inputJson), e);
         }
     }

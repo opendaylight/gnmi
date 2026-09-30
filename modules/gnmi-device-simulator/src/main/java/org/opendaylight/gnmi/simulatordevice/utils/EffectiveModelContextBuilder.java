@@ -119,7 +119,7 @@ public class EffectiveModelContextBuilder {
                     sanitizedYangByteSource.read()));
             }
         } catch (IOException e) {
-            final String errorMsg = String.format("Failed to create YangTextSource from provided path: [%s]", path);
+            final String errorMsg = "Failed to create YangTextSource from provided path: [%s]".formatted(path);
             throw new EffectiveModelContextBuilderException(errorMsg, e);
         }
         return sources;
@@ -136,8 +136,8 @@ public class EffectiveModelContextBuilder {
                         new SourceIdentifier(yangModuleInfo.getName().getLocalName()),
                         sanitizedYangByteSource.read()));
             } catch (IOException e) {
-                final String errorMsg = String.format("Failed to create YangTextSource from "
-                        + "provided YangModuleInfo: [%s]", yangModuleInfo);
+                final String errorMsg = ("Failed to create YangTextSource from "
+                        + "provided YangModuleInfo: [%s]").formatted(yangModuleInfo);
                 throw new EffectiveModelContextBuilderException(errorMsg, e);
             }
         }

@@ -49,7 +49,7 @@ public class GnmiSetRequestFactoryImpl implements SetRequestFactory {
             try {
                 setRequestBuilder.addReplace(updateCodec.apply(toConvert.left, toConvert.right));
             } catch (GnmiCodecException e) {
-                throw new GnmiRequestException(String.format(FAILED_TO_CONVERT, toConvert.left, toConvert.right), e);
+                throw new GnmiRequestException(FAILED_TO_CONVERT.formatted(toConvert.left, toConvert.right), e);
             }
         }
 
@@ -58,7 +58,7 @@ public class GnmiSetRequestFactoryImpl implements SetRequestFactory {
             try {
                 setRequestBuilder.addUpdate(updateCodec.apply(toConvert.left, toConvert.right));
             } catch (GnmiCodecException e) {
-                throw new GnmiRequestException(String.format(FAILED_TO_CONVERT, toConvert.left, toConvert.right), e);
+                throw new GnmiRequestException(FAILED_TO_CONVERT.formatted(toConvert.left, toConvert.right), e);
             }
         }
         // DELETE
@@ -66,8 +66,8 @@ public class GnmiSetRequestFactoryImpl implements SetRequestFactory {
             try {
                 setRequestBuilder.addDelete(instanceIdentifierToPathCodec.apply(identifier));
             } catch (GnmiCodecException e) {
-                throw new GnmiRequestException(String.format("Failed to convert YangInstanceIdentifier %s and"
-                        + " to Gnmi.Path", identifier), e);
+                throw new GnmiRequestException(("Failed to convert YangInstanceIdentifier %s and"
+                        + " to Gnmi.Path").formatted(identifier), e);
             }
         }
         return filterDataStorePrepareRequest(setRequestBuilder).build();

@@ -83,7 +83,7 @@ public class YangInstanceNormToGnmiUpdateCodec implements
                         .setStringVal(jsonPrimitive.getAsString()));
             }
         } else {
-            throw new GnmiCodecException(String.format("Unsupported type of node %s", node));
+            throw new GnmiCodecException("Unsupported type of node %s".formatted(node));
         }
 
         return updateBuilder.build();
@@ -96,7 +96,7 @@ public class YangInstanceNormToGnmiUpdateCodec implements
             return DataConverter.jsonStringFromNormalizedNodes(identifier, data,
                     schemaContextProvider.getSchemaContext());
         } catch (Exception e) {
-            throw new GnmiCodecException(String.format("Failed to serialize node %s to JSON", data), e);
+            throw new GnmiCodecException("Failed to serialize node %s to JSON".formatted(data), e);
         }
     }
 
@@ -119,7 +119,7 @@ public class YangInstanceNormToGnmiUpdateCodec implements
     private static JsonPrimitive unwrapPrimitive(final String json) throws GnmiCodecException {
         final JsonElement jsonElement = JsonParser.parseString(json);
         if (!jsonElement.isJsonObject()) {
-            throw new GnmiCodecException(String.format("Json %s is not a json object", json));
+            throw new GnmiCodecException("Json %s is not a json object".formatted(json));
         }
         final JsonObject jsonObject = jsonElement.getAsJsonObject();
         if (jsonObject.entrySet().size() == 1) {
@@ -127,12 +127,12 @@ public class YangInstanceNormToGnmiUpdateCodec implements
             if (value.isJsonPrimitive()) {
                 return value.getAsJsonPrimitive();
             } else {
-                throw new GnmiCodecException(String.format("Json %s is not in form \"{Leaf_name:primitive_val}\" ",
+                throw new GnmiCodecException("Json %s is not in form \"{Leaf_name:primitive_val}\" ".formatted(
                         json));
             }
         } else {
-            throw new GnmiCodecException(String.format("Json %s is not in form \"{Leaf_name:value}\","
-                    + " multiple entries not permitted ", json));
+            throw new GnmiCodecException(("Json %s is not in form \"{Leaf_name:value}\","
+                    + " multiple entries not permitted ").formatted(json));
         }
     }
 
