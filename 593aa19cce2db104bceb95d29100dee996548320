@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "512bea10_ffc07266",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-09-30T12:29:08Z",
+      "side": 1,
+      "message": "Too many arguments for format string (found: 1, expected: 0) \nuse placeholder \"%s\" instead of {}",
+      "range": {
+        "startLine": 200,
+        "startChar": 45,
+        "endLine": 200,
+        "endChar": 54
+      },
+      "revId": "593aa19cce2db104bceb95d29100dee996548320",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7faac1b9_dec619aa",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-09-30T12:29:08Z",
+      "side": 1,
+      "message": "same here %s",
+      "range": {
+        "startLine": 237,
+        "startChar": 45,
+        "endLine": 237,
+        "endChar": 54
+      },
+      "revId": "593aa19cce2db104bceb95d29100dee996548320",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
