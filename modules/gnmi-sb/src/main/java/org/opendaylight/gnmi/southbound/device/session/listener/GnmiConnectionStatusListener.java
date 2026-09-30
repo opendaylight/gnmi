@@ -74,8 +74,9 @@ public class GnmiConnectionStatusListener implements AutoCloseable {
     public synchronized FluentFuture<CommitInfo> copyDeviceStatusReadyToDatastore()
             throws GnmiConnectionStatusException {
         if (!listenerActive) {
-            throw new GnmiConnectionStatusException(String.format("Listener of node %s is closed, READY state is no"
-                + " longer valid", nodeId.getValue()), currentState);
+            throw new GnmiConnectionStatusException(
+                "Listener of node %s is closed, READY state is no longer valid".formatted(nodeId.getValue()),
+                currentState);
         }
         if (ConnectivityState.READY.equals(currentState)) {
             // FIXME (GNMI-29): Only this hand-off write can outlive the listener, so it alone checks config presence.
@@ -87,7 +88,7 @@ public class GnmiConnectionStatusListener implements AutoCloseable {
             return writeStateToDataStoreAsync(this.currentState);
         } else {
             throw new GnmiConnectionStatusException(
-                    String.format("Last observed status was %s, while READY was expected", currentState),
+                    "Last observed status was %s, while READY was expected".formatted(currentState),
                     currentState);
         }
     }
@@ -183,6 +184,7 @@ public class GnmiConnectionStatusListener implements AutoCloseable {
 
     /**
      * Registers callback which will be called when status reaches desired state.
+     *
      * @param callback runnable to call
      * @param state desired state
      */

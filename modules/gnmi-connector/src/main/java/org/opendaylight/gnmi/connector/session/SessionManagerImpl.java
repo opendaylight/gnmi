@@ -86,7 +86,7 @@ public class SessionManagerImpl implements SessionCloseDelegate, SessionManager 
             final ManagedChannel channel = channelCache.remove(session.getConfiguration());
             final boolean res = channel.shutdown().awaitTermination(CHANNEL_TERMINATION_MILLIS, TimeUnit.MILLISECONDS);
             if (!res) {
-                throw new RuntimeException(String.format("Shutdown of session to server %s failed",
+                throw new RuntimeException("Shutdown of session to server %s failed".formatted(
                         session.getConfiguration().getAddress()));
             }
         }

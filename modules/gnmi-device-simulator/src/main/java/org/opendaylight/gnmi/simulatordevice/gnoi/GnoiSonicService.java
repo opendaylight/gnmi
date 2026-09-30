@@ -27,7 +27,7 @@ public class GnoiSonicService extends SonicServiceGrpc.SonicServiceImplBase {
         LOG.info("Received showTechsupport rpc request {}", request);
         final SonicGnoi.TechsupportResponse response = SonicGnoi.TechsupportResponse.newBuilder().setOutput(
                 SonicGnoi.TechsupportResponse.Output.newBuilder()
-                        .setOutputFilename(String.format(SIMULATED_RESPONSE, "showTechsupport")))
+                        .setOutputFilename(SIMULATED_RESPONSE.formatted("showTechsupport")))
                 .build();
         responseObserver.onNext(response);
         responseObserver.onCompleted();
@@ -83,7 +83,7 @@ public class GnoiSonicService extends SonicServiceGrpc.SonicServiceImplBase {
         LOG.info("Received clearNeighbors rpc request {}", request);
         final SonicGnoi.ClearNeighborsResponse response = SonicGnoi.ClearNeighborsResponse.newBuilder()
                 .setOutput(SonicGnoi.ClearNeighborsResponse.Output.newBuilder()
-                        .setResponse(String.format(SIMULATED_RESPONSE, "clearNeighbors")))
+                        .setResponse(SIMULATED_RESPONSE.formatted("clearNeighbors")))
                 .build();
         responseObserver.onNext(response);
         responseObserver.onCompleted();
@@ -91,7 +91,7 @@ public class GnoiSonicService extends SonicServiceGrpc.SonicServiceImplBase {
 
     private static SonicGnoi.SonicOutput buildSimulatedSonicOutput(final String rpcName) {
         return SonicGnoi.SonicOutput.newBuilder()
-                .setStatusDetail(String.format(SIMULATED_RESPONSE, rpcName))
+                .setStatusDetail(SIMULATED_RESPONSE.formatted(rpcName))
                 .setStatus(200).build();
     }
 

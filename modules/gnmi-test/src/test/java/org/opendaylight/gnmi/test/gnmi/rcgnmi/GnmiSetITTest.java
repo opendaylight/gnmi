@@ -442,7 +442,7 @@ public class GnmiSetITTest extends GnmiITBase {
             final byte[] bytes = Files.readAllBytes(Path.of(GnmiSetITTest.class.getResource(path).toURI()));
             return new String(bytes);
         } catch (IOException | URISyntaxException e) {
-            throw new RuntimeException(String.format("Failed to read resources at path [%s]", path), e);
+            throw new RuntimeException("Failed to read resources at path [%s]".formatted(path), e);
         }
     }
 
@@ -511,7 +511,7 @@ public class GnmiSetITTest extends GnmiITBase {
     }
 
     private static String getInterfaceContainerListBody(final String name) {
-        return String.format("{\n"
+        return ("{\n"
               + "  \"openconfig-interfaces:interfaces\": {\n"
               + "    \"interface\": [\n"
               + "      {\n"
@@ -526,17 +526,17 @@ public class GnmiSetITTest extends GnmiITBase {
               + "      }\n"
               + "    ]\n"
               + "  }\n"
-              + "}", name);
+              + "}").formatted(name);
     }
 
     private static String getSimpleListData(final String keyId) {
-        return String.format("{\n"
+        return ("{\n"
               + "  \"gnmi-test-model:test-list\": [\n"
               + "    {\n"
               + "     \"key\":\"%s\""
               + "    }\n"
               + "  ]\n"
-              + "}", keyId);
+              + "}").formatted(keyId);
     }
 
     private static String getSimpleListEntryResultData() {
@@ -603,7 +603,7 @@ public class GnmiSetITTest extends GnmiITBase {
     }
 
     private static String getInterfaceListUpdateResponse(final String firstNameId, final String secondNameId) {
-        return String.format("{\n"
+        return ("{\n"
               + "    \"openconfig-interfaces:interfaces\": {\n"
               + "        \"interface\": [\n"
               + "            {\n"
@@ -628,7 +628,7 @@ public class GnmiSetITTest extends GnmiITBase {
               + "            }\n"
               + "        ]\n"
               + "    }\n"
-              + "}", firstNameId, secondNameId);
+              + "}").formatted(firstNameId, secondNameId);
     }
 
     private static String getAugmentedTestInterfaceBody() {

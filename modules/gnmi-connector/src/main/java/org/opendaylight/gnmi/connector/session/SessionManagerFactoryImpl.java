@@ -26,6 +26,7 @@ public final class SessionManagerFactoryImpl implements SessionManagerFactory {
 
     /**
      * Creates new {@link SessionManager} instance.
+     *
      * @param security security configuration for session manager - can be created via {@link SecurityFactory}
      * @return instance of {@link SessionManager}
      */
