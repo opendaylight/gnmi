@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66123e78_84bcb567",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-10-01T11:54:47Z",
+      "side": 1,
+      "message": "Don\u0027t see any changes doing this\nNo explicit definition was changed here to var",
+      "range": {
+        "startLine": 10,
+        "startChar": 55,
+        "endLine": 11,
+        "endChar": 57
+      },
+      "revId": "a10eea56f36d7ee7e3022046d7096b8c2ce153b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
