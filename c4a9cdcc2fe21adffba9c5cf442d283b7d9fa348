@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "360248f4_950326fb",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-10-01T11:54:38Z",
+      "side": 1,
+      "message": "can be var",
+      "range": {
+        "startLine": 499,
+        "startChar": 22,
+        "endLine": 499,
+        "endChar": 42
+      },
+      "revId": "c4a9cdcc2fe21adffba9c5cf442d283b7d9fa348",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f9443f4_1f979b7c",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-10-01T11:54:38Z",
+      "side": 1,
+      "message": "can be var",
+      "range": {
+        "startLine": 548,
+        "startChar": 22,
+        "endLine": 548,
+        "endChar": 42
+      },
+      "revId": "c4a9cdcc2fe21adffba9c5cf442d283b7d9fa348",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
