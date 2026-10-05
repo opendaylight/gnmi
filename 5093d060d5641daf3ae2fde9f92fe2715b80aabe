@@ -16,6 +16,23 @@
       "message": "should be separated from private",
       "revId": "5093d060d5641daf3ae2fde9f92fe2715b80aabe",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32ebde25_124db3f6",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/device/connection/DeviceReconnectionStatusTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2026-10-05T08:50:27Z",
+      "side": 1,
+      "message": "SettableFuture.\u003cGnmi.CapabilityResponse\u003ecreate()",
+      "revId": "5093d060d5641daf3ae2fde9f92fe2715b80aabe",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
