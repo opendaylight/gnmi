@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31c41a90_9af67a86",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2026-10-05T08:29:15Z",
+      "side": 1,
+      "message": "The body says this commit introduces three methods, but it only replaces a getDeclared() call",
+      "revId": "d7e34f2acebbb3db477b0ea7372133ffa3b1837b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
