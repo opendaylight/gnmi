@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7c59651_cbc4b925",
+        "filename": "modules/gnmi-device-simulator/pom.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-05T14:03:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6456a13_25c04f08",
+      "revId": "c14fc6c6e1eb99b7c077f435756f8dfd80c1cc32",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4df942d_3624e15e",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-10-05T08:34:09Z",
       "side": 1,
       "message": "alphabetical order",
+      "revId": "c14fc6c6e1eb99b7c077f435756f8dfd80c1cc32",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c133703_81a1f8d7",
+        "filename": "modules/gnmi-sb/pom.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-05T14:03:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4df942d_3624e15e",
       "revId": "c14fc6c6e1eb99b7c077f435756f8dfd80c1cc32",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
