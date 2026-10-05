@@ -16,6 +16,24 @@
       "message": "var",
       "revId": "f0a6f6582361061f959500552f1c0e77618c0a9e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a9426eb_b7dbda54",
+        "filename": "modules/gnmi-device-simulator/src/main/java/org/opendaylight/gnmi/simulatordevice/yang/YangDataService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-05T14:03:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5a28224_7bbf7d1a",
+      "revId": "f0a6f6582361061f959500552f1c0e77618c0a9e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
