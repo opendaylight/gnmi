@@ -16,6 +16,24 @@
       "message": "You removed the ExecutorService, so the org.opendaylight.yangtools:util dependency is now unused. If possible, please check the whole project, as there seem to be many unused declared dependencies, for example in this project:\n\n[INFO] --- dependency:3.11.0:analyze-only (analyze-declarations) @ gnmi-device-simulator ---\n[WARNING] Used undeclared dependencies found:\n[WARNING]    org.opendaylight.yangtools:yang-data-tree-api:jar:16.1.0:compile\n[WARNING] Unused declared dependencies found:\n[WARNING]    org.opendaylight.yangtools:yang-source-ir:jar:16.1.0:compile\n[WARNING]    org.opendaylight.yangtools:util:jar:16.1.0:compile\n[WARNING]    org.bouncycastle:bcprov-jdk18on:jar:1.86:compile\n[WARNING]    org.bouncycastle:bcpkix-jdk18on:jar:1.86:compile\n[WARNING]    org.opendaylight.mdsal:mdsal-common-api:jar:17.0.2:compile\n[WARNING]    org.opendaylight.yangtools:yang-xpath-impl:jar:16.1.0:compile\n[WARNING]    org.opendaylight.gnmi:openconfig-models:jar:4.0.0-SNAPSHOT:compile\n[WARNING]    org.opendaylight.yangtools:yin-source-dom:jar:16.1.0:compile\n[WARNING]    org.opendaylight.yangtools:yang-parser-spi:jar:16.1.0:compile\n[WARNING]    org.opendaylight.yangtools:yang-parser-reactor:jar:16.1.0:compile\n[WARNING]    org.bouncycastle:bctls-jdk18on:jar:1.86:compile",
       "revId": "a8aeb4b5d4b64968cdeab87f7519fdee2799ff26",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcb56abd_bd4460fb",
+        "filename": "modules/gnmi-device-simulator/src/main/java/org/opendaylight/gnmi/simulatordevice/yang/YangDataService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-07T11:17:04Z",
+      "side": 0,
+      "message": "resolved in latest commit",
+      "parentUuid": "7aec1bbf_d9c2ba57",
+      "revId": "a8aeb4b5d4b64968cdeab87f7519fdee2799ff26",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
