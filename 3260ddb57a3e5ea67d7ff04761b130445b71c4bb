@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ea7423f_b2f04398",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-10-07T21:39:32Z",
+      "side": 1,
+      "message": "where, in gnmi? in odlparent? do we have example how other projects are solving them?",
+      "revId": "3260ddb57a3e5ea67d7ff04761b130445b71c4bb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
