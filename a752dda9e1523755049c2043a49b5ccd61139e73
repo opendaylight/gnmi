@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07972ed5_1bd2310a",
+        "filename": "karaf/pom.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-07T11:17:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5e922fa_cf63ae7d",
+      "revId": "a752dda9e1523755049c2043a49b5ccd61139e73",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a992d57_244b1646",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-10-07T08:13:38Z",
       "side": 1,
       "message": "14.0.4",
+      "revId": "a752dda9e1523755049c2043a49b5ccd61139e73",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccbb7c54_a5521c46",
+        "filename": "modules/gnmi-test/pom.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-07T11:17:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a992d57_244b1646",
       "revId": "a752dda9e1523755049c2043a49b5ccd61139e73",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
