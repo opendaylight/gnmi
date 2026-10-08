@@ -16,6 +16,24 @@
       "message": "where, in gnmi? in odlparent? do we have example how other projects are solving them?",
       "revId": "3260ddb57a3e5ea67d7ff04761b130445b71c4bb",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "beb29bfe_925e74aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-08T11:09:43Z",
+      "side": 1,
+      "message": "DefaultYangParserFactory() resolves the XPath parser and the IR/YIN source transformers through ServiceLoader, and yang-parser-rfc7950 declares those implementations only as test dependencies, so they aren\u0027t pulled in transitively. In Karaf, the odl-yangtools-parser feature provides them. For          \nstandalone use, yangtools provides dagger-yang-parser, which brings them in at compile scope; we can switch to that instead of declaring them ourselves.\n\nWe do not have any examples of other projects because gnmi-device-simulator does not run using karaf.",
+      "parentUuid": "1ea7423f_b2f04398",
+      "revId": "3260ddb57a3e5ea67d7ff04761b130445b71c4bb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
