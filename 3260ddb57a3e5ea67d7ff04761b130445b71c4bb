@@ -51,6 +51,24 @@
       "message": "Can we also remove unused repackaged-pekko dependency from gnmi-test here?\n\n[INFO] --- dependency:3.11.0:analyze-only (analyze-declarations) @ gnmi-test ---\n...\n[WARNING] Unused declared dependencies found:\n[WARNING]    org.opendaylight.controller:repackaged-pekko:jar:14.0.4:compile",
       "revId": "3260ddb57a3e5ea67d7ff04761b130445b71c4bb",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6722b21_6d8057dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-14T10:02:10Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "7c5dd057_e4eab0a4",
+      "revId": "3260ddb57a3e5ea67d7ff04761b130445b71c4bb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
