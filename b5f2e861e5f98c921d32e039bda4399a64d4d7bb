@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "038189dd_ff6e463a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-15T16:44:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8b6c6a1_5e6f378b",
+      "revId": "b5f2e861e5f98c921d32e039bda4399a64d4d7bb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb03d89a_d9874d14",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-10-15T14:34:58Z",
       "side": 1,
       "message": "netconf testtool has no issue like that, see: https://github.com/opendaylight/netconf/blob/master/usecase/netconf-testtool/pom.xml",
+      "revId": "b5f2e861e5f98c921d32e039bda4399a64d4d7bb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ab1602e_4678e1af",
+        "filename": "modules/gnmi-device-simulator/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-15T16:44:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb03d89a_d9874d14",
       "revId": "b5f2e861e5f98c921d32e039bda4399a64d4d7bb",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
