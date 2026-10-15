@@ -16,6 +16,24 @@
       "message": "o p r s t - not ordered alphabetically?",
       "revId": "3b9b97d9091c84c4ece4e5ec6c0b3643e2aaf78d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c5715f6_f9e1cb0a",
+        "filename": "modules/gnmi-sb/pom.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-15T15:22:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53f2ad5e_7e9fe236",
+      "revId": "3b9b97d9091c84c4ece4e5ec6c0b3643e2aaf78d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
