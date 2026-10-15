@@ -16,6 +16,23 @@
       "message": "split into smaller patches, please, do we need any of them in stable branches?",
       "revId": "b5f2e861e5f98c921d32e039bda4399a64d4d7bb",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb03d89a_d9874d14",
+        "filename": "modules/gnmi-device-simulator/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-10-15T14:34:58Z",
+      "side": 1,
+      "message": "netconf testtool has no issue like that, see: https://github.com/opendaylight/netconf/blob/master/usecase/netconf-testtool/pom.xml",
+      "revId": "b5f2e861e5f98c921d32e039bda4399a64d4d7bb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
