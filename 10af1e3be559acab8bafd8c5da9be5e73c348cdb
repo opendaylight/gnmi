@@ -69,6 +69,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb2c8f06_39b0bda3",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-10-15T11:44:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49ce1cca_bae4084b",
+      "revId": "10af1e3be559acab8bafd8c5da9be5e73c348cdb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3a85106_f7770a51",
@@ -82,6 +100,24 @@
       "writtenOn": "2026-07-16T13:04:32Z",
       "side": 1,
       "message": "noversion mdodel",
+      "revId": "10af1e3be559acab8bafd8c5da9be5e73c348cdb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47c02f7d_1c13305f",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-10-15T11:44:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3a85106_f7770a51",
       "revId": "10af1e3be559acab8bafd8c5da9be5e73c348cdb",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -103,6 +139,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "734b9642_7eb95c0a",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-10-15T11:44:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8e888fe_9f2b9f25",
+      "revId": "10af1e3be559acab8bafd8c5da9be5e73c348cdb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "718d461b_0e9a4d49",
@@ -120,6 +174,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2439f4bd_46e3c094",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-10-15T11:44:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "718d461b_0e9a4d49",
+      "revId": "10af1e3be559acab8bafd8c5da9be5e73c348cdb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "63025473_3f0c3ed0",
@@ -133,6 +205,24 @@
       "writtenOn": "2026-07-16T13:04:32Z",
       "side": 1,
       "message": "Redundant double parentheses",
+      "revId": "10af1e3be559acab8bafd8c5da9be5e73c348cdb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26993e60_357599de",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/schema/TestYangDataStoreService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-10-15T11:44:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63025473_3f0c3ed0",
       "revId": "10af1e3be559acab8bafd8c5da9be5e73c348cdb",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
