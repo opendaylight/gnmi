@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53f2ad5e_7e9fe236",
+        "filename": "modules/gnmi-sb/pom.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-10-15T14:01:56Z",
+      "side": 1,
+      "message": "o p r s t - not ordered alphabetically?",
+      "revId": "3b9b97d9091c84c4ece4e5ec6c0b3643e2aaf78d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
