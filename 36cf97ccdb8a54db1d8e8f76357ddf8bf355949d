@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c691326f_a46cd1d8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-10-16T07:49:32Z",
+      "side": 1,
+      "message": "does not follow project rules",
+      "revId": "36cf97ccdb8a54db1d8e8f76357ddf8bf355949d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
