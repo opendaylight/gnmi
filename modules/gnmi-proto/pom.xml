@@ -73,25 +73,6 @@
             <plugin>
                 <groupId>io.github.ascopes</groupId>
                 <artifactId>protobuf-maven-plugin</artifactId>
-                <configuration>
-                    <protoc>${protobuf.version}</protoc>
-                    <!-- .proto sources are packaged by build-helper-maven-plugin below -->
-                    <embedSourcesInClassOutputs>false</embedSourcesInClassOutputs>
-                    <plugins>
-                        <plugin kind="binary-maven">
-                            <groupId>io.grpc</groupId>
-                            <artifactId>protoc-gen-grpc-java</artifactId>
-                            <version>${grpc.version}</version>
-                        </plugin>
-                    </plugins>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <!-- Ship the .proto sources in the bundle, so that consumers can import them.
