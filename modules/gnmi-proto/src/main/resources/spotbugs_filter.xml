@@ -10,7 +10,6 @@
 <FindBugsFilter>
   <Match>
     <Or>
-      <Package name="org.opendaylight.gnmi.proto.gogo"/>
       <Package name="gnmi"/>
       <Package name="gnmi_ext"/>
       <Package name="gnoi"/>
