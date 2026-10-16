@@ -78,6 +78,10 @@
         </dependency>
         <dependency>
             <groupId>io.grpc</groupId>
+            <artifactId>grpc-protobuf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.grpc</groupId>
             <artifactId>grpc-stub</artifactId>
         </dependency>
         <dependency>
@@ -233,6 +237,13 @@
 
     <build>
         <plugins>
+            <!-- sonic_gnoi.proto (and gogo.proto, which it needs for its options) is only
+                 implemented by the simulator, so it is generated here rather than in gnmi-proto
+                 to keep it out of the gnmi-proto OSGi bundle shipped in Karaf. -->
+            <plugin>
+                <groupId>io.github.ascopes</groupId>
+                <artifactId>protobuf-maven-plugin</artifactId>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>

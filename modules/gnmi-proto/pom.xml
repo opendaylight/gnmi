@@ -41,12 +41,15 @@
             <artifactId>grpc-protobuf</artifactId>
         </dependency>
         <dependency>
+            <!-- grpc-protobuf needs this at runtime (io.grpc.protobuf.lite.ProtoLiteUtils), but only
+                 declares it with runtime scope, which keeps it out of the generated odl-gnmi-all
+                 feature. Declare it directly so it gets packaged. -->
             <groupId>io.grpc</groupId>
             <artifactId>grpc-protobuf-lite</artifactId>
             <exclusions>
-                <!-- protobuf-javalite is a strict subset of protobuf-java and must not be mixed
-                     with it: both jars provide the "com.google.protobuf" package, which turns
-                     the gnmi-proto OSGi bundle into a broken split-package. -->
+                <!-- Same exclusion grpc-protobuf applies: protobuf-javalite is a strict subset of
+                     protobuf-java and must not be mixed with it, as both provide conflicting
+                     "com.google.protobuf" classes. -->
                 <exclusion>
                     <groupId>com.google.protobuf</groupId>
                     <artifactId>protobuf-javalite</artifactId>
@@ -74,24 +77,9 @@
                 <groupId>io.github.ascopes</groupId>
                 <artifactId>protobuf-maven-plugin</artifactId>
                 <configuration>
-                    <protoc>${protobuf.version}</protoc>
                     <!-- .proto sources are packaged by build-helper-maven-plugin below -->
                     <embedSourcesInClassOutputs>false</embedSourcesInClassOutputs>
-                    <plugins>
-                        <plugin kind="binary-maven">
-                            <groupId>io.grpc</groupId>
-                            <artifactId>protoc-gen-grpc-java</artifactId>
-                            <version>${grpc.version}</version>
-                        </plugin>
-                    </plugins>
                 </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <!-- Ship the .proto sources in the bundle, so that consumers can import them.
