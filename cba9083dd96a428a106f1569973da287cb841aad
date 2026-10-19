@@ -106,6 +106,24 @@
       "parentUuid": "cc1803aa_41b5cbd3",
       "revId": "cba9083dd96a428a106f1569973da287cb841aad",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "829083bb_d0f633b4",
+        "filename": "features/odl-gnmi-all/pom.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-19T08:53:06Z",
+      "side": 1,
+      "message": "https://git.opendaylight.org/gerrit/c/gnmi/+/126467",
+      "parentUuid": "a8c9dc1f_f0f75d5a",
+      "revId": "cba9083dd96a428a106f1569973da287cb841aad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
