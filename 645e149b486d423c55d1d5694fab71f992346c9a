@@ -16,6 +16,24 @@
       "message": "o, that\u0027s very useful, thank you!",
       "revId": "645e149b486d423c55d1d5694fab71f992346c9a",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed84012e_bc645130",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-10-19T10:24:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a5a7d6c9_c092fcaa",
+      "revId": "645e149b486d423c55d1d5694fab71f992346c9a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
