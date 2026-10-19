@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed759cb1_016fe9f9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-10-19T15:14:41Z",
+      "side": 1,
+      "message": "Describe the close-order change",
+      "revId": "eb22bc0598817cd0c8dc0ad174613dd8b6d7ffe5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d489a2a3_6b6bb9e8",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnection.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-10-19T15:14:41Z",
+      "side": 1,
+      "message": "why?",
+      "revId": "eb22bc0598817cd0c8dc0ad174613dd8b6d7ffe5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcaa0f2a_244ace01",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionInitializer.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-10-19T15:14:41Z",
+      "side": 1,
+      "message": "why? what have we fixed?",
+      "revId": "eb22bc0598817cd0c8dc0ad174613dd8b6d7ffe5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "109d8d06_d6ae69e2",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionInitializer.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-10-19T15:14:41Z",
+      "side": 1,
+      "message": "in case of runtime exception we miss cancel, move it to finally block",
+      "revId": "eb22bc0598817cd0c8dc0ad174613dd8b6d7ffe5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
