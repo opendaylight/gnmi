@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "311ff36a_444f920e",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-10-19T08:57:48Z",
+      "side": 1,
+      "message": "When the requested revision is not found with a semver reference in any stored model\u0027s history, this falls back to comparing latest revision dates, so a model stored as 3.0.0 is accepted for a device on revision 2019-11-19 (2.4.x) and the major-version guard from the commit message is bypassed. Should latestRevisionOf return null for models stored under a semver, so only revision-stored models use the date-only rule?",
+      "revId": "917c3bdf9124aeaca78c5584b73f3146ed8dda2a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16dd2def_62e18cb7",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/yangstore/service/YangDataStoreService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-10-19T08:57:48Z",
+      "side": 1,
+      "message": "Optional\u003cList\u003c...\u003e\u003e gives two encodings of \"nothing found\": the impl returns Optional.empty() when the container is absent and Optional.of(List.of()) when no model matches, so every caller must handle both. Since this signature is changing anyway, could it be ListenableFuture\u003cList\u003cGnmiYangModel\u003e\u003e with an empty list meaning \"not stored\"?",
+      "revId": "917c3bdf9124aeaca78c5584b73f3146ed8dda2a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c377dd8e_5904a482",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/schema/SchemaVersionResolutionTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-10-19T08:57:48Z",
+      "side": 1,
+      "message": "None of these tests reach the referencedSemVerOf fallback (SchemaContextHolderImpl.java:216, the openconfig-extensions case from the commit message) or the latestRevisionOf fallback (line 229): stubbing either to return null keeps the suite green. Could you add a semver request for openconfig-extensions, a revision request against revision-stored models, and a revision whose history has no reference?",
+      "revId": "917c3bdf9124aeaca78c5584b73f3146ed8dda2a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
