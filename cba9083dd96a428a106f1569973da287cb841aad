@@ -52,6 +52,24 @@
       "parentUuid": "4c61e81d_ad153e3f",
       "revId": "cba9083dd96a428a106f1569973da287cb841aad",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9728b9b9_4f31d064",
+        "filename": "features/odl-gnmi-all/pom.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-19T08:46:24Z",
+      "side": 1,
+      "message": "After rebasing the change was already merged by commit 2809a33766c57f76637ebc40ee608cb9f41dde62\nModified the commit msg.",
+      "parentUuid": "17e4146d_77b6557a",
+      "revId": "cba9083dd96a428a106f1569973da287cb841aad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
