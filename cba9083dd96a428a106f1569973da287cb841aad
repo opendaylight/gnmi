@@ -70,6 +70,24 @@
       "parentUuid": "17e4146d_77b6557a",
       "revId": "cba9083dd96a428a106f1569973da287cb841aad",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc1803aa_41b5cbd3",
+        "filename": "features/odl-gnmi-all/pom.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-19T08:48:24Z",
+      "side": 1,
+      "message": "2809a337 Document Netty RESTCONF as the default endpoint",
+      "parentUuid": "9728b9b9_4f31d064",
+      "revId": "cba9083dd96a428a106f1569973da287cb841aad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
