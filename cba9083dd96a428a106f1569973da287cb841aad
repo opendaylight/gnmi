@@ -124,6 +124,24 @@
       "parentUuid": "a8c9dc1f_f0f75d5a",
       "revId": "cba9083dd96a428a106f1569973da287cb841aad",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f7852fa_e50a94f6",
+        "filename": "features/odl-gnmi-all/pom.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-10-19T08:53:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "829083bb_d0f633b4",
+      "revId": "cba9083dd96a428a106f1569973da287cb841aad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
