@@ -43,6 +43,12 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>com.vaadin.external.google</groupId>
+            <artifactId>android-json</artifactId>
+            <version>0.0.20131108.vaadin1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <scope>test</scope>
@@ -119,6 +125,11 @@
         </dependency>
         <dependency>
             <groupId>org.opendaylight.gnmi</groupId>
+            <artifactId>openconfig-models</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.gnmi</groupId>
             <artifactId>topology-model</artifactId>
             <scope>test</scope>
         </dependency>
@@ -128,8 +139,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.opendaylight.gnmi</groupId>
-            <artifactId>openconfig-models</artifactId>
+            <groupId>org.opendaylight.ietf.model</groupId>
+            <artifactId>rfc6991-ietf-inet-types</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -174,8 +185,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.opendaylight.ietf.model</groupId>
-            <artifactId>rfc6991-ietf-inet-types</artifactId>
+            <groupId>org.opendaylight.mdsal</groupId>
+            <artifactId>mdsal-singleton-api</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -260,6 +271,16 @@
         </dependency>
         <dependency>
             <groupId>org.opendaylight.yangtools</groupId>
+            <artifactId>concepts</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.yangtools</groupId>
+            <artifactId>databind</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.yangtools</groupId>
             <artifactId>yang-common</artifactId>
             <scope>test</scope>
         </dependency>
@@ -280,7 +301,22 @@
         </dependency>
         <dependency>
             <groupId>org.opendaylight.yangtools</groupId>
+            <artifactId>yang-model-spi</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.yangtools</groupId>
             <artifactId>yang-parser-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.yangtools</groupId>
+            <artifactId>yang-parser-rfc7950</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.yangtools</groupId>
+            <artifactId>yang-source-ir</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
