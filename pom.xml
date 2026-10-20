@@ -40,6 +40,27 @@
         <maven.install.skip>true</maven.install.skip>
     </properties>
 
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>enforce-maven</id>
+                        <configuration>
+                            <rules>
+                                <!-- Required by io.github.ascopes:protobuf-maven-plugin and aligned with CI -->
+                                <requireMavenVersion>
+                                    <version>[3.9.9,)</version>
+                                </requireMavenVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
     <profiles>
         <profile>
             <id>sonar-jacoco-aggregate</id>

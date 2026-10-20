@@ -54,7 +54,7 @@ jobs:
     with:
       GERRIT_BRANCH: ${{ matrix.GERRIT_BRANCH }}
       JDK_VERSION: "21"
-      MVN_VERSION: "3.9.5"
+      MVN_VERSION: "3.9.9"
       MVN_PHASES: "clean deploy"
       MVN_PARAMS: "-Dmerge"
       # Intentionally omits -DaltDeploymentRepository; maven-build-action
