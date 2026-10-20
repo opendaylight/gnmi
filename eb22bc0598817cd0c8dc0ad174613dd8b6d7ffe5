@@ -35,6 +35,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "695d9b2f_22b44bca",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnection.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-20T07:58:52Z",
+      "side": 1,
+      "message": "The close-order change isn\u0027t needed for the reconnection fix itself. It fixes two other things:\n\n- Cleanup skipped on error: SessionManagerImpl#closeSession() throws a RuntimeException when the channel doesn\u0027t shut down in time. With the session closed first, that exception skipped closing the status listener. The listener stayed active and the removed node\u0027s node-state stayed in the operational datastore. In the initializer it also skipped cancelling the pending connection.\n\n- Late status writes: closing the listener first switches it off. The SHUTDOWN caused by closing the channel is no longer written only to be deleted. A late READY from a reconnect is now rejected instead of written for a node that is being removed; that READY callback can only happen now because it stays registered.",
+      "parentUuid": "d489a2a3_6b6bb9e8",
+      "revId": "eb22bc0598817cd0c8dc0ad174613dd8b6d7ffe5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fcaa0f2a_244ace01",
@@ -52,6 +70,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8df98b3c_bc0f773e",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionInitializer.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-20T07:58:52Z",
+      "side": 1,
+      "message": "the comment now contains better explanation",
+      "parentUuid": "fcaa0f2a_244ace01",
+      "revId": "eb22bc0598817cd0c8dc0ad174613dd8b6d7ffe5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "109d8d06_d6ae69e2",
@@ -65,6 +101,24 @@
       "writtenOn": "2026-10-19T15:14:41Z",
       "side": 1,
       "message": "in case of runtime exception we miss cancel, move it to finally block",
+      "revId": "eb22bc0598817cd0c8dc0ad174613dd8b6d7ffe5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5dc2823b_efd9b3ab",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionInitializer.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-20T07:58:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "109d8d06_d6ae69e2",
       "revId": "eb22bc0598817cd0c8dc0ad174613dd8b6d7ffe5",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
