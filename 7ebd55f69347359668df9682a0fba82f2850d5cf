@@ -16,6 +16,24 @@
       "message": "do we also need: \u003cbinaryPlugins\u003e and \u003csourceDirectories\u003e?",
       "revId": "7ebd55f69347359668df9682a0fba82f2850d5cf",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d651d912_73053929",
+        "filename": "modules/gnmi-proto/pom.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-20T12:51:43Z",
+      "side": 1,
+      "message": "No we dont, removed",
+      "parentUuid": "52c77fa9_39ca6598",
+      "revId": "7ebd55f69347359668df9682a0fba82f2850d5cf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }

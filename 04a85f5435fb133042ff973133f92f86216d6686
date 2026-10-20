@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "47f13c21_5c2a88c8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-20T12:51:43Z",
+      "side": 1,
+      "message": "fixed, target directory changed",
+      "parentUuid": "0232f86a_ca3c3f6c",
+      "revId": "04a85f5435fb133042ff973133f92f86216d6686",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b1fdd0d_bd220005",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-10-20T07:48:39Z",
       "side": 1,
       "message": "can we manage version in gnmi-parent\u0027s \u003cpluginManagement\u003e?",
+      "revId": "04a85f5435fb133042ff973133f92f86216d6686",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "905c1f3b_36b98dc4",
+        "filename": "modules/gnmi-proto/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-20T12:51:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b1fdd0d_bd220005",
       "revId": "04a85f5435fb133042ff973133f92f86216d6686",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }

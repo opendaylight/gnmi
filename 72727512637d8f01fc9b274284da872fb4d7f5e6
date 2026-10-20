@@ -16,6 +16,24 @@
       "message": "why removed, for what it was used?",
       "revId": "72727512637d8f01fc9b274284da872fb4d7f5e6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6c289e2_4092d38f",
+        "filename": "modules/gnmi-proto/pom.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-20T12:51:43Z",
+      "side": 0,
+      "message": "Its only job was to set ${os.detected.classifier} (for example linux-x86_64). That property was used in the hand-written coordinates of the native protoc and protoc-gen-grpc-java executables, such as ...:protoc:3.25.9:exe:${os.detected.classifier}. The new plugin detects the platform and resolves those executables itself, so nothing uses the property any more. No other module references it.",
+      "parentUuid": "d9e1a15e_9098f224",
+      "revId": "72727512637d8f01fc9b274284da872fb4d7f5e6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
