@@ -22,7 +22,6 @@ import static org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.http.HttpResponse;
-import java.time.Duration;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 import org.awaitility.Awaitility;
@@ -47,7 +46,6 @@ public class GnmiConnectionITTest extends GnmiITBase {
     private static final String MODEL_OPENCONFIG_AAA_VERSION = "0.5.0";
     private static final String EXPECTED_CAPABILITY
         = "[{\"capability\":\"" + MODEL_OPENCONFIG_AAA_NAME + " semver: " + MODEL_OPENCONFIG_AAA_VERSION + "\"}]";
-    private static final Duration CONNECT_ATTEMPT_WAIT_DURATION = Duration.ofMillis(5_000L);
     private static final String GNMI_NODE_STATUS_TRANSIENT_FAIL = "TRANSIENT_FAILURE";
     private static final String GNMI_NODE_STATUS_CONNECTING = "CONNECTING";
     private static final String GNMI_NODE_PATH = GNMI_TOPOLOGY_PATH + "/node=" + GNMI_NODE_ID;
@@ -448,6 +446,50 @@ public class GnmiConnectionITTest extends GnmiITBase {
         awaitNodeStateDeleted(GNMI_NODE_MISSING_ENCODING_PATH);
     }
 
+    @Test
+    public void deviceReconnectionUpdatesStatusToReadyTest() throws Exception {
+        // Use a dedicated device/port instead of the shared class-wide "device": if start() below throws
+        // after stop() succeeded, only this test is affected, not every other test in this class that
+        // relies on "device" being up.
+        final var reconnectDevicePort = randomBindablePort();
+        final var reconnectDevice = getUnsecureGnmiDevice(DEVICE_IP, reconnectDevicePort);
+        reconnectDevice.start();
+
+        try {
+            // 1. Connect to the device
+            LOG.info("Step 1: Connecting device to gNMI topology");
+            assertTrue(connectDevice(GNMI_NODE_ID, DEVICE_IP, reconnectDevicePort));
+            awaitNodeStatus(GNMI_NODE_PATH, GNMI_NODE_STATUS_READY);
+            // Let the initial connection finish creating the mountpoint before the device goes away
+            awaitMountpointCreated(GNMI_NODE_PATH);
+
+            // 2. Stop the simulated device
+            LOG.info("Step 2: Stopping the simulated device to trigger a connection failure");
+            reconnectDevice.stop();
+
+            // 3. Wait and assert that the node status in the datastore changes
+            LOG.info("Step 3: Waiting for node status to reflect the disconnection");
+            awaitConnectingOrTransientFailure(GNMI_NODE_PATH);
+
+            // 4. Start the simulated device back up to trigger reconnection
+            LOG.info("Step 4: Restarting the simulated device to trigger reconnection");
+            reconnectDevice.start();
+
+            // 5. Wait and assert that the node status changes back to READY and the device is usable again
+            LOG.info("Step 5: Waiting for node status to switch back to READY");
+            awaitNodeStatus(GNMI_NODE_PATH, GNMI_NODE_STATUS_READY);
+            awaitMountpointCreated(GNMI_NODE_PATH);
+            // The reconnection must not leave failure-details of the disconnection behind
+            assertNoFailureDetails(GNMI_NODE_PATH);
+
+            // 6. Disconnect the device; GnmiITBase#cleanup handles it if an assertion above fails
+            LOG.info("Step 6: Disconnecting device");
+            assertTrue(disconnectDevice(GNMI_NODE_ID));
+        } finally {
+            reconnectDevice.stop();
+        }
+    }
+
     /**
      * Polls the node's status until it equals the expected value.
      */
@@ -481,7 +523,7 @@ public class GnmiConnectionITTest extends GnmiITBase {
      * Polls the node's status until it is CONNECTING or TRANSIENT_FAILURE.
      */
     private void awaitConnectingOrTransientFailure(final String nodePath) {
-        Awaitility.waitAtMost(CONNECT_ATTEMPT_WAIT_DURATION)
+        Awaitility.waitAtMost(WAIT_TIME_DURATION)
             .pollInterval(POLL_INTERVAL_DURATION)
             .untilAsserted(() -> {
                 final var getDeviceConnectStatusResponse = sendGetRequestJSON(nodePath + GNMI_NODE_STATUS);
@@ -492,6 +534,15 @@ public class GnmiConnectionITTest extends GnmiITBase {
                 assertTrue(deviceConnectStatus.equals(GNMI_NODE_STATUS_CONNECTING)
                     || deviceConnectStatus.equals(GNMI_NODE_STATUS_TRANSIENT_FAIL));
             });
+    }
+
+    /**
+     * Asserts that the node's node-state contains no failure-details (returns HTTP 409 Conflict).
+     */
+    private void assertNoFailureDetails(final String nodePath) throws IOException, InterruptedException {
+        final var getDeviceFailureDetailsResponse =
+            sendGetRequestJSON(nodePath + "/gnmi-topology:node-state/failure-details");
+        assertEquals(HttpURLConnection.HTTP_CONFLICT, getDeviceFailureDetailsResponse.statusCode());
     }
 
     /**
