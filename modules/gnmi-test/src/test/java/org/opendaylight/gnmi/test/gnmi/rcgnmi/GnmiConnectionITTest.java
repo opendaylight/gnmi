@@ -25,7 +25,6 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
-import java.util.concurrent.atomic.AtomicInteger;
 import org.awaitility.Awaitility;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,11 +51,14 @@ public class GnmiConnectionITTest extends GnmiITBase {
     private static final String GNMI_NODE_STATUS_TRANSIENT_FAIL = "TRANSIENT_FAILURE";
     private static final String GNMI_NODE_STATUS_CONNECTING = "CONNECTING";
     private static final String GNMI_NODE_PATH = GNMI_TOPOLOGY_PATH + "/node=" + GNMI_NODE_ID;
-    private static final int MAX_DEVICE_CONNECTION_ATTEMPTS = 4;
     private static final String ANOTHER_GNMI_NODE_ID = "gnmi-another-test-node";
     private static final String GNMI_NODE_WITH_WRONG_PASSWD_ID = "gnmi-credentials-test-node";
+    private static final String GNMI_NODE_WITH_WRONG_PASSWD_PATH =
+        GNMI_TOPOLOGY_PATH + "/node=" + GNMI_NODE_WITH_WRONG_PASSWD_ID;
     private static final int DEVICE_WITH_CREDENTIALS_PORT = randomBindablePort();
     private static final String GNMI_NODE_MISSING_ENCODING_ID = "gnmi-missing-encoding-node";
+    private static final String GNMI_NODE_MISSING_ENCODING_PATH =
+        GNMI_TOPOLOGY_PATH + "/node=" + GNMI_NODE_MISSING_ENCODING_ID;
     private static final int DEVICE_WITH_MISSING_ENCODING_PORT = randomBindablePort();
     private static final String DEVICE_USERNAME = "admin";
     private static final String DEVICE_PASSWORD = "admin";
@@ -153,26 +155,10 @@ public class GnmiConnectionITTest extends GnmiITBase {
         assertEquals(HttpURLConnection.HTTP_CREATED, addGnmiDeviceResponse.statusCode());
 
         // assert gNMI node is connected
-        Awaitility.waitAtMost(WAIT_TIME_DURATION)
-            .pollInterval(POLL_INTERVAL_DURATION)
-            .untilAsserted(() -> {
-                final HttpResponse<String> getConnectionStatusResponse =
-                    sendGetRequestJSON(GNMI_NODE_PATH  + GNMI_NODE_STATUS);
-                assertEquals(HttpURLConnection.HTTP_OK, getConnectionStatusResponse.statusCode());
-                final String gnmiDeviceConnectStatus =
-                    new JSONObject(getConnectionStatusResponse.body()).getString("gnmi-topology:node-status");
-                LOG.info("Response: {}", gnmiDeviceConnectStatus);
-                assertEquals(GNMI_NODE_STATUS_READY, gnmiDeviceConnectStatus);
-            });
+        awaitNodeStatus(GNMI_NODE_PATH, GNMI_NODE_STATUS_READY);
 
         //assert mountpoint is created
-        Awaitility.waitAtMost(WAIT_TIME_DURATION)
-            .pollInterval(POLL_INTERVAL_DURATION)
-            .untilAsserted(() -> {
-                final HttpResponse<String> getDataFromDevice =
-                    sendGetRequestJSON(GNMI_DEVICE_MOUNTPOINT + OPENCONFIG_INTERFACES);
-                assertEquals(HttpURLConnection.HTTP_OK, getDataFromDevice.statusCode());
-            });
+        awaitMountpointCreated();
 
         //assert gnmi test node is in topology
         final HttpResponse<String> getGnmiTopologyUpdatedResponse = sendGetRequestJSON(GNMI_TOPOLOGY_PATH);
@@ -296,22 +282,8 @@ public class GnmiConnectionITTest extends GnmiITBase {
         final String gnmiNodeIdFromJSONArray = gnmiTopologyNodesJSONArray.getJSONObject(0).getString("node-id");
         assertEquals(GNMI_NODE_ID, gnmiNodeIdFromJSONArray);
 
-        //assert connecting or transient failure status while trying to connect maxAttempts times
-        //and assert number of attempts also
-        final AtomicInteger attempt = new AtomicInteger();
-        Awaitility.waitAtMost(CONNECT_ATTEMPT_WAIT_DURATION)
-            .pollInterval(POLL_INTERVAL_DURATION)
-            .untilAsserted(() -> {
-                attempt.getAndIncrement();
-                final HttpResponse<String> getDeviceConnectStatusResponse =
-                    sendGetRequestJSON(GNMI_TOPOLOGY_PATH + "/node=" + GNMI_NODE_ID + GNMI_NODE_STATUS);
-                final String deviceConnectStatus =
-                    new JSONObject(getDeviceConnectStatusResponse.body()).getString("gnmi-topology:node-status");
-                LOG.info("Attempt {}, response: {}", attempt, deviceConnectStatus);
-                assertTrue(deviceConnectStatus.equals(GNMI_NODE_STATUS_CONNECTING)
-                           || deviceConnectStatus.equals(GNMI_NODE_STATUS_TRANSIENT_FAIL));
-                assertTrue(attempt.get() <= MAX_DEVICE_CONNECTION_ATTEMPTS);
-            });
+        //assert connecting or transient failure status
+        awaitConnectingOrTransientFailure(GNMI_NODE_PATH);
 
         //assert disconnected device
         assertTrue(disconnectDevice(GNMI_NODE_ID));
@@ -395,22 +367,8 @@ public class GnmiConnectionITTest extends GnmiITBase {
         final String gnmiNodeIdFromJSONArray = gnmiTopologyNodesJSONArray.getJSONObject(0).getString("node-id");
         assertEquals(GNMI_NODE_ID, gnmiNodeIdFromJSONArray);
 
-        //assert connecting or transient failure status while trying to connect maxAttempts times
-        //and assert number of attempts also
-        final AtomicInteger attempt = new AtomicInteger();
-        Awaitility.waitAtMost(CONNECT_ATTEMPT_WAIT_DURATION)
-            .pollInterval(POLL_INTERVAL_DURATION)
-            .untilAsserted(() -> {
-                attempt.getAndIncrement();
-                final HttpResponse<String> getDeviceConnectStatusResponse =
-                    sendGetRequestJSON(GNMI_TOPOLOGY_PATH + "/node=" + GNMI_NODE_ID + GNMI_NODE_STATUS);
-                final String deviceConnectStatus =
-                    new JSONObject(getDeviceConnectStatusResponse.body()).getString("gnmi-topology:node-status");
-                LOG.info("Attempt {}, response: {}", attempt, deviceConnectStatus);
-                assertTrue(deviceConnectStatus.equals(GNMI_NODE_STATUS_CONNECTING)
-                    || deviceConnectStatus.equals(GNMI_NODE_STATUS_TRANSIENT_FAIL));
-                assertTrue(attempt.get() <= MAX_DEVICE_CONNECTION_ATTEMPTS);
-            });
+        //assert connecting or transient failure status
+        awaitConnectingOrTransientFailure(GNMI_NODE_PATH);
 
         //update incorrect gnmi node in gnmi topology
         final String updatedDevicePayload = createDevicePayload(GNMI_NODE_ID, DEVICE_IP, DEVICE_PORT);
@@ -419,26 +377,10 @@ public class GnmiConnectionITTest extends GnmiITBase {
         assertEquals(HttpURLConnection.HTTP_NO_CONTENT, updateGnmiDeviceResponse.statusCode());
 
         // assert gNMI node is connected
-        Awaitility.waitAtMost(WAIT_TIME_DURATION)
-            .pollInterval(POLL_INTERVAL_DURATION)
-            .untilAsserted(() -> {
-                final HttpResponse<String> getConnectionStatusResponse =
-                    sendGetRequestJSON(GNMI_TOPOLOGY_PATH + "/node=" + GNMI_NODE_ID + GNMI_NODE_STATUS);
-                final String gnmiDeviceConnectStatus =
-                    new JSONObject(getConnectionStatusResponse.body()).getString("gnmi-topology:node-status");
-                LOG.info("Response: {}", gnmiDeviceConnectStatus);
-                assertEquals(HttpURLConnection.HTTP_OK, getConnectionStatusResponse.statusCode());
-                assertEquals(GNMI_NODE_STATUS_READY, gnmiDeviceConnectStatus);
-            });
+        awaitNodeStatus(GNMI_NODE_PATH, GNMI_NODE_STATUS_READY);
 
         //assert mountpoint is created
-        Awaitility.waitAtMost(WAIT_TIME_DURATION)
-            .pollInterval(POLL_INTERVAL_DURATION)
-            .untilAsserted(() -> {
-                final HttpResponse<String> getDataFromDevice =
-                    sendGetRequestJSON(GNMI_DEVICE_MOUNTPOINT + OPENCONFIG_INTERFACES);
-                assertEquals(HttpURLConnection.HTTP_OK, getDataFromDevice.statusCode());
-            });
+        awaitMountpointCreated();
 
         //assert disconnected device
         assertTrue(disconnectDevice(GNMI_NODE_ID));
@@ -461,43 +403,17 @@ public class GnmiConnectionITTest extends GnmiITBase {
         // add gNMI node with wrong password to topology
         LOG.info("Adding gnmi device with ID {}", GNMI_NODE_WITH_WRONG_PASSWD_ID);
         final HttpResponse<String> addGnmiDeviceResponse =
-            sendPutRequestJSON(GNMI_TOPOLOGY_PATH + "/node=" + GNMI_NODE_WITH_WRONG_PASSWD_ID,
-                               DEVICE_WITH_CREDENTIALS_PAYLOAD);
+            sendPutRequestJSON(GNMI_NODE_WITH_WRONG_PASSWD_PATH, DEVICE_WITH_CREDENTIALS_PAYLOAD);
         LOG.info("adding device wrong credentials: {}", addGnmiDeviceResponse.body());
         assertEquals(HttpURLConnection.HTTP_CREATED, addGnmiDeviceResponse.statusCode());
 
         // assert gNMI node is not connected correctly due to wrong password
-        Awaitility.waitAtMost(WAIT_TIME_DURATION)
-            .pollInterval(POLL_INTERVAL_DURATION)
-            .untilAsserted(() -> {
-                final HttpResponse<String> getConnectionStatusResponse =
-                    sendGetRequestJSON(GNMI_TOPOLOGY_PATH + "/node=" + GNMI_NODE_WITH_WRONG_PASSWD_ID
-                                       + GNMI_NODE_STATUS);
-                assertEquals(HttpURLConnection.HTTP_OK, getConnectionStatusResponse.statusCode());
-                final String gnmiDeviceConnectStatus =
-                    new JSONObject(getConnectionStatusResponse.body()).getString("gnmi-topology:node-status");
-                LOG.info("Response: {}", gnmiDeviceConnectStatus);
-                assertNotEquals(GNMI_NODE_STATUS_READY, gnmiDeviceConnectStatus);
-                final HttpResponse<String> getDeviceFailureDetailsResponse =
-                    sendGetRequestJSON(GNMI_TOPOLOGY_PATH + "/node=" + GNMI_NODE_WITH_WRONG_PASSWD_ID
-                        + "/gnmi-topology:node-state/failure-details");
-                final String gnmiDeviceFailureDetails =
-                    new JSONObject(getDeviceFailureDetailsResponse.body()).getString("gnmi-topology:failure-details");
-                LOG.info("Response: {}", gnmiDeviceFailureDetails);
-                assertTrue(gnmiDeviceFailureDetails.contains("UNAUTHENTICATED"));
-            });
+        awaitNodeFailureContains(GNMI_NODE_WITH_WRONG_PASSWD_PATH, "UNAUTHENTICATED");
 
         assertTrue(disconnectDevice(GNMI_NODE_WITH_WRONG_PASSWD_ID));
 
         // assert gNMI node's node-state is also deleted
-        Awaitility.waitAtMost(WAIT_TIME_DURATION)
-            .pollInterval(POLL_INTERVAL_DURATION)
-            .untilAsserted(() -> {
-                final HttpResponse<String> getConnectionStatusResponse =
-                    sendGetRequestJSON(GNMI_TOPOLOGY_PATH + "/node=" + GNMI_NODE_WITH_WRONG_PASSWD_ID
-                        + "/gnmi-topology:node-state");
-                assertEquals(HttpURLConnection.HTTP_CONFLICT, getConnectionStatusResponse.statusCode());
-            });
+        awaitNodeStateDeleted(GNMI_NODE_WITH_WRONG_PASSWD_PATH);
     }
 
     @Test
@@ -517,46 +433,99 @@ public class GnmiConnectionITTest extends GnmiITBase {
         // add gNMI node with missing encoding to topology
         LOG.info("Adding gnmi device with ID {}", GNMI_NODE_MISSING_ENCODING_ID);
         final HttpResponse<String> addGnmiDeviceResponse =
-                sendPutRequestJSON(GNMI_TOPOLOGY_PATH + "/node=" + GNMI_NODE_MISSING_ENCODING_ID,
+                sendPutRequestJSON(GNMI_NODE_MISSING_ENCODING_PATH,
                         createDevicePayload(
                                 GNMI_NODE_MISSING_ENCODING_ID, DEVICE_IP, DEVICE_WITH_MISSING_ENCODING_PORT));
         LOG.info("adding device with missing JSON_IETF encoding: {}", addGnmiDeviceResponse.body());
         assertEquals(HttpURLConnection.HTTP_CREATED, addGnmiDeviceResponse.statusCode());
 
         // assert gNMI node is not connected correctly due to missing JSON_IETF_ENCODING
-        Awaitility.waitAtMost(WAIT_TIME_DURATION)
-                .pollInterval(POLL_INTERVAL_DURATION)
-                .untilAsserted(() -> {
-                    final HttpResponse<String> getConnectionStatusResponse =
-                            sendGetRequestJSON(GNMI_TOPOLOGY_PATH + "/node=" + GNMI_NODE_MISSING_ENCODING_ID
-                                    + GNMI_NODE_STATUS);
-                    assertEquals(HttpURLConnection.HTTP_OK, getConnectionStatusResponse.statusCode());
-                    final String gnmiDeviceConnectStatus =
-                            new JSONObject(getConnectionStatusResponse.body())
-                                    .getString("gnmi-topology:node-status");
-                    LOG.info("Response: {}", gnmiDeviceConnectStatus);
-                    assertNotEquals(GNMI_NODE_STATUS_READY, gnmiDeviceConnectStatus);
-                    final HttpResponse<String> getDeviceFailureDetailsResponse =
-                            sendGetRequestJSON(GNMI_TOPOLOGY_PATH + "/node=" + GNMI_NODE_MISSING_ENCODING_ID
-                                    + "/gnmi-topology:node-state/failure-details");
-                    final String gnmiDeviceFailureDetails =
-                            new JSONObject(getDeviceFailureDetailsResponse.body())
-                                    .getString("gnmi-topology:failure-details");
-                    LOG.info("Response: {}", gnmiDeviceFailureDetails);
-                    assertTrue(gnmiDeviceFailureDetails.contains("JSON_IETF encoding"));
-                });
+        awaitNodeFailureContains(GNMI_NODE_MISSING_ENCODING_PATH, "JSON_IETF encoding");
 
         assertTrue(disconnectDevice(GNMI_NODE_MISSING_ENCODING_ID));
 
         // assert gNMI node's node-state is also deleted
-        Awaitility.waitAtMost(WAIT_TIME_DURATION)
-                .pollInterval(POLL_INTERVAL_DURATION)
-                .untilAsserted(() -> {
-                    final HttpResponse<String> getConnectionStatusResponse =
-                            sendGetRequestJSON(GNMI_TOPOLOGY_PATH + "/node=" + GNMI_NODE_MISSING_ENCODING_ID
-                                    + "/gnmi-topology:node-state");
-                    assertEquals(HttpURLConnection.HTTP_CONFLICT, getConnectionStatusResponse.statusCode());
-                });
+        awaitNodeStateDeleted(GNMI_NODE_MISSING_ENCODING_PATH);
     }
 
+    /**
+     * Polls the node's status until it equals the expected value.
+     */
+    private void awaitNodeStatus(final String nodePath, final String expectedStatus) {
+        Awaitility.waitAtMost(WAIT_TIME_DURATION)
+            .pollInterval(POLL_INTERVAL_DURATION)
+            .untilAsserted(() -> {
+                final var getConnectionStatusResponse =
+                    sendGetRequestJSON(nodePath + GNMI_NODE_STATUS);
+                assertEquals(HttpURLConnection.HTTP_OK, getConnectionStatusResponse.statusCode());
+                final var gnmiDeviceConnectStatus =
+                    new JSONObject(getConnectionStatusResponse.body()).getString("gnmi-topology:node-status");
+                LOG.info("Node {} status: {}", nodePath, gnmiDeviceConnectStatus);
+                assertEquals(expectedStatus, gnmiDeviceConnectStatus);
+            });
+    }
+
+    /**
+     * Polls until the node's mountpoint is created and reachable.
+     */
+    private void awaitMountpointCreated() {
+        Awaitility.waitAtMost(WAIT_TIME_DURATION)
+            .pollInterval(POLL_INTERVAL_DURATION)
+            .untilAsserted(() -> {
+                final var getDataFromDevice = sendGetRequestJSON(GNMI_DEVICE_MOUNTPOINT + OPENCONFIG_INTERFACES);
+                assertEquals(HttpURLConnection.HTTP_OK, getDataFromDevice.statusCode());
+            });
+    }
+
+    /**
+     * Polls the node's status until it is CONNECTING or TRANSIENT_FAILURE.
+     */
+    private void awaitConnectingOrTransientFailure(final String nodePath) {
+        Awaitility.waitAtMost(CONNECT_ATTEMPT_WAIT_DURATION)
+            .pollInterval(POLL_INTERVAL_DURATION)
+            .untilAsserted(() -> {
+                final var getDeviceConnectStatusResponse = sendGetRequestJSON(nodePath + GNMI_NODE_STATUS);
+                assertEquals(HttpURLConnection.HTTP_OK, getDeviceConnectStatusResponse.statusCode());
+                final var deviceConnectStatus =
+                    new JSONObject(getDeviceConnectStatusResponse.body()).getString("gnmi-topology:node-status");
+                LOG.info("Node {} status: {}", nodePath, deviceConnectStatus);
+                assertTrue(deviceConnectStatus.equals(GNMI_NODE_STATUS_CONNECTING)
+                    || deviceConnectStatus.equals(GNMI_NODE_STATUS_TRANSIENT_FAIL));
+            });
+    }
+
+    /**
+     * Polls until the node's node-state is deleted (returns HTTP 409 Conflict).
+     */
+    private void awaitNodeStateDeleted(final String nodePath) {
+        Awaitility.waitAtMost(WAIT_TIME_DURATION)
+            .pollInterval(POLL_INTERVAL_DURATION)
+            .untilAsserted(() -> {
+                final var getConnectionStatusResponse =
+                    sendGetRequestJSON(nodePath + "/gnmi-topology:node-state");
+                assertEquals(HttpURLConnection.HTTP_CONFLICT, getConnectionStatusResponse.statusCode());
+            });
+    }
+
+    /**
+     * Polls until the node's status is no longer READY and its failure-details contain the given substring.
+     */
+    private void awaitNodeFailureContains(final String nodePath, final String expectedFailureSubstring) {
+        Awaitility.waitAtMost(WAIT_TIME_DURATION)
+            .pollInterval(POLL_INTERVAL_DURATION)
+            .untilAsserted(() -> {
+                final var getConnectionStatusResponse = sendGetRequestJSON(nodePath + GNMI_NODE_STATUS);
+                assertEquals(HttpURLConnection.HTTP_OK, getConnectionStatusResponse.statusCode());
+                final var gnmiDeviceConnectStatus =
+                    new JSONObject(getConnectionStatusResponse.body()).getString("gnmi-topology:node-status");
+                LOG.info("Node {} status: {}", nodePath, gnmiDeviceConnectStatus);
+                assertNotEquals(GNMI_NODE_STATUS_READY, gnmiDeviceConnectStatus);
+                final var getDeviceFailureDetailsResponse =
+                    sendGetRequestJSON(nodePath + "/gnmi-topology:node-state/failure-details");
+                final var gnmiDeviceFailureDetails =
+                    new JSONObject(getDeviceFailureDetailsResponse.body()).getString("gnmi-topology:failure-details");
+                LOG.info("Node {} failure details: {}", nodePath, gnmiDeviceFailureDetails);
+                assertTrue(gnmiDeviceFailureDetails.contains(expectedFailureSubstring));
+            });
+    }
 }
