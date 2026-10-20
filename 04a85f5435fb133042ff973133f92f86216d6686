@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0232f86a_ca3c3f6c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-10-20T07:48:39Z",
+      "side": 1,
+      "message": "how unchanged, what\u0027s the target directory for old and new plugin?",
+      "revId": "04a85f5435fb133042ff973133f92f86216d6686",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b1fdd0d_bd220005",
+        "filename": "modules/gnmi-proto/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-10-20T07:48:39Z",
+      "side": 1,
+      "message": "can we manage version in gnmi-parent\u0027s \u003cpluginManagement\u003e?",
+      "revId": "04a85f5435fb133042ff973133f92f86216d6686",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
