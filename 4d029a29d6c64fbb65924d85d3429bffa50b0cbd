@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "877e68b1_ad621424",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-20T08:02:05Z",
+      "side": 1,
+      "message": "split https://git.opendaylight.org/gerrit/c/gnmi/+/127060/1?usp\u003drelated-change",
+      "parentUuid": "63ca05a6_00e5be8f",
+      "revId": "4d029a29d6c64fbb65924d85d3429bffa50b0cbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b0541a22_5a764fbc",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-10-19T15:14:53Z",
       "side": 1,
       "message": "add call to  consider calling awaitMountpointCreated() to ensure that device is usable",
+      "revId": "4d029a29d6c64fbb65924d85d3429bffa50b0cbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec566bfc_eb63bcbd",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-20T08:02:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0541a22_5a764fbc",
       "revId": "4d029a29d6c64fbb65924d85d3429bffa50b0cbd",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
