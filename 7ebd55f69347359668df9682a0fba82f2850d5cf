@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52c77fa9_39ca6598",
+        "filename": "modules/gnmi-proto/pom.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-10-20T08:06:26Z",
+      "side": 1,
+      "message": "do we also need: \u003cbinaryPlugins\u003e and \u003csourceDirectories\u003e?",
+      "revId": "7ebd55f69347359668df9682a0fba82f2850d5cf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
