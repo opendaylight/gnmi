@@ -16,6 +16,40 @@
       "message": "recheck",
       "revId": "a32d5c4b2b2f9cbf96e23d04c5a8ae0c805fa16c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3985153c_2e1d074b",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-10-21T10:32:19Z",
+      "side": 1,
+      "message": "The attempt bound documented here cannot fail: the timeout is 5 s and the poll interval 2 s, so Awaitility polls at most about 3 times and attempt \u003c\u003d 4 always holds. The plugin has no max-attempts concept either, since gRPC retries forever. Could we drop the counter, the assertion and this part of the Javadoc (and the \"assert number of attempts also\" comments at the call sites)?",
+      "revId": "a32d5c4b2b2f9cbf96e23d04c5a8ae0c805fa16c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbc1ecc3_590bdafb",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-10-21T10:32:19Z",
+      "side": 1,
+      "message": "You can use the node path instead of node ID (just like the siblings)",
+      "revId": "a32d5c4b2b2f9cbf96e23d04c5a8ae0c805fa16c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
