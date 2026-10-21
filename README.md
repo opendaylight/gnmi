@@ -24,3 +24,14 @@ The repository is split into the following logical parts:
 - gNMI plugin and simulator [implementation](modules)
 - YANG [models](models) defining plugin behaviour
 - user and developer guides [documentation](docs)
+
+## Build
+
+Building the project requires:
+
+- Java 21 or later
+- Maven 3.9.9 or later
+
+```bash
+mvn clean install
+```

@@ -28,7 +28,7 @@ Prerequisites
 In order to build and start and run this example locally, you need:
 
 * Java 21 or later
-* Maven 3.9.5 or later
+* Maven 3.9.9 or later
 * Bruno/Postman or curl
 * Linux-based system with bash
 
