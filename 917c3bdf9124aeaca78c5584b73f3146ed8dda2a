@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9277a630_aef98659",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-10-21T05:50:41Z",
+      "side": 1,
+      "message": "latestRevisionOf is now storedRevisionOf: it returns a date only for models stored under a revision, so a model stored under a semver is never compared by date.",
+      "parentUuid": "311ff36a_444f920e",
+      "revId": "917c3bdf9124aeaca78c5584b73f3146ed8dda2a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "16dd2def_62e18cb7",
@@ -35,6 +53,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9bae9f8_e9eb06e8",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/yangstore/service/YangDataStoreService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-10-21T05:50:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16dd2def_62e18cb7",
+      "revId": "917c3bdf9124aeaca78c5584b73f3146ed8dda2a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c377dd8e_5904a482",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-10-19T08:57:48Z",
       "side": 1,
       "message": "None of these tests reach the referencedSemVerOf fallback (SchemaContextHolderImpl.java:216, the openconfig-extensions case from the commit message) or the latestRevisionOf fallback (line 229): stubbing either to return null keeps the suite green. Could you add a semver request for openconfig-extensions, a revision request against revision-stored models, and a revision whose history has no reference?",
+      "revId": "917c3bdf9124aeaca78c5584b73f3146ed8dda2a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02733180_48c0c4e1",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/schema/SchemaVersionResolutionTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-10-21T05:50:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c377dd8e_5904a482",
       "revId": "917c3bdf9124aeaca78c5584b73f3146ed8dda2a",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
