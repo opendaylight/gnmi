@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f56769db_62096c79",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-10-21T07:30:13Z",
+      "side": 1,
+      "message": "We should log this at info. Keep the WARN below, as that\u0027s for the \"none compatible\" case",
+      "revId": "cc9f854174484fbf891c8865aff64974b7c787c6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6531d6dc_c568453a",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-10-21T07:30:13Z",
+      "side": 1,
+      "message": "use \"closest\" as everywhere else.",
+      "revId": "cc9f854174484fbf891c8865aff64974b7c787c6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4b2e6ec_6f1e8f9e",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-10-21T07:30:13Z",
+      "side": 1,
+      "message": "Once the revision is mapped to a semantic version, this only tries semver-stored models, while a direct semver request at line 216 also tries revision-stored ones via referencedSemVerOf. Would return findCompatibleModel(models, referencedSemVer.orElseThrow()) be better here, so a revision request and the equivalent semver request always pick the same model?",
+      "revId": "cc9f854174484fbf891c8865aff64974b7c787c6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bef1c9e_23733b2b",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-10-21T07:30:13Z",
+      "side": 1,
+      "message": "can be one line",
+      "revId": "cc9f854174484fbf891c8865aff64974b7c787c6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b892eba_7a8af457",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-10-21T07:30:13Z",
+      "side": 1,
+      "message": "This only helps when the submodule is stored under the parent\u0027s exact version; on a miss the include stays versionless and tryToReadModel picks the highest stored submodule, which can be another major (parent 1.2.0 stored, sub only at 1.1.0 and 2.0.0 gives 2.0.0). Could this use the same compatibility rule, or at least prefer the parent\u0027s major before the highest overall, with a test for that case?",
+      "revId": "cc9f854174484fbf891c8865aff64974b7c787c6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df327cc2_edb6d0ea",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/schema/TestYangDataStoreService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-10-21T07:30:13Z",
+      "side": 1,
+      "message": "This deletes only the first-inserted version, an arbitrary rule tests could start relying on. Delete every version when modelVersion is null, or document it.",
+      "revId": "cc9f854174484fbf891c8865aff64974b7c787c6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f76b5c55_fab2577e",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/schema/impl/VersionCompatibilityTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-10-21T07:30:13Z",
+      "side": 1,
+      "message": "The first failure hides the rest. Consider @ParameterizedTest",
+      "revId": "cc9f854174484fbf891c8865aff64974b7c787c6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
