@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a58c4d15_79298d4f",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnection.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-10-21T10:28:44Z",
+      "side": 1,
+      "message": "Could we get a unit test for this ordering? A mocked SessionProvider whose close() throws, plus a real status listener over a test broker, would pin that node-state is still deleted. The same applies to the try/finally chain in SessionInitializationHolder.close() and to onSessionReady being called twice. The IT in the follow-up change covers only the reconnect path.",
+      "revId": "848634ff4d3a8481081524195a9980dc462f9c09",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f9e7f73_574427f9",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionInitializer.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-10-21T10:28:44Z",
+      "side": 1,
+      "message": "Am I right that this note does not cover a flap after the mountpoint is registered? Then setDeviceStatusReady() at DeviceConnectionManager.java throws synchronously, the connect future fails, GnmiNodeListener merges FAILURE plus failure-details, and the mountpoint stays up. The later READY from this branch only merges node-status, so failure-details stays forever. Suggest treating GnmiConnectionStatusException there as non-fatal once mounted, and/or deleting failure-details on the READY write.",
+      "revId": "848634ff4d3a8481081524195a9980dc462f9c09",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c0dcb70_6b99d708",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionInitializer.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-10-21T10:28:44Z",
+      "side": 1,
+      "message": "When both close steps throw, the \"finally\" block\u0027s exception replaces the first one, so the listener\u0027s failure is lost. The caller then logs without the throwable. Catch the first exception and addSuppressed() the later ones. Check the try/catch in DeviceConnection as well for this exact reason.",
+      "revId": "848634ff4d3a8481081524195a9980dc462f9c09",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
