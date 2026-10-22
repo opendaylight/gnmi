@@ -16,6 +16,40 @@
       "message": "recheck",
       "revId": "3d8c72e541411fd352e1c1428fd548222ca33a15",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce63f023_94cccc2f",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-10-22T10:06:28Z",
+      "side": 1,
+      "message": "We are triming about a dozen times in this class - and inconsistently as well (see line 148). Normalise once, in versionOf() and at the top of findCompatibleModel(), and drop the rest.",
+      "revId": "3d8c72e541411fd352e1c1428fd548222ca33a15",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "267cb19d_ec9f530c",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-10-22T10:06:28Z",
+      "side": 1,
+      "message": "\"model.getVersion() \u003d\u003d null\" cannot happen. Return model.getVersion().getValue() and drop the null handling downstream.",
+      "revId": "3d8c72e541411fd352e1c1428fd548222ca33a15",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
