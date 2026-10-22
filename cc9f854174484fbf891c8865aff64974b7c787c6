@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0f02320_7a110273",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-10-22T06:38:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f56769db_62096c79",
+      "revId": "cc9f854174484fbf891c8865aff64974b7c787c6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6531d6dc_c568453a",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-10-21T07:30:13Z",
       "side": 1,
       "message": "use \"closest\" as everywhere else.",
+      "revId": "cc9f854174484fbf891c8865aff64974b7c787c6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8399484a_516842c7",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-10-22T06:38:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6531d6dc_c568453a",
       "revId": "cc9f854174484fbf891c8865aff64974b7c787c6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -52,6 +88,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b4ac49f_5fba8bd1",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-10-22T06:38:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4b2e6ec_6f1e8f9e",
+      "revId": "cc9f854174484fbf891c8865aff64974b7c787c6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3bef1c9e_23733b2b",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-10-21T07:30:13Z",
       "side": 1,
       "message": "can be one line",
+      "revId": "cc9f854174484fbf891c8865aff64974b7c787c6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9aa6d0f_9dbeaa33",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-10-22T06:38:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3bef1c9e_23733b2b",
       "revId": "cc9f854174484fbf891c8865aff64974b7c787c6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -86,6 +158,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f1df662_c279e064",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-10-22T06:38:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b892eba_7a8af457",
+      "revId": "cc9f854174484fbf891c8865aff64974b7c787c6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df327cc2_edb6d0ea",
@@ -103,6 +193,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "27c711cf_5d7c1bd8",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/schema/TestYangDataStoreService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-10-22T06:38:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df327cc2_edb6d0ea",
+      "revId": "cc9f854174484fbf891c8865aff64974b7c787c6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f76b5c55_fab2577e",
@@ -116,6 +224,24 @@
       "writtenOn": "2026-10-21T07:30:13Z",
       "side": 1,
       "message": "The first failure hides the rest. Consider @ParameterizedTest",
+      "revId": "cc9f854174484fbf891c8865aff64974b7c787c6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c1b878b_809c1a74",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/schema/impl/VersionCompatibilityTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-10-22T06:38:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f76b5c55_fab2577e",
       "revId": "cc9f854174484fbf891c8865aff64974b7c787c6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
