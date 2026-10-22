@@ -16,6 +16,40 @@
       "message": "recheck",
       "revId": "0a50161a8f49e764c0a191897f6ecf6255899d39",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "476adf54_e603d10b",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnection.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 8449
+      },
+      "writtenOn": "2026-10-22T16:38:41Z",
+      "side": 1,
+      "message": "Same here to preserve bot exceptions:\n```\n        try (sessionProvider) {\n            connectionStatusListener.close();\n        }\n```\n\nPreviously with using finally block the exception from \"sessionProvider.close()\" was not included.",
+      "revId": "0a50161a8f49e764c0a191897f6ecf6255899d39",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59f6fe00_1d8cb77d",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionInitializer.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 8449
+      },
+      "writtenOn": "2026-10-22T16:38:41Z",
+      "side": 1,
+      "message": "Can we use this instead?\n```\n            try (sessionProvider) {\n                listener.close();\n            } finally {\n                futureManager.cancel(true);\n            }\n```\n\nhttps://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Throwable.html#addSuppressed(java.lang.Throwable)\n\n`In the try-with-resources statement, when there are two such exceptions, the exception originating from the try block is propagated and the exception from the finally block is added to the list of exceptions suppressed by the exception from the try block. As an exception unwinds the stack, it can accumulate multiple suppressed exceptions.`\n\nThis way we can get rid of SuppressWarnings.",
+      "revId": "0a50161a8f49e764c0a191897f6ecf6255899d39",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
