@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdfe9e54_4ce6f73c",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnection.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-22T13:22:10Z",
+      "side": 1,
+      "message": "done, added tests",
+      "parentUuid": "a58c4d15_79298d4f",
+      "revId": "848634ff4d3a8481081524195a9980dc462f9c09",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6f9e7f73_574427f9",
@@ -35,6 +53,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "763168b9_8da8dd7b",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionInitializer.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-22T13:22:10Z",
+      "side": 1,
+      "message": "Youre right, fixed",
+      "parentUuid": "6f9e7f73_574427f9",
+      "revId": "848634ff4d3a8481081524195a9980dc462f9c09",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c0dcb70_6b99d708",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-10-21T10:28:44Z",
       "side": 1,
       "message": "When both close steps throw, the \"finally\" block\u0027s exception replaces the first one, so the listener\u0027s failure is lost. The caller then logs without the throwable. Catch the first exception and addSuppressed() the later ones. Check the try/catch in DeviceConnection as well for this exact reason.",
+      "revId": "848634ff4d3a8481081524195a9980dc462f9c09",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0eb22174_c521cc7e",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionInitializer.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-22T13:22:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c0dcb70_6b99d708",
       "revId": "848634ff4d3a8481081524195a9980dc462f9c09",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
