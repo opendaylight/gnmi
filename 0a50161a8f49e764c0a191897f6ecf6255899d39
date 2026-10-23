@@ -16,6 +16,24 @@
       "message": "Any reason to remove this check?\nassertTrue(attempt.get() \u003c\u003d MAX_DEVICE_CONNECTION_ATTEMPTS);",
       "revId": "0a50161a8f49e764c0a191897f6ecf6255899d39",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f299b907_e6b4d25d",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-23T11:30:15Z",
+      "side": 0,
+      "message": "It was removed per Tibor\u0027s review on PS1, because the check could never fail. awaitConnectingOrTransientFailure waited at most 5 s (CONNECT_ATTEMPT_WAIT_DURATION) with a 2 s poll interval, so Awaitility evaluated the assertion about 3 times and attempt \u003c\u003d 4 always held. It also counted the test\u0027s polls, not the device\u0027s connection attempts, and gRPC retries the connection indefinitely, so there is no attempt limit to verify. The commit message now explains this as well.",
+      "parentUuid": "5acc1023_8ba215d6",
+      "revId": "0a50161a8f49e764c0a191897f6ecf6255899d39",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
