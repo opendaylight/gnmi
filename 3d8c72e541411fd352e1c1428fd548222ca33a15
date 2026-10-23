@@ -35,6 +35,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b547c90_cd7d1610",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-10-23T13:02:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce63f023_94cccc2f",
+      "revId": "3d8c72e541411fd352e1c1428fd548222ca33a15",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "267cb19d_ec9f530c",
@@ -48,6 +66,24 @@
       "writtenOn": "2026-10-22T10:06:28Z",
       "side": 1,
       "message": "\"model.getVersion() \u003d\u003d null\" cannot happen. Return model.getVersion().getValue() and drop the null handling downstream.",
+      "revId": "3d8c72e541411fd352e1c1428fd548222ca33a15",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fcd6a2d_1ac26477",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-10-23T13:02:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "267cb19d_ec9f530c",
       "revId": "3d8c72e541411fd352e1c1428fd548222ca33a15",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
