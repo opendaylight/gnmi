@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d56cb68e_88f39a4d",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-10-26T08:43:38Z",
+      "side": 1,
+      "message": "Just unwrap capabilityVersion once after .isPresent() into some variable and use that, instead of unwrapping it again and again.",
+      "revId": "f9227f7664bef26371e03ddb88cad3de8dca432e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a14dec6_e59a01df",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-10-26T08:43:38Z",
+      "side": 1,
+      "message": "This picks a submodule copy, keeps only its SemVer, and tryToReadModel then reads the store again and re-selects by that version. It also runs for submodules already in processedModuleNames, and a copy stored as \"1.1\" comes back as 1.1.0, misses the exact read and logs the INFO fallback on every build. Could the selection happen once?",
+      "revId": "f9227f7664bef26371e03ddb88cad3de8dca432e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e506655b_8b8c78ec",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/yangstore/impl/YangDataStoreServiceImpl.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-10-26T08:43:38Z",
+      "side": 1,
+      "message": "This filter runs on the 4-thread gNMI pool, but SchemaContextHolderImpl calls .get(30s) on the result from that same pool (DeviceConnectionManager runs getSchemaContext there). With four devices building schemas at once, all threads wait for a queued filter and every build times out.",
+      "revId": "f9227f7664bef26371e03ddb88cad3de8dca432e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "daa59f6a_5b501341",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/schema/SchemaVersionResolutionTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-10-26T08:43:38Z",
+      "side": 1,
+      "message": "The other helpers are all at the bottom. Move it there.",
+      "revId": "f9227f7664bef26371e03ddb88cad3de8dca432e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73171f89_2c23ed1d",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/schema/SchemaVersionResolutionTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-10-26T08:43:38Z",
+      "side": 1,
+      "message": "The versionless path (every plain import) now picks the highest stored version, but no test stores two semver copies and checks the result, e.g. 1.9.0 vs 1.10.0, where text order would pick the wrong one. Could you add that, plus a submodule case where neither a compatible nor a same-major copy exists, so the \"highest overall\" fallback is covered?",
+      "revId": "f9227f7664bef26371e03ddb88cad3de8dca432e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
