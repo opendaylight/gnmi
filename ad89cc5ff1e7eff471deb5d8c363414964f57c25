@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "607e5ae5_b77a5e66",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-10-27T19:02:02Z",
+      "side": 1,
+      "message": "no additional sign offs",
+      "revId": "ad89cc5ff1e7eff471deb5d8c363414964f57c25",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "1043afa6_4b2a8802",
@@ -14,6 +31,23 @@
       "writtenOn": "2026-10-27T08:30:29Z",
       "side": 1,
       "message": "recheck",
+      "revId": "ad89cc5ff1e7eff471deb5d8c363414964f57c25",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bb738fa_b13ab461",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-10-27T19:02:02Z",
+      "side": 1,
+      "message": "task is not correctly manages, wrong status",
       "revId": "ad89cc5ff1e7eff471deb5d8c363414964f57c25",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
