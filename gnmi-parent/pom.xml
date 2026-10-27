@@ -37,6 +37,18 @@
                 <scope>import</scope>
             </dependency>
 
+            <!-- protobuf: not covered by any imported BOM -->
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java</artifactId>
+                <version>${protobuf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java-util</artifactId>
+                <version>${protobuf.version}</version>
+            </dependency>
+
             <!-- gRPC: we are not using BOM to deal with all the funky exclusions we need -->
             <dependency>
                 <groupId>io.grpc</groupId>
