@@ -52,6 +52,24 @@
       "parentUuid": "ec7f6d58_3c0bcbe2",
       "revId": "c1676bdf4927cef6b8f2ebd8f63d2830408f905f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9581d6b3_30886739",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-10-28T16:25:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ae075c8f_4da374dc",
+      "revId": "c1676bdf4927cef6b8f2ebd8f63d2830408f905f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
