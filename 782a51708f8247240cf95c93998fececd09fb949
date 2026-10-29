@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be907ef5_e460a088",
+        "filename": "modules/gnmi-device-simulator/pom.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-10-29T18:17:29Z",
+      "side": 1,
+      "message": "little bit unnecesarry comment?",
+      "revId": "782a51708f8247240cf95c93998fececd09fb949",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf3a5e68_7b8ae709",
+        "filename": "modules/gnmi-device-simulator/src/main/proto/github.com/gogo/protobuf/gogoproto/gogo.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-10-29T18:17:29Z",
+      "side": 1,
+      "message": "// Upstream uses \"com.google.protobuf\", which puts this class into protobuf-java\u0027s package                             \n  // (see GNMI-36). Use the proto package instead, like the other vendored .proto files.                                 \n  option java_package \u003d \"gogoproto\";",
+      "revId": "782a51708f8247240cf95c93998fececd09fb949",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffc5d6d0_f7cd6a34",
+        "filename": "modules/gnmi-proto/pom.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-10-29T18:17:29Z",
+      "side": 1,
+      "message": "ok, can be in separate commit?",
+      "revId": "782a51708f8247240cf95c93998fececd09fb949",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37a667fa_6ad72627",
+        "filename": "modules/gnmi-proto/pom.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-10-29T18:17:29Z",
+      "side": 1,
+      "message": "original comment was better 😄",
+      "revId": "782a51708f8247240cf95c93998fececd09fb949",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1726b46_dc615c7d",
+        "filename": "modules/gnmi-proto/pom.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-10-29T18:17:29Z",
+      "side": 1,
+      "message": "move this to parent as well?",
+      "revId": "782a51708f8247240cf95c93998fececd09fb949",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}

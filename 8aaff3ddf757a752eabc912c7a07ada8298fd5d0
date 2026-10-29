@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd7a7068_abd23a2a",
+        "filename": "modules/gnmi-proto/src/main/resources/spotbugs_filter.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-10-29T18:17:29Z",
+      "side": 0,
+      "message": "can we even remove this file in follow-up commit completely, is it used?",
+      "revId": "8aaff3ddf757a752eabc912c7a07ada8298fd5d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
