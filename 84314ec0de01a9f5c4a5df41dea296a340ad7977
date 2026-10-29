@@ -46,6 +46,30 @@
       },
       "revId": "84314ec0de01a9f5c4a5df41dea296a340ad7977",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b456bd5_76fba006",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-10-29T17:20:59Z",
+      "side": 1,
+      "message": "It has ben removed earlier and completely (not version only!) in master (4) and this branch: https://git.opendaylight.org/gerrit/c/gnmi/+/125156",
+      "parentUuid": "a69983b3_6b63c827",
+      "range": {
+        "startLine": 14,
+        "startChar": 14,
+        "endLine": 14,
+        "endChar": 34
+      },
+      "revId": "84314ec0de01a9f5c4a5df41dea296a340ad7977",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
