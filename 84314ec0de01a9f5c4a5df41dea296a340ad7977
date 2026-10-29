@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d82b57b9_3bf46292",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 8449
+      },
+      "writtenOn": "2026-10-29T09:55:13Z",
+      "side": 1,
+      "message": "I am not seeing that \"jakarta.xml.bind-api\" dependency was removed in this change.",
+      "range": {
+        "startLine": 14,
+        "startChar": 14,
+        "endLine": 14,
+        "endChar": 34
+      },
+      "revId": "84314ec0de01a9f5c4a5df41dea296a340ad7977",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
