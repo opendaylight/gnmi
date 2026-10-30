@@ -47,7 +47,7 @@ public class DeviceConnection implements GnmiSessionProvider, SchemaContextProvi
         return gnmiNode == null ? null : gnmiNode.getExtensionsParameters();
     }
 
-    public FluentFuture<CommitInfo> setDeviceStatusReady() throws GnmiConnectionStatusException {
+    public FluentFuture<? extends CommitInfo> setDeviceStatusReady() throws GnmiConnectionStatusException {
         return connectionStatusListener.copyDeviceStatusReadyToDatastore();
     }
 

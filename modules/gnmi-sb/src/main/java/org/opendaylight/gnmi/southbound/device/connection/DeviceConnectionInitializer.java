@@ -177,7 +177,7 @@ public class DeviceConnectionInitializer implements AutoCloseable {
                 // DeviceConnectionManager#prepareDeviceConnection()), so READY is written here once the channel
                 // is back.
                 try {
-                    deviceConnection.setDeviceStatusReady().addCallback(new FutureCallback<>() {
+                    deviceConnection.setDeviceStatusReady().addCallback(new FutureCallback<CommitInfo>() {
                         @Override
                         public void onSuccess(final CommitInfo result) {
                             LOG.debug("Refreshed READY status of node {} in operational datastore",
