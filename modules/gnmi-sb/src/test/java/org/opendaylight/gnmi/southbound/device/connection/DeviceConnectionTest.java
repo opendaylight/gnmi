@@ -10,11 +10,17 @@ package org.opendaylight.gnmi.southbound.device.connection;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.verify;
 
 import java.util.concurrent.ExecutionException;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.opendaylight.gnmi.connector.session.api.SessionProvider;
 import org.opendaylight.gnmi.southbound.device.session.listener.GnmiConnectionStatusListener;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NodeId;
@@ -27,18 +33,24 @@ import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.
  * provider (which would otherwise leak the gRPC channel). When both close steps fail, the first failure is
  * propagated with the later one suppressed into it.
  */
+@ExtendWith(MockitoExtension.class)
 class DeviceConnectionTest {
     private static final Node NODE = new NodeBuilder().setNodeId(new NodeId("close-order-node")).build();
 
+    @Mock
     private SessionProvider sessionProviderMock;
+    @Mock
     private GnmiConnectionStatusListener connectionStatusListenerMock;
     private DeviceConnection deviceConnection;
 
     @BeforeEach
     void setup() {
-        sessionProviderMock = Mockito.mock(SessionProvider.class);
-        connectionStatusListenerMock = Mockito.mock(GnmiConnectionStatusListener.class);
         deviceConnection = new DeviceConnection(sessionProviderMock, connectionStatusListenerMock, NODE);
+    }
+
+    @AfterEach
+    void tearDown() throws Exception {
+        deviceConnection.close();
     }
 
     /**
@@ -48,8 +60,6 @@ class DeviceConnectionTest {
      */
     @Test
     void closesListenerBeforeSessionProviderTest() throws Exception {
-        deviceConnection.close();
-
         final var inOrder = Mockito.inOrder(connectionStatusListenerMock, sessionProviderMock);
         inOrder.verify(connectionStatusListenerMock).close();
         inOrder.verify(sessionProviderMock).close();
@@ -62,11 +72,9 @@ class DeviceConnectionTest {
     @Test
     void sessionProviderClosedWhenListenerCloseFailsTest() throws Exception {
         final var listenerFailure = new ExecutionException(new IllegalStateException("commit failed"));
-        Mockito.doThrow(listenerFailure).when(connectionStatusListenerMock).close();
-
+        doThrow(listenerFailure).when(connectionStatusListenerMock).close();
         assertSame(listenerFailure, assertThrows(ExecutionException.class, deviceConnection::close));
-
-        Mockito.verify(sessionProviderMock).close();
+        verify(sessionProviderMock).close();
     }
 
     /**
@@ -77,8 +85,8 @@ class DeviceConnectionTest {
     void sessionProviderFailureSuppressedWhenBothCloseStepsFailTest() throws Exception {
         final var listenerFailure = new ExecutionException(new IllegalStateException("commit failed"));
         final var sessionFailure = new IllegalStateException("channel did not terminate");
-        Mockito.doThrow(listenerFailure).when(connectionStatusListenerMock).close();
-        Mockito.doThrow(sessionFailure).when(sessionProviderMock).close();
+        doThrow(listenerFailure).when(connectionStatusListenerMock).close();
+        doThrow(sessionFailure).when(sessionProviderMock).close();
 
         assertSame(listenerFailure, assertThrows(ExecutionException.class, deviceConnection::close));
         assertArrayEquals(new Throwable[] {sessionFailure}, listenerFailure.getSuppressed());
