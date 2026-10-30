@@ -24,10 +24,15 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.opendaylight.gnmi.connector.gnmi.session.api.GnmiSession;
 import org.opendaylight.gnmi.connector.session.SessionManagerFactory;
 import org.opendaylight.gnmi.connector.session.api.SessionManager;
@@ -59,17 +64,21 @@ import org.opendaylight.yangtools.yang.common.Uint16;
  * <p>All executors are direct, so channel state changes fired via {@link #fireChannelStateChange} run the
  * whole connection logic synchronously on the test thread, making the flap scenarios deterministic.</p>
  */
+@ExtendWith(MockitoExtension.class)
 class DeviceReconnectionStatusTest {
     private static final long TIMEOUT_MILLIS = 30_000;
     private static final Gnmi.CapabilityResponse CAPABILITY_RESPONSE = Gnmi.CapabilityResponse.newBuilder()
-            .addSupportedEncodings(Gnmi.Encoding.JSON_IETF)
-            .build();
+        .addSupportedEncodings(Gnmi.Encoding.JSON_IETF)
+        .build();
 
     private final List<Node> mergedNodes = new ArrayList<>();
 
     private DeviceConnectionManager connectionManager;
+    @Mock
     private GnmiSession gnmiSessionMock;
+    @Mock
     private GnmiMountPointRegistrator mountPointRegistratorMock;
+    @Captor
     private ArgumentCaptor<Runnable> stateChangeCaptor;
     private ConnectivityState channelState;
 
@@ -85,9 +94,6 @@ class DeviceReconnectionStatusTest {
         final var schemaContextHolderMock = Mockito.mock(SchemaContextHolder.class);
         final var gnmiDataBrokerFactoryMock = Mockito.mock(GnmiDataBrokerFactory.class);
         final var sessionProviderMock = Mockito.mock(SessionProvider.class);
-        gnmiSessionMock = Mockito.mock(GnmiSession.class);
-        mountPointRegistratorMock = Mockito.mock(GnmiMountPointRegistrator.class);
-        stateChangeCaptor = ArgumentCaptor.forClass(Runnable.class);
 
         when(sessionManagerFactoryMock.createSessionManager(any()))
                 .thenAnswer(invocation -> sessionManagerMock);
@@ -122,6 +128,11 @@ class DeviceReconnectionStatusTest {
                 securityProviderMock, sessionManagerFactoryMock, dataBrokerMock, directExecutor);
         connectionManager = new DeviceConnectionManager(mountPointRegistratorMock, schemaContextHolderMock,
                 gnmiDataBrokerFactoryMock, connectionInitializer, dataBrokerMock, directExecutor);
+    }
+
+    @AfterEach
+    void tearDown() {
+        connectionManager.close();
     }
 
     /**
@@ -192,24 +203,24 @@ class DeviceReconnectionStatusTest {
 
     private long countMergedStatus(final NodeState.NodeStatus status) {
         return mergedNodes.stream()
-                .map(mergedNode -> mergedNode.augmentation(GnmiNode.class))
-                .filter(Objects::nonNull)
-                .map(GnmiNode::getNodeState)
-                .filter(Objects::nonNull)
-                .map(NodeState::getNodeStatus)
-                .filter(status::equals)
-                .count();
+            .map(mergedNode -> mergedNode.augmentation(GnmiNode.class))
+            .filter(Objects::nonNull)
+            .map(GnmiNode::getNodeState)
+            .filter(Objects::nonNull)
+            .map(NodeState::getNodeStatus)
+            .filter(status::equals)
+            .count();
     }
 
     private static Node createNode(final String nameOfNode, final int port) {
         return new NodeBuilder()
-                .setNodeId(new NodeId(nameOfNode))
-                .addAugmentation(new GnmiNodeBuilder().setConnectionParameters(
-                        new ConnectionParametersBuilder()
-                                .setHost(new Host(new IpAddress(Ipv4Address.getDefaultInstance("127.0.0.1"))))
-                                .setPort(new PortNumber(Uint16.valueOf(port)))
-                                .build())
-                        .build())
-                .build();
+            .setNodeId(new NodeId(nameOfNode))
+            .addAugmentation(new GnmiNodeBuilder().setConnectionParameters(
+                    new ConnectionParametersBuilder()
+                            .setHost(new Host(new IpAddress(Ipv4Address.getDefaultInstance("127.0.0.1"))))
+                            .setPort(new PortNumber(Uint16.valueOf(port)))
+                            .build())
+                    .build())
+            .build();
     }
 }
