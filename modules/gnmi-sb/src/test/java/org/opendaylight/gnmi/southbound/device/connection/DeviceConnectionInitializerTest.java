@@ -62,11 +62,11 @@ class DeviceConnectionInitializerTest extends AbstractConcurrentDataBrokerTest {
     private static final Node NODE = new NodeBuilder()
             .setNodeId(new NodeId("initializer-test-node"))
             .addAugmentation(new GnmiNodeBuilder().setConnectionParameters(
-                    new ConnectionParametersBuilder()
-                            .setHost(new Host(new IpAddress(Ipv4Address.getDefaultInstance("127.0.0.1"))))
-                            .setPort(new PortNumber(Uint16.valueOf(9000)))
-                            .build())
+                new ConnectionParametersBuilder()
+                    .setHost(new Host(new IpAddress(Ipv4Address.getDefaultInstance("127.0.0.1"))))
+                    .setPort(new PortNumber(Uint16.valueOf(9000)))
                     .build())
+                .build())
             .build();
 
     private SessionProvider sessionProviderMock;
@@ -82,8 +82,8 @@ class DeviceConnectionInitializerTest extends AbstractConcurrentDataBrokerTest {
     void before() throws Exception {
         setup();
         final var topology = new TopologyBuilder()
-                .setTopologyId(new TopologyId(IdentifierUtils.GNMI_TOPOLOGY_ID))
-                .build();
+            .setTopologyId(new TopologyId(IdentifierUtils.GNMI_TOPOLOGY_ID))
+            .build();
         final var configTx = getDataBroker().newWriteOnlyTransaction();
         configTx.merge(LogicalDatastoreType.CONFIGURATION, IdentifierUtils.GNMI_TOPOLOGY_PATH, topology);
         // The READY write is skipped for nodes absent from configuration, so the node has to be configured
@@ -103,7 +103,7 @@ class DeviceConnectionInitializerTest extends AbstractConcurrentDataBrokerTest {
         doNothing().when(sessionProviderMock).notifyOnStateChangedOneOff(any(), stateChangeCaptor.capture());
 
         connectionInitializer = new DeviceConnectionInitializer(mock(GnmiSecurityProvider.class),
-                sessionManagerFactoryMock, getDataBroker(), MoreExecutors.newDirectExecutorService());
+            sessionManagerFactoryMock, getDataBroker(), MoreExecutors.newDirectExecutorService());
     }
 
     /**
@@ -150,16 +150,17 @@ class DeviceConnectionInitializerTest extends AbstractConcurrentDataBrokerTest {
      */
     @Test
     void repeatedReadyRefreshesReadyStatusTest() throws Exception {
-        final var deviceConnection = connect();
-        deviceConnection.setDeviceStatusReady().get(TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
-        assertEquals(NodeState.NodeStatus.READY, readNodeStatus().orElseThrow());
+        try (final var deviceConnection = connect()) {
+            deviceConnection.setDeviceStatusReady().get(TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
+            assertEquals(NodeState.NodeStatus.READY, readNodeStatus().orElseThrow());
 
-        fireChannelStateChange(ConnectivityState.TRANSIENT_FAILURE);
-        assertEquals(NodeState.NodeStatus.TRANSIENTFAILURE, readNodeStatus().orElseThrow());
+            fireChannelStateChange(ConnectivityState.TRANSIENT_FAILURE);
+            assertEquals(NodeState.NodeStatus.TRANSIENTFAILURE, readNodeStatus().orElseThrow());
 
-        fireChannelStateChange(ConnectivityState.READY);
-        Awaitility.await().atMost(Duration.ofMillis(TIMEOUT_MILLIS))
+            fireChannelStateChange(ConnectivityState.READY);
+            Awaitility.await().atMost(Duration.ofMillis(TIMEOUT_MILLIS))
                 .until(() -> readNodeStatus().orElse(null) == NodeState.NodeStatus.READY);
+        }
     }
 
     private DeviceConnection connect() throws Exception {
@@ -177,15 +178,15 @@ class DeviceConnectionInitializerTest extends AbstractConcurrentDataBrokerTest {
 
     private Optional<NodeState.NodeStatus> readNodeStatus() throws Exception {
         return readOperationalNode()
-                .map(node -> node.augmentation(GnmiNode.class))
-                .map(GnmiNode::getNodeState)
-                .map(NodeState::getNodeStatus);
+            .map(node -> node.augmentation(GnmiNode.class))
+            .map(GnmiNode::getNodeState)
+            .map(NodeState::getNodeStatus);
     }
 
     private Optional<Node> readOperationalNode() throws Exception {
         try (var tx = getDataBroker().newReadOnlyTransaction()) {
             return tx.read(LogicalDatastoreType.OPERATIONAL, IdentifierUtils.gnmiNodeID(NODE.getNodeId()))
-                    .get(TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
+                .get(TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
         }
     }
 }
