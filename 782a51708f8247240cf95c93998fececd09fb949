@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c8a8d6b_06eb9486",
+        "filename": "modules/gnmi-device-simulator/pom.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-30T12:01:26Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "be907ef5_e460a088",
+      "revId": "782a51708f8247240cf95c93998fececd09fb949",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf3a5e68_7b8ae709",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-10-29T18:17:29Z",
       "side": 1,
       "message": "// Upstream uses \"com.google.protobuf\", which puts this class into protobuf-java\u0027s package                             \n  // (see GNMI-36). Use the proto package instead, like the other vendored .proto files.                                 \n  option java_package \u003d \"gogoproto\";",
+      "revId": "782a51708f8247240cf95c93998fececd09fb949",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fa3ee22_4b8afc2c",
+        "filename": "modules/gnmi-device-simulator/src/main/proto/github.com/gogo/protobuf/gogoproto/gogo.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-30T12:01:26Z",
+      "side": 1,
+      "message": "changed to java_package \u003d \"gogoproto\";",
+      "parentUuid": "bf3a5e68_7b8ae709",
       "revId": "782a51708f8247240cf95c93998fececd09fb949",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -52,6 +88,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "62c2f5fc_51057e91",
+        "filename": "modules/gnmi-proto/pom.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-30T12:01:26Z",
+      "side": 1,
+      "message": "I hope I understand this correctly, I split this comment into:\nhttps://git.opendaylight.org/gerrit/c/gnmi/+/127310",
+      "parentUuid": "ffc5d6d0_f7cd6a34",
+      "revId": "782a51708f8247240cf95c93998fececd09fb949",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "37a667fa_6ad72627",
@@ -69,6 +123,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02c1d471_cbdc562e",
+        "filename": "modules/gnmi-proto/pom.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-30T12:01:26Z",
+      "side": 1,
+      "message": "reverted",
+      "parentUuid": "37a667fa_6ad72627",
+      "revId": "782a51708f8247240cf95c93998fececd09fb949",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a1726b46_dc615c7d",
@@ -82,6 +154,24 @@
       "writtenOn": "2026-10-29T18:17:29Z",
       "side": 1,
       "message": "move this to parent as well?",
+      "revId": "782a51708f8247240cf95c93998fececd09fb949",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f10d0ec_81fbe54c",
+        "filename": "modules/gnmi-proto/pom.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-30T12:01:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1726b46_dc615c7d",
       "revId": "782a51708f8247240cf95c93998fececd09fb949",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }

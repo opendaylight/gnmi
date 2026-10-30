@@ -16,6 +16,24 @@
       "message": "can we even remove this file in follow-up commit completely, is it used?",
       "revId": "8aaff3ddf757a752eabc912c7a07ada8298fd5d0",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7646bbbe_18825ff0",
+        "filename": "modules/gnmi-proto/src/main/resources/spotbugs_filter.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-10-30T12:01:26Z",
+      "side": 0,
+      "message": "Its unused, removed",
+      "parentUuid": "bd7a7068_abd23a2a",
+      "revId": "8aaff3ddf757a752eabc912c7a07ada8298fd5d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
