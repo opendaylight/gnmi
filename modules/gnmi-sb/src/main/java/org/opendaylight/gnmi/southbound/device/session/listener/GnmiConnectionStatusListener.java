@@ -72,7 +72,7 @@ public class GnmiConnectionStatusListener implements AutoCloseable {
      * @throws GnmiConnectionStatusException when this listener is closed, or when current state of underlying
      *     connection is different from READY.
      */
-    public synchronized FluentFuture<CommitInfo> copyDeviceStatusReadyToDatastore()
+    public synchronized FluentFuture<? extends CommitInfo> copyDeviceStatusReadyToDatastore()
             throws GnmiConnectionStatusException {
         if (!listenerActive) {
             throw new GnmiConnectionStatusException(
@@ -129,7 +129,7 @@ public class GnmiConnectionStatusListener implements AutoCloseable {
 
     private synchronized void writeStateToDataStore(final ConnectivityState state) {
         try {
-            final FluentFuture<CommitInfo> commitFuture = writeStateToDataStoreAsync(state);
+            final var commitFuture = writeStateToDataStoreAsync(state);
             // FIXME (GNMI-29): this blocking commit holds the monitor on the gRPC channel thread, stalling
             // concurrent closeConnection()/createMountPoint(); serialize per-node on the async path instead.
             commitFuture.get(TimeoutUtils.DATASTORE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
@@ -142,17 +142,16 @@ public class GnmiConnectionStatusListener implements AutoCloseable {
         }
     }
 
-    private synchronized FluentFuture<CommitInfo> writeStateToDataStoreAsync(final ConnectivityState state) {
+    private synchronized FluentFuture<? extends CommitInfo> writeStateToDataStoreAsync(final ConnectivityState state) {
         final var tx = dataBroker.newWriteOnlyTransaction();
         final var operationalNode = new NodeBuilder()
                 .setNodeId(nodeId)
                 .addAugmentation(new GnmiNodeBuilder()
-                        .setNodeState(new NodeStateBuilder().setNodeStatus(convertToNodeState(state))
-                                .build())
-                        .build())
+                    .setNodeState(new NodeStateBuilder().setNodeStatus(convertToNodeState(state)).build())
+                    .build())
                 .build();
         tx.merge(LogicalDatastoreType.OPERATIONAL, IdentifierUtils.gnmiNodeID(nodeId), operationalNode);
-        return (FluentFuture<CommitInfo>) tx.commit();
+        return tx.commit();
     }
 
     @Override
@@ -172,32 +171,27 @@ public class GnmiConnectionStatusListener implements AutoCloseable {
     }
 
     private NodeState.NodeStatus convertToNodeState(ConnectivityState state) {
-        switch (state) {
-            case READY:
-                return NodeState.NodeStatus.READY;
-            case CONNECTING:
-                return NodeState.NodeStatus.CONNECTING;
-            case SHUTDOWN:
-                return NodeState.NodeStatus.SHUTDOWN;
-            case IDLE:
-                return NodeState.NodeStatus.IDLE;
-            default:
-                return NodeState.NodeStatus.TRANSIENTFAILURE;
-        }
+        return switch (state) {
+            case READY -> NodeState.NodeStatus.READY;
+            case CONNECTING -> NodeState.NodeStatus.CONNECTING;
+            case SHUTDOWN -> NodeState.NodeStatus.SHUTDOWN;
+            case IDLE -> NodeState.NodeStatus.IDLE;
+            default -> NodeState.NodeStatus.TRANSIENTFAILURE;
+        };
     }
 
     /**
-     * Registers callback which will be called every time the status transitions to the desired state, not only the
-     * first time. The callback stays registered for the whole lifetime of this listener.
+     * Registers callback which will be called every time the status transitions to the desired state.
+     *
+     * <p>It can handle first time transition and any other following. The callback stays registered for the whole
+     * lifetime of this listener.
      *
      * @param callback runnable to call
      * @param state desired state
      */
     public void registerOnStatusCallback(final Runnable callback, final ConnectivityState state) {
-        LOG.debug("Registering callback on node {} connectivity status change {}", nodeId.getValue(),
-                state);
+        LOG.debug("Registering callback on node {} connectivity status change {}", nodeId.getValue(), state);
         onStatusCallback = callback;
         callbackDesiredState = state;
     }
-
 }
