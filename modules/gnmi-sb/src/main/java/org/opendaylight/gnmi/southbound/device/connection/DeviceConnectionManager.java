@@ -100,7 +100,6 @@ public class DeviceConnectionManager implements AutoCloseable {
                 connectionFuture = Futures.transformAsync(deviceConnectionFuture,
                     deviceConnection -> prepareDeviceConnection(node, deviceConnection, generation),
                     executorService);
-
             } catch (SessionSecurityException e) {
                 // Drop the stamp: initConnection() never registered the node, so nothing else would clear it.
                 activeGenerations.remove(node.getNodeId(), generation);
@@ -115,7 +114,6 @@ public class DeviceConnectionManager implements AutoCloseable {
                 }
                 return Futures.immediateFailedFuture(throwable);
             }, executorService);
-
         } else {
             LOG.debug("Node {} is already active", node.getNodeId());
             return Futures.immediateFuture(null);
@@ -142,8 +140,8 @@ public class DeviceConnectionManager implements AutoCloseable {
                     // new status, and the READY callback writes READY once the channel reconnects. Failing here
                     // would write FAILURE with failure-details for a mounted node, which READY never clears.
                     LOG.warn("Connection status of node {} changed from READY to {} while creating mountpoint, "
-                            + "keeping the node connected, READY status is written once the channel is READY again",
-                            node.getNodeId(), statusException.getCurrentState());
+                        + "keeping the node connected, READY status is written once the channel is READY again",
+                        node.getNodeId(), statusException.getCurrentState());
                     return CommitInfo.emptyFluentFuture();
                 }
             },
@@ -152,17 +150,16 @@ public class DeviceConnectionManager implements AutoCloseable {
 
     private ListenableFuture<Void> createMountPoint(final Node node, final DeviceConnection deviceConnection,
             final long generation) {
-
         final var readCapabilitiesFuture =
-                deviceConnection.getGnmiSession().capabilities(GnmiRequestUtils.makeDefaultCapabilityRequest());
+            deviceConnection.getGnmiSession().capabilities(GnmiRequestUtils.makeDefaultCapabilityRequest());
 
         final ListenableFuture<Void> mountPointFuture = Futures.transformAsync(readCapabilitiesFuture,
             capabilityResponse -> {
-                LOG.debug("Received gNMI Capabiltiies response from {} : {}",node.getNodeId(), capabilityResponse);
+                LOG.debug("Received gNMI Capabilities response from {} : {}", node.getNodeId(), capabilityResponse);
 
                 if (!capabilityResponse.getSupportedEncodingsList().contains(Gnmi.Encoding.JSON_IETF)) {
                     return Futures.immediateFailedFuture(
-                            new MissingEncodingException("gNMI Device must support JSON_IETF encoding"));
+                        new MissingEncodingException("gNMI Device must support JSON_IETF encoding"));
                 }
 
                 final List<GnmiDeviceCapability> capabilitiesList = new ArrayList<>();
@@ -186,7 +183,7 @@ public class DeviceConnectionManager implements AutoCloseable {
                     synchronized (this) {
                         if (!isCurrentGeneration(node.getNodeId(), generation)) {
                             LOG.info("Node {} was closed while connecting, aborting mountpoint creation",
-                                    node.getNodeId());
+                                node.getNodeId());
                             closeQuietly(deviceConnection);
                             // Cancel so prepareDeviceConnection skips setDeviceStatusReady() on the closed
                             // connection and onFailure treats it as a no-op.
@@ -198,7 +195,6 @@ public class DeviceConnectionManager implements AutoCloseable {
                     }
                     saveCapabilitiesList(node.getNodeId(), capabilitiesList);
                     return Futures.immediateFuture(null);
-
                 } catch (SchemaException e) {
                     return Futures.immediateFailedFuture(e);
                 }
@@ -227,24 +223,24 @@ public class DeviceConnectionManager implements AutoCloseable {
         // already mounted, so a read failure proceeds rather than fails a live connection.
         if (DatastoreUtils.nodeConfirmedAbsentInConfig(dataBroker, nodeId)) {
             LOG.info("Node {} is no longer present in configuration, not writing available capabilities",
-                    nodeId.getValue());
+                nodeId.getValue());
             return;
         }
 
         final var capabilityList = gnmiDeviceCapabilities.stream()
-                .map(cap -> new AvailableCapabilityBuilder().setCapability(cap.toString()).build())
-                .collect(Collectors.toList());
+            .map(cap -> new AvailableCapabilityBuilder().setCapability(cap.toString()).build())
+            .collect(Collectors.toList());
 
         final var operationalNode = new NodeBuilder()
-                .setNodeId(nodeId)
-                .addAugmentation(new GnmiNodeBuilder()
-                        .setNodeState(new NodeStateBuilder()
-                                .setAvailableCapabilities(new AvailableCapabilitiesBuilder()
-                                        .setAvailableCapability(capabilityList)
-                                        .build())
-                                .build())
+            .setNodeId(nodeId)
+            .addAugmentation(new GnmiNodeBuilder()
+                .setNodeState(new NodeStateBuilder()
+                    .setAvailableCapabilities(new AvailableCapabilitiesBuilder()
+                        .setAvailableCapability(capabilityList)
                         .build())
-                .build();
+                    .build())
+                .build())
+            .build();
 
         final var tx = dataBroker.newWriteOnlyTransaction();
         tx.merge(LogicalDatastoreType.OPERATIONAL, IdentifierUtils.gnmiNodeID(nodeId), operationalNode);
@@ -257,7 +253,7 @@ public class DeviceConnectionManager implements AutoCloseable {
             LOG.warn("Unable to write available capabilities of node {} to datastore", nodeId.getValue(), e);
         } catch (InterruptedException e) {
             LOG.warn("Interrupted while writing available capabilities of node {} to datastore",
-                    nodeId.getValue(), e);
+                nodeId.getValue(), e);
             Thread.currentThread().interrupt();
         }
     }
@@ -275,8 +271,8 @@ public class DeviceConnectionManager implements AutoCloseable {
         return current != null && current == generation;
     }
 
-    @SuppressWarnings({"checkstyle:illegalCatch"})
-    private void closeQuietly(final DeviceConnection deviceConnection) {
+    @SuppressWarnings("checkstyle:illegalCatch")
+    private static void closeQuietly(final DeviceConnection deviceConnection) {
         try {
             deviceConnection.close();
         } catch (Exception e) {
@@ -284,7 +280,7 @@ public class DeviceConnectionManager implements AutoCloseable {
         }
     }
 
-    @SuppressWarnings({"checkstyle:illegalCatch"})
+    @SuppressWarnings("checkstyle:illegalCatch")
     public synchronized void closeConnection(final NodeId nodeId) {
         activeGenerations.remove(nodeId);
         if (!nodeActive(nodeId) && !nodeConnecting(nodeId)) {
@@ -297,8 +293,8 @@ public class DeviceConnectionManager implements AutoCloseable {
                 LOG.warn("Failed closing initializer of connecting node {}", nodeId, e);
             }
         }
-        if (activeDevices.containsKey(nodeId)) {
-            final var deviceConnection = activeDevices.get(nodeId);
+        final var deviceConnection = activeDevices.get(nodeId);
+        if (deviceConnection != null) {
             try {
                 deviceConnection.close();
             } catch (Exception e) {
@@ -312,7 +308,7 @@ public class DeviceConnectionManager implements AutoCloseable {
     @Override
     public void close() {
         LOG.info("Closing all connections to devices");
-        for (NodeId nodeId : Sets.union(connectionInitializer.getActiveInitializers(), activeDevices.keySet())) {
+        for (var nodeId : Sets.union(connectionInitializer.getActiveInitializers(), activeDevices.keySet())) {
             closeConnection(nodeId);
         }
         activeGenerations.clear();
