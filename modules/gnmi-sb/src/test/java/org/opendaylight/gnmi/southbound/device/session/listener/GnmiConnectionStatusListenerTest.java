@@ -21,8 +21,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.opendaylight.gnmi.connector.session.api.SessionProvider;
 import org.opendaylight.mdsal.binding.api.DataBroker;
 import org.opendaylight.mdsal.binding.api.WriteTransaction;
@@ -36,21 +40,21 @@ import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.
  * shut-down callback executor must not let {@link java.util.concurrent.RejectedExecutionException} escape
  * from the gRPC channel's state-change notification.
  */
+@ExtendWith(MockitoExtension.class)
 class GnmiConnectionStatusListenerTest {
     private static final NodeId NODE_ID = new NodeId("listener-test-node");
 
+    @Mock
     private SessionProvider sessionProviderMock;
+    @Mock
     private DataBroker dataBrokerMock;
+    @Captor
     private ArgumentCaptor<Runnable> stateChangeCaptor;
     private ConnectivityState channelState;
 
     @BeforeEach
     void setup() {
-        sessionProviderMock = Mockito.mock(SessionProvider.class);
-        dataBrokerMock = Mockito.mock(DataBroker.class);
         final var txMock = Mockito.mock(WriteTransaction.class);
-        stateChangeCaptor = ArgumentCaptor.forClass(Runnable.class);
-
         when(sessionProviderMock.getChannelState())
                 .thenAnswer(invocation -> channelState);
         doNothing().when(sessionProviderMock).notifyOnStateChangedOneOff(any(), stateChangeCaptor.capture());
