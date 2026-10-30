@@ -21,7 +21,6 @@ import java.util.concurrent.ExecutorService;
 import org.eclipse.jdt.annotation.Nullable;
 import org.opendaylight.gnmi.connector.configuration.SessionConfiguration;
 import org.opendaylight.gnmi.connector.session.SessionManagerFactory;
-import org.opendaylight.gnmi.connector.session.api.SessionManager;
 import org.opendaylight.gnmi.connector.session.api.SessionProvider;
 import org.opendaylight.gnmi.southbound.device.session.listener.GnmiConnectionStatusException;
 import org.opendaylight.gnmi.southbound.device.session.listener.GnmiConnectionStatusListener;
@@ -30,7 +29,6 @@ import org.opendaylight.gnmi.southbound.device.session.security.SessionSecurityE
 import org.opendaylight.mdsal.binding.api.DataBroker;
 import org.opendaylight.mdsal.common.api.CommitInfo;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.GnmiNode;
-import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.credentials.Credentials;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.gnmi.connection.parameters.ConnectionParameters;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.security.SecurityChoice;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.gnmi.topology.rev210316.security.security.choice.InsecureDebugOnly;
@@ -64,19 +62,16 @@ public class DeviceConnectionInitializer implements AutoCloseable {
     }
 
     public ListenableFuture<DeviceConnection> initConnection(final Node node) throws SessionSecurityException {
-        final GnmiNode gnmiNode = Objects.requireNonNull(node.augmentation(GnmiNode.class),
-                "Node must be augmented by gNMI");
-        final SessionManager sessionManager =
-                sessionManagerFactory.createSessionManager(securityProvider.getSecurity(gnmiNode));
-        ConnectionParameters connectionParameters = gnmiNode.getConnectionParameters();
-        final InetSocketAddress address = new InetSocketAddress(
-                connectionParameters.getHost().getIpAddress().stringValue(),
-                connectionParameters.getPort().getValue().intValue());
-        final SessionConfiguration configuration = getSessionConfiguration(connectionParameters, address);
+        final var gnmiNode = Objects.requireNonNull(node.augmentation(GnmiNode.class),
+            "Node must be augmented by gNMI");
+        final var sessionManager = sessionManagerFactory.createSessionManager(securityProvider.getSecurity(gnmiNode));
+        final var connectionParameters = gnmiNode.getConnectionParameters();
+        final var address = new InetSocketAddress(connectionParameters.getHost().getIpAddress().stringValue(),
+            connectionParameters.getPort().getValue().intValue());
+        final var configuration = getSessionConfiguration(connectionParameters, address);
 
-        final SessionProvider sessionProvider = sessionManager.createSession(configuration);
-        final SessionInitializationHolder initializer =
-                new SessionInitializationHolder(sessionProvider, node);
+        final var sessionProvider = sessionManager.createSession(configuration);
+        final var initializer = new SessionInitializationHolder(sessionProvider, node);
         activeInitializers.put(node.getNodeId(), initializer);
         return initializer.init();
     }
@@ -106,14 +101,14 @@ public class DeviceConnectionInitializer implements AutoCloseable {
                 activeInitializers.remove(nodeId, initializer);
             }
         } else {
-            LOG.warn("Initializer of node {} does not exists, can not cancel", nodeId);
+            LOG.warn("Initializer of node {} does not exist, can not cancel", nodeId);
         }
     }
 
     @Override
     public void close() throws Exception {
-        for (NodeId activeInitializer : activeInitializers.keySet()) {
-            cancelInitializer(activeInitializer);
+        for (var nodeId : activeInitializers.keySet()) {
+            cancelInitializer(nodeId);
         }
     }
 
@@ -121,20 +116,20 @@ public class DeviceConnectionInitializer implements AutoCloseable {
         return activeInitializers.keySet();
     }
 
-    private SessionConfiguration getSessionConfiguration(final ConnectionParameters connectionParameters,
-                                                         final InetSocketAddress address) {
-        final boolean usePlainText = useNoTlsConnection(connectionParameters.getSecurityChoice());
-        final Credentials credentials = connectionParameters.getCredentials();
+    private static SessionConfiguration getSessionConfiguration(final ConnectionParameters connectionParameters,
+            final InetSocketAddress address) {
+        final var usePlainText = useNoTlsConnection(connectionParameters.getSecurityChoice());
+        final var credentials = connectionParameters.getCredentials();
         if (credentials != null) {
             return new SessionConfiguration(address, usePlainText, credentials.getUsername(),
-                    credentials.getPassword());
+                credentials.getPassword());
         }
         return new SessionConfiguration(address, usePlainText);
     }
 
-    private boolean useNoTlsConnection(final SecurityChoice securityChoice) {
-        return securityChoice instanceof InsecureDebugOnly && ((InsecureDebugOnly) securityChoice).getConnectionType()
-                .equals(InsecureDebugOnly.ConnectionType.PLAINTEXT);
+    private static boolean useNoTlsConnection(final SecurityChoice securityChoice) {
+        return securityChoice instanceof InsecureDebugOnly insecureDebugOnly
+            && insecureDebugOnly.getConnectionType() == InsecureDebugOnly.ConnectionType.PLAINTEXT;
     }
 
     class SessionInitializationHolder implements AutoCloseable {
@@ -180,14 +175,13 @@ public class DeviceConnectionInitializer implements AutoCloseable {
                     deviceConnection.setDeviceStatusReady().addCallback(new FutureCallback<CommitInfo>() {
                         @Override
                         public void onSuccess(final CommitInfo result) {
-                            LOG.debug("Refreshed READY status of node {} in operational datastore",
-                                    node.getNodeId());
+                            LOG.debug("Refreshed READY status of node {} in operational datastore", node.getNodeId());
                         }
 
                         @Override
                         public void onFailure(final Throwable throwable) {
                             LOG.warn("Failed to write READY status of node {} to operational datastore",
-                                    node.getNodeId(), throwable);
+                                node.getNodeId(), throwable);
                         }
                     }, MoreExecutors.directExecutor());
                 } catch (GnmiConnectionStatusException e) {
