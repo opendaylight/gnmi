@@ -41,6 +41,8 @@
             <artifactId>grpc-protobuf</artifactId>
         </dependency>
         <dependency>
+            <!-- Needed at runtime by grpc-protobuf, which declares it with runtime scope only,
+                 so it would be left out of odl-gnmi-all. -->
             <groupId>io.grpc</groupId>
             <artifactId>grpc-protobuf-lite</artifactId>
             <exclusions>
