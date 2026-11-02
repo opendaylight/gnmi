@@ -1,0 +1,172 @@
+<<<<<<< HEAD   (3c6109 Bump to 1.0.3-SNAPSHOT)
+=======
+---
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 The Linux Foundation
+
+name: Gerrit Composed CLM Scan
+
+# yamllint disable-line rule:truthy
+on:
+  workflow_dispatch:
+    inputs:
+      GERRIT_BRANCH:
+        description: "Branch that change is against"
+        required: true
+        type: string
+      GERRIT_CHANGE_ID:
+        description: "The ID for the change"
+        required: true
+        type: string
+      GERRIT_CHANGE_NUMBER:
+        description: "The Gerrit number"
+        required: true
+        type: string
+      GERRIT_CHANGE_URL:
+        description: "URL to the change"
+        required: true
+        type: string
+      GERRIT_EVENT_TYPE:
+        description: "Type of Gerrit event"
+        required: true
+        type: string
+      GERRIT_PATCHSET_NUMBER:
+        description: "The patch number for the change"
+        required: true
+        type: string
+      GERRIT_PATCHSET_REVISION:
+        description: "The revision sha"
+        required: true
+        type: string
+      GERRIT_PROJECT:
+        description: "Project in Gerrit"
+        required: true
+        type: string
+      GERRIT_REFSPEC:
+        description: "Gerrit refspec of change"
+        required: true
+        type: string
+  schedule:
+    # Run weekly on Saturdays at 06:58 UTC
+    - cron: "58 6 * * 6"
+
+concurrency:
+  # yamllint disable-line rule:line-length
+  group: composed-clm-scan-${{ github.workflow }}-${{ github.event.inputs.GERRIT_BRANCH }}-${{ github.event.inputs.GERRIT_CHANGE_ID || github.run_id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  NEXUS_IQ_SERVER: https://nexus-iq.wl.linuxfoundation.org
+  # Must match the JJB gerrit-maven-clm application id, which is built from
+  # nexus-iq-namespace + project-name (see jjb/releng-templates-java.yaml).
+  NEXUS_IQ_NAMESPACE: odl-
+  NEXUS_IQ_STAGE: release
+
+jobs:
+  notify:
+    runs-on: ubuntu-24.04
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    steps:
+      - name: Notify job start
+        # yamllint disable-line rule:line-length
+        uses: lfreleng-actions/gerrit-review-action@d56b0b5c81402f8cb435aaca513bebdea3be951e # v1.2.0
+        with:
+          host: ${{ vars.GERRIT_SERVER }}
+          username: ${{ vars.GERRIT_SSH_USER }}
+          key: ${{ secrets.GERRIT_SSH_PRIVKEY }}
+          known_hosts: ${{ vars.GERRIT_KNOWN_HOSTS }}
+          gerrit-change-number: ${{ inputs.GERRIT_CHANGE_NUMBER }}
+          gerrit-patchset-number: ${{ inputs.GERRIT_PATCHSET_NUMBER }}
+          vote-type: clear
+          comment-only: true
+      - name: Allow replication
+        run: sleep 10s
+
+  run-maven-clm:
+    runs-on: ubuntu-24.04
+    if: ${{ always() && (needs.notify.result == 'success' || github.event_name == 'schedule') }}
+    needs: [notify]
+    steps:
+      - name: Gerrit Checkout
+        # yamllint disable-line rule:line-length
+        uses: lfreleng-actions/checkout-gerrit-change-action@54d751e8bd167bc91f7d665dabe33fae87aaaa63 # v0.9
+        with:
+          gerrit-refspec: ${{ inputs.GERRIT_REFSPEC || 'refs/heads/master' }}
+          gerrit-project: ${{ inputs.GERRIT_PROJECT || github.repository }}
+          gerrit-url: ${{ vars.GERRIT_URL }}
+          delay: "0s"
+
+      - name: Setup Java
+        uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Setup Maven
+        uses: stCarolas/setup-maven@d6af6abeda15e98926a57b5aa970a96bb37f97d1 # v5
+        with:
+          maven-version: "3.9.9"
+
+      - name: Maven build and CLM module index
+        env:
+          MAVEN_OPTS: "--add-opens=java.base/java.util=ALL-UNNAMED"
+        run: |
+          # yamllint disable rule:line-length
+          mvn clean install dependency:tree com.sonatype.clm:clm-maven-plugin:2.41.0-02:index \
+            -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+            -Dmaven.repo.local=/tmp/r \
+            -Dorg.ops4j.pax.url.mvn.localRepository=/tmp/r \
+            -DaltDeploymentRepository=staging::default::file:"${GITHUB_WORKSPACE}"/m2repo
+
+      - name: Obtain Nexus IQ application ID
+        env:
+          GERRIT_PROJECT: ${{ inputs.GERRIT_PROJECT || github.event.repository.name }}
+        run: |
+          REPO_DASHED="${GERRIT_PROJECT//\//-}"
+          echo "APPLICATION_ID=${NEXUS_IQ_NAMESPACE}${REPO_DASHED}" >> "$GITHUB_ENV"
+
+      - name: Nexus IQ policy evaluation
+        # yamllint disable-line rule:line-length
+        uses: sonatype-nexus-community/iq-github-action@8d2038fbbcb37dc613c28d160843dd0981a7fce8 # v2.1.0
+        with:
+          serverUrl: ${{ env.NEXUS_IQ_SERVER }}
+          username: ${{ secrets.CLM_USER }}
+          password: ${{ secrets.CLM_PASSWORD }}
+          applicationId: ${{ env.APPLICATION_ID }}
+          stage: ${{ env.NEXUS_IQ_STAGE }}
+          target: "/"
+          writePolicyEvaluationJson: "true"
+
+      - name: Upload policy evaluation report
+        if: ${{ always() }}
+        # yamllint disable-line rule:line-length
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: sonatype-lifecycle-policy-eval
+          path: sonatype-lifecycle-policy-eval.json
+          if-no-files-found: warn
+
+  report-status:
+    if: ${{ always() && github.event_name == 'workflow_dispatch' }}
+    needs: [notify, run-maven-clm]
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Get workflow conclusion
+        # yamllint disable-line rule:line-length
+        uses: im-open/workflow-conclusion@8eac7f17381a6917bc04fec3e2c92e70ebc37526 # v3.0.0
+      - name: Report workflow conclusion
+        # yamllint disable-line rule:line-length
+        uses: lfreleng-actions/gerrit-review-action@d56b0b5c81402f8cb435aaca513bebdea3be951e # v1.2.0
+        with:
+          host: ${{ vars.GERRIT_SERVER }}
+          username: ${{ vars.GERRIT_SSH_USER }}
+          key: ${{ secrets.GERRIT_SSH_PRIVKEY }}
+          known_hosts: ${{ vars.GERRIT_KNOWN_HOSTS }}
+          gerrit-change-number: ${{ inputs.GERRIT_CHANGE_NUMBER }}
+          gerrit-patchset-number: ${{ inputs.GERRIT_PATCHSET_NUMBER }}
+          vote-type: ${{ env.WORKFLOW_CONCLUSION }}
+          comment-only: true
+>>>>>>> CHANGE (819e7d Pin runner image to ubuntu-24.04)
