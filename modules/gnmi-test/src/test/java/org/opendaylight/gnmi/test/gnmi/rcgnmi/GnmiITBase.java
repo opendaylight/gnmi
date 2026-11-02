@@ -238,7 +238,8 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
         // Netty endpoint
         final var configuration = new NettyEndpointConfiguration(
             ErrorTagMapping.RFC8040, PrettyPrintParam.FALSE, Uint16.ZERO, Uint32.valueOf(1000),
-            "rests", MessageEncoding.JSON, serverStackGrouping, CHUNK_SIZE, FRAME_SIZE);
+            "rests", MessageEncoding.JSON, serverStackGrouping, CHUNK_SIZE, FRAME_SIZE,
+            Uint32.valueOf(32 * 1024), Uint32.valueOf(64 * 1024));
 
         endpoint = new SimpleNettyEndpoint(server, principalService, streamRegistry, bootstrapFactory, configuration);
     }

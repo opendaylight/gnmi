@@ -31,7 +31,7 @@
             <dependency>
                 <groupId>org.opendaylight.controller</groupId>
                 <artifactId>repackaged-pekko</artifactId>
-                <version>11.0.4</version>
+                <version>11.0.6</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
