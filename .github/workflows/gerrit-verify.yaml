@@ -134,7 +134,7 @@ jobs:
   call-gerrit-tox-verify:
     needs: [prepare, call-gerrit-change-info]
     # yamllint disable rule:line-length
-    uses: lfit/releng-reusable-workflows/.github/workflows/gerrit-compose-required-tox-verify.yaml@e3bb02dd0d2e5027cde63732fe00f591d6ecec03 # v0.11.0
+    uses: lfit/releng-reusable-workflows/.github/workflows/gerrit-compose-required-tox-verify.yaml@fc3aea6f1ec56737c3cdd8fe1c46cbbb7209394b # v0.11.1
     with:
       GERRIT_BRANCH: ${{ needs.call-gerrit-change-info.outputs.GERRIT_BRANCH }}
       GERRIT_CHANGE_ID: ${{ needs.call-gerrit-change-info.outputs.GERRIT_CHANGE_ID }}
@@ -147,6 +147,49 @@ jobs:
       GERRIT_REFSPEC: ${{ needs.call-gerrit-change-info.outputs.GERRIT_REFSPEC }}
       TOX_ENVS: '["docs","docs-linkcheck"]'
 
+<<<<<<< HEAD   (3c6109 Bump to 1.0.3-SNAPSHOT)
+=======
+  call-gerrit-maven-verify:
+    needs: [prepare, call-gerrit-change-info]
+    # yamllint disable rule:line-length
+    uses: lfit/releng-reusable-workflows/.github/workflows/compose-maven-verify.yaml@fc3aea6f1ec56737c3cdd8fe1c46cbbb7209394b # v0.11.1
+    with:
+      GERRIT_BRANCH: ${{ needs.call-gerrit-change-info.outputs.GERRIT_BRANCH }}
+      GERRIT_CHANGE_ID: ${{ needs.call-gerrit-change-info.outputs.GERRIT_CHANGE_ID }}
+      GERRIT_CHANGE_NUMBER: ${{ needs.call-gerrit-change-info.outputs.GERRIT_CHANGE_NUMBER }}
+      GERRIT_CHANGE_URL: ${{ needs.call-gerrit-change-info.outputs.GERRIT_CHANGE_URL }}
+      GERRIT_EVENT_TYPE: ${{ needs.call-gerrit-change-info.outputs.GERRIT_EVENT_TYPE }}
+      GERRIT_PATCHSET_NUMBER: ${{ needs.call-gerrit-change-info.outputs.GERRIT_PATCHSET_NUMBER }}
+      GERRIT_PATCHSET_REVISION: ${{ needs.call-gerrit-change-info.outputs.GERRIT_PATCHSET_REVISION }}
+      GERRIT_PROJECT: ${{ needs.call-gerrit-change-info.outputs.GERRIT_PROJECT }}
+      GERRIT_REFSPEC: ${{ needs.call-gerrit-change-info.outputs.GERRIT_REFSPEC }}
+      JDK_VERSION: "21"
+      MVN_VERSION: "3.9.9"
+      MVN_PROFILES: "docker"
+      MVN_PHASES: "clean install"
+      # yamllint disable rule:line-length
+      MVN_OPTS: >-
+        -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
+        -Dmaven.repo.local=/tmp/r -Dorg.ops4j.pax.url.mvn.localRepository=/tmp/r
+        -DaltDeploymentRepository=staging::default::file:"${GITHUB_WORKSPACE}"/m2repo
+      # yamllint enable rule:line-length
+
+  call-gerrit-repo-linting:
+    needs: [prepare, call-gerrit-change-info]
+    # yamllint disable rule:line-length
+    uses: lfit/releng-reusable-workflows/.github/workflows/compose-repo-linting.yaml@fc3aea6f1ec56737c3cdd8fe1c46cbbb7209394b # v0.11.1
+    with:
+      GERRIT_BRANCH: ${{ needs.call-gerrit-change-info.outputs.GERRIT_BRANCH }}
+      GERRIT_CHANGE_ID: ${{ needs.call-gerrit-change-info.outputs.GERRIT_CHANGE_ID }}
+      GERRIT_CHANGE_NUMBER: ${{ needs.call-gerrit-change-info.outputs.GERRIT_CHANGE_NUMBER }}
+      GERRIT_CHANGE_URL: ${{ needs.call-gerrit-change-info.outputs.GERRIT_CHANGE_URL }}
+      GERRIT_EVENT_TYPE: ${{ needs.call-gerrit-change-info.outputs.GERRIT_EVENT_TYPE }}
+      GERRIT_PATCHSET_NUMBER: ${{ needs.call-gerrit-change-info.outputs.GERRIT_PATCHSET_NUMBER }}
+      GERRIT_PATCHSET_REVISION: ${{ needs.call-gerrit-change-info.outputs.GERRIT_PATCHSET_REVISION }}
+      GERRIT_PROJECT: ${{ needs.call-gerrit-change-info.outputs.GERRIT_PROJECT }}
+      GERRIT_REFSPEC: ${{ needs.call-gerrit-change-info.outputs.GERRIT_REFSPEC }}
+
+>>>>>>> CHANGE (f9a7f0 Bump releng-reusable-workflows to 0.11.1)
   vote:
     if: ${{ always() }}
     needs: [call-gerrit-tox-verify, call-gerrit-change-info]
