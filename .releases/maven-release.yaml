@@ -1,5 +1,5 @@
 distribution_type: maven
-log_dir: gnmi-maven-stage-1.0.x/1/
+log_dir: gnmi-maven-stage-1.0.x/2/
 project: gnmi
-version: 1.0.1
-git_tag: v1.0.1
+version: 1.0.2
+git_tag: v1.0.2
