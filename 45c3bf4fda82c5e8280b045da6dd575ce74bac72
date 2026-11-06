@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6344c92d_196161ce",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-11-06T15:47:10Z",
+      "side": 1,
+      "message": "final?",
+      "revId": "45c3bf4fda82c5e8280b045da6dd575ce74bac72",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "959641fd_f5382701",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-11-06T15:47:10Z",
+      "side": 1,
+      "message": "can we use Revision.of(str) which gives us *Comparable* revision?",
+      "revId": "45c3bf4fda82c5e8280b045da6dd575ce74bac72",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62fe23af_63abfc9b",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-11-06T15:47:10Z",
+      "side": 1,
+      "message": "we can use:\nirSource.extractSourceInfo().imports();\nirSource.extractSourceInfo().includes();",
+      "revId": "45c3bf4fda82c5e8280b045da6dd575ce74bac72",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
