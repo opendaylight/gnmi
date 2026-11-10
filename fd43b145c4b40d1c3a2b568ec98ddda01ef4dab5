@@ -141,6 +141,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "158a0c3f_4e351ced",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-10T13:38:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c457fe1c_ef85c170",
+      "revId": "fd43b145c4b40d1c3a2b568ec98ddda01ef4dab5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e7f2247c_fee75062",
@@ -172,6 +190,24 @@
       "side": 1,
       "message": "added YangDataStoreServiceImplTest on a real data broker:",
       "parentUuid": "e7f2247c_fee75062",
+      "revId": "fd43b145c4b40d1c3a2b568ec98ddda01ef4dab5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b077071e_23feab25",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/yangstore/impl/YangDataStoreServiceImpl.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-10T13:38:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3da805a_1c4959a2",
       "revId": "fd43b145c4b40d1c3a2b568ec98ddda01ef4dab5",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
