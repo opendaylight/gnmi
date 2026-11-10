@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a61af53_b4a2596d",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-10T10:10:47Z",
+      "side": 1,
+      "message": "I restructured the loop -\u003e dependencyCaps and dependencyModels are now final inside the loop body, and fullModelSet is final too. Only newModels, which drives the loop, is still reassigned.",
+      "parentUuid": "6344c92d_196161ce",
+      "revId": "45c3bf4fda82c5e8280b045da6dd575ce74bac72",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "959641fd_f5382701",
@@ -35,6 +53,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c90fb1a_8b8aa1aa",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-10T10:10:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "959641fd_f5382701",
+      "revId": "45c3bf4fda82c5e8280b045da6dd575ce74bac72",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62fe23af_63abfc9b",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-11-06T15:47:10Z",
       "side": 1,
       "message": "we can use:\nirSource.extractSourceInfo().imports();\nirSource.extractSourceInfo().includes();",
+      "revId": "45c3bf4fda82c5e8280b045da6dd575ce74bac72",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c46fe04a_9b649b12",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-10T10:10:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62fe23af_63abfc9b",
       "revId": "45c3bf4fda82c5e8280b045da6dd575ce74bac72",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
