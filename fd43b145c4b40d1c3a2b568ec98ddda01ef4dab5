@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af35136d_eaa856a6",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-10T12:28:08Z",
+      "side": 1,
+      "message": "For dependencies this revision comes from an import/include revision-date (lines 426 and 440), and RFC 7950 requires exactly that revision, so picking a newer one always fails in the parser with just \"Failed to assemble sources\" and no missing model. Could revision-date dependencies stay exact-match only in readDependencyModels, so they are reported as missing instead?",
+      "revId": "fd43b145c4b40d1c3a2b568ec98ddda01ef4dab5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d257e76d_9cb31383",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-10T12:28:08Z",
+      "side": 1,
+      "message": "Consider debug (especially for cases when devices reconnect often)",
+      "revId": "fd43b145c4b40d1c3a2b568ec98ddda01ef4dab5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92e45c70_4fc2fca3",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-10T12:28:08Z",
+      "side": 1,
+      "message": "This method (and several others) returns null by design. Should be @Nullable.",
+      "revId": "fd43b145c4b40d1c3a2b568ec98ddda01ef4dab5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b72d34e5_fe476825",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-10T12:28:08Z",
+      "side": 1,
+      "message": "The previous walk read an oc-ext:openconfig-version / semantic-version statement inside an import and requested that version. extractSourceInfo() drops it, so a pinned import now resolves to the highest stored version (with dep 1.0.0 and 2.0.0 stored, import dep { oc-ext:openconfig-version \"1.0.0\"; } now loads 2.0.0). Was that intended? If not, could we keep reading the pin from the IR and add a test?",
+      "revId": "fd43b145c4b40d1c3a2b568ec98ddda01ef4dab5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7f2247c_fee75062",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/yangstore/impl/YangDataStoreServiceImpl.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-10T12:28:08Z",
+      "side": 1,
+      "message": "All new tests use TestYangDataStoreService, so this real implementation (all versions returned, empty list without the container, and no longer running on the gNMI pool) is not exercised anywhere. Could we add a small data-broker test for it, and mention the directExecutor/starvation change and the removed constructor argument in the commit message?",
+      "revId": "fd43b145c4b40d1c3a2b568ec98ddda01ef4dab5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
