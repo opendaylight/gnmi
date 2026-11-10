@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f56fcc57_c91c90bb",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-10T13:38:21Z",
+      "side": 1,
+      "message": "Dependency with a revision-date is now matched exactly and reported as missing otherwise",
+      "parentUuid": "af35136d_eaa856a6",
+      "revId": "fd43b145c4b40d1c3a2b568ec98ddda01ef4dab5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d257e76d_9cb31383",
@@ -35,6 +53,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a764013e_c9aa3665",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-10T13:38:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d257e76d_9cb31383",
+      "revId": "fd43b145c4b40d1c3a2b568ec98ddda01ef4dab5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "92e45c70_4fc2fca3",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-11-10T12:28:08Z",
       "side": 1,
       "message": "This method (and several others) returns null by design. Should be @Nullable.",
+      "revId": "fd43b145c4b40d1c3a2b568ec98ddda01ef4dab5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea7e7965_5a532cb1",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-10T13:38:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92e45c70_4fc2fca3",
       "revId": "fd43b145c4b40d1c3a2b568ec98ddda01ef4dab5",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -71,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c457fe1c_ef85c170",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-10T13:38:21Z",
+      "side": 1,
+      "message": "It was not intedned,\nextractSourceInfo() still provides the import names and revisions and the version pin is read from the IR for each import",
+      "parentUuid": "b72d34e5_fe476825",
+      "revId": "fd43b145c4b40d1c3a2b568ec98ddda01ef4dab5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e7f2247c_fee75062",
         "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/yangstore/impl/YangDataStoreServiceImpl.java",
         "patchSetId": 24
@@ -82,6 +154,24 @@
       "writtenOn": "2026-11-10T12:28:08Z",
       "side": 1,
       "message": "All new tests use TestYangDataStoreService, so this real implementation (all versions returned, empty list without the container, and no longer running on the gNMI pool) is not exercised anywhere. Could we add a small data-broker test for it, and mention the directExecutor/starvation change and the removed constructor argument in the commit message?",
+      "revId": "fd43b145c4b40d1c3a2b568ec98ddda01ef4dab5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3da805a_1c4959a2",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/yangstore/impl/YangDataStoreServiceImpl.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-10T13:38:21Z",
+      "side": 1,
+      "message": "added YangDataStoreServiceImplTest on a real data broker:",
+      "parentUuid": "e7f2247c_fee75062",
       "revId": "fd43b145c4b40d1c3a2b568ec98ddda01ef4dab5",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
