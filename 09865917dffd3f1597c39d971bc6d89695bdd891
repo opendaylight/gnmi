@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54b66f17_dd82274a",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-10T09:50:59Z",
+      "side": 1,
+      "message": "Now that this always waits for READY, the name and the javadoc above (\"until it equals the expected value\") no longer say what it does, and call sites like awaitNodeStatus(GNMI_NODE_PATH) read as \"wait for any status\". Could it become awaitNodeReady(...) with the javadoc updated? nodePath is also always GNMI_NODE_PATH, like in assertNoFailureDetails.",
+      "revId": "09865917dffd3f1597c39d971bc6d89695bdd891",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1472ffe7_a03ba34d",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-10T09:50:59Z",
+      "side": 1,
+      "message": "just GNMI_NODE_STATUS_READY",
+      "revId": "09865917dffd3f1597c39d971bc6d89695bdd891",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a766c15_1144f4b7",
+        "filename": "modules/gnmi-test/src/test/java/org/opendaylight/gnmi/test/gnmi/rcgnmi/GnmiConnectionITTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-10T09:50:59Z",
+      "side": 1,
+      "message": "just GNMI_NODE_PATH",
+      "revId": "09865917dffd3f1597c39d971bc6d89695bdd891",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
