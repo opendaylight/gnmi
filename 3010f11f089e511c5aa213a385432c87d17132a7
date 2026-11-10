@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b17ca104_6636fd95",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-10T09:46:22Z",
+      "side": 1,
+      "message": "The message says this matches copyDeviceStatusReadyToDatastore(), but at this commit that method still returns FluentFuture\u003cCommitInfo\u003e. It only changes in the next patch. Please clarify or move the comment.",
+      "revId": "3010f11f089e511c5aa213a385432c87d17132a7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "595a49ee_d9c31343",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-10T09:46:22Z",
+      "side": 1,
+      "message": "It\u0027s not an upcast of a type, rather a re-typing of the future",
+      "revId": "3010f11f089e511c5aa213a385432c87d17132a7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee324380_3a042b68",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-10T09:46:22Z",
+      "side": 1,
+      "message": "This identity transform exists only to turn ? extends CommitInfo back into CommitInfo, so the wildcard now leaks into the public setDeviceStatusReady() signature just to be undone here. Would a single @SuppressWarnings(\"unchecked\") cast at tx.commit() in GnmiConnectionStatusListener be simpler? It is safe because the future only produces values. If you prefer the transform, could the commit message say why?",
+      "revId": "3010f11f089e511c5aa213a385432c87d17132a7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
