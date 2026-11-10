@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "371d602f_a29214d1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-11-10T12:23:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b17ca104_6636fd95",
+      "revId": "3010f11f089e511c5aa213a385432c87d17132a7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "595a49ee_d9c31343",
@@ -35,6 +53,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f90f567_4d33f6f0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-11-10T12:23:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "595a49ee_d9c31343",
+      "revId": "3010f11f089e511c5aa213a385432c87d17132a7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee324380_3a042b68",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-11-10T09:46:22Z",
       "side": 1,
       "message": "This identity transform exists only to turn ? extends CommitInfo back into CommitInfo, so the wildcard now leaks into the public setDeviceStatusReady() signature just to be undone here. Would a single @SuppressWarnings(\"unchecked\") cast at tx.commit() in GnmiConnectionStatusListener be simpler? It is safe because the future only produces values. If you prefer the transform, could the commit message say why?",
+      "revId": "3010f11f089e511c5aa213a385432c87d17132a7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5722d92c_d9af58a2",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-11-10T12:23:24Z",
+      "side": 1,
+      "message": "You are correct, abandoning this change",
+      "parentUuid": "ee324380_3a042b68",
       "revId": "3010f11f089e511c5aa213a385432c87d17132a7",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
