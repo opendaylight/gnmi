@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "254e37dd_70b5f8f3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-11-11T11:23:27Z",
+      "side": 1,
+      "message": "The wrong version of yang models are being used, please see:\nhttps://git.opendaylight.org/gerrit/c/gnmi/+/127721/1?usp\u003drelated-change\nfor more info.",
+      "revId": "22c1bf3cd869deb6c89bca647f24072d679d97f5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
