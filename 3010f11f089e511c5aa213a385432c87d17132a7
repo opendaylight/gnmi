@@ -71,6 +71,23 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d329578d_ee51ae2f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-11-11T12:07:27Z",
+      "side": 1,
+      "message": "can be abandoned because 127312 was fold into 055708d",
+      "revId": "3010f11f089e511c5aa213a385432c87d17132a7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee324380_3a042b68",
