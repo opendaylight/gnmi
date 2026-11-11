@@ -16,6 +16,24 @@
       "message": "The wrong version of yang models are being used, please see:\nhttps://git.opendaylight.org/gerrit/c/gnmi/+/127721/1?usp\u003drelated-change\nfor more info.",
       "revId": "22c1bf3cd869deb6c89bca647f24072d679d97f5",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c19ccf9_593bf1a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-11-11T11:24:32Z",
+      "side": 1,
+      "message": "https://git.opendaylight.org/gerrit/c/gnmi/+/127721/1/modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/schema/OpenConfigBgpTypesVersionTest.java#99",
+      "parentUuid": "254e37dd_70b5f8f3",
+      "revId": "22c1bf3cd869deb6c89bca647f24072d679d97f5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
