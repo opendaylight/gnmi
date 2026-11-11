@@ -12,9 +12,9 @@
         <feature version="[3,4)">odl-ietf-model-rfc7224</feature>
         <feature version="[12,13)">odl-netconf-topology</feature>
         <feature version="[12,13)">odl-restconf-nb</feature>
-        <bundle>mvn:com.google.protobuf/protobuf-java/3.25.9</bundle>
-        <bundle>wrap:mvn:io.grpc/grpc-api/1.83.1$Bundle-SymbolicName=io.grpc.grpc-api&amp;Bundle-Version=1.83.1</bundle>
-        <bundle>wrap:mvn:io.grpc/grpc-core/1.83.1$Bundle-SymbolicName=io.grpc.grpc-core&amp;Bundle-Version=1.83.1&amp;Fragment-Host=io.grpc.grpc-api</bundle>
-        <bundle>wrap:mvn:io.grpc/grpc-netty/1.83.1$Bundle-SymbolicName=io.grpc.grpc-netty&amp;Bundle-Version=1.83.1</bundle>
+        <bundle>mvn:com.google.protobuf/protobuf-java/4.36.2</bundle>
+        <bundle>wrap:mvn:io.grpc/grpc-api/1.85.1$Bundle-SymbolicName=io.grpc.grpc-api&amp;Bundle-Version=1.85.1</bundle>
+        <bundle>wrap:mvn:io.grpc/grpc-core/1.85.1$Bundle-SymbolicName=io.grpc.grpc-core&amp;Bundle-Version=1.85.1&amp;Fragment-Host=io.grpc.grpc-api</bundle>
+        <bundle>wrap:mvn:io.grpc/grpc-netty/1.85.1$Bundle-SymbolicName=io.grpc.grpc-netty&amp;Bundle-Version=1.85.1</bundle>
     </feature>
 </features>
