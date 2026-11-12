@@ -34,6 +34,24 @@
       "parentUuid": "254e37dd_70b5f8f3",
       "revId": "22c1bf3cd869deb6c89bca647f24072d679d97f5",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6393b374_8f54514f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-12T08:59:43Z",
+      "side": 1,
+      "message": "- we still start from the highest stored version, as there\u0027s nothing to compare it with. If the schema can\u0027t be built with it, we retry with the next lower stored version, one model at a time,\n\n- a submodule included by an OpenConfig parent is never taken from another major version anymore. If copies are stored under semantic versions but none of the parent\u0027s major version, it\u0027s reported as missing",
+      "parentUuid": "3c19ccf9_593bf1a1",
+      "revId": "22c1bf3cd869deb6c89bca647f24072d679d97f5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
