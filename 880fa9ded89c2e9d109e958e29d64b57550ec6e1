@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "434072aa_837918f8",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/device/connection/DeviceConnectionInitializerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2026-11-13T09:08:58Z",
+      "side": 1,
+      "message": "4 spaces",
+      "range": {
+        "startLine": 63,
+        "startChar": 8,
+        "endLine": 63,
+        "endChar": 12
+      },
+      "revId": "880fa9ded89c2e9d109e958e29d64b57550ec6e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
