@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "854e0931_3018ceb2",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/session/listener/GnmiConnectionStatusListener.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2026-11-13T09:07:25Z",
+      "side": 1,
+      "message": "4 spaces",
+      "range": {
+        "startLine": 86,
+        "startChar": 20,
+        "endLine": 86,
+        "endChar": 24
+      },
+      "revId": "4ce59ff9aa4fc935913eb4dffe879c8135d3b789",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f94fa478_bbf8bdcd",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/session/listener/GnmiConnectionStatusListener.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2026-11-13T09:07:25Z",
+      "side": 1,
+      "message": "4 spaces",
+      "revId": "4ce59ff9aa4fc935913eb4dffe879c8135d3b789",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b415d48b_f1e855fa",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/session/listener/GnmiConnectionStatusListener.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2026-11-13T09:07:25Z",
+      "side": 1,
+      "message": "static method and `final ConnectivityState state`",
+      "revId": "4ce59ff9aa4fc935913eb4dffe879c8135d3b789",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "057f705a_bd44a497",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/session/listener/GnmiConnectionStatusListener.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2026-11-13T09:07:25Z",
+      "side": 1,
+      "message": "can be replaced with case TRANSIENT_FAILURE -\u003e NodeState.NodeStatus.TRANSIENTFAILURE;",
+      "revId": "4ce59ff9aa4fc935913eb4dffe879c8135d3b789",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
