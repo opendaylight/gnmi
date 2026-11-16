@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8227f2db_aa113bcb",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/device/connection/DeviceReconnectionStatusTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2026-11-16T09:05:03Z",
+      "side": 1,
+      "message": "better to add null guard",
+      "revId": "c0da047573b116c42f0bc6436a12206702d230b7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5957451b_ab4f6058",
         "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/device/connection/DeviceReconnectionStatusTest.java",
         "patchSetId": 9
