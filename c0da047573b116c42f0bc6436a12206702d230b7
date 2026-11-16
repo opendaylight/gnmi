@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "681a7e14_cfc7142a",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/device/connection/DeviceReconnectionStatusTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2026-11-16T09:04:23Z",
+      "side": 1,
+      "message": "Half-done @Mock migration, these still use Mockito.mock",
+      "revId": "c0da047573b116c42f0bc6436a12206702d230b7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5957451b_ab4f6058",
         "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/device/connection/DeviceReconnectionStatusTest.java",
         "patchSetId": 9
