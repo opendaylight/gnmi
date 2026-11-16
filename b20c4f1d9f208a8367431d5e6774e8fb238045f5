@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "520fba3a_e69e744e",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/device/session/listener/GnmiConnectionStatusListenerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2026-11-16T09:05:37Z",
+      "side": 1,
+      "message": "let\u0027s move others to @Mock as well",
+      "revId": "b20c4f1d9f208a8367431d5e6774e8fb238045f5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
