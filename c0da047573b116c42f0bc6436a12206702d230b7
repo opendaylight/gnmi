@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5957451b_ab4f6058",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/device/connection/DeviceReconnectionStatusTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2026-11-16T09:02:15Z",
+      "side": 1,
+      "message": "4 spaces",
+      "range": {
+        "startLine": 220,
+        "startChar": 24,
+        "endLine": 220,
+        "endChar": 28
+      },
+      "revId": "c0da047573b116c42f0bc6436a12206702d230b7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
