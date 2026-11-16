@@ -24,6 +24,30 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "af6eee09_7d89a5a7",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/session/listener/GnmiConnectionStatusListener.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-11-16T08:24:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "854e0931_3018ceb2",
+      "range": {
+        "startLine": 86,
+        "startChar": 20,
+        "endLine": 86,
+        "endChar": 24
+      },
+      "revId": "4ce59ff9aa4fc935913eb4dffe879c8135d3b789",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f94fa478_bbf8bdcd",
@@ -37,6 +61,24 @@
       "writtenOn": "2026-11-13T09:07:25Z",
       "side": 1,
       "message": "4 spaces",
+      "revId": "4ce59ff9aa4fc935913eb4dffe879c8135d3b789",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b4ce531_1d74550c",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/session/listener/GnmiConnectionStatusListener.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-11-16T08:24:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f94fa478_bbf8bdcd",
       "revId": "4ce59ff9aa4fc935913eb4dffe879c8135d3b789",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -58,6 +100,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0fb12e9_ad1e9792",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/session/listener/GnmiConnectionStatusListener.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-11-16T08:24:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b415d48b_f1e855fa",
+      "revId": "4ce59ff9aa4fc935913eb4dffe879c8135d3b789",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "057f705a_bd44a497",
@@ -71,6 +131,24 @@
       "writtenOn": "2026-11-13T09:07:25Z",
       "side": 1,
       "message": "can be replaced with case TRANSIENT_FAILURE -\u003e NodeState.NodeStatus.TRANSIENTFAILURE;",
+      "revId": "4ce59ff9aa4fc935913eb4dffe879c8135d3b789",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4abf21c0_92a294af",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/session/listener/GnmiConnectionStatusListener.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-11-16T08:24:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "057f705a_bd44a497",
       "revId": "4ce59ff9aa4fc935913eb4dffe879c8135d3b789",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
