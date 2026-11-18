@@ -97,7 +97,6 @@ import org.opendaylight.yangtools.binding.DataContainer;
 import org.opendaylight.yangtools.binding.data.codec.impl.di.DefaultBindingDOMCodecServices;
 import org.opendaylight.yangtools.yang.common.Uint16;
 import org.opendaylight.yangtools.yang.common.Uint32;
-import org.opendaylight.yangtools.yang.common.Uint64;
 import org.opendaylight.yangtools.yang.parser.impl.DefaultYangParserFactory;
 import org.opendaylight.yangtools.yang.xpath.impl.AntlrXPathParserFactory;
 import org.slf4j.Logger;
@@ -245,9 +244,9 @@ public abstract class GnmiITBase extends AbstractDataBrokerTest {
         // Netty endpoint
         final var configuration = new NettyEndpointConfiguration(
             ERROR_TAG_MAPPING, PrettyPrintParam.FALSE, Uint16.ZERO, Uint32.valueOf(1000),
-            "rests", MessageEncoding.JSON, serverStackGrouping, Uint32.valueOf(256 * 1024),
-            Uint32.valueOf(16 * 1024), "h3=\":8443\"; ma=3600", Uint32.valueOf(3600),
-            Uint64.valueOf(4L * 1024 * 1024), Uint64.valueOf(256L * 1024), Uint32.valueOf(100));
+            "rests", MessageEncoding.JSON, serverStackGrouping, Uint32.valueOf(16 * 1024),
+            Uint32.valueOf(32 * 1024), Uint32.valueOf(64 * 1024), "h3=\":8443\"; ma=0",
+            Uint32.valueOf(0));
 
         endpoint = new SimpleNettyEndpoint(server, principalService, streamRegistry, bootstrapFactory, configuration);
     }
