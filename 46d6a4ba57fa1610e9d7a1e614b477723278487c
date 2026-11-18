@@ -16,6 +16,24 @@
       "message": "JIRA ID?\n\nnext 2 patches too",
       "revId": "46d6a4ba57fa1610e9d7a1e614b477723278487c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ff0a61e_ecfacdc2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 9136
+      },
+      "writtenOn": "2026-11-18T10:34:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09fe6bde_c48f4757",
+      "revId": "46d6a4ba57fa1610e9d7a1e614b477723278487c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
