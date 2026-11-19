@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cb00aca_290274fb",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-19T10:07:22Z",
+      "side": 1,
+      "message": "Am I right that a model uploaded with an empty version (which the storage model and the upload RPC allow) is now never used for a device that reports a version, so such devices stop mounting after upgrade? If that is intended, could this warning say the copy must be re-uploaded with a version, and the change get a release note? Otherwise, keep using it when every stored copy is unversioned.",
+      "revId": "864c462e0f538a3a4631f7fff8860ef972c0adab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2b0b1d4_34845847",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-19T10:07:22Z",
+      "side": 1,
+      "message": "resolveSubmodule picks the copy while dependencies are still being listed and hands it over through resolvedSubmodules, so readDependencyModels has to consult that map first, and when nothing fits the same submodule is read from the store a second time in tryToReadModel. Could the include instead carry the parent\u0027s semver and have the read step apply the submodule rule on the one list it reads?",
+      "revId": "864c462e0f538a3a4631f7fff8860ef972c0adab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00b2d5b1_5257f94d",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-19T10:07:22Z",
+      "side": 1,
+      "message": "The loader stores a model with an openconfig-version under that semver, not its revision, so an import like openconfig-interfaces with revision-date 2021-04-06 never hits this key and is reported missing, although the exact file is stored (it worked before via the single-copy fallback). Could we fall back to reading all copies and matching the newest revision statement in the body?",
+      "revId": "864c462e0f538a3a4631f7fff8860ef972c0adab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aad8d90b_bae0e3ee",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-19T10:07:22Z",
+      "side": 1,
+      "message": "Only a missing device-reported model stops the retries, so a syntax error or unrelated parser failure runs up to 1 + sum(stored versions - 1) full rebuilds on one of the 4 gNMI pool threads before reporting. With a few OpenConfig releases stored that is easily 100+ rebuilds. Could we cap the attempts (and log once at INFO that lowering started)?",
+      "revId": "864c462e0f538a3a4631f7fff8860ef972c0adab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2bd9496_ad715060",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-19T10:07:22Z",
+      "side": 1,
+      "message": "The retry with lower stored versions is a feature of its own, but the commit message does not mention it and no test reaches it (no test stores two copies of a dependency where the highest breaks the build). Could we add it to the message and add one test where lowering succeeds and one where it does not? Also.. this five-field state machine seems a bit over-designed for what is esentially a simple lookup. I\u0027m pretty sure 2 nested loops can do that trick as well.",
+      "revId": "864c462e0f538a3a4631f7fff8860ef972c0adab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
