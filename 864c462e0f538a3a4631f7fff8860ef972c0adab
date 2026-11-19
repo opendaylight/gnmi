@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f375e4b5_ba50950a",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-19T15:54:56Z",
+      "side": 1,
+      "message": "Not intended. If no stored copy has a usable version, it\u0027s used as before, with a warning to store it with its version.",
+      "parentUuid": "5cb00aca_290274fb",
+      "revId": "864c462e0f538a3a4631f7fff8860ef972c0adab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f2b0b1d4_34845847",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-11-19T10:07:22Z",
       "side": 1,
       "message": "resolveSubmodule picks the copy while dependencies are still being listed and hands it over through resolvedSubmodules, so readDependencyModels has to consult that map first, and when nothing fits the same submodule is read from the store a second time in tryToReadModel. Could the include instead carry the parent\u0027s semver and have the read step apply the submodule rule on the one list it reads?",
+      "revId": "864c462e0f538a3a4631f7fff8860ef972c0adab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef7136c8_ddb86305",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-19T15:54:56Z",
+      "side": 1,
+      "message": "itnow carries the parent semver, read step applies the submodule rule on the one list it reads. resolvedSubmodules is removed.",
+      "parentUuid": "f2b0b1d4_34845847",
       "revId": "864c462e0f538a3a4631f7fff8860ef972c0adab",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -52,6 +88,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04b6b94d_54a9b740",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-19T15:54:56Z",
+      "side": 1,
+      "message": "If the exact key misses, the copy whose latest revision matches the revision-date is used.",
+      "parentUuid": "00b2d5b1_5257f94d",
+      "revId": "864c462e0f538a3a4631f7fff8860ef972c0adab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aad8d90b_bae0e3ee",
@@ -69,6 +123,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02263d14_00a7d8fd",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-19T15:54:56Z",
+      "side": 1,
+      "message": "The retry is capped at 10 attempts, with an INFO log when lowering starts and when it succeeds.",
+      "parentUuid": "aad8d90b_bae0e3ee",
+      "revId": "864c462e0f538a3a4631f7fff8860ef972c0adab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e2bd9496_ad715060",
@@ -82,6 +154,24 @@
       "writtenOn": "2026-11-19T10:07:22Z",
       "side": 1,
       "message": "The retry with lower stored versions is a feature of its own, but the commit message does not mention it and no test reaches it (no test stores two copies of a dependency where the highest breaks the build). Could we add it to the message and add one test where lowering succeeds and one where it does not? Also.. this five-field state machine seems a bit over-designed for what is esentially a simple lookup. I\u0027m pretty sure 2 nested loops can do that trick as well.",
+      "revId": "864c462e0f538a3a4631f7fff8860ef972c0adab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "980eca1b_fbfb6206",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-19T15:54:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2bd9496_ad715060",
       "revId": "864c462e0f538a3a4631f7fff8860ef972c0adab",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
