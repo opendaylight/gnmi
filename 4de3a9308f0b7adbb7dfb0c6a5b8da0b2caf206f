@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3183fda_5d035ff6",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-20T09:46:42Z",
+      "side": 1,
+      "message": "var",
+      "revId": "4de3a9308f0b7adbb7dfb0c6a5b8da0b2caf206f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6101d96c_12e231cf",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-20T09:46:42Z",
+      "side": 1,
+      "message": "var",
+      "revId": "4de3a9308f0b7adbb7dfb0c6a5b8da0b2caf206f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7822a0a_6d792dd5",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-20T09:46:42Z",
+      "side": 1,
+      "message": "Is it intended that a device reporting a newer version than the stored one now fails to mount? The bundled openconfig-interfaces is 2.5.0, so a device reporting 3.x or even 2.6.0 lands here and the whole mount fails, where before the single stored copy was used with a WARN. If intended, could we add a release note naming the workarounds (upload the device\u0027s versions, or force versionless capabilities), or keep the old fallback behind an opt-in flag?",
+      "revId": "4de3a9308f0b7adbb7dfb0c6a5b8da0b2caf206f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae6409e5_2e1cba87",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-20T09:46:42Z",
+      "side": 1,
+      "message": "Strings.isNullOrEmpty()",
+      "revId": "4de3a9308f0b7adbb7dfb0c6a5b8da0b2caf206f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b71e5fe_8ae68e75",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-20T09:46:42Z",
+      "side": 1,
+      "message": "Test if it\u0027s an import, THEN extract the argument. No need to extract the argument, if it\u0027s not an import.",
+      "revId": "4de3a9308f0b7adbb7dfb0c6a5b8da0b2caf206f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e7b57d8_e6921676",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-20T09:46:42Z",
+      "side": 1,
+      "message": "When one module imports X pinned and another imports X unpinned, both land in this HashSet and the first one iterated wins. It wins just because it happened to be looked at first, not because of an actual requirement, right? Could we iterate pinned requirements first in a deterministic order, and log when a different requirement for the same name is skipped?",
+      "revId": "4de3a9308f0b7adbb7dfb0c6a5b8da0b2caf206f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c9db464_64e2d5d6",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-20T09:46:42Z",
+      "side": 1,
+      "message": "This retries on any build failure as long as some versionless model has several stored versions, which becomes nearly always true once a second openconfig-types or ietf-yang-types is uploaded. A broken vendor model then costs up to 10 extra full rebuilds per connection attempt on the 4-thread gNMI pool, and failures are not cached, so reconnects repeat it. Could we retry only when the parser\u0027s failing source is, or imports, a lowerable model?",
+      "revId": "4de3a9308f0b7adbb7dfb0c6a5b8da0b2caf206f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "854b7d64_e29a3119",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-20T09:46:42Z",
+      "side": 1,
+      "message": "Only SchemaException is caught here, so if a retry times out reading the store, getSchemaContext wraps just the timeout and the real failure from the first attempt (parser error, missing models) is dropped. Could we also catch ExecutionException | TimeoutException here, add the message to firstFailure and throw that?",
+      "revId": "4de3a9308f0b7adbb7dfb0c6a5b8da0b2caf206f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
