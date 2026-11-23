@@ -27,7 +27,7 @@ public class GnmiService extends gNMIGrpc.gNMIImplBase {
 
     private static final Logger LOG = LoggerFactory.getLogger(GnmiService.class);
 
-    private final JsonFormat.Printer jsonPrinter = JsonFormat.printer().includingDefaultValueFields();
+    private final JsonFormat.Printer jsonPrinter = JsonFormat.printer().alwaysPrintFieldsWithNoPresence();
 
     private final GnmiCapabilitiesService gnmiCapabilitiesService;
     private final GnmiCrudService gnmiCrudService;
