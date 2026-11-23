@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2edc944_1fb93e05",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/device/session/listener/GnmiConnectionStatusListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2026-11-23T12:34:02Z",
+      "side": 1,
+      "message": "we do not know which one..",
+      "revId": "46f22ae5596a832912cc012f6d1fbf7691d19539",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
