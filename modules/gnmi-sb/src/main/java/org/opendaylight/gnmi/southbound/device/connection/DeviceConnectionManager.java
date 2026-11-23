@@ -8,9 +8,9 @@
 package org.opendaylight.gnmi.southbound.device.connection;
 
 import com.google.common.collect.Sets;
+import com.google.common.util.concurrent.FluentFuture;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
-import com.google.common.util.concurrent.MoreExecutors;
 import gnmi.Gnmi;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,14 +82,14 @@ public class DeviceConnectionManager implements AutoCloseable {
         this.activeGenerations = new ConcurrentHashMap<>();
     }
 
-    public synchronized ListenableFuture<CommitInfo> connectDevice(final Node node) {
+    public synchronized ListenableFuture<? extends CommitInfo> connectDevice(final Node node) {
         if (!activeDevices.containsKey(node.getNodeId())) {
             // Stamp this attempt with a fresh generation. Starting a new attempt supersedes any older
             // in-flight one, and closeConnection() drops the stamp, so a callback which completes after the
             // node was removed (or replaced) finds its generation is no longer current and aborts.
             final var generation = connectionGeneration.incrementAndGet();
             activeGenerations.put(node.getNodeId(), generation);
-            final ListenableFuture<CommitInfo> connectionFuture;
+            final ListenableFuture<? extends CommitInfo> connectionFuture;
             try {
                 /*
                  Establish connection with device (future will be set with GnmiDeviceManager for device when
@@ -120,32 +120,33 @@ public class DeviceConnectionManager implements AutoCloseable {
         }
     }
 
-    private ListenableFuture<CommitInfo> prepareDeviceConnection(final Node node,
+    private ListenableFuture<? extends CommitInfo> prepareDeviceConnection(final Node node,
             final DeviceConnection deviceConnection, final long generation) {
         final var mountPointCreatedFuture = createMountPoint(node, deviceConnection, generation);
 
         return Futures.transformAsync(mountPointCreatedFuture,
-            voidResult -> {
-                try {
-                    // Upcast to CommitInfo to match the empty commit future returned below.
-                    return Futures.transform(deviceConnection.setDeviceStatusReady(), commitInfo -> commitInfo,
-                        MoreExecutors.directExecutor());
-                } catch (GnmiConnectionStatusException statusException) {
-                    // A closed node is no longer current; rethrow so the failure is reported as a cancellation.
-                    if (!isCurrentGeneration(node.getNodeId(), generation)) {
-                        throw statusException;
-                    }
-                    // The mountpoint is already registered and the node is active, so a channel which left READY
-                    // in the meantime is not a connection failure: the status listener has already written the
-                    // new status, and the READY callback writes READY once the channel reconnects. Failing here
-                    // would write FAILURE with failure-details for a mounted node, which READY never clears.
-                    LOG.warn("Connection status of node {} changed from READY to {} while creating mountpoint, "
-                        + "keeping the node connected, READY status is written once the channel is READY again",
-                        node.getNodeId(), statusException.getCurrentState());
-                    return CommitInfo.emptyFluentFuture();
-                }
-            },
+            voidResult -> setDeviceStatusReady(node, deviceConnection, generation),
             executorService);
+    }
+
+    private FluentFuture<? extends CommitInfo> setDeviceStatusReady(final Node node,
+            final DeviceConnection deviceConnection, final long generation) throws GnmiConnectionStatusException {
+        try {
+            return deviceConnection.setDeviceStatusReady();
+        } catch (GnmiConnectionStatusException statusException) {
+            // A closed node is no longer current; rethrow so the failure is reported as a cancellation.
+            if (!isCurrentGeneration(node.getNodeId(), generation)) {
+                throw statusException;
+            }
+            // The mountpoint is already registered and the node is active, so a channel which left READY
+            // in the meantime is not a connection failure: the status listener has already written the
+            // new status, and the READY callback writes READY once the channel reconnects. Failing here
+            // would write FAILURE with failure-details for a mounted node, which READY never clears.
+            LOG.warn("Connection status of node {} changed from READY to {} while creating mountpoint, "
+                + "keeping the node connected, READY status is written once the channel is READY again",
+                node.getNodeId(), statusException.getCurrentState());
+            return CommitInfo.emptyFluentFuture();
+        }
     }
 
     private ListenableFuture<Void> createMountPoint(final Node node, final DeviceConnection deviceConnection,

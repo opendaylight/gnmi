@@ -99,7 +99,7 @@ public class GnmiNodeListener implements DataTreeChangeListener<Node> {
 
     private void connectNode(final Node node) {
         final var connectionResult = deviceConnectionManager.connectDevice(node);
-        Futures.addCallback(connectionResult, new FutureCallback<>() {
+        Futures.addCallback(connectionResult, new FutureCallback<CommitInfo>() {
             @Override
             public void onSuccess(@Nullable final CommitInfo result) {
                 LOG.info("Connection with node {} established successfully", node.getNodeId());
