@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4e3b97f_5f21473c",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-23T10:07:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3183fda_5d035ff6",
+      "revId": "4de3a9308f0b7adbb7dfb0c6a5b8da0b2caf206f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6101d96c_12e231cf",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-11-20T09:46:42Z",
       "side": 1,
       "message": "var",
+      "revId": "4de3a9308f0b7adbb7dfb0c6a5b8da0b2caf206f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc393370_ed28612d",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-23T10:07:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6101d96c_12e231cf",
       "revId": "4de3a9308f0b7adbb7dfb0c6a5b8da0b2caf206f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -52,6 +88,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d3b82a0_e26f55ba",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-23T10:07:19Z",
+      "side": 1,
+      "message": "Intended. The warning now names both workarounds, and the user guide has a new section on model versions with them.",
+      "parentUuid": "e7822a0a_6d792dd5",
+      "revId": "4de3a9308f0b7adbb7dfb0c6a5b8da0b2caf206f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ae6409e5_2e1cba87",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-11-20T09:46:42Z",
       "side": 1,
       "message": "Strings.isNullOrEmpty()",
+      "revId": "4de3a9308f0b7adbb7dfb0c6a5b8da0b2caf206f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4856aef_b87756f8",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-23T10:07:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae6409e5_2e1cba87",
       "revId": "4de3a9308f0b7adbb7dfb0c6a5b8da0b2caf206f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -86,6 +158,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "988468d0_aafdd729",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-23T10:07:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b71e5fe_8ae68e75",
+      "revId": "4de3a9308f0b7adbb7dfb0c6a5b8da0b2caf206f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e7b57d8_e6921676",
@@ -99,6 +189,24 @@
       "writtenOn": "2026-11-20T09:46:42Z",
       "side": 1,
       "message": "When one module imports X pinned and another imports X unpinned, both land in this HashSet and the first one iterated wins. It wins just because it happened to be looked at first, not because of an actual requirement, right? Could we iterate pinned requirements first in a deterministic order, and log when a different requirement for the same name is skipped?",
+      "revId": "4de3a9308f0b7adbb7dfb0c6a5b8da0b2caf206f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef3cfc75_5c93d441",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-23T10:07:19Z",
+      "side": 1,
+      "message": "Dependencies are now read with revision-dates first, then pinned versions, then by name, and a skipped different requirement is logged.",
+      "parentUuid": "4e7b57d8_e6921676",
       "revId": "4de3a9308f0b7adbb7dfb0c6a5b8da0b2caf206f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -120,6 +228,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba6a1a28_6fc39990",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-23T10:07:19Z",
+      "side": 1,
+      "message": "Only models involved in the failure are lowered now",
+      "parentUuid": "2c9db464_64e2d5d6",
+      "revId": "4de3a9308f0b7adbb7dfb0c6a5b8da0b2caf206f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "854b7d64_e29a3119",
@@ -133,6 +259,24 @@
       "writtenOn": "2026-11-20T09:46:42Z",
       "side": 1,
       "message": "Only SchemaException is caught here, so if a retry times out reading the store, getSchemaContext wraps just the timeout and the real failure from the first attempt (parser error, missing models) is dropped. Could we also catch ExecutionException | TimeoutException here, add the message to firstFailure and throw that?",
+      "revId": "4de3a9308f0b7adbb7dfb0c6a5b8da0b2caf206f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2465fad_6e4f88b4",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-23T10:07:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "854b7d64_e29a3119",
       "revId": "4de3a9308f0b7adbb7dfb0c6a5b8da0b2caf206f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
