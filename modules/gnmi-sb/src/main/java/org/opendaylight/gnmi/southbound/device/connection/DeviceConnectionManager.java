@@ -10,7 +10,6 @@ package org.opendaylight.gnmi.southbound.device.connection;
 import com.google.common.collect.Sets;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
-import com.google.common.util.concurrent.MoreExecutors;
 import gnmi.Gnmi;
 import java.util.ArrayList;
 import java.util.List;
@@ -127,9 +126,7 @@ public class DeviceConnectionManager implements AutoCloseable {
         return Futures.transformAsync(mountPointCreatedFuture,
             voidResult -> {
                 try {
-                    // Upcast to CommitInfo to match the empty commit future returned below.
-                    return Futures.transform(deviceConnection.setDeviceStatusReady(), commitInfo -> commitInfo,
-                        MoreExecutors.directExecutor());
+                    return deviceConnection.setDeviceStatusReady();
                 } catch (GnmiConnectionStatusException statusException) {
                     // A closed node is no longer current; rethrow so the failure is reported as a cancellation.
                     if (!isCurrentGeneration(node.getNodeId(), generation)) {

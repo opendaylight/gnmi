@@ -72,7 +72,7 @@ public class GnmiConnectionStatusListener implements AutoCloseable {
      * @throws GnmiConnectionStatusException when this listener is closed, or when current state of underlying
      *     connection is different from READY.
      */
-    public synchronized FluentFuture<? extends CommitInfo> copyDeviceStatusReadyToDatastore()
+    public synchronized FluentFuture<CommitInfo> copyDeviceStatusReadyToDatastore()
             throws GnmiConnectionStatusException {
         if (!listenerActive) {
             throw new GnmiConnectionStatusException(
@@ -142,7 +142,7 @@ public class GnmiConnectionStatusListener implements AutoCloseable {
         }
     }
 
-    private synchronized FluentFuture<? extends CommitInfo> writeStateToDataStoreAsync(final ConnectivityState state) {
+    private synchronized FluentFuture<CommitInfo> writeStateToDataStoreAsync(final ConnectivityState state) {
         final var tx = dataBroker.newWriteOnlyTransaction();
         final var operationalNode = new NodeBuilder()
             .setNodeId(nodeId)
@@ -151,7 +151,10 @@ public class GnmiConnectionStatusListener implements AutoCloseable {
                 .build())
             .build();
         tx.merge(LogicalDatastoreType.OPERATIONAL, IdentifierUtils.gnmiNodeID(nodeId), operationalNode);
-        return tx.commit();
+        // The commit future only produces values, so narrowing ? extends CommitInfo to CommitInfo is safe
+        @SuppressWarnings("unchecked")
+        final var commitFuture = (FluentFuture<CommitInfo>) tx.commit();
+        return commitFuture;
     }
 
     @Override
