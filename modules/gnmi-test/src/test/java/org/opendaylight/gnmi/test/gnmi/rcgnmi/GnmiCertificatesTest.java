@@ -34,8 +34,9 @@ public class GnmiCertificatesTest extends GnmiITBase {
     private static final Logger LOG = LoggerFactory.getLogger(GnmiCertificatesTest.class);
     private static final TestCertificates TEST_CERTIFICATES = new TestCertificates();
 
-    private static final String KEY_PATH = "src/test/resources/certs/server-pkcs8.key";
-    private static final String CERTIFICATE_PATH = "src/test/resources/certs/server.crt";
+    private static final String KEY_PATH = GnmiCertificatesTest.class.getResource("/certs/server-pkcs8.key").getPath();
+    private static final String CERTIFICATE_PATH =
+            GnmiCertificatesTest.class.getResource("/certs/server.crt").getPath();
 
     private static final String ADD_CERTIFICATE_PATH
             = "http://localhost:%d/rests/operations/gnmi-certificate-storage:add-keystore-certificate"
