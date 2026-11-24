@@ -21,6 +21,7 @@ import gnmi.Gnmi;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.concurrent.ExecutionException;
+import org.apache.commons.io.FileUtils;
 import org.json.JSONException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,10 +42,15 @@ public class SimulatorCrudTest {
 
     private static final int TARGET_PORT = 10161;
     private static final String TARGET_HOST = "127.0.0.1";
-    private static final String INITIAL_DATA_PATH = "src/test/resources/json/initData";
+    private static final String INITIAL_DATA_PATH =
+            FileUtils.toFile(SimulatorCrudTest.class.getResource("/json/initData")).getPath();
+    private static final String TEST_SCHEMA_PATH =
+            FileUtils.toFile(SimulatorCrudTest.class.getResource("/additional/models")).getPath();
     private static final String SIMULATOR_CONFIG = "/json/simulator_config.json";
-    private static final String SERVER_KEY = "src/test/resources/certs/server-pkcs8.key";
-    private static final String SERVER_CERT = "src/test/resources/certs/server.crt";
+    private static final String SERVER_KEY =
+            FileUtils.toFile(SimulatorCrudTest.class.getResource("/certs/server-pkcs8.key")).getPath();
+    private static final String SERVER_CERT =
+            FileUtils.toFile(SimulatorCrudTest.class.getResource("/certs/server.crt")).getPath();
     private static final String INTERFACES_PREFIX = "openconfig-interfaces";
     private static final String OPENCONFIG_INTERFACES = INTERFACES_PREFIX + ":" + "interfaces";
     private static final String ETHRERNET_PREFIX = "openconfig-if-ethernet";
@@ -62,6 +68,7 @@ public class SimulatorCrudTest {
                 .loadGnmiSimulatorConfiguration(this.getClass().getResourceAsStream(SIMULATOR_CONFIG));
         simulatorConfiguration.setTargetAddress(TARGET_HOST);
         simulatorConfiguration.setTargetPort(TARGET_PORT);
+        simulatorConfiguration.setYangsPath(TEST_SCHEMA_PATH);
         simulatorConfiguration.setInitialConfigDataPath(INITIAL_DATA_PATH + "/config.json");
         simulatorConfiguration.setInitialStateDataPath(INITIAL_DATA_PATH + "/state.json");
         simulatorConfiguration.setCertKeyPath(SERVER_KEY);

@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,7 +39,8 @@ import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
 public class LoadAugmentationFromGnmiPath {
 
     private static final String SIMULATOR_CONFIG = "/initData/simulator_config.json";
-    private static final String INIT_DATA_PATH = "src/test/resources/initData";
+    private static final String INIT_DATA_PATH =
+            FileUtils.toFile(LoadAugmentationFromGnmiPath.class.getResource("/initData")).getPath();
 
     BindingCodecContext codecContext;
     EffectiveModelContext schemaContext;

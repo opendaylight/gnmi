@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.logging.log4j.core.config.ConfigurationException;
 import org.opendaylight.gnmi.southbound.schema.impl.SchemaException;
@@ -27,8 +28,8 @@ import org.opendaylight.yangtools.yang.data.api.schema.NormalizedNode;
 
 public class GetResponseToNormalizedNodeTestCases extends CodecTestCasesBase {
 
-    private static final Path BASE_JSON_PATH = Path.of(
-            "src/test/resources/codecs/jsons/reference_data.json");
+    private static final Path BASE_JSON_PATH = FileUtils.toFile(
+            GetResponseToNormalizedNodeTestCases.class.getResource("/codecs/jsons/reference_data.json")).toPath();
     private static final Gson GSON = new Gson();
 
     private final String baseJson;
