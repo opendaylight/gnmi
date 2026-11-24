@@ -7,6 +7,8 @@
  */
 package org.opendaylight.gnmi.southbound.mountpoint.codecs.testcases;
 
+import static org.opendaylight.gnmi.southbound.TestResources.resourcePath;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -25,8 +27,7 @@ import org.opendaylight.yangtools.yang.data.api.YangInstanceIdentifier;
 import org.opendaylight.yangtools.yang.data.api.schema.NormalizedNode;
 
 public class YangInstanceNormToGnmiUpdateTestCases extends CodecTestCasesBase {
-    private static final Path BASE_JSON_PATH = Path.of(
-            "src/test/resources/codecs/jsons/reference_data_prefixed.json");
+    private static final Path BASE_JSON_PATH = resourcePath("/codecs/jsons/reference_data_prefixed.json");
     private static final Gson GSON = new Gson();
 
     private final String baseJson;

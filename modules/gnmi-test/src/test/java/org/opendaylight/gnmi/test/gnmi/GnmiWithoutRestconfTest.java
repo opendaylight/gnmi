@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.opendaylight.gnmi.test.utils.TestResources.resourcePath;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.nio.file.Files;
@@ -102,10 +103,10 @@ import org.opendaylight.yangtools.yang.source.ir.DefaultYangTextToIRSourceTransf
 import org.opendaylight.yangtools.yang.xpath.impl.AntlrXPathParserFactory;
 
 public class GnmiWithoutRestconfTest extends AbstractDataBrokerTest {
-    private static final String INITIAL_JSON_DATA_PATH = "src/test/resources/json/initData";
-    private static final String TEST_SCHEMA_PATH = "src/test/resources/additional/models";
+    private static final String INITIAL_JSON_DATA_PATH = resourcePath("/json/initData").toString();
+    private static final String TEST_SCHEMA_PATH = resourcePath("/additional/models").toString();
     private static final String SIMULATOR_CONFIG = "/json/simulator_config.json";
-    private static final Path CONFIGURATION_PATH = Path.of("src/test/resources/json/app_init_config.json");
+    private static final Path CONFIGURATION_PATH = resourcePath("/json/app_init_config.json");
     private static final Duration POLL_INTERVAL_DURATION = Duration.ofMillis(1_000L);
     private static final Duration WAIT_TIME_DURATION = Duration.ofMillis(10_000L);
     public static final long TIMEOUT_MILLIS = 30_000;
@@ -173,6 +174,7 @@ public class GnmiWithoutRestconfTest extends AbstractDataBrokerTest {
             new RouterDOMRpcProviderService(domRpcRouter));
         final var configTree = mapper.readTree(Files.newInputStream(CONFIGURATION_PATH)).path("gnmi");
         final var config = mapper.treeToValue(configTree, GnmiConfiguration.class);
+        config.addInitialYangsPaths(List.of(TEST_SCHEMA_PATH));
         gnmiSouthboundModule = new GnmiSouthboundModule(odlDataBroker, rpcProviderService, odlDomMountPointService,
             createEncryptionService(), new DefaultYangParserFactory(),
             new AntlrXPathParserFactory(), new DefaultYangTextToIRSourceTransformer(), config);

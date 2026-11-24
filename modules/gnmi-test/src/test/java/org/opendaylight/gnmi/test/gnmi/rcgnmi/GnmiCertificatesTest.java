@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.GNMI_NODE_ID;
+import static org.opendaylight.gnmi.test.utils.TestResources.resourcePath;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -34,8 +35,8 @@ public class GnmiCertificatesTest extends GnmiITBase {
     private static final Logger LOG = LoggerFactory.getLogger(GnmiCertificatesTest.class);
     private static final TestCertificates TEST_CERTIFICATES = new TestCertificates();
 
-    private static final String KEY_PATH = "src/test/resources/certs/server-pkcs8.key";
-    private static final String CERTIFICATE_PATH = "src/test/resources/certs/server.crt";
+    private static final String KEY_PATH = resourcePath("/certs/server-pkcs8.key").toString();
+    private static final String CERTIFICATE_PATH = resourcePath("/certs/server.crt").toString();
 
     private static final String ADD_CERTIFICATE_PATH
             = "http://localhost:%d/rests/operations/gnmi-certificate-storage:add-keystore-certificate"
