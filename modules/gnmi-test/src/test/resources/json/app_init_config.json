@@ -1,8 +1,5 @@
 {
   "gnmi": {
-    "initialYangsPaths" : [
-      "src/test/resources/additional/models"
-    ],
     "initialYangModels": [
       {"name":"openconfig-aaa","revision":"2020-07-30","nameSpace":"http://openconfig.net/yang/aaa"},
       {"name":"openconfig-aaa-radius","revision":"2020-07-30","nameSpace":"http://openconfig.net/yang/aaa"},
