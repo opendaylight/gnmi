@@ -20,6 +20,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.core.config.ConfigurationException;
 import org.junit.jupiter.api.Assertions;
@@ -42,8 +43,10 @@ import org.opendaylight.yangtools.yang.source.ir.DefaultYangTextToIRSourceTransf
 
 public class SchemaConstructTest {
 
-    private static final String SCHEMA_PATH = "src/test/resources/additional/test/schema";
-    private static final String SYNTAX_ERROR_YANGS_PATH = "src/test/resources/syntax_error_yangs";
+    private static final Path SCHEMA_PATH =
+            FileUtils.toFile(SchemaConstructTest.class.getResource("/additional/test/schema")).toPath();
+    private static final Path SYNTAX_ERROR_YANGS_PATH =
+            FileUtils.toFile(SchemaConstructTest.class.getResource("/syntax_error_yangs")).toPath();
     private static final List<String> MODELS_TO_MISS = Arrays.asList("openconfig-alarms",
         "openconfig-platform");
     private static final List<String> CAPABILITIES_TO_MISS = Arrays.asList("openconfig-alarm-types",
@@ -58,7 +61,7 @@ public class SchemaConstructTest {
     @BeforeEach
     public void setup() throws YangLoadException, ConfigurationException {
         dataStoreService = new TestYangDataStoreService();
-        completeCapabilities = new ByPathYangLoaderService(Path.of(SCHEMA_PATH), new DefaultYangParserFactory(),
+        completeCapabilities = new ByPathYangLoaderService(SCHEMA_PATH, new DefaultYangParserFactory(),
             new DefaultYangTextToIRSourceTransformer())
                 .load(dataStoreService);
         Assertions.assertFalse(completeCapabilities.isEmpty());
@@ -206,7 +209,7 @@ public class SchemaConstructTest {
     public void schemaConstructWrongSyntaxTest()
             throws IOException, InterruptedException, ExecutionException, TimeoutException {
         // Delete models with correct syntax and add them back with wrong syntax
-        final List<File> filesInFolder = Files.walk(Path.of(SYNTAX_ERROR_YANGS_PATH))
+        final List<File> filesInFolder = Files.walk(SYNTAX_ERROR_YANGS_PATH)
                 .filter(Files::isRegularFile)
                 .map(Path::toFile)
                 .collect(Collectors.toList());
@@ -241,7 +244,7 @@ public class SchemaConstructTest {
     public void schemaConstructWrongSyntaxAndMissingModelsTest()
             throws IOException, InterruptedException, ExecutionException, TimeoutException {
         // Delete models with correct syntax and add them back with wrong syntax
-        final List<File> filesInFolder = Files.walk(Path.of(SYNTAX_ERROR_YANGS_PATH))
+        final List<File> filesInFolder = Files.walk(SYNTAX_ERROR_YANGS_PATH)
                 .filter(Files::isRegularFile)
                 .map(Path::toFile)
                 .collect(Collectors.toList());

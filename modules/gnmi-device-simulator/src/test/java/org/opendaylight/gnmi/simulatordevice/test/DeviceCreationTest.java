@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.util.Optional;
+import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Test;
 import org.opendaylight.gnmi.simulatordevice.config.GnmiSimulatorConfiguration;
 import org.opendaylight.gnmi.simulatordevice.impl.SimulatedGnmiDevice;
@@ -25,7 +26,8 @@ import org.opendaylight.yangtools.yang.data.api.schema.NormalizedNode;
 
 public class DeviceCreationTest {
 
-    private static final String INIT_DATA_PATH = "src/test/resources/initData";
+    private static final String INIT_DATA_PATH =
+            FileUtils.toFile(DeviceCreationTest.class.getResource("/initData")).getPath();
     private static final String SIMULATOR_CONFIG = "/initData/simulator_config.json";
     public static final String USERNAME_TEST = "Test";
     public static final String PASSWORD_TEST = "Test";

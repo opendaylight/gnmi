@@ -25,6 +25,7 @@ import gnmi.Gnmi.UpdateResult;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.concurrent.ExecutionException;
+import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Test;
 import org.opendaylight.gnmi.connector.configuration.SecurityFactory;
 import org.opendaylight.gnmi.connector.configuration.SessionConfiguration;
@@ -51,14 +52,18 @@ public class AuthenticationTest {
     private static final String UNAUTHENTICATED_WRONG_USERNAME_OR_PASSWORD
             = "io.grpc.StatusRuntimeException: UNAUTHENTICATED: Wrong username or password";
     private static final String TARGET_HOST = "127.0.0.1";
-    private static final String INITIAL_DATA_PATH = "src/test/resources/json/initData";
-    private static final String TEST_SCHEMA_PATH = "src/test/resources/additional/models";
+    private static final String INITIAL_DATA_PATH =
+            FileUtils.toFile(AuthenticationTest.class.getResource("/json/initData")).getPath();
+    private static final String TEST_SCHEMA_PATH =
+            FileUtils.toFile(AuthenticationTest.class.getResource("/additional/models")).getPath();
     private static final String SIMULATOR_CONFIG = "/json/simulator_config.json";
     private static final String INTERFACES_PREFIX = "openconfig-interfaces";
     private static final String OPENCONFIG_INTERFACES = INTERFACES_PREFIX + ":" + "interfaces";
     private static final String OPENCONFIG_INTERFACE = "interface";
-    private static final String SERVER_KEY = "src/test/resources/certs/server-pkcs8.key";
-    private static final String SERVER_CERT = "src/test/resources/certs/server.crt";
+    private static final String SERVER_KEY =
+            FileUtils.toFile(AuthenticationTest.class.getResource("/certs/server-pkcs8.key")).getPath();
+    private static final String SERVER_CERT =
+            FileUtils.toFile(AuthenticationTest.class.getResource("/certs/server.crt")).getPath();
     private static final int UPDATE_MTU_VAL = 500;
     private static final int TARGET_PORT = 10161;
 

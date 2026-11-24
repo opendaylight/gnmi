@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,10 +38,13 @@ public class FileServiceTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(FileServiceTest.class);
 
-    private static final String TEST_SCHEMA_PATH = "src/test/resources/additional/models";
+    private static final String TEST_SCHEMA_PATH =
+            FileUtils.toFile(FileServiceTest.class.getResource("/additional/models")).getPath();
     private static final String SIMULATOR_CONFIG = "/json/simulator_config.json";
-    private static final String SERVER_KEY = "src/test/resources/certs/server-pkcs8.key";
-    private static final String SERVER_CERT = "src/test/resources/certs/server.crt";
+    private static final String SERVER_KEY =
+            FileUtils.toFile(FileServiceTest.class.getResource("/certs/server-pkcs8.key")).getPath();
+    private static final String SERVER_CERT =
+            FileUtils.toFile(FileServiceTest.class.getResource("/certs/server.crt")).getPath();
     private static final int  TARGET_PORT = 10161;
     private static final String TARGET_HOST = "127.0.0.1";
     private static final int DUMMYFILE_CHUNKS = 5;

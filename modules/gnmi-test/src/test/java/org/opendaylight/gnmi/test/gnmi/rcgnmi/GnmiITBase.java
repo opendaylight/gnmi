@@ -36,6 +36,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeoutException;
+import org.apache.commons.io.FileUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -118,8 +119,10 @@ public abstract class GnmiITBase extends AbstractConcurrentDataBrokerTest {
     protected static final Duration POLL_INTERVAL_DURATION = Duration.ofMillis(2_000L);
     protected static final Duration WAIT_TIME_DURATION = Duration.ofMillis(30_000L);
 
-    protected static final String INITIAL_JSON_DATA_PATH = "src/test/resources/json/initData";
-    private static final String TEST_SCHEMA_PATH = "src/test/resources/additional/models";
+    protected static final String INITIAL_JSON_DATA_PATH =
+            FileUtils.toFile(GnmiITBase.class.getResource("/json/initData")).getPath();
+    private static final String TEST_SCHEMA_PATH =
+            FileUtils.toFile(GnmiITBase.class.getResource("/additional/models")).getPath();
     private static final String SIMULATOR_CONFIG = "/json/simulator_config.json";
 
     protected ExecutorService httpClientExecutor;
