@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.opendaylight.gnmi.test.utils.TestResources.resourcePath;
 
 import gnoi.file.FileOuterClass;
 import io.grpc.stub.StreamObserver;
@@ -37,10 +38,10 @@ public class FileServiceTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(FileServiceTest.class);
 
-    private static final String TEST_SCHEMA_PATH = "src/test/resources/additional/models";
+    private static final String TEST_SCHEMA_PATH = resourcePath("/additional/models").toString();
     private static final String SIMULATOR_CONFIG = "/json/simulator_config.json";
-    private static final String SERVER_KEY = "src/test/resources/certs/server-pkcs8.key";
-    private static final String SERVER_CERT = "src/test/resources/certs/server.crt";
+    private static final String SERVER_KEY = resourcePath("/certs/server-pkcs8.key").toString();
+    private static final String SERVER_CERT = resourcePath("/certs/server.crt").toString();
     private static final int  TARGET_PORT = 10161;
     private static final String TARGET_HOST = "127.0.0.1";
     private static final int DUMMYFILE_CHUNKS = 5;

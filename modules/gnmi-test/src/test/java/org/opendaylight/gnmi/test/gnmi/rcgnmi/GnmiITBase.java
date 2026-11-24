@@ -12,6 +12,7 @@ import static org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants
 import static org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.GNMI_NODE_STATUS_READY;
 import static org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.GNMI_TOPOLOGY_PATH;
 import static org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.OPENCONFIG_INTERFACES;
+import static org.opendaylight.gnmi.test.utils.TestResources.resourcePath;
 
 import gnmi.Gnmi;
 import java.io.IOException;
@@ -118,8 +119,8 @@ public abstract class GnmiITBase extends AbstractConcurrentDataBrokerTest {
     protected static final Duration POLL_INTERVAL_DURATION = Duration.ofMillis(2_000L);
     protected static final Duration WAIT_TIME_DURATION = Duration.ofMillis(30_000L);
 
-    protected static final String INITIAL_JSON_DATA_PATH = "src/test/resources/json/initData";
-    private static final String TEST_SCHEMA_PATH = "src/test/resources/additional/models";
+    protected static final String INITIAL_JSON_DATA_PATH = resourcePath("/json/initData").toString();
+    private static final String TEST_SCHEMA_PATH = resourcePath("/additional/models").toString();
     private static final String SIMULATOR_CONFIG = "/json/simulator_config.json";
 
     protected ExecutorService httpClientExecutor;

@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.ERR_MSG_RELEVANT_MODEL_NOT_EXIST;
 import static org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.GNMI_NODE_ID;
 import static org.opendaylight.gnmi.test.gnmi.rcgnmi.GnmiITBase.GeneralConstants.RESTCONF_DATA_PATH;
+import static org.opendaylight.gnmi.test.utils.TestResources.resourcePath;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -39,7 +40,6 @@ public class GnmiUploadModelsITTest extends GnmiITBase {
     private static final String TEST_YANG_SEMVER = "1.2.3";
     private static final String REUPLOAD_YANG_NAME = "gnmi-test-model";
     private static final String REUPLOAD_YANG_SEMVER = "1.0.0";
-    private static final String RESOURCES_PATH = "src/test/resources/";
     private static final String RESTCONF_OPERATIONS_PATH = "http://localhost:%d/rests/operations"
         .formatted(CONTROLLER_PORT);
     private static final String YANG_MODEL_RPC = RESTCONF_DATA_PATH + GNMI_YANG_STORAGE_MODELS + "/gnmi-yang-model=";
@@ -96,7 +96,7 @@ public class GnmiUploadModelsITTest extends GnmiITBase {
 
         //read and upload model and assert successful RPC response
         final String testModel = TEST_YANG_NAME + ".yang";
-        final String modelBody = TestUtils.readFile(RESOURCES_PATH + "models/" + testModel);
+        final String modelBody = TestUtils.readFile(resourcePath("/models/" + testModel).toString());
         LOG.info("Content of YANG {} file: {}", testModel, modelBody);
         final String modelsToUploadRpcInput =
             createUploadRpcInput(TEST_YANG_NAME, TEST_YANG_SEMVER, modelBody.replace("\"", "\\\""));
@@ -119,7 +119,7 @@ public class GnmiUploadModelsITTest extends GnmiITBase {
     @Test
     public void reuploadModelTest() throws InterruptedException, IOException, JSONException {
         final String testModel = REUPLOAD_YANG_NAME + ".yang";
-        final String modelBody = TestUtils.readFile(RESOURCES_PATH + "additional/models/" + testModel);
+        final String modelBody = TestUtils.readFile(resourcePath("/additional/models/" + testModel).toString());
         LOG.info("Content of YANG {} file to re-upload: {}", testModel, modelBody);
 
         //assert model is already contained in gnmi-yang-storage and assert model name, semver and content

@@ -10,6 +10,7 @@ package org.opendaylight.gnmi.simulatordevice.gnmi;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.opendaylight.gnmi.simulatordevice.TestResources.resourcePath;
 
 import com.google.gson.Gson;
 import gnmi.Gnmi;
@@ -38,7 +39,7 @@ import org.opendaylight.yangtools.yang.model.api.EffectiveModelContext;
 public class LoadAugmentationFromGnmiPath {
 
     private static final String SIMULATOR_CONFIG = "/initData/simulator_config.json";
-    private static final String INIT_DATA_PATH = "src/test/resources/initData";
+    private static final String INIT_DATA_PATH = resourcePath("/initData").toString();
 
     BindingCodecContext codecContext;
     EffectiveModelContext schemaContext;

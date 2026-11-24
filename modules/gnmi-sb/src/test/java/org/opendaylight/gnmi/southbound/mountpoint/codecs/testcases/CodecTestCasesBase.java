@@ -7,6 +7,8 @@
  */
 package org.opendaylight.gnmi.southbound.mountpoint.codecs.testcases;
 
+import static org.opendaylight.gnmi.southbound.TestResources.resourcePath;
+
 import java.nio.file.Path;
 import java.util.List;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -31,7 +33,7 @@ import org.opendaylight.yangtools.yang.model.api.SchemaContext;
  * Contains various YangInstanceIdentifier and NormalizeNode pairs uses for testing codecs.
  */
 public class CodecTestCasesBase {
-    private static final String BASE_YANGS_PATH = "src/test/resources/additional/test/schema";
+    private static final Path BASE_YANGS_PATH = resourcePath("/additional/test/schema");
     private static final String OC_IF_TYPES_ID = "openconfig-if-types";
     private static final String OC_VLAN_ID = "openconfig-vlan";
     private static final String OC_PLATFORM_ID = "openconfig-platform";
@@ -42,7 +44,7 @@ public class CodecTestCasesBase {
     private final SchemaContextProvider schemaContextProvider;
 
     public CodecTestCasesBase() throws SchemaException, YangLoadException {
-        this.schemaContextProvider = TestSchemaContextProvider.createInstance(Path.of(BASE_YANGS_PATH),
+        this.schemaContextProvider = TestSchemaContextProvider.createInstance(BASE_YANGS_PATH,
             GnmiConfigUtils.OPENCONFIG_YANG_MODELS);
     }
 
