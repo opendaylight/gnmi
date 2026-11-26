@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8033e089_6b5c3001",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-26T13:52:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9eaa980b_37ef8110",
+      "revId": "c7f40501e94f4583e91667c520e6abf1daac083e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "45fe99c0_b1c39a4a",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-11-26T13:14:34Z",
       "side": 1,
       "message": "Why are we building a new comparator per call here? How about:\nreturn models.stream().min(HIGHEST_VERSION_FIRST);",
+      "revId": "c7f40501e94f4583e91667c520e6abf1daac083e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb6cb6ae_6ccbb53e",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-26T13:52:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45fe99c0_b1c39a4a",
       "revId": "c7f40501e94f4583e91667c520e6abf1daac083e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -52,6 +88,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eccdb393_427ee131",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-26T13:52:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e87b1aa8_76cc1fde",
+      "revId": "c7f40501e94f4583e91667c520e6abf1daac083e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ba44679_e900f156",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-11-26T13:14:34Z",
       "side": 1,
       "message": "After a restart, readDependencyModel looks up the revision from requiredRevisions, but a failed lookup here records the original requirement. With a pinned import of B and a deeper revision-date import that is not stored, the failure says \"B semver: 1.0.0\" is missing although B 1.1.0 is stored. Could this report the required revision instead, with a test like importRevisionDateBelowPinTest?",
+      "revId": "c7f40501e94f4583e91667c520e6abf1daac083e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f664870_2f9a3e49",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-26T13:52:29Z",
+      "side": 1,
+      "message": "The required revision now replaces the requirement, so it is read and reported as missing.",
+      "parentUuid": "9ba44679_e900f156",
       "revId": "c7f40501e94f4583e91667c520e6abf1daac083e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -86,6 +158,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a312a830_6352d00d",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-26T13:52:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67323aa0_bcdbd8a6",
+      "revId": "c7f40501e94f4583e91667c520e6abf1daac083e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "189436d8_4b6b3439",
@@ -99,6 +189,24 @@
       "writtenOn": "2026-11-26T13:14:34Z",
       "side": 1,
       "message": "this chain can be replaced by switch expression like:\nfinal SourceIdentifier source \u003d switch (cause) { \ncase ReactorException e...; \ncase YangSyntaxErrorException...",
+      "revId": "c7f40501e94f4583e91667c520e6abf1daac083e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e41aa50_958c6360",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-26T13:52:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "189436d8_4b6b3439",
       "revId": "c7f40501e94f4583e91667c520e6abf1daac083e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
