@@ -87,6 +87,24 @@
       "parentUuid": "dd1056d7_9931d34a",
       "revId": "28efc08b9334c45397b8ec33f64fcb7512db6859",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c28ea683_b5d9c097",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/resources/ResourceLoader.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-26T12:43:30Z",
+      "side": 1,
+      "message": "The bundled simulator config simulator_config.json is intentionally left as it is.\nThe simulator reads these values as file paths. A classpath folder inside the jar can\u0027t be read as a path, so the original approach failed when run from the jar\nReplacing them with classpath names doesn\u0027t work without redesigning how the simulator loads files",
+      "parentUuid": "58cb913c_7d99ca86",
+      "revId": "28efc08b9334c45397b8ec33f64fcb7512db6859",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
