@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9eaa980b_37ef8110",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-26T13:14:34Z",
+      "side": 1,
+      "message": "This method needs refactoring. It jumbles together 2 different requests: a model asked for with a version, and one asked for without.\n\nrequestedVersion \u003d\u003d null is tested at line 163 and 181, with a shared datastore read in between, so the versionless and versioned lookups are interleaved. Could the method branch once at the top, with the versionless case being just versionless.select(name, all stored copies), and the versioned case keeping exact, compatible and unknown-version fallbacks?",
+      "revId": "c7f40501e94f4583e91667c520e6abf1daac083e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45fe99c0_b1c39a4a",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-26T13:14:34Z",
+      "side": 1,
+      "message": "Why are we building a new comparator per call here? How about:\nreturn models.stream().min(HIGHEST_VERSION_FIRST);",
+      "revId": "c7f40501e94f4583e91667c520e6abf1daac083e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e87b1aa8_76cc1fde",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-26T13:14:34Z",
+      "side": 1,
+      "message": "return argument instanceof IRArgument.Single single ? single.string() : null;",
+      "revId": "c7f40501e94f4583e91667c520e6abf1daac083e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ba44679_e900f156",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-26T13:14:34Z",
+      "side": 1,
+      "message": "After a restart, readDependencyModel looks up the revision from requiredRevisions, but a failed lookup here records the original requirement. With a pinned import of B and a deeper revision-date import that is not stored, the failure says \"B semver: 1.0.0\" is missing although B 1.1.0 is stored. Could this report the required revision instead, with a test like importRevisionDateBelowPinTest?",
+      "revId": "c7f40501e94f4583e91667c520e6abf1daac083e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67323aa0_bcdbd8a6",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-26T13:14:34Z",
+      "side": 1,
+      "message": "why did we combine the InterruptedException in the catch if we end up checking it here again? Just split it into a separate \"catch (InterruptedException)\"",
+      "revId": "c7f40501e94f4583e91667c520e6abf1daac083e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "189436d8_4b6b3439",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-26T13:14:34Z",
+      "side": 1,
+      "message": "this chain can be replaced by switch expression like:\nfinal SourceIdentifier source \u003d switch (cause) { \ncase ReactorException e...; \ncase YangSyntaxErrorException...",
+      "revId": "c7f40501e94f4583e91667c520e6abf1daac083e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}

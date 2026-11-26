@@ -36,6 +36,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a009eb3e_07b7ac28",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-26T13:14:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5e950129_3fb5cf41",
+      "revId": "e00c50386c95e261b78550db8c52f32e38c2812b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b4b9baa_f347f536",
