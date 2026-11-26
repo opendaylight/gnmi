@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5e950129_3fb5cf41",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-26T12:35:36Z",
+      "side": 1,
+      "message": "This is intended, this is what GNMI-14 fixes, a device reporting a version that is not compatible with any stored one used to be mounted on a wrong model. It is documented in the user guide with both workarounds\nI rather not keep the old fallback behind a setting, since it would re-enable mounting on an incompatible model.",
+      "parentUuid": "1a43cb13_3ce78248",
+      "revId": "e00c50386c95e261b78550db8c52f32e38c2812b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5b4b9baa_f347f536",
         "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
         "patchSetId": 34
@@ -31,6 +49,24 @@
       "writtenOn": "2026-11-26T09:44:09Z",
       "side": 1,
       "message": "A device that reports a model by revision gets it reported missing when the only copy is stored under its openconfig-version and its latest revision has no semver reference, although that copy is exactly the requested revision. readRevision() at line 599 already accepts such a copy through latestRevisionOf. Could this fallback do the same before giving up? Also please add a test next to unreferencedRevisionTest() that requests the LATEST revision, not one from the history.",
+      "revId": "e00c50386c95e261b78550db8c52f32e38c2812b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12f111c6_b155dd35",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-26T12:35:36Z",
+      "side": 1,
+      "message": "Done. The fallback now accepts a copy whose latest revision is the requested one, before comparing copies stored under revisions, the same way readRevision() does.",
+      "parentUuid": "5b4b9baa_f347f536",
       "revId": "e00c50386c95e261b78550db8c52f32e38c2812b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -52,6 +88,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f6188a7_a74311c5",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-26T12:35:36Z",
+      "side": 1,
+      "message": "When a revision-date import is found deeper in the walk than another requirement of the same model and the copy already read is not that revision, the revision is remembered and the models are read again with it required, so the result is the same as if both requirements met on one level.",
+      "parentUuid": "6ddb1475_8146a722",
+      "revId": "e00c50386c95e261b78550db8c52f32e38c2812b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4467de40_4a3b5e5a",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-11-26T09:44:09Z",
       "side": 1,
       "message": "Only the missing case of a revision-date import is tested. Nothing covers readRevision finding the revision as the latest revision of a copy stored under its semantic version, or the cap of 10 lower-version attempts, and both would pass if removed. Could you add a positive case next to this test and one with more than 10 broken lower versions?",
+      "revId": "e00c50386c95e261b78550db8c52f32e38c2812b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20b40901_9ef45429",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/schema/SchemaVersionResolutionTest.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 9229
+      },
+      "writtenOn": "2026-11-26T12:35:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4467de40_4a3b5e5a",
       "revId": "e00c50386c95e261b78550db8c52f32e38c2812b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
