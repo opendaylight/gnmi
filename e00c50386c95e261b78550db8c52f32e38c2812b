@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a43cb13_3ce78248",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-26T09:44:09Z",
+      "side": 1,
+      "message": "A device reporting a newer minor version than the stored one, for example openconfig-interfaces 2.6.0 with only 2.5.0 bundled, used to mount on 2.5.0 with a warning and now fails to connect. The user guide covers it, but existing deployments find out only after upgrading. Should the old fallback stay available behind a setting, or be called out in the release notes? Please consider.",
+      "revId": "e00c50386c95e261b78550db8c52f32e38c2812b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b4b9baa_f347f536",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-26T09:44:09Z",
+      "side": 1,
+      "message": "A device that reports a model by revision gets it reported missing when the only copy is stored under its openconfig-version and its latest revision has no semver reference, although that copy is exactly the requested revision. readRevision() at line 599 already accepts such a copy through latestRevisionOf. Could this fallback do the same before giving up? Also please add a test next to unreferencedRevisionTest() that requests the LATEST revision, not one from the history.",
+      "revId": "e00c50386c95e261b78550db8c52f32e38c2812b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ddb1475_8146a722",
+        "filename": "modules/gnmi-sb/src/main/java/org/opendaylight/gnmi/southbound/schema/impl/SchemaContextHolderImpl.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-26T09:44:09Z",
+      "side": 1,
+      "message": "The revision-date first ordering only applies within one level of the dependency walk. If a module is pinned one level above a revision-date import of the same module, the pin wins and the parser fails with \"Imported module not found\", although a stored copy satisfies both. The fact that this issue exists means that no test covers it. And that\u0027s weird - we need to have it covered.",
+      "revId": "e00c50386c95e261b78550db8c52f32e38c2812b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4467de40_4a3b5e5a",
+        "filename": "modules/gnmi-sb/src/test/java/org/opendaylight/gnmi/southbound/schema/SchemaVersionResolutionTest.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 8324
+      },
+      "writtenOn": "2026-11-26T09:44:09Z",
+      "side": 1,
+      "message": "Only the missing case of a revision-date import is tested. Nothing covers readRevision finding the revision as the latest revision of a copy stored under its semantic version, or the cap of 10 lower-version attempts, and both would pass if removed. Could you add a positive case next to this test and one with more than 10 broken lower versions?",
+      "revId": "e00c50386c95e261b78550db8c52f32e38c2812b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
